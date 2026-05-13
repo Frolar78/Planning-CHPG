@@ -139,6 +139,70 @@ function renderDoctorTable(m, doctors){
   });
   html += '</tbody>'; table.innerHTML = html;
 }
+function isUnavailable(code){
+  const x = canonicalCode(code);
+  return ['G','18','RG','CP','F','A','R','I'].includes(x);
+}
+
+function shuffle(arr){
+  return [...arr].sort(() => Math.random() - 0.5);
+}
+
+function autoAssignments(m, doctors){
+
+  const map = {};
+
+  m.days.forEach((day, dayIndex) => {
+
+    const weekday = day.weekday;
+
+    const rules = isWeekend(weekday)
+      ? {
+          REA: 2,
+          MAT: 1
+        }
+      : {
+          REA: 3,
+          VIS: 3,
+          ORT: 2,
+          ORL: 1,
+          MAT: 1,
+          CS: 1,
+          RI: 1,
+          CI: 1,
+          END: 1
+        };
+
+    const available = shuffle(
+      doctors.filter(doc => {
+        const val = norm(doc.cells[dayIndex]);
+        return !isUnavailable(val);
+      })
+    );
+
+    map[dayIndex] = {};
+
+    Object.entries(rules).forEach(([sector, count]) => {
+
+      map[dayIndex][sector] = [];
+
+      for(let i = 0; i < count; i++){
+
+        const picked = available.shift();
+
+        if(picked){
+          map[dayIndex][sector].push({
+            name: picked.name,
+            raw: sector
+          });
+        }
+      }
+    });
+
+  });
+
+  return map;
+}
 
 function buildSectorMatrix(m, doctors){
   const matrix = new Map(sectorDefs.map(s => [s.code, { ...s, days: m.days.map(() => []) }]));
