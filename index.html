@@ -17,13 +17,17 @@
       <div class="hero-card">
         <span id="monthLabel">Chargement…</span>
         <strong id="doctorCount">—</strong>
-        <small>médecins affichés</small>
+        <small id="viewLabel">médecins affichés</small>
       </div>
     </header>
 
     <section class="toolbar">
       <div class="segmented" id="monthTabs"></div>
       <div class="tools">
+        <div class="view-switch">
+          <button id="doctorViewBtn" class="active">Vue médecins</button>
+          <button id="sectorViewBtn">Vue secteurs</button>
+        </div>
         <input id="searchInput" type="search" placeholder="Rechercher un médecin…" />
         <button id="todayBtn">Mois actuel</button>
       </div>
