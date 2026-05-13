@@ -3,23 +3,21 @@ let currentMonth = null;
 let currentView = 'doctors';
 
 const sectorDefs = [
-  { code: 'REA', label: 'Réanimation', aliases: ['REA', 'RÉA'] },
-  { code: 'VIS', label: 'Bloc viscéral', aliases: ['VIS', 'VISC', 'VISCERAL', 'VISCÉRAL'] },
-  { code: 'ORT', label: 'Bloc ortho', aliases: ['ORT', 'ORTHO'] },
-  { code: 'ORL', label: 'ORL / Ophtalmo', aliases: ['ORL', 'OPH', 'OPHT', 'OPHTALMO'] },
-  { code: 'MAT', label: 'Maternité', aliases: ['MAT', 'MATERNITE', 'MATERNITÉ'] },
-  { code: 'CS', label: 'Consultation', aliases: ['CS', 'CONS', 'CONSULT', 'CONSULTATION'] },
-  { code: 'RI', label: 'Radio inter', aliases: ['RI', 'RADIO', 'RADIO INTER'] },
-  { code: 'CI', label: 'Cardio inter', aliases: ['CI', 'CARDIO', 'CARDIO INTER'] },
-  { code: 'END', label: 'Endoscopie', aliases: ['END', 'ENDO', 'ENDOSCOPIE'] },
-  { code: 'G', label: 'Gardes 24h', aliases: ['G', 'G1', 'G2', 'GARDE'] },
-  { code: '18', label: '18H — 8h–18h', aliases: ['18', '18H', 'H18'] },
-  { code: 'RG', label: 'Repos de garde', aliases: ['RG'] },
-  { code: 'A', label: 'Absences / activités A', aliases: ['A'] },
-  { code: 'CP', label: 'Congés', aliases: ['CP', 'C', 'CA'] },
-  { code: 'F', label: 'Formation / enseignement', aliases: ['F', 'F*', 'E'] },
-  { code: 'R', label: 'Récupération', aliases: ['R'] },
-  { code: 'I', label: 'Indisponible', aliases: ['I'] },
+  { code: 'REA', label: 'Réanimation' },
+  { code: 'VIS', label: 'Bloc viscéral' },
+  { code: 'ORT', label: 'Bloc ortho' },
+  { code: 'ORL', label: 'ORL / Ophtalmo' },
+  { code: 'MAT', label: 'Maternité' },
+  { code: 'CS', label: 'Consultation' },
+  { code: 'RI', label: 'Radio inter' },
+  { code: 'CI', label: 'Cardio inter' },
+  { code: 'END', label: 'Endoscopie' },
+  { code: 'G', label: 'Gardes 24h' },
+  { code: '18', label: '18H — 8h–18h' },
+  { code: 'RG', label: 'Repos de garde' },
+  { code: 'CP', label: 'Congés' },
+  { code: 'F', label: 'Formation' },
+  { code: 'A', label: 'Absence' },
 ];
 
 const codeLabels = Object.fromEntries(sectorDefs.map(s => [s.code, s.label]));
