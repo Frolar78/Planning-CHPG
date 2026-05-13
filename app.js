@@ -229,7 +229,22 @@ function autoAssignments(m, doctors){
 
   return map;
 }
+function doctorAutoMap(m, doctors){
+  const auto = autoAssignments(m, doctors);
+  const map = {};
 
+  m.days.forEach((day, dayIndex) => {
+    Object.entries(auto[dayIndex]).forEach(([sector, people]) => {
+      people.forEach(p => {
+        if(!map[p.name]) map[p.name] = {};
+        if(!map[p.name][dayIndex]) map[p.name][dayIndex] = [];
+        map[p.name][dayIndex].push(sector);
+      });
+    });
+  });
+
+  return map;
+}
 function buildSectorMatrix(m, doctors){
 
   const auto = autoAssignments(m, doctors);
