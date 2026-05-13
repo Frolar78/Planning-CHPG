@@ -205,18 +205,49 @@ function autoAssignments(m, doctors){
 }
 
 function buildSectorMatrix(m, doctors){
-  const matrix = new Map(sectorDefs.map(s => [s.code, { ...s, days: m.days.map(() => []) }]));
-  const unknowns = new Map();
-  doctors.forEach(doc => {
-    doc.cells.forEach((v, i) => {
-      const raw = norm(v); if(!raw) return;
-      const code = canonicalCode(raw);
-      const target = matrix.get(code) || unknowns.get(code) || { code, label: 'Autre : ' + raw, aliases: [raw], days: m.days.map(() => []) };
-      target.days[i].push({ name: doc.name, raw });
-      if(!matrix.has(code)) unknowns.set(code, target);
+
+  const auto = autoAssignments(m, doctors);
+
+  const rows = sectorDefs.map(s => ({
+    ...s,
+    days: m.days.map(() => [])
+  }));
+
+  const rowMap = Object.fromEntries(
+    rows.map(r => [r.code, r])
+  );
+
+  m.days.forEach((d, dayIndex) => {
+
+    Object.entries(auto[dayIndex]).forEach(([sector, people]) => {
+
+      if(rowMap[sector]){
+        rowMap[sector].days[dayIndex] = people;
+      }
     });
+
+    doctors.forEach(doc => {
+
+      const raw = norm(doc.cells[dayIndex]);
+
+      if(!raw) return;
+
+      const code = canonicalCode(raw);
+
+      if(rowMap[code]){
+        rowMap[code].days[dayIndex].push({
+          name: doc.name,
+          raw
+        });
+      }
+
+    });
+
   });
-  return [...matrix.values(), ...unknowns.values()].filter(row => row.days.some(day => day.length));
+
+  return rows.filter(r =>
+    r.days.some(day => day.length)
+  );
 }
 
 function activeSectorCount(m, doctors){ return buildSectorMatrix(m, doctors).length; }
