@@ -29,7 +29,33 @@ function norm(v){ return String(v || '').trim(); }
 function clean(v){ return norm(v).toUpperCase().replace(/\s+/g, ' '); }
 function canonicalCode(v){
   const x = clean(v).replace('18H', '18');
-  for(const s of sectorDefs){ if(s.aliases.map(a => clean(a).replace('18H','18')).includes(x)) return s.code; }
+
+  const aliases = {
+    REA: ['REA', 'RÉA', 'REANIMATION', 'RÉANIMATION'],
+    VIS: ['VIS', 'VISC', 'VISCERAL', 'VISCÉRAL'],
+    ORT: ['ORT', 'ORTHO'],
+    ORL: ['ORL', 'OPH', 'OPHT', 'OPHTALMO'],
+    MAT: ['MAT', 'MATERNITE', 'MATERNITÉ'],
+    CS: ['CS', 'CONS', 'CONSULT', 'CONSULTATION'],
+    RI: ['RI', 'RADIO', 'RADIO INTER'],
+    CI: ['CI', 'CARDIO', 'CARDIO INTER'],
+    END: ['END', 'ENDO', 'ENDOSCOPIE'],
+    G: ['G', 'G1', 'G2', 'GARDE'],
+    18: ['18', '18H', 'H18'],
+    RG: ['RG'],
+    CP: ['CP', 'C', 'CA'],
+    F: ['F', 'F*', 'E'],
+    A: ['A'],
+    R: ['R'],
+    I: ['I']
+  };
+
+  for(const [code, list] of Object.entries(aliases)){
+    if(list.map(a => clean(a).replace('18H','18')).includes(x)){
+      return code;
+    }
+  }
+
   return x;
 }
 function codeClass(c){ const x = canonicalCode(c); return x === '18' ? 'H18' : x.replace(/[^a-zA-Z0-9]/g, ''); }
