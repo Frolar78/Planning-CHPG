@@ -151,19 +151,45 @@ function renderKpis(m, doctors){
 }
 
 function renderDoctorTable(m, doctors){
+  const autoMap = doctorAutoMap(m, doctors);
   const table = document.getElementById('planningTable');
+
   let html = '<thead><tr><th class="doctor">Médecin</th>';
-  m.days.forEach(d => { html += `<th class="day ${isWeekend(d.weekday)?'weekend-head':''}"><div>${d.day}</div><small>${d.weekday}</small></th>`; });
+
+  m.days.forEach(d => {
+    html += `<th class="day ${isWeekend(d.weekday)?'weekend-head':''}">
+      <div>${d.day}</div><small>${d.weekday}</small>
+    </th>`;
+  });
+
   html += '</tr></thead><tbody>';
+
   doctors.forEach(doc => {
     html += `<tr><th class="doctor">${escapeHtml(doc.name)}</th>`;
+
     m.days.forEach((d, i) => {
-      const val = norm(doc.cells[i]); const wk = isWeekend(d.weekday) ? ' weekend' : '';
-      html += `<td class="cell${wk}">${val ? `<span class="chip ${codeClass(val)}" title="${escapeHtml(codeLabels[canonicalCode(val)] || val)}">${escapeHtml(val)}</span>` : '<span class="empty">·</span>'}</td>`;
+      const realVal = norm(doc.cells[i]);
+      const generated = autoMap[doc.name]?.[i] || [];
+      const wk = isWeekend(d.weekday) ? ' weekend' : '';
+
+      let content = '';
+
+      generated.forEach(code => {
+        content += `<span class="chip ${codeClass(code)}" title="${escapeHtml(codeLabels[code] || code)}">${escapeHtml(code)}</span>`;
+      });
+
+      if(realVal){
+        content += `<span class="chip ${codeClass(realVal)}" title="${escapeHtml(codeLabels[canonicalCode(realVal)] || realVal)}">${escapeHtml(realVal)}</span>`;
+      }
+
+      html += `<td class="cell${wk}">${content || '<span class="empty">·</span>'}</td>`;
     });
+
     html += '</tr>';
   });
-  html += '</tbody>'; table.innerHTML = html;
+
+  html += '</tbody>';
+  table.innerHTML = html;
 }
 function isUnavailable(code){
   const x = canonicalCode(code);
