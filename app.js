@@ -1,346 +1,295 @@
+'use strict';
+
+// ── DATA ──────────────────────────────────────────────────────────────
 let DATA = null;
-let currentMonth = null;
-let currentView = 'doctors';
+let currentMonthId = null;
+let currentView = 'doctors'; // 'doctors' | 'sectors'
 
-const sectorDefs = [
-  { code: 'REA', label: 'Réanimation' },
+const SECTOR_DEFS = [
   { code: 'VIS', label: 'Bloc viscéral' },
-  { code: 'ORT', label: 'Bloc ortho' },
-  { code: 'ORL', label: 'ORL / Ophtalmo' },
+  { code: 'ORT', label: 'Bloc orthopédique' },
+  { code: 'DVI', label: 'Pose DVI' },
+  { code: 'ORL', label: 'Bloc ORL / Ophtalmo' },
+  { code: 'END', label: 'Endoscopies' },
+  { code: 'CI',  label: 'Cardiologie interventionnelle' },
+  { code: 'RI',  label: 'Radiologie interventionnelle' },
+  { code: 'REA', label: 'Réanimation' },
+  { code: 'CS',  label: 'Consultation' },
   { code: 'MAT', label: 'Maternité' },
-  { code: 'CS', label: 'Consultation' },
-  { code: 'RI', label: 'Radio inter' },
-  { code: 'CI', label: 'Cardio inter' },
-  { code: 'END', label: 'Endoscopie' },
-  { code: 'G', label: 'Gardes 24h' },
-  { code: '18', label: '18H — 8h–18h' },
-  { code: 'RG', label: 'Repos de garde' },
-  { code: 'CP', label: 'Congés' },
-  { code: 'F', label: 'Formation' },
-  { code: 'A', label: 'Absence' },
 ];
 
-const codeLabels = Object.fromEntries(sectorDefs.map(s => [s.code, s.label]));
-const kpiDefs = [
-  ['G', 'Gardes 24h'], ['18', 'Journées 18h'], ['RG', 'Repos garde'], ['A', 'Absences A'], ['CP', 'Congés'], ['F', 'Formations']
+const STATUS_CODES = ['G','RG','18','A','CP','F','R','I','E'];
+
+const CODE_LABELS = {
+  G: 'Garde 24h', RG: 'Repos de garde', '18': 'Journée 8h–18h',
+  A: 'Absence', CP: 'Congés payés', F: 'Formation', R: 'Récup samedi',
+  I: 'Indisponible', E: 'Formation ext.',
+  VIS:'Bloc viscéral', ORT:'Bloc orthopédique', DVI:'Pose DVI',
+  ORL:'ORL / Ophtalmo', END:'Endoscopies', CI:'Cardio interventionnelle',
+  RI:'Radio interventionnelle', REA:'Réanimation', CS:'Consultation', MAT:'Maternité',
+};
+
+const KPI_DEFS = [
+  ['Présents', null],
+  ['Gardes G', 'G'],
+  ['Repos RG', 'RG'],
+  ['Journées 18h', '18'],
+  ['Absences A', 'A'],
+  ['Congés CP', 'CP'],
+  ['Formations F', 'F'],
 ];
 
-function norm(v){ return String(v || '').trim(); }
-function clean(v){ return norm(v).toUpperCase().replace(/\s+/g, ' '); }
-function canonicalCode(v){
-  const x = clean(v).replace('18H', '18');
+// ── UTILS ──────────────────────────────────────────────────────────────
+function esc(s) {
+  return String(s || '').replace(/[&<>'"]/g, c =>
+    ({'&':'&amp;','<':'&lt;','>':'&gt;',"'":'&#39;','"':'&quot;'}[c]));
+}
 
-  const aliases = {
-    REA: ['REA', 'RÉA', 'REANIMATION', 'RÉANIMATION'],
-    VIS: ['VIS', 'VISC', 'VISCERAL', 'VISCÉRAL'],
-    ORT: ['ORT', 'ORTHO'],
-    ORL: ['ORL', 'OPH', 'OPHT', 'OPHTALMO'],
-    MAT: ['MAT', 'MATERNITE', 'MATERNITÉ'],
-    CS: ['CS', 'CONS', 'CONSULT', 'CONSULTATION'],
-    RI: ['RI', 'RADIO', 'RADIO INTER'],
-    CI: ['CI', 'CARDIO', 'CARDIO INTER'],
-    END: ['END', 'ENDO', 'ENDOSCOPIE'],
-    G: ['G', 'G1', 'G2', 'GARDE'],
-    18: ['18', '18H', 'H18'],
-    RG: ['RG'],
-    CP: ['CP', 'C', 'CA'],
-    F: ['F', 'F*', 'E'],
-    A: ['A'],
-    R: ['R'],
-    I: ['I']
-  };
+function normalizeCode(raw) {
+  const s = String(raw || '').trim().toUpperCase().replace(/\s+/g,'');
+  if (s === '18H' || s === 'H18') return '18';
+  if (s === 'E' || s === 'E*') return 'F'; // treat E as Formation
+  return s;
+}
 
-  for(const [code, list] of Object.entries(aliases)){
-    if(list.map(a => clean(a).replace('18H','18')).includes(x)){
-      return code;
-    }
+function chipClass(code) {
+  const c = normalizeCode(code);
+  return 'chip chip-' + (c === '18' ? '18' : c.replace(/[^A-Z0-9]/g,''));
+}
+
+function isUnavailable(rawCell) {
+  const c = normalizeCode(rawCell);
+  return ['G','RG','18','A','CP','F','R','I','E'].includes(c);
+}
+
+function isWeekend(wd) { return wd === 'S' || wd === 'D'; }
+
+function todayDateStr() {
+  const d = new Date();
+  return `${d.getFullYear()}-${String(d.getMonth()+1).padStart(2,'0')}-${String(d.getDate()).padStart(2,'0')}`;
+}
+
+// ── INIT ──────────────────────────────────────────────────────────────
+async function init() {
+  try {
+    DATA = await fetch('./planning.json').then(r => r.json());
+  } catch(e) {
+    document.body.innerHTML = `<div style="padding:40px;color:#b91c1c;font-family:sans-serif">
+      <h2>Erreur de chargement</h2>
+      <p>Impossible de charger planning.json. Assurez-vous d'utiliser un serveur HTTP (pas file://).</p>
+      <pre>${esc(e.message)}</pre>
+    </div>`;
+    return;
   }
 
-  return x;
-}
-function codeClass(c){ const x = canonicalCode(c); return x === '18' ? 'H18' : x.replace(/[^a-zA-Z0-9]/g, ''); }
-function isWeekend(w){ return w === 'S' || w === 'D'; }
-function escapeHtml(str){ return norm(str).replace(/[&<>'"]/g, s => ({'&':'&amp;','<':'&lt;','>':'&gt;',"'":'&#39;','"':'&quot;'}[s])); }
-
-async function init(){
-  DATA = await fetch('./planning.json').then(r => r.json());
-  currentMonth = DATA.months[0].id;
+  // Default to current month
   const now = new Date();
-  const found = DATA.months.find(m => m.year === now.getFullYear() && m.month === now.getMonth() + 1);
-  if(found) currentMonth = found.id;
-  buildTabs(); buildLegend(); bind(); render();
-}
+  const found = DATA.months.find(m => m.year === now.getFullYear() && m.month === now.getMonth()+1);
+  currentMonthId = found ? found.id : DATA.months[0].id;
 
-function bind(){
-  document.getElementById('searchInput').addEventListener('input', render);
-  document.getElementById('todayBtn').addEventListener('click', () => {
-    const now = new Date();
-    const f = DATA.months.find(m => m.year === now.getFullYear() && m.month === now.getMonth() + 1);
-    if(f){ currentMonth = f.id; buildTabs(); render(); }
-  });
-  document.getElementById('doctorViewBtn').onclick = () => setView('doctors');
-  document.getElementById('sectorViewBtn').onclick = () => setView('sectors');
-}
-
-function setView(view){
-  currentView = view;
-  document.getElementById('doctorViewBtn').classList.toggle('active', view === 'doctors');
-  document.getElementById('sectorViewBtn').classList.toggle('active', view === 'sectors');
-  const search = document.getElementById('searchInput');
-  search.placeholder = view === 'doctors' ? 'Rechercher un médecin…' : 'Filtrer un médecin dans les secteurs…';
+  buildMonthTabs();
+  buildLegend();
+  bindEvents();
   render();
 }
 
-function buildTabs(){
-  const el = document.getElementById('monthTabs'); el.innerHTML = '';
+// ── BIND ──────────────────────────────────────────────────────────────
+function bindEvents() {
+  document.getElementById('searchInput').addEventListener('input', render);
+  document.getElementById('btnToday').addEventListener('click', () => {
+    const now = new Date();
+    const found = DATA.months.find(m => m.year === now.getFullYear() && m.month === now.getMonth()+1);
+    if (found) { currentMonthId = found.id; buildMonthTabs(); render(); }
+  });
+  document.getElementById('btnDoctors').onclick = () => setView('doctors');
+  document.getElementById('btnSectors').onclick  = () => setView('sectors');
+}
+
+function setView(v) {
+  currentView = v;
+  document.getElementById('btnDoctors').classList.toggle('active', v === 'doctors');
+  document.getElementById('btnSectors').classList.toggle('active', v === 'sectors');
+  document.getElementById('searchInput').placeholder =
+    v === 'doctors' ? 'Rechercher un médecin…' : 'Filtrer un médecin…';
+  render();
+}
+
+// ── TABS ──────────────────────────────────────────────────────────────
+function buildMonthTabs() {
+  const el = document.getElementById('monthTabs');
+  el.innerHTML = '';
   DATA.months.forEach(m => {
     const b = document.createElement('button');
-    b.textContent = m.label.replace(' 2026', '');
-    b.className = m.id === currentMonth ? 'active' : '';
-    b.onclick = () => { currentMonth = m.id; buildTabs(); render(); };
+    b.textContent = m.label.replace(' 2026','').replace(' 2027','');
+    b.className = m.id === currentMonthId ? 'active' : '';
+    b.onclick = () => { currentMonthId = m.id; buildMonthTabs(); render(); };
     el.appendChild(b);
   });
 }
 
-function buildLegend(){
-  const el = document.getElementById('legend'); el.innerHTML = '';
-  ['G','18','RG','A','CP','F','R','I','REA','VIS','ORT','ORL','MAT','CS','RI','CI','END'].forEach(c => {
-    const s = document.createElement('span');
-    s.className = 'chip ' + codeClass(c);
-    s.textContent = c;
-    s.title = codeLabels[c] || c;
-    el.appendChild(s);
-  });
+// ── LEGEND ──────────────────────────────────────────────────────────────
+function buildLegend() {
+  const el = document.getElementById('legend');
+  const codes = ['G','RG','18','A','CP','F','R','REA','VIS','ORT','ORL','DVI','END','CI','RI','CS','MAT'];
+  el.innerHTML = codes.map(c =>
+    `<span class="${chipClass(c)}" title="${esc(CODE_LABELS[c]||c)}">${esc(c)}</span>`
+  ).join('');
 }
 
-function filteredDoctors(m){
-  const q = norm(document.getElementById('searchInput').value).toLowerCase();
-  if(!q) return m.doctors;
-  return m.doctors.filter(d => d.name.toLowerCase().includes(q));
+// ── RENDER ──────────────────────────────────────────────────────────────
+function render() {
+  const month = DATA.months.find(m => m.id === currentMonthId);
+  const q = document.getElementById('searchInput').value.trim().toLowerCase();
+  const doctors = q
+    ? month.doctors.filter(d => d.name.toLowerCase().includes(q))
+    : month.doctors;
+
+  // Header badge
+  document.getElementById('headerBadge').textContent = month.label;
+
+  // KPIs
+  renderKpis(month, doctors);
+
+  // Panel
+  document.getElementById('panelTitle').textContent =
+    (currentView === 'doctors' ? 'Vue médecins — ' : 'Vue secteurs — ') + month.label;
+
+  if (currentView === 'doctors') renderDoctorTable(month, doctors);
+  else renderSectorTable(month, doctors);
 }
 
-function render(){
-  const m = DATA.months.find(x => x.id === currentMonth);
-  const doctors = filteredDoctors(m);
-  document.getElementById('monthLabel').textContent = m.label;
-  document.getElementById('doctorCount').textContent = currentView === 'doctors' ? doctors.length : activeSectorCount(m, doctors);
-  document.getElementById('viewLabel').textContent = currentView === 'doctors' ? 'médecins affichés' : 'secteurs utilisés';
-  document.getElementById('tableTitle').textContent = currentView === 'doctors' ? 'Vue médecins — ' + m.label : 'Vue secteurs — ' + m.label;
-  document.getElementById('tableHint').textContent = currentView === 'doctors'
-    ? 'Chaque ligne correspond à un médecin. Utilise la vue secteurs pour voir qui est affecté à chaque poste.'
-    : 'Chaque ligne correspond à un secteur/poste. Dans ton fichier actuel, seuls les codes présents peuvent être reconstruits automatiquement.';
-  renderKpis(m, doctors);
-  currentView === 'doctors' ? renderDoctorTable(m, doctors) : renderSectorTable(m, doctors);
-}
-
-function countCode(doctors, codes){
+// ── KPIs ──────────────────────────────────────────────────────────────
+function countCode(doctors, code) {
   let n = 0;
-  const wanted = codes.map(canonicalCode);
-  doctors.forEach(d => d.cells.forEach(v => { if(wanted.includes(canonicalCode(v))) n++; }));
+  doctors.forEach(d => d.cells.forEach(c => { if (normalizeCode(c) === code) n++; }));
   return n;
 }
 
-function renderKpis(m, doctors){
-  const el = document.getElementById('kpis'); el.innerHTML = '';
-  const vals = [['Médecins', doctors.length], ...kpiDefs.map(([code, label]) => [label, countCode(doctors, [code])])];
-  vals.forEach(([label, val]) => {
-    const div = document.createElement('div'); div.className = 'kpi';
-    div.innerHTML = `<small>${escapeHtml(label)}</small><strong>${val}</strong>`;
-    el.appendChild(div);
-  });
+function renderKpis(month, doctors) {
+  const el = document.getElementById('kpis');
+  // Count present per day (not unavailable)
+  const today = todayDateStr();
+  const todayIdx = month.days.findIndex(d => d.date === today);
+  const presentToday = todayIdx >= 0
+    ? doctors.filter(d => !isUnavailable(d.cells[todayIdx])).length
+    : null;
+
+  const items = [
+    { label: 'Médecins', value: doctors.length, accent: true },
+    { label: "Présents aujourd'hui", value: presentToday !== null ? presentToday : '—' },
+    { label: 'Gardes G', value: countCode(doctors, 'G') },
+    { label: 'Repos RG', value: countCode(doctors, 'RG') },
+    { label: 'Journées 18h', value: countCode(doctors, '18') },
+    { label: 'Absences A', value: countCode(doctors, 'A') },
+    { label: 'Congés CP', value: countCode(doctors, 'CP') },
+    { label: 'Formations F', value: countCode(doctors, 'F') },
+  ];
+
+  el.innerHTML = items.map(item => `
+    <div class="kpi">
+      <div class="kpi-label">${esc(item.label)}</div>
+      <div class="kpi-value${item.accent ? ' accent' : ''}">${item.value}</div>
+    </div>
+  `).join('');
 }
 
-function renderDoctorTable(m, doctors){
-  const autoMap = doctorAutoMap(m, doctors);
+// ── DOCTOR TABLE ──────────────────────────────────────────────────────
+function renderDoctorTable(month, doctors) {
+  const today = todayDateStr();
   const table = document.getElementById('planningTable');
 
-  let html = '<thead><tr><th class="doctor">Médecin</th>';
-
-  m.days.forEach(d => {
-    html += `<th class="day ${isWeekend(d.weekday)?'weekend-head':''}">
-      <div>${d.day}</div><small>${d.weekday}</small>
+  // HEAD
+  let html = '<thead><tr>';
+  html += `<th class="col-doctor">Médecin</th>`;
+  month.days.forEach(d => {
+    const wkClass = isWeekend(d.weekday) ? ' weekend' : '';
+    const todayClass = d.date === today ? ' today-col' : '';
+    html += `<th class="col-day${wkClass}${todayClass}">
+      <div class="day-num">${d.day}</div>
+      <div class="day-wd">${d.weekday}</div>
     </th>`;
   });
-
   html += '</tr></thead><tbody>';
 
+  // ROWS
   doctors.forEach(doc => {
-    html += `<tr><th class="doctor">${escapeHtml(doc.name)}</th>`;
-
-    m.days.forEach((d, i) => {
-      const realVal = norm(doc.cells[i]);
-      const generated = autoMap[doc.name]?.[i] || [];
-      const wk = isWeekend(d.weekday) ? ' weekend' : '';
-
-      let content = '';
-
-      generated.forEach(code => {
-        content += `<span class="chip ${codeClass(code)}" title="${escapeHtml(codeLabels[code] || code)}">${escapeHtml(code)}</span>`;
-      });
-
-      if(realVal){
-        content += `<span class="chip ${codeClass(realVal)}" title="${escapeHtml(codeLabels[canonicalCode(realVal)] || realVal)}">${escapeHtml(realVal)}</span>`;
+    html += `<tr><td class="col-doctor">${esc(doc.name.replace('DR ','').replace('PR ','PR '))}</td>`;
+    month.days.forEach((d, i) => {
+      const raw = String(doc.cells[i] || '').trim();
+      const wkClass = isWeekend(d.weekday) ? ' weekend' : '';
+      const todayClass = d.date === today ? ' today-col' : '';
+      html += `<td class="${wkClass}${todayClass}">`;
+      if (raw) {
+        const code = normalizeCode(raw);
+        html += `<div class="cell-content"><span class="${chipClass(raw)}" title="${esc(CODE_LABELS[code]||raw)}">${esc(raw)}</span></div>`;
+      } else {
+        html += `<div class="cell-content"><span class="empty">·</span></div>`;
       }
-
-      html += `<td class="cell${wk}">${content || '<span class="empty">·</span>'}</td>`;
+      html += '</td>';
     });
-
     html += '</tr>';
   });
 
   html += '</tbody>';
   table.innerHTML = html;
 }
-function isUnavailable(code){
-  const x = canonicalCode(code);
-  return ['G','18','RG','CP','F','A','R','I'].includes(x);
-}
 
-function shuffle(arr){
-  return [...arr].sort(() => Math.random() - 0.5);
-}
-
-function autoAssignments(m, doctors){
-
-  const map = {};
-
-  m.days.forEach((day, dayIndex) => {
-
-    const weekday = day.weekday;
-
-    const rules = isWeekend(weekday)
-      ? {
-          REA: 2,
-          MAT: 1
-        }
-      : {
-          REA: 3,
-          VIS: 3,
-          ORT: 2,
-          ORL: 1,
-          MAT: 1,
-          CS: 1,
-          RI: 1,
-          CI: 1,
-          END: 1
-        };
-
-    const available = shuffle(
-      doctors.filter(doc => {
-        const val = norm(doc.cells[dayIndex]);
-        return !isUnavailable(val);
-      })
-    );
-
-    map[dayIndex] = {};
-
-    Object.entries(rules).forEach(([sector, count]) => {
-
-      map[dayIndex][sector] = [];
-
-      for(let i = 0; i < count; i++){
-
-        const picked = available.shift();
-
-        if(picked){
-          map[dayIndex][sector].push({
-            name: picked.name,
-            raw: sector
-          });
-        }
-      }
-    });
-
-  });
-
-  return map;
-}
-function doctorAutoMap(m, doctors){
-  const auto = autoAssignments(m, doctors);
-  const map = {};
-
-  m.days.forEach((day, dayIndex) => {
-    Object.entries(auto[dayIndex]).forEach(([sector, people]) => {
-      people.forEach(p => {
-        if(!map[p.name]) map[p.name] = {};
-        if(!map[p.name][dayIndex]) map[p.name][dayIndex] = [];
-        map[p.name][dayIndex].push(sector);
-      });
-    });
-  });
-
-  return map;
-}
-function buildSectorMatrix(m, doctors){
-
-  const auto = autoAssignments(m, doctors);
-
-  const rows = sectorDefs.map(s => ({
-    ...s,
-    days: m.days.map(() => [])
-  }));
-
-  const rowMap = Object.fromEntries(
-    rows.map(r => [r.code, r])
-  );
-
-  m.days.forEach((d, dayIndex) => {
-
-    Object.entries(auto[dayIndex]).forEach(([sector, people]) => {
-
-      if(rowMap[sector]){
-        rowMap[sector].days[dayIndex] = people;
-      }
-    });
-
-    doctors.forEach(doc => {
-
-      const raw = norm(doc.cells[dayIndex]);
-
-      if(!raw) return;
-
-      const code = canonicalCode(raw);
-
-      if(rowMap[code]){
-        rowMap[code].days[dayIndex].push({
-          name: doc.name,
-          raw
-        });
-      }
-
-    });
-
-  });
-
-  return rows.filter(r =>
-    r.days.some(day => day.length)
-  );
-}
-
-function activeSectorCount(m, doctors){ return buildSectorMatrix(m, doctors).length; }
-
-function renderSectorTable(m, doctors){
-  const rows = buildSectorMatrix(m, doctors);
+// ── SECTOR TABLE ──────────────────────────────────────────────────────
+function renderSectorTable(month, doctors) {
+  const today = todayDateStr();
   const table = document.getElementById('planningTable');
-  let html = '<thead><tr><th class="doctor sector-col">Secteur / poste</th>';
-  m.days.forEach(d => { html += `<th class="sector-day ${isWeekend(d.weekday)?'weekend-head':''}"><div>${d.day}</div><small>${d.weekday}</small></th>`; });
+
+  // Build sector → day → [doctor names] from explicit cells
+  const sectorMap = {};
+  SECTOR_DEFS.forEach(s => {
+    sectorMap[s.code] = month.days.map(() => []);
+  });
+
+  doctors.forEach(doc => {
+    doc.cells.forEach((raw, dayIdx) => {
+      const code = normalizeCode(raw);
+      if (sectorMap[code]) {
+        sectorMap[code][dayIdx].push(doc.name.replace('DR ','').replace('PR ','PR '));
+      }
+    });
+  });
+
+  // Only show sectors that have at least one assignment
+  const activeSectors = SECTOR_DEFS.filter(s => sectorMap[s.code].some(d => d.length > 0));
+
+  // HEAD
+  let html = '<thead><tr>';
+  html += `<th class="col-sector">Secteur / Poste</th>`;
+  month.days.forEach(d => {
+    const wkClass = isWeekend(d.weekday) ? ' weekend' : '';
+    const todayClass = d.date === today ? ' today-col' : '';
+    html += `<th class="col-day${wkClass}${todayClass}">
+      <div class="day-num">${d.day}</div>
+      <div class="day-wd">${d.weekday}</div>
+    </th>`;
+  });
   html += '</tr></thead><tbody>';
-  rows.forEach(row => {
-    html += `<tr><th class="doctor sector-col"><span class="chip ${codeClass(row.code)}">${escapeHtml(row.code)}</span><span>${escapeHtml(row.label)}</span></th>`;
-    m.days.forEach((d, i) => {
-      const wk = isWeekend(d.weekday) ? ' weekend' : '';
-      const names = row.days[i];
-      html += `<td class="sector-cell${wk}">`;
-      if(names.length){
-        html += names.map(x => `<div class="person" title="${escapeHtml(x.raw)}">${escapeHtml(x.name)}</div>`).join('');
-      }else{
-        html += '<span class="empty">·</span>';
+
+  activeSectors.forEach(s => {
+    html += `<tr><td class="col-sector"><span class="${chipClass(s.code)}">${esc(s.code)}</span> ${esc(s.label)}</td>`;
+    month.days.forEach((d, i) => {
+      const names = sectorMap[s.code][i];
+      const wkClass = isWeekend(d.weekday) ? ' weekend' : '';
+      const todayClass = d.date === today ? ' today-col' : '';
+      html += `<td class="sector-cell${wkClass}${todayClass}">`;
+      if (names.length) {
+        html += names.map(n => `<span class="person-tag">${esc(n)}</span>`).join('');
+      } else {
+        html += `<span class="empty">·</span>`;
       }
       html += '</td>';
     });
     html += '</tr>';
   });
-  html += '</tbody>'; table.innerHTML = html;
+
+  html += '</tbody>';
+  table.innerHTML = html;
 }
 
-init().catch(err => { document.body.innerHTML = '<pre>Erreur de chargement : ' + escapeHtml(err.message) + '</pre>'; });
+// ── START ──────────────────────────────────────────────────────────────
+init();
