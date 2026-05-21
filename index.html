@@ -3,51 +3,51 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Planning médical — CHPG Monaco</title>
+  <title>Planning — CHPG Monaco · Anesthésie-Réanimation</title>
   <link rel="stylesheet" href="./style.css" />
 </head>
 <body>
-  <div class="app">
-    <header class="hero">
-      <div>
-        <p class="eyebrow">CHPG Monaco</p>
-        <h1>Planning médical</h1>
-        <p class="subtitle">Service d’Anesthésie-Réanimation</p>
-      </div>
-      <div class="hero-card">
-        <span id="monthLabel">Chargement…</span>
-        <strong id="doctorCount">—</strong>
-        <small id="viewLabel">médecins affichés</small>
-      </div>
-    </header>
 
-    <section class="toolbar">
-      <div class="segmented" id="monthTabs"></div>
-      <div class="tools">
-        <div class="view-switch">
-          <button id="doctorViewBtn" class="active">Vue médecins</button>
-          <button id="sectorViewBtn">Vue secteurs</button>
-        </div>
-        <input id="searchInput" type="search" placeholder="Rechercher un médecin…" />
-        <button id="todayBtn">Mois actuel</button>
-      </div>
-    </section>
-
-    <section class="kpis" id="kpis"></section>
-
-    <main class="panel">
-      <div class="panel-head">
-        <div>
-          <h2 id="tableTitle">Planning</h2>
-          <p id="tableHint">G = garde 24h · 18 = journée 8h–18h · RG = repos de garde</p>
-        </div>
-        <div class="legend" id="legend"></div>
-      </div>
-      <div class="table-wrap">
-        <table id="planningTable"></table>
-      </div>
-    </main>
+<header class="header">
+  <div class="header-left">
+    <div class="header-logo">MC</div>
+    <div>
+      <div class="header-title">Planning médical</div>
+      <div class="header-sub">CHPG Monaco · Service d'Anesthésie-Réanimation</div>
+    </div>
   </div>
-  <script src="./app.js"></script>
+  <div class="header-right">
+    <span class="badge" id="headerBadge">Chargement…</span>
+  </div>
+</header>
+
+<nav class="toolbar">
+  <div class="month-tabs" id="monthTabs"></div>
+  <div class="toolbar-right">
+    <div class="view-toggle">
+      <button id="btnDoctors" class="active">Médecins</button>
+      <button id="btnSectors">Secteurs</button>
+    </div>
+    <input class="search-box" id="searchInput" type="search" placeholder="Rechercher un médecin…" />
+    <button class="btn" id="btnToday">Mois actuel</button>
+  </div>
+</nav>
+
+<section class="kpis" id="kpis"></section>
+
+<main class="panel">
+  <div class="panel-head">
+    <div>
+      <div class="panel-title" id="panelTitle">Planning</div>
+      <div class="panel-hint" id="panelHint">G = garde 24h (2 MAR) · RG = repos de garde · 18 = journée 8h–18h · A = absence · CP = congés · F = formation · R = récup samedi</div>
+    </div>
+    <div class="legend" id="legend"></div>
+  </div>
+  <div class="table-wrap">
+    <table id="planningTable"></table>
+  </div>
+</main>
+
+<script src="./app.js"></script>
 </body>
 </html>
