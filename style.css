@@ -526,3 +526,21 @@ body {
   .bottom-tables { padding: 0 16px 24px; }
 }
 
+/* CS subtype label */
+.slot-name {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  line-height: 1;
+}
+
+.cs-sub {
+  font-size: 8px;
+  font-weight: 700;
+  color: var(--red);
+  letter-spacing: .04em;
+  margin-top: 1px;
+  font-family: var(--mono);
+}
+
+
