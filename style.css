@@ -459,3 +459,70 @@ body {
   .table-container { padding: 12px 16px; }
   .bottom-section { padding: 0 16px 24px; grid-template-columns: 1fr; }
 }
+
+/* ── BOTTOM TABLE ── */
+.bottom-tables { padding: 0 32px 32px; }
+
+.bt-card {
+  background: var(--white);
+  border: 1px solid var(--line);
+  border-radius: var(--radius);
+  overflow: hidden;
+  box-shadow: 0 1px 3px rgba(0,0,0,.04);
+}
+
+.bt-card-header {
+  padding: 10px 16px;
+  font-size: 10px;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: .08em;
+  color: var(--ink-4);
+  background: var(--line-light);
+  border-bottom: 1px solid var(--line);
+}
+
+.bt-scroll { overflow-x: auto; }
+
+.bt-table {
+  width: 100%;
+  border-collapse: separate;
+  border-spacing: 0;
+  min-width: 900px;
+  table-layout: fixed;
+}
+
+.bt-label {
+  width: 180px;
+  min-width: 160px;
+  padding: 8px 16px;
+  font-size: 11px;
+  font-weight: 600;
+  color: var(--ink-3);
+  background: var(--line-light);
+  border-right: 1px solid var(--line);
+  border-bottom: 1px solid var(--line);
+  vertical-align: middle;
+  position: sticky;
+  left: 0;
+  z-index: 5;
+}
+
+.bt-table tr:last-child .bt-label,
+.bt-table tr:last-child .bt-cell { border-bottom: none; }
+
+.bt-cell {
+  padding: 7px 6px;
+  text-align: center;
+  border-right: 1px solid var(--line);
+  border-bottom: 1px solid var(--line);
+  vertical-align: middle;
+}
+.bt-cell:last-child { border-right: none; }
+.bt-cell.weekend { background: var(--line-light); }
+.bt-dash { color: var(--ink-4); font-size: 12px; }
+
+@media (max-width: 900px) {
+  .bottom-tables { padding: 0 16px 24px; }
+}
+
