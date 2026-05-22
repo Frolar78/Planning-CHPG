@@ -215,87 +215,58 @@ function renderTable(month,daySlots,week){
 }
 
 // ── BOTTOM SECTION ─────────────────────────────────────────────────────
-function renderBottom(month,daySlots,week){
-  const guards={};   // dow → [{init,name}]
-  const h18={};      // dow → {init,name}
-  const sorties={};  // dow → [{init}]
-  const absents={};  // dow → [{init,reason}]
-
-  daySlots.forEach((_,dow)=>{ guards[dow]=[]; sorties[dow]=[]; absents[dow]=[]; });
+function renderBottom(month, daySlots, week){
+  const guards  = Array(7).fill(null).map(()=>[]);
+  const h18     = Array(7).fill('');
+  const sorties = Array(7).fill(null).map(()=>[]);
+  const absents = Array(7).fill(null).map(()=>[]);
 
   month.doctors.forEach(doc=>{
     daySlots.forEach((slot,dow)=>{
       if(!slot) return;
-      const entry=doc.days[slot.dayIdx]||{};
-      const st=entry.status||'';
-      if(st==='G') guards[dow].push({init:doc.initials});
-      if(st==='18') h18[dow]=doc.initials;
-      if(st==='RG') sorties[dow].push({init:doc.initials});
-      if(['A','CP','F'].includes(st)) absents[dow].push({init:doc.initials,reason:st});
+      const entry = doc.days[slot.dayIdx]||{};
+      const st = entry.status||'';
+      if(st==='G')  guards[dow].push(doc.initials);
+      if(st==='18') h18[dow] = doc.initials;
+      if(st==='RG') sorties[dow].push(doc.initials);
+      if(['A','CP','F'].includes(st)) absents[dow].push({init:doc.initials, reason:st});
     });
   });
 
-  // Card 1: Gardes & fonctions
-  let card1=`<div class="info-card">
-    <div class="info-card-header">Gardes & fonctions</div>
-    <div class="info-card-body">`;
-
-  // Gardes
-  card1+=`<div class="info-row">
-    <span class="info-row-label">Garde 24h</span>
-    <div class="info-row-names">`;
-  daySlots.forEach((slot,dow)=>{
-    if(!slot||!guards[dow].length) return;
-    const dt=new Date(slot.date);
-    const day=dt.toLocaleDateString('fr-FR',{weekday:'short',day:'2-digit'});
-    guards[dow].forEach(g=>{
-      card1+=`<span class="name-tag guard" title="${esc(day)}">${esc(g.init)}</span>`;
+  function buildRow(label, cellsFn){
+    let row = `<tr><td class="bt-label">${label}</td>`;
+    daySlots.forEach((slot,dow)=>{
+      const isWe = slot ? isWeekend(slot.weekday) : true;
+      row += `<td class="bt-cell${isWe?' weekend':''}">${slot ? cellsFn(dow) : ''}</td>`;
     });
-  });
-  card1+=`</div></div>`;
+    return row + '</tr>';
+  }
 
-  // 18h
-  card1+=`<div class="info-row">
-    <span class="info-row-label">8h–18h</span>
-    <div class="info-row-names">`;
-  daySlots.forEach((slot,dow)=>{
-    if(!slot||!h18[dow]) return;
-    card1+=`<span class="name-tag h18">${esc(h18[dow])}</span>`;
-  });
-  card1+=`</div></div>`;
+  let html = `<div class="bottom-tables"><div class="bt-card">
+    <div class="bt-card-header">Gardes &amp; fonctions</div>
+    <div class="bt-scroll"><table class="bt-table"><tbody>`;
 
-  // Sorties de garde
-  card1+=`<div class="info-row">
-    <span class="info-row-label">Sorties de garde</span>
-    <div class="info-row-names">`;
-  daySlots.forEach((slot,dow)=>{
-    if(!slot||!sorties[dow].length) return;
-    sorties[dow].forEach(s=>{ card1+=`<span class="name-tag rg">${esc(s.init)}</span>`; });
-  });
-  card1+=`</div></div>`;
-  card1+=`</div></div>`;
+  html += buildRow('Garde 24h', dow =>
+    guards[dow].length
+      ? guards[dow].map(i=>`<span class="name-tag guard">${i}</span>`).join('')
+      : '<span class="bt-dash">—</span>'
+  );
+  html += buildRow('8h – 18h', dow =>
+    h18[dow] ? `<span class="name-tag h18">${h18[dow]}</span>` : '<span class="bt-dash">—</span>'
+  );
+  html += buildRow('Sortie de garde', dow =>
+    sorties[dow].length
+      ? sorties[dow].map(i=>`<span class="name-tag rg">${i}</span>`).join('')
+      : '<span class="bt-dash">—</span>'
+  );
+  html += buildRow('Absences / CP / F', dow =>
+    absents[dow].length
+      ? absents[dow].map(a=>`<span class="name-tag absent" title="${a.reason}">${a.init}</span>`).join('')
+      : '<span class="bt-dash">—</span>'
+  );
 
-  // Card 2: Absences
-  let card2=`<div class="info-card">
-    <div class="info-card-header">Absences · Congés · Formations</div>
-    <div class="info-card-body">`;
-
-  daySlots.forEach((slot,dow)=>{
-    if(!slot||!absents[dow].length) return;
-    const dt=new Date(slot.date);
-    const day=dt.toLocaleDateString('fr-FR',{weekday:'long',day:'2-digit',month:'2-digit'});
-    card2+=`<div class="info-row">
-      <span class="info-row-label" style="text-transform:capitalize">${esc(day)}</span>
-      <div class="info-row-names">`;
-    absents[dow].forEach(a=>{
-      card2+=`<span class="name-tag absent" title="${esc(a.reason)}">${esc(a.init)}</span>`;
-    });
-    card2+=`</div></div>`;
-  });
-
-  card2+=`</div></div>`;
-
-  document.getElementById('bottomSection').innerHTML=card1+card2;
+  html += `</tbody></table></div></div></div>`;
+  document.getElementById('bottomSection').innerHTML = html;
 }
 
 // ── EXPORT EXCEL ───────────────────────────────────────────────────────
