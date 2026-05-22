@@ -196,11 +196,11 @@ function renderTable(month,daySlots,week){
         const pmNames=smap[s.code][dow].pm;
         tbody+=`<div class="slot-pair">
           <div class="slot">${amNames.length
-            ? amNames.map(p=>`<span class="slot-name ${p.status==='G'?'is-guard':p.status==='18'?'is-h18':''}">${esc(p.init)}</span>`).join('')
+            ? amNames.map(p=>`<span class="slot-name">${esc(p.init)}</span>`).join('')
             : '<span class="slot-dash">—</span>'
           }</div>
           <div class="slot">${pmNames.length
-            ? pmNames.map(p=>`<span class="slot-name ${p.status==='G'?'is-guard':p.status==='18'?'is-h18':''}">${esc(p.init)}</span>`).join('')
+            ? pmNames.map(p=>`<span class="slot-name">${esc(p.init)}</span>`).join('')
             : '<span class="slot-dash">—</span>'
           }</div>
         </div>`;
