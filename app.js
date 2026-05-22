@@ -273,12 +273,143 @@ function renderBottom(month, daySlots, week){
 
 // ── EXPORT EXCEL ───────────────────────────────────────────────────────
 document.addEventListener('DOMContentLoaded',()=>{
-  document.getElementById('exportBtn').onclick=()=>{
-    if(typeof XLSX==='undefined'){ alert('SheetJS non chargé'); return; }
-    const month=DATA.months.find(m=>m.id===currentMonthId);
-    const weeks=getWeeksInMonth(month);
-    alert('Export en cours de développement — semaine '+weeks[currentWeekIdx].weekNum);
-  };
+  document.getElementById('exportBtn').onclick=exportExcel;
 });
+
+function exportExcel(){
+  if(typeof XLSX==='undefined'){ alert('SheetJS non chargé'); return; }
+  const month=DATA.months.find(m=>m.id===currentMonthId);
+  const weeks=getWeeksInMonth(month);
+  const week=weeks[currentWeekIdx];
+  const daySlots=weekDaysFull(week);
+  const DAYS_FR=['LUNDI','MARDI','MERCREDI','JEUDI','VENDREDI','SAMEDI','DIMANCHE'];
+  const C={red:'CE1126',redMid:'A50E1F',redLight:'FCE8EB',charcoal:'1A1A2E',slate:'374151',muted:'9CA3AF',line:'F3F4F6',lineDark:'E5E7EB',bg:'FAFAFA',white:'FFFFFF',greenBg:'ECFDF5',greenFg:'065F46',amberBg:'FFFBEB',amberFg:'B45309'};
+
+  const st=(bg,fg,bold=false,sz=10,h='center',wrap=false)=>({
+    fill:{patternType:'solid',fgColor:{rgb:bg}},
+    font:{name:'Calibri',sz,bold,color:{rgb:fg}},
+    alignment:{horizontal:h,vertical:'center',wrapText:wrap},
+    border:{right:{style:'thin',color:{rgb:C.lineDark}},bottom:{style:'thin',color:{rgb:C.lineDark}}}
+  });
+
+  // Build sector assignments
+  const sectorRows=SECTORS_DEF.map(s=>({...s,days:Array(7).fill(null).map(()=>({am:[],pm:[]}))}));
+  const sectorIdx=Object.fromEntries(sectorRows.map((s,i)=>[s.code,i]));
+  const guardsArr=Array(7).fill(null).map(()=>[]);
+  const h18Arr=Array(7).fill('');
+  const sortiesArr=Array(7).fill(null).map(()=>[]);
+  const absentsArr=Array(7).fill(null).map(()=>[]);
+
+  month.doctors.forEach(doc=>{
+    daySlots.forEach((slot,dow)=>{
+      if(!slot) return;
+      const entry=doc.days[slot.dayIdx]||{};
+      const st2=entry.status||'';
+      if(st2==='G') guardsArr[dow].push(doc.initials);
+      if(st2==='18') h18Arr[dow]=doc.initials;
+      if(st2==='RG') sortiesArr[dow].push(doc.initials);
+      if(['A','CP','F'].includes(st2)) absentsArr[dow].push(doc.initials);
+      if(ABSENT_STATUSES.has(st2)) return;
+      const mKey=entry.morning&&entry.morning.startsWith('CS-')?'CS':entry.morning;
+      const pKey=entry.afternoon&&entry.afternoon.startsWith('CS-')?'CS':entry.afternoon;
+      if(mKey&&sectorIdx[mKey]!==undefined) sectorRows[sectorIdx[mKey]].days[dow].am.push({init:doc.initials,sector:entry.morning});
+      if(pKey&&sectorIdx[pKey]!==undefined) sectorRows[sectorIdx[pKey]].days[dow].pm.push({init:doc.initials,sector:entry.afternoon});
+    });
+  });
+
+  const rows=[];const merges=[];let r=0;
+
+  // Title
+  rows.push([{v:`PLANNING · SEMAINE ${week.weekNum} · CHPG MONACO`,s:st(C.red,C.white,true,13)},
+    ...Array(14).fill({v:'',s:st(C.red,C.white)})]);
+  merges.push({s:{r,c:0},e:{r,c:14}}); r++;
+
+  rows.push([{v:"Service d'Anesthésie-Réanimation",s:st(C.redMid,C.redLight,false,9)},
+    ...Array(14).fill({v:'',s:st(C.redMid,C.redLight)})]);
+  merges.push({s:{r,c:0},e:{r,c:14}}); r++;
+
+  // Day headers — 2 cols per day (AM/PM)
+  const dayRow=[{v:'SECTEUR',s:st(C.charcoal,C.white,true,10,'left')}];
+  daySlots.forEach((slot,i)=>{
+    const isWe=i>=5;
+    const bg=isWe?C.slate:C.charcoal;
+    const dt=slot?new Date(slot.date):null;
+    const ds=dt?dt.toLocaleDateString('fr-FR',{day:'2-digit',month:'short'}).toUpperCase():'';
+    dayRow.push({v:`${DAYS_FR[i]}${ds?'\n'+ds:''}`,s:st(bg,isWe?C.muted:C.white,true,9,'center',true)});
+    dayRow.push({v:'',s:st(bg,isWe?C.muted:C.white)});
+  });
+  rows.push(dayRow); r++;
+
+  // AM/PM subheader
+  const ampmRow=[{v:'',s:st(C.charcoal,C.white)}];
+  daySlots.forEach((_,i)=>{
+    const isWe=i>=5;
+    ampmRow.push({v:'AM',s:st(isWe?C.slate:C.red,C.white,true,8)});
+    ampmRow.push({v:'PM',s:st(isWe?C.slate:C.muted,C.white,true,8)});
+  });
+  rows.push(ampmRow); r++;
+
+  // Merge day headers across AM/PM cols
+  daySlots.forEach((_,i)=>{
+    merges.push({s:{r:2,c:1+i*2},e:{r:2,c:2+i*2}});
+  });
+
+  // Sector rows
+  const activeSectors=sectorRows.filter(s=>s.days.some(d=>d.am.length||d.pm.length));
+  activeSectors.forEach(sec=>{
+    const row=[{v:sec.label,s:{...st(C.line,C.charcoal,true,10,'left'),border:{right:{style:'medium',color:{rgb:'CCCCCC'}},bottom:{style:'thin',color:{rgb:C.lineDark}}}}}];
+    for(let i=0;i<7;i++){
+      const isWe=i>=5;
+      const bg=isWe?C.bg:C.white;
+      const am=sec.days[i].am;
+      const pm=sec.days[i].pm;
+      const fmtNames=(arr)=>arr.map(p=>{
+        const sub=p.sector&&p.sector.includes('-')?` (${p.sector.split('-')[1]})` :'';
+        return p.init+sub;
+      }).join(', ');
+      row.push({v:am.length?fmtNames(am):'—',s:st(bg,am.length?C.charcoal:C.muted,false,9,'center',true)});
+      row.push({v:pm.length?fmtNames(pm):'—',s:st(bg,pm.length?C.charcoal:C.muted,false,9,'center',true)});
+    }
+    rows.push(row); r++;
+  });
+
+  // Spacer
+  rows.push(Array(15).fill({v:'',s:st(C.line,C.line)}));
+  merges.push({s:{r,c:0},e:{r,c:14}}); r++;
+
+  // Gardes section
+  rows.push([{v:'GARDES & FONCTIONS',s:st(C.line,C.muted,true,8,'left')},...Array(14).fill({v:'',s:st(C.line,C.muted)})]);
+  merges.push({s:{r,c:0},e:{r,c:14}}); r++;
+
+  const infoRow2=(lbl,valsFn)=>{
+    const row=[{v:lbl,s:st(C.line,C.slate,true,9,'left')}];
+    for(let i=0;i<7;i++){
+      const isWe=i>=5; const v=valsFn(i);
+      row.push({v:v||(isWe?'':'—'),s:st(v?C.redLight:(isWe?C.bg:C.white),v?C.red:C.muted,false,9,'center',true)});
+      row.push({v:'',s:st(isWe?C.bg:C.white,C.white)});
+    }
+    return row;
+  };
+
+  rows.push(infoRow2('Garde 24h',i=>guardsArr[i].join(' / '))); r++;
+  rows.push(infoRow2('8h – 18h',i=>h18Arr[i])); r++;
+  rows.push(infoRow2('Sortie de garde',i=>sortiesArr[i].join(' / '))); r++;
+  rows.push(infoRow2('Absences / CP / F',i=>absentsArr[i].join(' / '))); r++;
+
+  // Footer
+  rows.push([{v:`Généré le ${new Date().toLocaleDateString('fr-FR')}  ·  CHPG Monaco · Confidentiel`,
+    s:st(C.charcoal,C.muted,false,7,'center')},...Array(14).fill({v:'',s:st(C.charcoal,C.muted)})]);
+  merges.push({s:{r,c:0},e:{r,c:14}});
+
+  const ws=XLSX.utils.aoa_to_sheet(rows);
+  ws['!merges']=merges;
+  ws['!cols']=[{wch:22},...Array(14).fill({wch:10})];
+  ws['!rows']=[{hpt:28},{hpt:14},{hpt:32},{hpt:16},...Array(rows.length-4).fill({hpt:20})];
+  ws['!pageSetup']={orientation:'landscape',paperSize:9,fitToPage:true,fitToWidth:1};
+
+  const wb=XLSX.utils.book_new();
+  XLSX.utils.book_append_sheet(wb,ws,`S${week.weekNum}`);
+  XLSX.writeFile(wb,`Planning_S${week.weekNum}_CHPG.xlsx`);
+}
 
 init();
