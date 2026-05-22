@@ -5,7 +5,6 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>Planning — CHPG Monaco · Anesthésie-Réanimation</title>
   <link rel="stylesheet" href="./style.css" />
-  <!-- SheetJS pour export Excel -->
   <script src="https://cdnjs.cloudflare.com/ajax/libs/xlsx/0.18.5/xlsx.full.min.js"></script>
 </head>
 <body>
@@ -18,9 +17,7 @@
       <div class="header-sub">CHPG Monaco · Service d'Anesthésie-Réanimation</div>
     </div>
   </div>
-  <div class="header-right">
-    <span class="badge" id="headerBadge">Chargement…</span>
-  </div>
+  <span class="header-badge" id="headerBadge">Chargement…</span>
 </header>
 
 <nav class="toolbar">
@@ -30,8 +27,8 @@
       <button id="btnDoctors" class="active">Médecins</button>
       <button id="btnSectors">Secteurs</button>
     </div>
-    <input class="search-box" id="searchInput" type="search" placeholder="Rechercher un médecin…" />
-    <button class="btn" id="btnToday">Mois actuel</button>
+    <input class="search-box" id="searchInput" type="search" placeholder="Rechercher…" />
+    <button class="btn" id="btnToday">Aujourd'hui</button>
   </div>
 </nav>
 
@@ -41,7 +38,11 @@
   <div class="panel-head">
     <div>
       <div class="panel-title" id="panelTitle">Planning</div>
-      <div class="panel-hint" id="panelHint">G = garde 24h · RG = repos de garde · 18 = journée 8h–18h · A = absence · CP = congés · F = formation · R = récup samedi</div>
+      <div class="panel-hint">
+        <b>AM</b> = matin &nbsp;·&nbsp; <b>PM</b> = après-midi &nbsp;·&nbsp;
+        🔴 garde &nbsp;·&nbsp; 🟡 8h–18h &nbsp;·&nbsp;
+        RG = repos garde &nbsp;·&nbsp; CP = congés &nbsp;·&nbsp; A = absence &nbsp;·&nbsp; F = formation
+      </div>
     </div>
     <div class="legend" id="legend"></div>
   </div>
@@ -50,6 +51,8 @@
   </div>
 </main>
 
+<script src="./data.js"></script>
+<script src="./rules.js"></script>
 <script src="./app.js"></script>
 </body>
 </html>
