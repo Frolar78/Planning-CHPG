@@ -198,12 +198,10 @@ month.doctors.forEach(doc=>{
         const pmNames=smap[s.code][dow].pm;
         tbody+=`<div class="slot-pair">
           <div class="slot">${amNames.length
-? amNames.map(p=>{ const sub=p.sector&&p.sector.includes('-')?p.sector.split('-')[1]:null; return `<span class="slot-name">${esc(p.init)}${sub?`<span class="cs-sub">${esc(sub)}</span>`:''}</span>`; }).join('')
-            : '<span class="slot-dash">—</span>'
+? amNames.map(p=>{ const sub=p.sector&&p.sector.includes('-')?p.sector.split('-')[1]:null; return `<span class="slot-name" title="${sub?'CS '+esc(sub):''}">${esc(p.init)}</span>`; }).join('')            : '<span class="slot-dash">—</span>'
           }</div>
           <div class="slot">${pmNames.length
-? pmNames.map(p=>{ const sub=p.sector&&p.sector.includes('-')?p.sector.split('-')[1]:null; return `<span class="slot-name">${esc(p.init)}${sub?`<span class="cs-sub">${esc(sub)}</span>`:''}</span>`; }).join('')
-            : '<span class="slot-dash">—</span>'
+? pmNames.map(p=>{ const sub=p.sector&&p.sector.includes('-')?p.sector.split('-')[1]:null; return `<span class="slot-name" title="${sub?'CS '+esc(sub):''}">${esc(p.init)}</span>`; }).join('')            : '<span class="slot-dash">—</span>'
           }</div>
         </div>`;
       }
