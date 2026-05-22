@@ -2,7 +2,7 @@
   "months": [
     {
       "id": "2026-06-demo",
-      "label": "Juin 2026 (démo)",
+      "label": "Juin 2026",
       "year": 2026,
       "month": 6,
       "days": [
@@ -160,16 +160,37 @@
       "doctors": [
         {
           "id": "ALBOUY",
+          "initials": "SA",
           "days": [
             {
               "status": "",
-              "morning": "",
-              "afternoon": ""
+              "morning": "REA",
+              "afternoon": "REA"
+            },
+            {
+              "status": "",
+              "morning": "VIS",
+              "afternoon": "CS"
+            },
+            {
+              "status": "",
+              "morning": "REA",
+              "afternoon": "REA"
+            },
+            {
+              "status": "18",
+              "morning": "ORL",
+              "afternoon": "ORL"
+            },
+            {
+              "status": "",
+              "morning": "REA",
+              "afternoon": "REA"
             },
             {
               "status": "G",
-              "morning": "",
-              "afternoon": ""
+              "morning": "MAT",
+              "afternoon": "MAT"
             },
             {
               "status": "RG",
@@ -178,8 +199,23 @@
             },
             {
               "status": "",
-              "morning": "",
-              "afternoon": ""
+              "morning": "REA",
+              "afternoon": "REA"
+            },
+            {
+              "status": "",
+              "morning": "END",
+              "afternoon": "END"
+            },
+            {
+              "status": "",
+              "morning": "REA",
+              "afternoon": "REA"
+            },
+            {
+              "status": "",
+              "morning": "MAT",
+              "afternoon": "CS"
             },
             {
               "status": "",
@@ -202,49 +238,29 @@
               "afternoon": "REA"
             },
             {
-              "status": "A",
+              "status": "",
+              "morning": "VIS",
+              "afternoon": "VIS"
+            },
+            {
+              "status": "G",
+              "morning": "VIS",
+              "afternoon": "VIS"
+            },
+            {
+              "status": "RG",
               "morning": "",
               "afternoon": ""
             },
             {
               "status": "",
               "morning": "END",
-              "afternoon": "CS"
-            },
-            {
-              "status": "",
-              "morning": "ORL",
-              "afternoon": "CS"
-            },
-            {
-              "status": "",
-              "morning": "REA",
-              "afternoon": "REA"
-            },
-            {
-              "status": "G",
-              "morning": "",
-              "afternoon": ""
-            },
-            {
-              "status": "RG",
-              "morning": "",
-              "afternoon": ""
-            },
-            {
-              "status": "",
-              "morning": "ORT",
-              "afternoon": "ORT"
+              "afternoon": "END"
             },
             {
               "status": "",
               "morning": "",
               "afternoon": ""
-            },
-            {
-              "status": "",
-              "morning": "VIS",
-              "afternoon": "CS"
             },
             {
               "status": "",
@@ -258,8 +274,13 @@
             },
             {
               "status": "",
-              "morning": "",
-              "afternoon": ""
+              "morning": "CI",
+              "afternoon": "CI"
+            },
+            {
+              "status": "",
+              "morning": "REA",
+              "afternoon": "REA"
             },
             {
               "status": "",
@@ -274,12 +295,12 @@
             {
               "status": "",
               "morning": "REA",
-              "afternoon": "REA"
+              "afternoon": ""
             },
             {
               "status": "G",
-              "morning": "END",
-              "afternoon": "CS"
+              "morning": "MAT",
+              "afternoon": "MAT"
             },
             {
               "status": "RG",
@@ -290,129 +311,70 @@
               "status": "",
               "morning": "",
               "afternoon": ""
-            },
-            {
-              "status": "",
-              "morning": "",
-              "afternoon": ""
-            },
-            {
-              "status": "",
-              "morning": "",
-              "afternoon": ""
-            },
-            {
-              "status": "",
-              "morning": "END",
-              "afternoon": "END"
-            },
-            {
-              "status": "",
-              "morning": "REA",
-              "afternoon": "REA"
             }
           ]
         },
         {
           "id": "ARMANDO",
+          "initials": "GA",
           "days": [
             {
               "status": "",
+              "morning": "END",
+              "afternoon": "CS"
+            },
+            {
+              "status": "",
+              "morning": "CI",
+              "afternoon": "CI"
+            },
+            {
+              "status": "A",
+              "morning": "",
+              "afternoon": ""
+            },
+            {
+              "status": "",
               "morning": "REA",
               "afternoon": "REA"
             },
             {
               "status": "",
-              "morning": "MAT",
-              "afternoon": "CS"
-            },
-            {
-              "status": "",
-              "morning": "REA",
-              "afternoon": "REA"
-            },
-            {
-              "status": "",
-              "morning": "MAT",
-              "afternoon": "CS"
-            },
-            {
-              "status": "CP",
-              "morning": "",
-              "afternoon": ""
-            },
-            {
-              "status": "",
-              "morning": "",
-              "afternoon": ""
-            },
-            {
-              "status": "",
-              "morning": "",
-              "afternoon": ""
-            },
-            {
-              "status": "CP",
-              "morning": "",
-              "afternoon": ""
-            },
-            {
-              "status": "CP",
-              "morning": "",
-              "afternoon": ""
-            },
-            {
-              "status": "",
-              "morning": "END",
-              "afternoon": "END"
-            },
-            {
-              "status": "",
-              "morning": "VIS",
-              "afternoon": "CS"
-            },
-            {
-              "status": "",
-              "morning": "VIS",
-              "afternoon": "VIS"
-            },
-            {
-              "status": "",
-              "morning": "",
-              "afternoon": ""
-            },
-            {
-              "status": "",
-              "morning": "",
-              "afternoon": ""
-            },
-            {
-              "status": "",
-              "morning": "ORL",
-              "afternoon": "ORL"
-            },
-            {
-              "status": "",
-              "morning": "END",
-              "afternoon": "END"
-            },
-            {
-              "status": "",
-              "morning": "",
-              "afternoon": ""
-            },
-            {
-              "status": "",
-              "morning": "MAT",
-              "afternoon": "CS"
-            },
-            {
-              "status": "G",
               "morning": "ORT",
               "afternoon": "ORT"
             },
             {
-              "status": "RG",
+              "status": "",
+              "morning": "",
+              "afternoon": ""
+            },
+            {
+              "status": "",
+              "morning": "",
+              "afternoon": ""
+            },
+            {
+              "status": "CP",
+              "morning": "",
+              "afternoon": ""
+            },
+            {
+              "status": "CP",
+              "morning": "",
+              "afternoon": ""
+            },
+            {
+              "status": "CP",
+              "morning": "",
+              "afternoon": ""
+            },
+            {
+              "status": "CP",
+              "morning": "",
+              "afternoon": ""
+            },
+            {
+              "status": "CP",
               "morning": "",
               "afternoon": ""
             },
@@ -433,18 +395,18 @@
             },
             {
               "status": "",
-              "morning": "VIS",
+              "morning": "ORL",
               "afternoon": "CS"
             },
             {
               "status": "",
-              "morning": "END",
-              "afternoon": "END"
+              "morning": "ORT",
+              "afternoon": "CS"
             },
             {
               "status": "",
-              "morning": "VIS",
-              "afternoon": "VIS"
+              "morning": "REA",
+              "afternoon": "REA"
             },
             {
               "status": "",
@@ -458,19 +420,9 @@
             },
             {
               "status": "",
-              "morning": "REA",
-              "afternoon": "REA"
+              "morning": "",
+              "afternoon": ""
             },
-            {
-              "status": "",
-              "morning": "REA",
-              "afternoon": "REA"
-            }
-          ]
-        },
-        {
-          "id": "BONNET",
-          "days": [
             {
               "status": "G",
               "morning": "CI",
@@ -483,13 +435,13 @@
             },
             {
               "status": "",
-              "morning": "VIS",
-              "afternoon": "CS"
+              "morning": "END",
+              "afternoon": "END"
             },
             {
               "status": "",
-              "morning": "",
-              "afternoon": ""
+              "morning": "MAT",
+              "afternoon": "CS"
             },
             {
               "status": "",
@@ -512,14 +464,110 @@
               "afternoon": ""
             },
             {
+              "status": "",
+              "morning": "ORT",
+              "afternoon": "CS"
+            }
+          ]
+        },
+        {
+          "id": "BONNET",
+          "initials": "LB",
+          "days": [
+            {
+              "status": "",
+              "morning": "REA",
+              "afternoon": "REA"
+            },
+            {
+              "status": "",
+              "morning": "REA",
+              "afternoon": "REA"
+            },
+            {
+              "status": "",
+              "morning": "REA",
+              "afternoon": "REA"
+            },
+            {
+              "status": "",
+              "morning": "VIS",
+              "afternoon": "VIS"
+            },
+            {
+              "status": "",
+              "morning": "VIS",
+              "afternoon": "VIS"
+            },
+            {
+              "status": "G",
+              "morning": "REA",
+              "afternoon": "REA"
+            },
+            {
+              "status": "RG",
+              "morning": "",
+              "afternoon": ""
+            },
+            {
+              "status": "",
+              "morning": "END",
+              "afternoon": "CS"
+            },
+            {
+              "status": "",
+              "morning": "",
+              "afternoon": ""
+            },
+            {
               "status": "18",
+              "morning": "END",
+              "afternoon": "END"
+            },
+            {
+              "status": "",
+              "morning": "REA",
+              "afternoon": "REA"
+            },
+            {
+              "status": "",
+              "morning": "END",
+              "afternoon": "END"
+            },
+            {
+              "status": "",
+              "morning": "",
+              "afternoon": ""
+            },
+            {
+              "status": "",
+              "morning": "MAT",
+              "afternoon": ""
+            },
+            {
+              "status": "CP",
+              "morning": "",
+              "afternoon": ""
+            },
+            {
+              "status": "CP",
+              "morning": "",
+              "afternoon": ""
+            },
+            {
+              "status": "CP",
+              "morning": "",
+              "afternoon": ""
+            },
+            {
+              "status": "",
               "morning": "ORL",
               "afternoon": "CS"
             },
             {
               "status": "",
-              "morning": "REA",
-              "afternoon": "REA"
+              "morning": "",
+              "afternoon": ""
             },
             {
               "status": "",
@@ -527,64 +575,44 @@
               "afternoon": ""
             },
             {
-              "status": "G",
+              "status": "",
+              "morning": "",
+              "afternoon": ""
+            },
+            {
+              "status": "",
+              "morning": "END",
+              "afternoon": "CS"
+            },
+            {
+              "status": "",
+              "morning": "ORL",
+              "afternoon": "CS"
+            },
+            {
+              "status": "",
               "morning": "ORT",
               "afternoon": "ORT"
             },
             {
-              "status": "RG",
-              "morning": "",
-              "afternoon": ""
-            },
-            {
-              "status": "",
-              "morning": "",
-              "afternoon": ""
-            },
-            {
               "status": "",
               "morning": "REA",
               "afternoon": "REA"
             },
             {
               "status": "",
-              "morning": "REA",
-              "afternoon": "REA"
-            },
-            {
-              "status": "",
-              "morning": "REA",
-              "afternoon": "REA"
-            },
-            {
-              "status": "",
-              "morning": "REA",
-              "afternoon": "REA"
-            },
-            {
-              "status": "",
-              "morning": "REA",
-              "afternoon": "REA"
+              "morning": "ORT",
+              "afternoon": "ORT"
             },
             {
               "status": "",
               "morning": "",
               "afternoon": ""
-            },
-            {
-              "status": "",
-              "morning": "",
-              "afternoon": ""
-            },
-            {
-              "status": "",
-              "morning": "VIS",
-              "afternoon": "CS"
             },
             {
               "status": "G",
-              "morning": "ORT",
-              "afternoon": "CS"
+              "morning": "REA",
+              "afternoon": "REA"
             },
             {
               "status": "RG",
@@ -593,39 +621,100 @@
             },
             {
               "status": "",
-              "morning": "REA",
-              "afternoon": "REA"
-            },
-            {
-              "status": "",
               "morning": "",
               "afternoon": ""
-            },
-            {
-              "status": "",
-              "morning": "",
-              "afternoon": ""
-            },
-            {
-              "status": "",
-              "morning": "",
-              "afternoon": ""
-            },
-            {
-              "status": "",
-              "morning": "",
-              "afternoon": ""
-            },
-            {
-              "status": "",
-              "morning": "REA",
-              "afternoon": "REA"
             }
           ]
         },
         {
           "id": "BOUREGBA",
+          "initials": "MB",
           "days": [
+            {
+              "status": "18",
+              "morning": "ORT",
+              "afternoon": "ORT"
+            },
+            {
+              "status": "G",
+              "morning": "REA",
+              "afternoon": "REA"
+            },
+            {
+              "status": "RG",
+              "morning": "",
+              "afternoon": ""
+            },
+            {
+              "status": "",
+              "morning": "END",
+              "afternoon": "END"
+            },
+            {
+              "status": "",
+              "morning": "VIS",
+              "afternoon": "VIS"
+            },
+            {
+              "status": "",
+              "morning": "",
+              "afternoon": ""
+            },
+            {
+              "status": "",
+              "morning": "",
+              "afternoon": ""
+            },
+            {
+              "status": "",
+              "morning": "",
+              "afternoon": ""
+            },
+            {
+              "status": "",
+              "morning": "REA",
+              "afternoon": "REA"
+            },
+            {
+              "status": "",
+              "morning": "",
+              "afternoon": ""
+            },
+            {
+              "status": "",
+              "morning": "ORL",
+              "afternoon": "CS"
+            },
+            {
+              "status": "",
+              "morning": "END",
+              "afternoon": "END"
+            },
+            {
+              "status": "G",
+              "morning": "REA",
+              "afternoon": "REA"
+            },
+            {
+              "status": "RG",
+              "morning": "",
+              "afternoon": ""
+            },
+            {
+              "status": "",
+              "morning": "CI",
+              "afternoon": "CI"
+            },
+            {
+              "status": "",
+              "morning": "",
+              "afternoon": ""
+            },
+            {
+              "status": "",
+              "morning": "END",
+              "afternoon": "END"
+            },
             {
               "status": "",
               "morning": "",
@@ -643,21 +732,6 @@
             },
             {
               "status": "",
-              "morning": "END",
-              "afternoon": "CS"
-            },
-            {
-              "status": "G",
-              "morning": "VIS",
-              "afternoon": "VIS"
-            },
-            {
-              "status": "RG",
-              "morning": "",
-              "afternoon": ""
-            },
-            {
-              "status": "",
               "morning": "",
               "afternoon": ""
             },
@@ -667,94 +741,9 @@
               "afternoon": "ORT"
             },
             {
-              "status": "",
-              "morning": "ORL",
-              "afternoon": "ORL"
-            },
-            {
               "status": "18",
-              "morning": "VIS",
-              "afternoon": "VIS"
-            },
-            {
-              "status": "",
-              "morning": "VIS",
-              "afternoon": "VIS"
-            },
-            {
-              "status": "",
-              "morning": "",
-              "afternoon": ""
-            },
-            {
-              "status": "",
-              "morning": "",
-              "afternoon": ""
-            },
-            {
-              "status": "",
-              "morning": "",
-              "afternoon": ""
-            },
-            {
-              "status": "CP",
-              "morning": "",
-              "afternoon": ""
-            },
-            {
-              "status": "CP",
-              "morning": "",
-              "afternoon": ""
-            },
-            {
-              "status": "CP",
-              "morning": "",
-              "afternoon": ""
-            },
-            {
-              "status": "CP",
-              "morning": "",
-              "afternoon": ""
-            },
-            {
-              "status": "",
               "morning": "REA",
               "afternoon": "REA"
-            },
-            {
-              "status": "",
-              "morning": "",
-              "afternoon": ""
-            },
-            {
-              "status": "",
-              "morning": "",
-              "afternoon": ""
-            },
-            {
-              "status": "",
-              "morning": "",
-              "afternoon": ""
-            },
-            {
-              "status": "",
-              "morning": "ORL",
-              "afternoon": "ORL"
-            },
-            {
-              "status": "",
-              "morning": "",
-              "afternoon": ""
-            },
-            {
-              "status": "",
-              "morning": "VIS",
-              "afternoon": "CS"
-            },
-            {
-              "status": "",
-              "morning": "ORL",
-              "afternoon": "CS"
             },
             {
               "status": "G",
@@ -773,18 +762,34 @@
             },
             {
               "status": "",
-              "morning": "VIS",
-              "afternoon": "VIS"
+              "morning": "",
+              "afternoon": ""
+            },
+            {
+              "status": "",
+              "morning": "",
+              "afternoon": ""
+            },
+            {
+              "status": "",
+              "morning": "REA",
+              "afternoon": "REA"
+            },
+            {
+              "status": "",
+              "morning": "",
+              "afternoon": ""
             }
           ]
         },
         {
           "id": "CATINEAU",
+          "initials": "JC",
           "days": [
             {
               "status": "",
-              "morning": "REA",
-              "afternoon": "REA"
+              "morning": "ORT",
+              "afternoon": "ORT"
             },
             {
               "status": "",
@@ -793,33 +798,8 @@
             },
             {
               "status": "",
-              "morning": "VIS",
-              "afternoon": "VIS"
-            },
-            {
-              "status": "",
-              "morning": "VIS",
-              "afternoon": "VIS"
-            },
-            {
-              "status": "",
-              "morning": "CI",
-              "afternoon": "CI"
-            },
-            {
-              "status": "G",
-              "morning": "",
-              "afternoon": ""
-            },
-            {
-              "status": "RG",
-              "morning": "",
-              "afternoon": ""
-            },
-            {
-              "status": "",
-              "morning": "VIS",
-              "afternoon": "CS"
+              "morning": "ORT",
+              "afternoon": "ORT"
             },
             {
               "status": "",
@@ -828,83 +808,8 @@
             },
             {
               "status": "",
-              "morning": "",
-              "afternoon": ""
-            },
-            {
-              "status": "",
-              "morning": "END",
+              "morning": "ORL",
               "afternoon": "CS"
-            },
-            {
-              "status": "",
-              "morning": "",
-              "afternoon": ""
-            },
-            {
-              "status": "",
-              "morning": "",
-              "afternoon": ""
-            },
-            {
-              "status": "",
-              "morning": "",
-              "afternoon": ""
-            },
-            {
-              "status": "",
-              "morning": "END",
-              "afternoon": "END"
-            },
-            {
-              "status": "",
-              "morning": "VIS",
-              "afternoon": "VIS"
-            },
-            {
-              "status": "CP",
-              "morning": "",
-              "afternoon": ""
-            },
-            {
-              "status": "CP",
-              "morning": "",
-              "afternoon": ""
-            },
-            {
-              "status": "CP",
-              "morning": "",
-              "afternoon": ""
-            },
-            {
-              "status": "",
-              "morning": "",
-              "afternoon": ""
-            },
-            {
-              "status": "",
-              "morning": "MAT",
-              "afternoon": ""
-            },
-            {
-              "status": "18",
-              "morning": "",
-              "afternoon": ""
-            },
-            {
-              "status": "",
-              "morning": "MAT",
-              "afternoon": "CS"
-            },
-            {
-              "status": "",
-              "morning": "END",
-              "afternoon": "END"
-            },
-            {
-              "status": "",
-              "morning": "",
-              "afternoon": ""
             },
             {
               "status": "",
@@ -928,33 +833,139 @@
             },
             {
               "status": "",
+              "morning": "VIS",
+              "afternoon": "VIS"
+            },
+            {
+              "status": "",
+              "morning": "END",
+              "afternoon": "CS"
+            },
+            {
+              "status": "",
               "morning": "",
               "afternoon": ""
+            },
+            {
+              "status": "",
+              "morning": "",
+              "afternoon": ""
+            },
+            {
+              "status": "",
+              "morning": "",
+              "afternoon": ""
+            },
+            {
+              "status": "",
+              "morning": "",
+              "afternoon": ""
+            },
+            {
+              "status": "",
+              "morning": "REA",
+              "afternoon": "REA"
+            },
+            {
+              "status": "",
+              "morning": "END",
+              "afternoon": "CS"
+            },
+            {
+              "status": "",
+              "morning": "ORL",
+              "afternoon": "ORL"
+            },
+            {
+              "status": "G",
+              "morning": "MAT",
+              "afternoon": "MAT"
+            },
+            {
+              "status": "RG",
+              "morning": "",
+              "afternoon": ""
+            },
+            {
+              "status": "",
+              "morning": "",
+              "afternoon": ""
+            },
+            {
+              "status": "",
+              "morning": "ORL",
+              "afternoon": "ORL"
+            },
+            {
+              "status": "",
+              "morning": "REA",
+              "afternoon": "REA"
+            },
+            {
+              "status": "",
+              "morning": "ORL",
+              "afternoon": "CS"
+            },
+            {
+              "status": "",
+              "morning": "END",
+              "afternoon": "CS"
+            },
+            {
+              "status": "",
+              "morning": "ORL",
+              "afternoon": "CS"
+            },
+            {
+              "status": "",
+              "morning": "",
+              "afternoon": ""
+            },
+            {
+              "status": "",
+              "morning": "",
+              "afternoon": ""
+            },
+            {
+              "status": "",
+              "morning": "",
+              "afternoon": ""
+            },
+            {
+              "status": "G",
+              "morning": "ORL",
+              "afternoon": "ORL"
             }
           ]
         },
         {
           "id": "FROHLICH",
+          "initials": "AFR",
           "days": [
             {
               "status": "",
-              "morning": "VIS",
+              "morning": "MAT",
+              "afternoon": "MAT"
+            },
+            {
+              "status": "",
+              "morning": "ORT",
               "afternoon": "CS"
             },
             {
               "status": "",
-              "morning": "END",
-              "afternoon": "END"
+              "morning": "ORL",
+              "afternoon": "CS"
             },
             {
               "status": "",
-              "morning": "CI",
-              "afternoon": "CI"
+              "morning": "",
+              "afternoon": ""
             },
             {
-              "status": "18",
-              "morning": "VIS",
-              "afternoon": "CS"
+              "status": "",
+              "morning": "",
+              "afternoon": ""
             },
             {
               "status": "",
@@ -968,42 +979,12 @@
             },
             {
               "status": "G",
+              "morning": "CI",
+              "afternoon": "CI"
+            },
+            {
+              "status": "RG",
               "morning": "",
-              "afternoon": ""
-            },
-            {
-              "status": "F",
-              "morning": "",
-              "afternoon": ""
-            },
-            {
-              "status": "F",
-              "morning": "",
-              "afternoon": ""
-            },
-            {
-              "status": "",
-              "morning": "RI",
-              "afternoon": "CS"
-            },
-            {
-              "status": "",
-              "morning": "",
-              "afternoon": ""
-            },
-            {
-              "status": "",
-              "morning": "END",
-              "afternoon": "END"
-            },
-            {
-              "status": "",
-              "morning": "",
-              "afternoon": ""
-            },
-            {
-              "status": "",
-              "morning": "REA",
               "afternoon": ""
             },
             {
@@ -1013,15 +994,45 @@
             },
             {
               "status": "",
-              "morning": "END",
-              "afternoon": "CS"
+              "morning": "ORL",
+              "afternoon": "ORL"
             },
             {
-              "status": "G",
+              "status": "",
+              "morning": "REA",
+              "afternoon": "REA"
+            },
+            {
+              "status": "",
+              "morning": "",
+              "afternoon": ""
+            },
+            {
+              "status": "",
+              "morning": "",
+              "afternoon": ""
+            },
+            {
+              "status": "",
+              "morning": "ORL",
+              "afternoon": "ORL"
+            },
+            {
+              "status": "",
+              "morning": "REA",
+              "afternoon": "REA"
+            },
+            {
+              "status": "",
               "morning": "MAT",
               "afternoon": "MAT"
             },
             {
+              "status": "G",
+              "morning": "",
+              "afternoon": ""
+            },
+            {
               "status": "RG",
               "morning": "",
               "afternoon": ""
@@ -1037,19 +1048,24 @@
               "afternoon": ""
             },
             {
+              "status": "18",
+              "morning": "REA",
+              "afternoon": "REA"
+            },
+            {
+              "status": "",
+              "morning": "END",
+              "afternoon": "CS"
+            },
+            {
+              "status": "",
+              "morning": "REA",
+              "afternoon": "REA"
+            },
+            {
               "status": "",
               "morning": "",
               "afternoon": ""
-            },
-            {
-              "status": "",
-              "morning": "ORL",
-              "afternoon": "ORL"
-            },
-            {
-              "status": "",
-              "morning": "DVI",
-              "afternoon": "DVI"
             },
             {
               "status": "",
@@ -1059,12 +1075,7 @@
             {
               "status": "",
               "morning": "MAT",
-              "afternoon": "CS"
-            },
-            {
-              "status": "18",
-              "morning": "ORL",
-              "afternoon": "ORL"
+              "afternoon": ""
             },
             {
               "status": "",
@@ -1073,24 +1084,145 @@
             },
             {
               "status": "",
-              "morning": "",
-              "afternoon": ""
+              "morning": "CI",
+              "afternoon": "CI"
             },
             {
               "status": "G",
-              "morning": "VIS",
-              "afternoon": "VIS"
-            },
-            {
-              "status": "RG",
-              "morning": "",
-              "afternoon": ""
+              "morning": "CI",
+              "afternoon": "CI"
             }
           ]
         },
         {
           "id": "FERRIERO",
+          "initials": "AF",
           "days": [
+            {
+              "status": "",
+              "morning": "ORL",
+              "afternoon": "ORL"
+            },
+            {
+              "status": "",
+              "morning": "",
+              "afternoon": ""
+            },
+            {
+              "status": "",
+              "morning": "VIS",
+              "afternoon": "VIS"
+            },
+            {
+              "status": "",
+              "morning": "",
+              "afternoon": ""
+            },
+            {
+              "status": "",
+              "morning": "",
+              "afternoon": ""
+            },
+            {
+              "status": "",
+              "morning": "",
+              "afternoon": ""
+            },
+            {
+              "status": "",
+              "morning": "",
+              "afternoon": ""
+            },
+            {
+              "status": "",
+              "morning": "ORT",
+              "afternoon": "ORT"
+            },
+            {
+              "status": "",
+              "morning": "ORL",
+              "afternoon": "CS"
+            },
+            {
+              "status": "",
+              "morning": "",
+              "afternoon": ""
+            },
+            {
+              "status": "G",
+              "morning": "",
+              "afternoon": ""
+            },
+            {
+              "status": "RG",
+              "morning": "",
+              "afternoon": ""
+            },
+            {
+              "status": "",
+              "morning": "",
+              "afternoon": ""
+            },
+            {
+              "status": "",
+              "morning": "",
+              "afternoon": ""
+            },
+            {
+              "status": "",
+              "morning": "",
+              "afternoon": ""
+            },
+            {
+              "status": "",
+              "morning": "",
+              "afternoon": ""
+            },
+            {
+              "status": "",
+              "morning": "",
+              "afternoon": ""
+            },
+            {
+              "status": "18",
+              "morning": "MAT",
+              "afternoon": "CS"
+            },
+            {
+              "status": "",
+              "morning": "REA",
+              "afternoon": "REA"
+            },
+            {
+              "status": "",
+              "morning": "",
+              "afternoon": ""
+            },
+            {
+              "status": "",
+              "morning": "",
+              "afternoon": ""
+            },
+            {
+              "status": "G",
+              "morning": "VIS",
+              "afternoon": "VIS"
+            },
+            {
+              "status": "RG",
+              "morning": "",
+              "afternoon": ""
+            },
+            {
+              "status": "",
+              "morning": "CI",
+              "afternoon": "CI"
+            },
+            {
+              "status": "",
+              "morning": "END",
+              "afternoon": "CS"
+            },
             {
               "status": "",
               "morning": "MAT",
@@ -1102,96 +1234,6 @@
               "afternoon": ""
             },
             {
-              "status": "18",
-              "morning": "",
-              "afternoon": ""
-            },
-            {
-              "status": "",
-              "morning": "ORT",
-              "afternoon": "ORT"
-            },
-            {
-              "status": "",
-              "morning": "ORL",
-              "afternoon": "CS"
-            },
-            {
-              "status": "",
-              "morning": "",
-              "afternoon": ""
-            },
-            {
-              "status": "G",
-              "morning": "",
-              "afternoon": ""
-            },
-            {
-              "status": "RG",
-              "morning": "",
-              "afternoon": ""
-            },
-            {
-              "status": "",
-              "morning": "",
-              "afternoon": ""
-            },
-            {
-              "status": "",
-              "morning": "REA",
-              "afternoon": "REA"
-            },
-            {
-              "status": "",
-              "morning": "VIS",
-              "afternoon": "VIS"
-            },
-            {
-              "status": "",
-              "morning": "VIS",
-              "afternoon": "VIS"
-            },
-            {
-              "status": "",
-              "morning": "",
-              "afternoon": ""
-            },
-            {
-              "status": "",
-              "morning": "",
-              "afternoon": ""
-            },
-            {
-              "status": "",
-              "morning": "VIS",
-              "afternoon": "CS"
-            },
-            {
-              "status": "",
-              "morning": "CI",
-              "afternoon": "CI"
-            },
-            {
-              "status": "G",
-              "morning": "REA",
-              "afternoon": "REA"
-            },
-            {
-              "status": "RG",
-              "morning": "",
-              "afternoon": ""
-            },
-            {
-              "status": "",
-              "morning": "",
-              "afternoon": ""
-            },
-            {
-              "status": "",
-              "morning": "",
-              "afternoon": ""
-            },
-            {
               "status": "",
               "morning": "",
               "afternoon": ""
@@ -1203,41 +1245,6 @@
             },
             {
               "status": "",
-              "morning": "VIS",
-              "afternoon": "CS"
-            },
-            {
-              "status": "",
-              "morning": "REA",
-              "afternoon": "REA"
-            },
-            {
-              "status": "18",
-              "morning": "ORL",
-              "afternoon": "ORL"
-            },
-            {
-              "status": "",
-              "morning": "END",
-              "afternoon": "END"
-            },
-            {
-              "status": "",
-              "morning": "",
-              "afternoon": ""
-            },
-            {
-              "status": "",
-              "morning": "MAT",
-              "afternoon": ""
-            },
-            {
-              "status": "G",
-              "morning": "REA",
-              "afternoon": "REA"
-            },
-            {
-              "status": "RG",
               "morning": "",
               "afternoon": ""
             }
@@ -1245,6 +1252,7 @@
         },
         {
           "id": "GHIGLIONE",
+          "initials": "SG",
           "days": [
             {
               "status": "",
@@ -1253,11 +1261,6 @@
             },
             {
               "status": "",
-              "morning": "REA",
-              "afternoon": "REA"
-            },
-            {
-              "status": "",
               "morning": "",
               "afternoon": ""
             },
@@ -1265,386 +1268,11 @@
               "status": "",
               "morning": "",
               "afternoon": ""
-            },
-            {
-              "status": "",
-              "morning": "",
-              "afternoon": ""
-            },
-            {
-              "status": "",
-              "morning": "",
-              "afternoon": ""
-            },
-            {
-              "status": "",
-              "morning": "",
-              "afternoon": ""
-            },
-            {
-              "status": "",
-              "morning": "END",
-              "afternoon": "CS"
-            },
-            {
-              "status": "",
-              "morning": "REA",
-              "afternoon": "REA"
-            },
-            {
-              "status": "G",
-              "morning": "",
-              "afternoon": ""
-            },
-            {
-              "status": "RG",
-              "morning": "",
-              "afternoon": ""
-            },
-            {
-              "status": "",
-              "morning": "ORL",
-              "afternoon": "CS"
-            },
-            {
-              "status": "",
-              "morning": "",
-              "afternoon": ""
-            },
-            {
-              "status": "",
-              "morning": "",
-              "afternoon": ""
-            },
-            {
-              "status": "",
-              "morning": "ORL",
-              "afternoon": "ORL"
-            },
-            {
-              "status": "",
-              "morning": "",
-              "afternoon": ""
-            },
-            {
-              "status": "",
-              "morning": "",
-              "afternoon": ""
-            },
-            {
-              "status": "",
-              "morning": "REA",
-              "afternoon": "REA"
-            },
-            {
-              "status": "18",
-              "morning": "",
-              "afternoon": ""
-            },
-            {
-              "status": "G",
-              "morning": "",
-              "afternoon": ""
-            },
-            {
-              "status": "RG",
-              "morning": "",
-              "afternoon": ""
-            },
-            {
-              "status": "",
-              "morning": "",
-              "afternoon": ""
-            },
-            {
-              "status": "",
-              "morning": "",
-              "afternoon": ""
-            },
-            {
-              "status": "",
-              "morning": "",
-              "afternoon": ""
-            },
-            {
-              "status": "",
-              "morning": "RI",
-              "afternoon": "RI"
-            },
-            {
-              "status": "",
-              "morning": "MAT",
-              "afternoon": "MAT"
-            },
-            {
-              "status": "",
-              "morning": "REA",
-              "afternoon": ""
-            },
-            {
-              "status": "",
-              "morning": "",
-              "afternoon": ""
-            },
-            {
-              "status": "",
-              "morning": "MAT",
-              "afternoon": "MAT"
-            },
-            {
-              "status": "",
-              "morning": "",
-              "afternoon": ""
-            }
-          ]
-        },
-        {
-          "id": "GUERIN",
-          "days": [
-            {
-              "status": "",
-              "morning": "",
-              "afternoon": ""
-            },
-            {
-              "status": "",
-              "morning": "VIS",
-              "afternoon": "VIS"
-            },
-            {
-              "status": "",
-              "morning": "ORL",
-              "afternoon": "CS"
-            },
-            {
-              "status": "",
-              "morning": "REA",
-              "afternoon": "REA"
-            },
-            {
-              "status": "",
-              "morning": "",
-              "afternoon": ""
-            },
-            {
-              "status": "",
-              "morning": "",
-              "afternoon": ""
-            },
-            {
-              "status": "",
-              "morning": "",
-              "afternoon": ""
-            },
-            {
-              "status": "",
-              "morning": "VIS",
-              "afternoon": "VIS"
             },
             {
               "status": "",
               "morning": "ORT",
-              "afternoon": "CS"
-            },
-            {
-              "status": "",
-              "morning": "",
-              "afternoon": ""
-            },
-            {
-              "status": "G",
-              "morning": "",
-              "afternoon": ""
-            },
-            {
-              "status": "RG",
-              "morning": "",
-              "afternoon": ""
-            },
-            {
-              "status": "",
-              "morning": "",
-              "afternoon": ""
-            },
-            {
-              "status": "",
-              "morning": "",
-              "afternoon": ""
-            },
-            {
-              "status": "",
-              "morning": "REA",
-              "afternoon": "REA"
-            },
-            {
-              "status": "18",
-              "morning": "",
-              "afternoon": ""
-            },
-            {
-              "status": "",
-              "morning": "RI",
-              "afternoon": "CS"
-            },
-            {
-              "status": "",
-              "morning": "ORL",
-              "afternoon": "ORL"
-            },
-            {
-              "status": "",
-              "morning": "REA",
-              "afternoon": "REA"
-            },
-            {
-              "status": "",
-              "morning": "REA",
-              "afternoon": ""
-            },
-            {
-              "status": "",
-              "morning": "",
-              "afternoon": ""
-            },
-            {
-              "status": "G",
-              "morning": "REA",
-              "afternoon": "REA"
-            },
-            {
-              "status": "RG",
-              "morning": "",
-              "afternoon": ""
-            },
-            {
-              "status": "",
-              "morning": "RI",
-              "afternoon": "CS"
-            },
-            {
-              "status": "",
-              "morning": "",
-              "afternoon": ""
-            },
-            {
-              "status": "",
-              "morning": "REA",
-              "afternoon": "REA"
-            },
-            {
-              "status": "",
-              "morning": "",
-              "afternoon": ""
-            },
-            {
-              "status": "",
-              "morning": "",
-              "afternoon": ""
-            },
-            {
-              "status": "",
-              "morning": "",
-              "afternoon": ""
-            },
-            {
-              "status": "",
-              "morning": "ORL",
-              "afternoon": "CS"
-            }
-          ]
-        },
-        {
-          "id": "LEVASSEUR",
-          "days": [
-            {
-              "status": "",
-              "morning": "END",
-              "afternoon": "CS"
-            },
-            {
-              "status": "",
-              "morning": "REA",
-              "afternoon": "REA"
-            },
-            {
-              "status": "",
-              "morning": "VIS",
-              "afternoon": "VIS"
-            },
-            {
-              "status": "G",
-              "morning": "VIS",
-              "afternoon": "VIS"
-            },
-            {
-              "status": "RG",
-              "morning": "",
-              "afternoon": ""
-            },
-            {
-              "status": "",
-              "morning": "REA",
-              "afternoon": ""
-            },
-            {
-              "status": "",
-              "morning": "",
-              "afternoon": ""
-            },
-            {
-              "status": "",
-              "morning": "",
-              "afternoon": ""
-            },
-            {
-              "status": "",
-              "morning": "DVI",
-              "afternoon": "DVI"
-            },
-            {
-              "status": "",
-              "morning": "MAT",
-              "afternoon": "MAT"
-            },
-            {
-              "status": "",
-              "morning": "RI",
-              "afternoon": "RI"
-            },
-            {
-              "status": "",
-              "morning": "VIS",
-              "afternoon": "VIS"
-            },
-            {
-              "status": "",
-              "morning": "",
-              "afternoon": ""
-            },
-            {
-              "status": "",
-              "morning": "",
-              "afternoon": ""
-            },
-            {
-              "status": "CP",
-              "morning": "",
-              "afternoon": ""
-            },
-            {
-              "status": "CP",
-              "morning": "",
-              "afternoon": ""
-            },
-            {
-              "status": "CP",
-              "morning": "",
-              "afternoon": ""
-            },
-            {
-              "status": "CP",
-              "morning": "",
-              "afternoon": ""
+              "afternoon": "ORT"
             },
             {
               "status": "",
@@ -1657,14 +1285,205 @@
               "afternoon": ""
             },
             {
+              "status": "G",
+              "morning": "REA",
+              "afternoon": "REA"
+            },
+            {
+              "status": "RG",
+              "morning": "",
+              "afternoon": ""
+            },
+            {
               "status": "",
               "morning": "REA",
+              "afternoon": "REA"
+            },
+            {
+              "status": "",
+              "morning": "",
               "afternoon": ""
+            },
+            {
+              "status": "",
+              "morning": "END",
+              "afternoon": "END"
+            },
+            {
+              "status": "",
+              "morning": "ORL",
+              "afternoon": "CS"
+            },
+            {
+              "status": "",
+              "morning": "",
+              "afternoon": ""
+            },
+            {
+              "status": "",
+              "morning": "",
+              "afternoon": ""
+            },
+            {
+              "status": "18",
+              "morning": "VIS",
+              "afternoon": "VIS"
             },
             {
               "status": "",
               "morning": "CI",
               "afternoon": "CI"
+            },
+            {
+              "status": "G",
+              "morning": "",
+              "afternoon": ""
+            },
+            {
+              "status": "RG",
+              "morning": "",
+              "afternoon": ""
+            },
+            {
+              "status": "",
+              "morning": "",
+              "afternoon": ""
+            },
+            {
+              "status": "",
+              "morning": "",
+              "afternoon": ""
+            },
+            {
+              "status": "",
+              "morning": "",
+              "afternoon": ""
+            },
+            {
+              "status": "",
+              "morning": "END",
+              "afternoon": "CS"
+            },
+            {
+              "status": "",
+              "morning": "ORT",
+              "afternoon": "CS"
+            },
+            {
+              "status": "",
+              "morning": "",
+              "afternoon": ""
+            },
+            {
+              "status": "",
+              "morning": "",
+              "afternoon": ""
+            },
+            {
+              "status": "",
+              "morning": "VIS",
+              "afternoon": "VIS"
+            },
+            {
+              "status": "",
+              "morning": "",
+              "afternoon": ""
+            },
+            {
+              "status": "",
+              "morning": "",
+              "afternoon": ""
+            },
+            {
+              "status": "G",
+              "morning": "VIS",
+              "afternoon": "VIS"
+            },
+            {
+              "status": "RG",
+              "morning": "",
+              "afternoon": ""
+            }
+          ]
+        },
+        {
+          "id": "GUERIN",
+          "initials": "JPG",
+          "days": [
+            {
+              "status": "",
+              "morning": "VIS",
+              "afternoon": "VIS"
+            },
+            {
+              "status": "",
+              "morning": "ORL",
+              "afternoon": "ORL"
+            },
+            {
+              "status": "",
+              "morning": "CI",
+              "afternoon": "CI"
+            },
+            {
+              "status": "",
+              "morning": "",
+              "afternoon": ""
+            },
+            {
+              "status": "",
+              "morning": "",
+              "afternoon": ""
+            },
+            {
+              "status": "",
+              "morning": "MAT",
+              "afternoon": ""
+            },
+            {
+              "status": "",
+              "morning": "",
+              "afternoon": ""
+            },
+            {
+              "status": "",
+              "morning": "ORT",
+              "afternoon": "ORT"
+            },
+            {
+              "status": "",
+              "morning": "",
+              "afternoon": ""
+            },
+            {
+              "status": "G",
+              "morning": "VIS",
+              "afternoon": "CS"
+            },
+            {
+              "status": "RG",
+              "morning": "",
+              "afternoon": ""
+            },
+            {
+              "status": "18",
+              "morning": "REA",
+              "afternoon": "REA"
+            },
+            {
+              "status": "",
+              "morning": "",
+              "afternoon": ""
+            },
+            {
+              "status": "",
+              "morning": "",
+              "afternoon": ""
+            },
+            {
+              "status": "",
+              "morning": "END",
+              "afternoon": "CS"
             },
             {
               "status": "",
@@ -1682,6 +1501,147 @@
               "afternoon": "ORT"
             },
             {
+              "status": "A",
+              "morning": "",
+              "afternoon": ""
+            },
+            {
+              "status": "G",
+              "morning": "MAT",
+              "afternoon": "MAT"
+            },
+            {
+              "status": "RG",
+              "morning": "",
+              "afternoon": ""
+            },
+            {
+              "status": "CP",
+              "morning": "",
+              "afternoon": ""
+            },
+            {
+              "status": "CP",
+              "morning": "",
+              "afternoon": ""
+            },
+            {
+              "status": "CP",
+              "morning": "",
+              "afternoon": ""
+            },
+            {
+              "status": "CP",
+              "morning": "",
+              "afternoon": ""
+            },
+            {
+              "status": "CP",
+              "morning": "",
+              "afternoon": ""
+            },
+            {
+              "status": "",
+              "morning": "",
+              "afternoon": ""
+            },
+            {
+              "status": "",
+              "morning": "",
+              "afternoon": ""
+            },
+            {
+              "status": "",
+              "morning": "VIS",
+              "afternoon": "CS"
+            },
+            {
+              "status": "",
+              "morning": "END",
+              "afternoon": "CS"
+            }
+          ]
+        },
+        {
+          "id": "LEVASSEUR",
+          "initials": "LUL",
+          "days": [
+            {
+              "status": "",
+              "morning": "VIS",
+              "afternoon": "VIS"
+            },
+            {
+              "status": "18",
+              "morning": "",
+              "afternoon": ""
+            },
+            {
+              "status": "",
+              "morning": "ORL",
+              "afternoon": "ORL"
+            },
+            {
+              "status": "",
+              "morning": "",
+              "afternoon": ""
+            },
+            {
+              "status": "G",
+              "morning": "ORL",
+              "afternoon": "ORL"
+            },
+            {
+              "status": "RG",
+              "morning": "",
+              "afternoon": ""
+            },
+            {
+              "status": "",
+              "morning": "",
+              "afternoon": ""
+            },
+            {
+              "status": "",
+              "morning": "VIS",
+              "afternoon": "VIS"
+            },
+            {
+              "status": "",
+              "morning": "END",
+              "afternoon": "END"
+            },
+            {
+              "status": "",
+              "morning": "END",
+              "afternoon": "CS"
+            },
+            {
+              "status": "",
+              "morning": "",
+              "afternoon": ""
+            },
+            {
+              "status": "",
+              "morning": "",
+              "afternoon": ""
+            },
+            {
+              "status": "",
+              "morning": "",
+              "afternoon": ""
+            },
+            {
+              "status": "",
+              "morning": "",
+              "afternoon": ""
+            },
+            {
+              "status": "",
+              "morning": "",
+              "afternoon": ""
+            },
+            {
               "status": "G",
               "morning": "REA",
               "afternoon": "REA"
@@ -1698,8 +1658,58 @@
             },
             {
               "status": "",
+              "morning": "VIS",
+              "afternoon": "VIS"
+            },
+            {
+              "status": "",
+              "morning": "",
+              "afternoon": ""
+            },
+            {
+              "status": "",
+              "morning": "",
+              "afternoon": ""
+            },
+            {
+              "status": "",
               "morning": "REA",
               "afternoon": "REA"
+            },
+            {
+              "status": "",
+              "morning": "",
+              "afternoon": ""
+            },
+            {
+              "status": "18",
+              "morning": "ORT",
+              "afternoon": "CS"
+            },
+            {
+              "status": "",
+              "morning": "VIS",
+              "afternoon": "VIS"
+            },
+            {
+              "status": "",
+              "morning": "ORL",
+              "afternoon": "ORL"
+            },
+            {
+              "status": "G",
+              "morning": "MAT",
+              "afternoon": "MAT"
+            },
+            {
+              "status": "RG",
+              "morning": "",
+              "afternoon": ""
+            },
+            {
+              "status": "",
+              "morning": "VIS",
+              "afternoon": "VIS"
             },
             {
               "status": "",
@@ -1710,11 +1720,52 @@
         },
         {
           "id": "LEY",
+          "initials": "LL",
           "days": [
             {
               "status": "",
+              "morning": "",
+              "afternoon": ""
+            },
+            {
+              "status": "",
+              "morning": "DVI",
+              "afternoon": "DVI"
+            },
+            {
+              "status": "",
+              "morning": "VIS",
+              "afternoon": "CS"
+            },
+            {
+              "status": "",
+              "morning": "ORL",
+              "afternoon": "CS"
+            },
+            {
+              "status": "G",
               "morning": "REA",
               "afternoon": "REA"
+            },
+            {
+              "status": "RG",
+              "morning": "",
+              "afternoon": ""
+            },
+            {
+              "status": "",
+              "morning": "",
+              "afternoon": ""
+            },
+            {
+              "status": "",
+              "morning": "MAT",
+              "afternoon": "MAT"
+            },
+            {
+              "status": "",
+              "morning": "",
+              "afternoon": ""
             },
             {
               "status": "",
@@ -1723,13 +1774,8 @@
             },
             {
               "status": "",
-              "morning": "",
-              "afternoon": ""
-            },
-            {
-              "status": "",
-              "morning": "",
-              "afternoon": ""
+              "morning": "VIS",
+              "afternoon": "CS"
             },
             {
               "status": "",
@@ -1743,53 +1789,8 @@
             },
             {
               "status": "",
-              "morning": "",
+              "morning": "REA",
               "afternoon": ""
-            },
-            {
-              "status": "18",
-              "morning": "CI",
-              "afternoon": "CI"
-            },
-            {
-              "status": "G",
-              "morning": "",
-              "afternoon": ""
-            },
-            {
-              "status": "RG",
-              "morning": "",
-              "afternoon": ""
-            },
-            {
-              "status": "CP",
-              "morning": "",
-              "afternoon": ""
-            },
-            {
-              "status": "CP",
-              "morning": "",
-              "afternoon": ""
-            },
-            {
-              "status": "A",
-              "morning": "",
-              "afternoon": ""
-            },
-            {
-              "status": "",
-              "morning": "",
-              "afternoon": ""
-            },
-            {
-              "status": "CP",
-              "morning": "",
-              "afternoon": ""
-            },
-            {
-              "status": "",
-              "morning": "ORL",
-              "afternoon": "CS"
             },
             {
               "status": "",
@@ -1797,29 +1798,14 @@
               "afternoon": "REA"
             },
             {
-              "status": "",
+              "status": "G",
               "morning": "END",
-              "afternoon": "CS"
-            },
-            {
-              "status": "",
-              "morning": "",
-              "afternoon": ""
-            },
-            {
-              "status": "G",
-              "morning": "",
-              "afternoon": ""
+              "afternoon": "END"
             },
             {
               "status": "RG",
               "morning": "",
               "afternoon": ""
-            },
-            {
-              "status": "",
-              "morning": "REA",
-              "afternoon": "REA"
             },
             {
               "status": "",
@@ -1838,8 +1824,13 @@
             },
             {
               "status": "",
+              "morning": "",
+              "afternoon": ""
+            },
+            {
+              "status": "",
               "morning": "VIS",
-              "afternoon": "VIS"
+              "afternoon": "CS"
             },
             {
               "status": "",
@@ -1848,8 +1839,13 @@
             },
             {
               "status": "",
-              "morning": "",
-              "afternoon": ""
+              "morning": "MAT",
+              "afternoon": "MAT"
+            },
+            {
+              "status": "",
+              "morning": "REA",
+              "afternoon": "REA"
             },
             {
               "status": "",
@@ -1857,7 +1853,22 @@
               "afternoon": ""
             },
             {
-              "status": "18",
+              "status": "G",
+              "morning": "REA",
+              "afternoon": "REA"
+            },
+            {
+              "status": "RG",
+              "morning": "",
+              "afternoon": ""
+            },
+            {
+              "status": "",
+              "morning": "VIS",
+              "afternoon": "CS"
+            },
+            {
+              "status": "",
               "morning": "",
               "afternoon": ""
             }
@@ -1865,46 +1876,12 @@
         },
         {
           "id": "MENADE",
+          "initials": "RM",
           "days": [
             {
               "status": "",
-              "morning": "ORT",
-              "afternoon": "ORT"
-            },
-            {
-              "status": "G",
               "morning": "",
               "afternoon": ""
-            },
-            {
-              "status": "RG",
-              "morning": "",
-              "afternoon": ""
-            },
-            {
-              "status": "",
-              "morning": "RI",
-              "afternoon": "RI"
-            },
-            {
-              "status": "",
-              "morning": "ORL",
-              "afternoon": "ORL"
-            },
-            {
-              "status": "",
-              "morning": "",
-              "afternoon": ""
-            },
-            {
-              "status": "",
-              "morning": "",
-              "afternoon": ""
-            },
-            {
-              "status": "",
-              "morning": "ORL",
-              "afternoon": "ORL"
             },
             {
               "status": "",
@@ -1912,41 +1889,11 @@
               "afternoon": "VIS"
             },
             {
-              "status": "",
-              "morning": "",
-              "afternoon": ""
-            },
-            {
               "status": "18",
               "morning": "",
               "afternoon": ""
             },
             {
-              "status": "CP",
-              "morning": "",
-              "afternoon": ""
-            },
-            {
-              "status": "",
-              "morning": "",
-              "afternoon": ""
-            },
-            {
-              "status": "G",
-              "morning": "",
-              "afternoon": ""
-            },
-            {
-              "status": "CP",
-              "morning": "",
-              "afternoon": ""
-            },
-            {
-              "status": "CP",
-              "morning": "",
-              "afternoon": ""
-            },
-            {
               "status": "",
               "morning": "",
               "afternoon": ""
@@ -1958,28 +1905,8 @@
             },
             {
               "status": "",
-              "morning": "ORL",
-              "afternoon": "ORL"
-            },
-            {
-              "status": "",
               "morning": "",
               "afternoon": ""
-            },
-            {
-              "status": "",
-              "morning": "",
-              "afternoon": ""
-            },
-            {
-              "status": "",
-              "morning": "END",
-              "afternoon": "CS"
-            },
-            {
-              "status": "",
-              "morning": "ORL",
-              "afternoon": "CS"
             },
             {
               "status": "G",
@@ -1993,6 +1920,71 @@
             },
             {
               "status": "",
+              "morning": "ORT",
+              "afternoon": "CS"
+            },
+            {
+              "status": "",
+              "morning": "CI",
+              "afternoon": "CI"
+            },
+            {
+              "status": "",
+              "morning": "REA",
+              "afternoon": "REA"
+            },
+            {
+              "status": "",
+              "morning": "CI",
+              "afternoon": "CI"
+            },
+            {
+              "status": "",
+              "morning": "",
+              "afternoon": ""
+            },
+            {
+              "status": "",
+              "morning": "",
+              "afternoon": ""
+            },
+            {
+              "status": "",
+              "morning": "VIS",
+              "afternoon": "CS"
+            },
+            {
+              "status": "",
+              "morning": "ORT",
+              "afternoon": "CS"
+            },
+            {
+              "status": "",
+              "morning": "VIS",
+              "afternoon": "VIS"
+            },
+            {
+              "status": "G",
+              "morning": "END",
+              "afternoon": "END"
+            },
+            {
+              "status": "RG",
+              "morning": "",
+              "afternoon": ""
+            },
+            {
+              "status": "",
+              "morning": "",
+              "afternoon": ""
+            },
+            {
+              "status": "",
+              "morning": "REA",
+              "afternoon": ""
+            },
+            {
+              "status": "",
               "morning": "VIS",
               "afternoon": "VIS"
             },
@@ -2008,33 +2000,109 @@
             },
             {
               "status": "",
-              "morning": "CI",
-              "afternoon": "CI"
+              "morning": "ORT",
+              "afternoon": "ORT"
+            },
+            {
+              "status": "18",
+              "morning": "END",
+              "afternoon": "END"
             },
             {
               "status": "",
-              "morning": "MAT",
-              "afternoon": "CS"
+              "morning": "",
+              "afternoon": ""
+            },
+            {
+              "status": "",
+              "morning": "",
+              "afternoon": ""
+            },
+            {
+              "status": "G",
+              "morning": "ORT",
+              "afternoon": "ORT"
+            },
+            {
+              "status": "RG",
+              "morning": "",
+              "afternoon": ""
             }
           ]
         },
         {
           "id": "OPPRECHT",
+          "initials": "NO",
           "days": [
             {
-              "status": "",
-              "morning": "VIS",
-              "afternoon": "CS"
+              "status": "CP",
+              "morning": "",
+              "afternoon": ""
+            },
+            {
+              "status": "CP",
+              "morning": "",
+              "afternoon": ""
+            },
+            {
+              "status": "CP",
+              "morning": "",
+              "afternoon": ""
+            },
+            {
+              "status": "CP",
+              "morning": "",
+              "afternoon": ""
+            },
+            {
+              "status": "CP",
+              "morning": "",
+              "afternoon": ""
             },
             {
               "status": "",
-              "morning": "VIS",
-              "afternoon": "CS"
+              "morning": "",
+              "afternoon": ""
+            },
+            {
+              "status": "",
+              "morning": "",
+              "afternoon": ""
             },
             {
               "status": "",
               "morning": "REA",
               "afternoon": "REA"
+            },
+            {
+              "status": "G",
+              "morning": "",
+              "afternoon": ""
+            },
+            {
+              "status": "RG",
+              "morning": "",
+              "afternoon": ""
+            },
+            {
+              "status": "",
+              "morning": "",
+              "afternoon": ""
+            },
+            {
+              "status": "",
+              "morning": "END",
+              "afternoon": "END"
+            },
+            {
+              "status": "",
+              "morning": "",
+              "afternoon": ""
+            },
+            {
+              "status": "",
+              "morning": "",
+              "afternoon": ""
             },
             {
               "status": "",
@@ -2044,31 +2112,6 @@
             {
               "status": "",
               "morning": "VIS",
-              "afternoon": "VIS"
-            },
-            {
-              "status": "",
-              "morning": "",
-              "afternoon": ""
-            },
-            {
-              "status": "",
-              "morning": "",
-              "afternoon": ""
-            },
-            {
-              "status": "",
-              "morning": "",
-              "afternoon": ""
-            },
-            {
-              "status": "",
-              "morning": "CI",
-              "afternoon": "CI"
-            },
-            {
-              "status": "",
-              "morning": "ORL",
               "afternoon": "CS"
             },
             {
@@ -2077,9 +2120,14 @@
               "afternoon": "REA"
             },
             {
+              "status": "",
+              "morning": "REA",
+              "afternoon": "REA"
+            },
+            {
               "status": "G",
-              "morning": "CI",
-              "afternoon": "CI"
+              "morning": "",
+              "afternoon": ""
             },
             {
               "status": "RG",
@@ -2088,118 +2136,79 @@
             },
             {
               "status": "",
-              "morning": "",
+              "morning": "MAT",
               "afternoon": ""
             },
             {
               "status": "",
-              "morning": "VIS",
-              "afternoon": "VIS"
-            },
-            {
-              "status": "",
-              "morning": "ORT",
-              "afternoon": "CS"
-            },
-            {
-              "status": "",
-              "morning": "CI",
-              "afternoon": "CI"
-            },
-            {
-              "status": "",
-              "morning": "ORT",
-              "afternoon": "ORT"
-            },
-            {
-              "status": "",
-              "morning": "VIS",
-              "afternoon": "VIS"
+              "morning": "REA",
+              "afternoon": "REA"
             },
             {
               "status": "",
               "morning": "",
               "afternoon": ""
-            },
-            {
-              "status": "",
-              "morning": "",
-              "afternoon": ""
-            },
-            {
-              "status": "G",
-              "morning": "ORT",
-              "afternoon": "ORT"
-            },
-            {
-              "status": "RG",
-              "morning": "",
-              "afternoon": ""
-            },
-            {
-              "status": "",
-              "morning": "ORT",
-              "afternoon": "ORT"
-            },
-            {
-              "status": "",
-              "morning": "VIS",
-              "afternoon": "VIS"
-            },
-            {
-              "status": "",
-              "morning": "",
-              "afternoon": ""
-            },
-            {
-              "status": "",
-              "morning": "",
-              "afternoon": ""
-            },
-            {
-              "status": "",
-              "morning": "",
-              "afternoon": ""
-            },
-            {
-              "status": "",
-              "morning": "ORT",
-              "afternoon": "ORT"
             },
             {
               "status": "",
               "morning": "VIS",
               "afternoon": "CS"
+            },
+            {
+              "status": "18",
+              "morning": "END",
+              "afternoon": "END"
+            },
+            {
+              "status": "",
+              "morning": "END",
+              "afternoon": "END"
+            },
+            {
+              "status": "",
+              "morning": "",
+              "afternoon": ""
+            },
+            {
+              "status": "",
+              "morning": "",
+              "afternoon": ""
+            },
+            {
+              "status": "",
+              "morning": "END",
+              "afternoon": "END"
+            },
+            {
+              "status": "",
+              "morning": "",
+              "afternoon": ""
             }
           ]
         },
         {
           "id": "PARTOUCHE",
+          "initials": "NP",
           "days": [
             {
               "status": "",
-              "morning": "ORT",
-              "afternoon": "ORT"
+              "morning": "",
+              "afternoon": ""
             },
             {
               "status": "",
-              "morning": "END",
-              "afternoon": "CS"
+              "morning": "",
+              "afternoon": ""
             },
             {
               "status": "",
-              "morning": "ORT",
-              "afternoon": "ORT"
-            },
-            {
-              "status": "",
-              "morning": "ORL",
+              "morning": "RI",
               "afternoon": "CS"
             },
             {
               "status": "G",
-              "morning": "END",
-              "afternoon": "END"
+              "morning": "MAT",
+              "afternoon": "CS"
             },
             {
               "status": "RG",
@@ -2210,61 +2219,6 @@
               "status": "",
               "morning": "",
               "afternoon": ""
-            },
-            {
-              "status": "",
-              "morning": "REA",
-              "afternoon": "REA"
-            },
-            {
-              "status": "",
-              "morning": "VIS",
-              "afternoon": "CS"
-            },
-            {
-              "status": "",
-              "morning": "",
-              "afternoon": ""
-            },
-            {
-              "status": "",
-              "morning": "",
-              "afternoon": ""
-            },
-            {
-              "status": "18",
-              "morning": "REA",
-              "afternoon": "REA"
-            },
-            {
-              "status": "",
-              "morning": "",
-              "afternoon": ""
-            },
-            {
-              "status": "",
-              "morning": "",
-              "afternoon": ""
-            },
-            {
-              "status": "",
-              "morning": "END",
-              "afternoon": "CS"
-            },
-            {
-              "status": "G",
-              "morning": "REA",
-              "afternoon": "REA"
-            },
-            {
-              "status": "RG",
-              "morning": "",
-              "afternoon": ""
-            },
-            {
-              "status": "",
-              "morning": "VIS",
-              "afternoon": "VIS"
             },
             {
               "status": "",
@@ -2288,8 +2242,8 @@
             },
             {
               "status": "",
-              "morning": "END",
-              "afternoon": "CS"
+              "morning": "",
+              "afternoon": ""
             },
             {
               "status": "",
@@ -2299,12 +2253,67 @@
             {
               "status": "",
               "morning": "REA",
-              "afternoon": "REA"
+              "afternoon": ""
             },
             {
               "status": "",
               "morning": "",
               "afternoon": ""
+            },
+            {
+              "status": "G",
+              "morning": "END",
+              "afternoon": "CS"
+            },
+            {
+              "status": "RG",
+              "morning": "",
+              "afternoon": ""
+            },
+            {
+              "status": "",
+              "morning": "END",
+              "afternoon": "END"
+            },
+            {
+              "status": "",
+              "morning": "VIS",
+              "afternoon": "VIS"
+            },
+            {
+              "status": "18",
+              "morning": "",
+              "afternoon": ""
+            },
+            {
+              "status": "",
+              "morning": "MAT",
+              "afternoon": ""
+            },
+            {
+              "status": "",
+              "morning": "",
+              "afternoon": ""
+            },
+            {
+              "status": "",
+              "morning": "",
+              "afternoon": ""
+            },
+            {
+              "status": "",
+              "morning": "VIS",
+              "afternoon": "VIS"
+            },
+            {
+              "status": "",
+              "morning": "RI",
+              "afternoon": "CS"
+            },
+            {
+              "status": "",
+              "morning": "VIS",
+              "afternoon": "VIS"
             },
             {
               "status": "G",
@@ -2318,18 +2327,24 @@
             },
             {
               "status": "",
-              "morning": "VIS",
-              "afternoon": "CS"
+              "morning": "",
+              "afternoon": ""
             },
             {
               "status": "",
-              "morning": "END",
-              "afternoon": "END"
+              "morning": "ORL",
+              "afternoon": "ORL"
+            },
+            {
+              "status": "",
+              "morning": "REA",
+              "afternoon": "REA"
             }
           ]
         },
         {
           "id": "ROUSSEAU",
+          "initials": "GR",
           "days": [
             {
               "status": "",
@@ -2338,78 +2353,18 @@
             },
             {
               "status": "",
-              "morning": "REA",
-              "afternoon": "REA"
-            },
-            {
-              "status": "G",
-              "morning": "END",
-              "afternoon": "CS"
-            },
-            {
-              "status": "RG",
-              "morning": "",
-              "afternoon": ""
-            },
-            {
-              "status": "",
-              "morning": "",
-              "afternoon": ""
-            },
-            {
-              "status": "",
-              "morning": "",
-              "afternoon": ""
-            },
-            {
-              "status": "",
-              "morning": "",
-              "afternoon": ""
-            },
-            {
-              "status": "",
-              "morning": "END",
-              "afternoon": "CS"
-            },
-            {
-              "status": "",
-              "morning": "END",
-              "afternoon": "END"
-            },
-            {
-              "status": "",
-              "morning": "VIS",
-              "afternoon": "CS"
-            },
-            {
-              "status": "",
               "morning": "ORL",
-              "afternoon": "ORL"
+              "afternoon": "CS"
             },
             {
               "status": "",
               "morning": "END",
-              "afternoon": "END"
-            },
-            {
-              "status": "",
-              "morning": "",
-              "afternoon": ""
-            },
-            {
-              "status": "G",
-              "morning": "",
-              "afternoon": ""
-            },
-            {
-              "status": "RG",
-              "morning": "",
-              "afternoon": ""
-            },
-            {
-              "status": "",
-              "morning": "VIS",
               "afternoon": "CS"
+            },
+            {
+              "status": "",
+              "morning": "",
+              "afternoon": ""
             },
             {
               "status": "",
@@ -2418,43 +2373,28 @@
             },
             {
               "status": "",
+              "morning": "",
+              "afternoon": ""
+            },
+            {
+              "status": "",
+              "morning": "MAT",
+              "afternoon": ""
+            },
+            {
+              "status": "18",
+              "morning": "VIS",
+              "afternoon": "CS"
+            },
+            {
+              "status": "",
               "morning": "END",
-              "afternoon": "END"
-            },
-            {
-              "status": "",
-              "morning": "",
-              "afternoon": ""
-            },
-            {
-              "status": "",
-              "morning": "",
-              "afternoon": ""
-            },
-            {
-              "status": "",
-              "morning": "",
-              "afternoon": ""
-            },
-            {
-              "status": "",
-              "morning": "",
-              "afternoon": ""
-            },
-            {
-              "status": "",
-              "morning": "REA",
-              "afternoon": "REA"
-            },
-            {
-              "status": "",
-              "morning": "",
-              "afternoon": ""
+              "afternoon": "CS"
             },
             {
               "status": "G",
-              "morning": "",
-              "afternoon": ""
+              "morning": "ORT",
+              "afternoon": "ORT"
             },
             {
               "status": "RG",
@@ -2473,103 +2413,109 @@
             },
             {
               "status": "",
-              "morning": "ORT",
-              "afternoon": "ORT"
+              "morning": "",
+              "afternoon": ""
             },
             {
               "status": "",
-              "morning": "CI",
-              "afternoon": "CI"
+              "morning": "",
+              "afternoon": ""
+            },
+            {
+              "status": "",
+              "morning": "",
+              "afternoon": ""
+            },
+            {
+              "status": "CP",
+              "morning": "",
+              "afternoon": ""
+            },
+            {
+              "status": "CP",
+              "morning": "",
+              "afternoon": ""
+            },
+            {
+              "status": "CP",
+              "morning": "",
+              "afternoon": ""
+            },
+            {
+              "status": "",
+              "morning": "",
+              "afternoon": ""
+            },
+            {
+              "status": "G",
+              "morning": "REA",
+              "afternoon": "REA"
+            },
+            {
+              "status": "RG",
+              "morning": "",
+              "afternoon": ""
+            },
+            {
+              "status": "",
+              "morning": "END",
+              "afternoon": "END"
+            },
+            {
+              "status": "",
+              "morning": "",
+              "afternoon": ""
+            },
+            {
+              "status": "",
+              "morning": "RI",
+              "afternoon": "RI"
+            },
+            {
+              "status": "",
+              "morning": "",
+              "afternoon": ""
+            },
+            {
+              "status": "",
+              "morning": "",
+              "afternoon": ""
+            },
+            {
+              "status": "",
+              "morning": "REA",
+              "afternoon": ""
+            },
+            {
+              "status": "",
+              "morning": "END",
+              "afternoon": "CS"
+            },
+            {
+              "status": "",
+              "morning": "VIS",
+              "afternoon": "VIS"
             }
           ]
         },
         {
           "id": "SALA",
+          "initials": "NS",
           "days": [
             {
-              "status": "",
-              "morning": "END",
-              "afternoon": "END"
-            },
-            {
-              "status": "18",
-              "morning": "DVI",
-              "afternoon": "DVI"
-            },
-            {
-              "status": "",
-              "morning": "END",
-              "afternoon": "END"
-            },
-            {
-              "status": "",
-              "morning": "END",
-              "afternoon": "CS"
-            },
-            {
-              "status": "",
-              "morning": "END",
-              "afternoon": "END"
-            },
-            {
               "status": "G",
-              "morning": "MAT",
-              "afternoon": ""
+              "morning": "VIS",
+              "afternoon": "CS"
             },
             {
               "status": "RG",
               "morning": "",
               "afternoon": ""
-            },
-            {
-              "status": "",
-              "morning": "VIS",
-              "afternoon": "VIS"
-            },
-            {
-              "status": "",
-              "morning": "",
-              "afternoon": ""
-            },
-            {
-              "status": "",
-              "morning": "ORL",
-              "afternoon": "ORL"
-            },
-            {
-              "status": "",
-              "morning": "MAT",
-              "afternoon": "CS"
             },
             {
               "status": "",
               "morning": "REA",
               "afternoon": "REA"
-            },
-            {
-              "status": "",
-              "morning": "REA",
-              "afternoon": ""
-            },
-            {
-              "status": "",
-              "morning": "",
-              "afternoon": ""
-            },
-            {
-              "status": "",
-              "morning": "",
-              "afternoon": ""
-            },
-            {
-              "status": "G",
-              "morning": "END",
-              "afternoon": "END"
-            },
-            {
-              "status": "RG",
-              "morning": "",
-              "afternoon": ""
             },
             {
               "status": "",
@@ -2593,528 +2539,48 @@
             },
             {
               "status": "",
-              "morning": "VIS",
-              "afternoon": "VIS"
+              "morning": "END",
+              "afternoon": "CS"
             },
             {
               "status": "",
               "morning": "VIS",
               "afternoon": "VIS"
+            },
+            {
+              "status": "",
+              "morning": "RI",
+              "afternoon": "CS"
+            },
+            {
+              "status": "",
+              "morning": "",
+              "afternoon": ""
+            },
+            {
+              "status": "G",
+              "morning": "ORT",
+              "afternoon": "ORT"
+            },
+            {
+              "status": "RG",
+              "morning": "",
+              "afternoon": ""
+            },
+            {
+              "status": "",
+              "morning": "",
+              "afternoon": ""
+            },
+            {
+              "status": "",
+              "morning": "ORT",
+              "afternoon": "ORT"
             },
             {
               "status": "18",
-              "morning": "ORT",
-              "afternoon": "CS"
-            },
-            {
-              "status": "",
-              "morning": "",
-              "afternoon": ""
-            },
-            {
-              "status": "",
-              "morning": "ORT",
-              "afternoon": "ORT"
-            },
-            {
-              "status": "",
-              "morning": "",
-              "afternoon": ""
-            },
-            {
-              "status": "G",
-              "morning": "",
-              "afternoon": ""
-            },
-            {
-              "status": "RG",
-              "morning": "",
-              "afternoon": ""
-            },
-            {
-              "status": "",
-              "morning": "",
-              "afternoon": ""
-            }
-          ]
-        },
-        {
-          "id": "SEVERAC",
-          "days": [
-            {
-              "status": "",
-              "morning": "",
-              "afternoon": ""
-            },
-            {
-              "status": "",
-              "morning": "",
-              "afternoon": ""
-            },
-            {
-              "status": "G",
-              "morning": "MAT",
-              "afternoon": "MAT"
-            },
-            {
-              "status": "RG",
-              "morning": "",
-              "afternoon": ""
-            },
-            {
-              "status": "",
-              "morning": "ORT",
-              "afternoon": "ORT"
-            },
-            {
-              "status": "",
-              "morning": "",
-              "afternoon": ""
-            },
-            {
-              "status": "",
-              "morning": "MAT",
-              "afternoon": ""
-            },
-            {
-              "status": "",
-              "morning": "ORT",
-              "afternoon": "ORT"
-            },
-            {
-              "status": "",
-              "morning": "END",
-              "afternoon": "END"
-            },
-            {
-              "status": "",
-              "morning": "REA",
-              "afternoon": "REA"
-            },
-            {
-              "status": "",
-              "morning": "REA",
-              "afternoon": "REA"
-            },
-            {
-              "status": "",
-              "morning": "ORL",
-              "afternoon": "ORL"
-            },
-            {
-              "status": "",
-              "morning": "",
-              "afternoon": ""
-            },
-            {
-              "status": "",
-              "morning": "",
-              "afternoon": ""
-            },
-            {
-              "status": "G",
-              "morning": "CI",
-              "afternoon": "CI"
-            },
-            {
-              "status": "RG",
-              "morning": "",
-              "afternoon": ""
-            },
-            {
-              "status": "",
-              "morning": "END",
-              "afternoon": "END"
-            },
-            {
-              "status": "",
-              "morning": "",
-              "afternoon": ""
-            },
-            {
-              "status": "",
               "morning": "VIS",
               "afternoon": "VIS"
-            },
-            {
-              "status": "",
-              "morning": "",
-              "afternoon": ""
-            },
-            {
-              "status": "",
-              "morning": "",
-              "afternoon": ""
-            },
-            {
-              "status": "",
-              "morning": "END",
-              "afternoon": "CS"
-            },
-            {
-              "status": "",
-              "morning": "",
-              "afternoon": ""
-            },
-            {
-              "status": "",
-              "morning": "REA",
-              "afternoon": "REA"
-            },
-            {
-              "status": "G",
-              "morning": "REA",
-              "afternoon": "REA"
-            },
-            {
-              "status": "RG",
-              "morning": "",
-              "afternoon": ""
-            },
-            {
-              "status": "",
-              "morning": "",
-              "afternoon": ""
-            },
-            {
-              "status": "",
-              "morning": "",
-              "afternoon": ""
-            },
-            {
-              "status": "",
-              "morning": "ORL",
-              "afternoon": "ORL"
-            },
-            {
-              "status": "",
-              "morning": "",
-              "afternoon": ""
-            }
-          ]
-        },
-        {
-          "id": "SULTAN",
-          "days": [
-            {
-              "status": "",
-              "morning": "",
-              "afternoon": ""
-            },
-            {
-              "status": "",
-              "morning": "",
-              "afternoon": ""
-            },
-            {
-              "status": "",
-              "morning": "END",
-              "afternoon": "END"
-            },
-            {
-              "status": "",
-              "morning": "REA",
-              "afternoon": "REA"
-            },
-            {
-              "status": "",
-              "morning": "",
-              "afternoon": ""
-            },
-            {
-              "status": "",
-              "morning": "",
-              "afternoon": ""
-            },
-            {
-              "status": "",
-              "morning": "",
-              "afternoon": ""
-            },
-            {
-              "status": "A",
-              "morning": "",
-              "afternoon": ""
-            },
-            {
-              "status": "",
-              "morning": "MAT",
-              "afternoon": "CS"
-            },
-            {
-              "status": "G",
-              "morning": "ORT",
-              "afternoon": "CS"
-            },
-            {
-              "status": "RG",
-              "morning": "",
-              "afternoon": ""
-            },
-            {
-              "status": "",
-              "morning": "MAT",
-              "afternoon": "MAT"
-            },
-            {
-              "status": "",
-              "morning": "",
-              "afternoon": ""
-            },
-            {
-              "status": "",
-              "morning": "",
-              "afternoon": ""
-            },
-            {
-              "status": "",
-              "morning": "MAT",
-              "afternoon": "MAT"
-            },
-            {
-              "status": "",
-              "morning": "ORL",
-              "afternoon": "ORL"
-            },
-            {
-              "status": "",
-              "morning": "END",
-              "afternoon": "CS"
-            },
-            {
-              "status": "18",
-              "morning": "REA",
-              "afternoon": "REA"
-            },
-            {
-              "status": "",
-              "morning": "ORL",
-              "afternoon": "CS"
-            },
-            {
-              "status": "",
-              "morning": "",
-              "afternoon": ""
-            },
-            {
-              "status": "G",
-              "morning": "",
-              "afternoon": ""
-            },
-            {
-              "status": "RG",
-              "morning": "",
-              "afternoon": ""
-            },
-            {
-              "status": "",
-              "morning": "",
-              "afternoon": ""
-            },
-            {
-              "status": "",
-              "morning": "VIS",
-              "afternoon": "VIS"
-            },
-            {
-              "status": "",
-              "morning": "",
-              "afternoon": ""
-            },
-            {
-              "status": "",
-              "morning": "END",
-              "afternoon": "END"
-            },
-            {
-              "status": "",
-              "morning": "",
-              "afternoon": ""
-            },
-            {
-              "status": "",
-              "morning": "",
-              "afternoon": ""
-            },
-            {
-              "status": "",
-              "morning": "ORL",
-              "afternoon": "ORL"
-            },
-            {
-              "status": "",
-              "morning": "END",
-              "afternoon": "CS"
-            }
-          ]
-        },
-        {
-          "id": "SUPLY",
-          "days": [
-            {
-              "status": "G",
-              "morning": "ORL",
-              "afternoon": "ORL"
-            },
-            {
-              "status": "RG",
-              "morning": "",
-              "afternoon": ""
-            },
-            {
-              "status": "",
-              "morning": "",
-              "afternoon": ""
-            },
-            {
-              "status": "",
-              "morning": "",
-              "afternoon": ""
-            },
-            {
-              "status": "",
-              "morning": "REA",
-              "afternoon": "REA"
-            },
-            {
-              "status": "",
-              "morning": "",
-              "afternoon": ""
-            },
-            {
-              "status": "",
-              "morning": "",
-              "afternoon": ""
-            },
-            {
-              "status": "",
-              "morning": "REA",
-              "afternoon": "REA"
-            },
-            {
-              "status": "",
-              "morning": "END",
-              "afternoon": "CS"
-            },
-            {
-              "status": "",
-              "morning": "END",
-              "afternoon": "END"
-            },
-            {
-              "status": "",
-              "morning": "ORT",
-              "afternoon": "ORT"
-            },
-            {
-              "status": "",
-              "morning": "",
-              "afternoon": ""
-            },
-            {
-              "status": "G",
-              "morning": "",
-              "afternoon": ""
-            },
-            {
-              "status": "RG",
-              "morning": "",
-              "afternoon": ""
-            },
-            {
-              "status": "18",
-              "morning": "",
-              "afternoon": ""
-            },
-            {
-              "status": "",
-              "morning": "DVI",
-              "afternoon": "DVI"
-            },
-            {
-              "status": "",
-              "morning": "ORL",
-              "afternoon": "CS"
-            },
-            {
-              "status": "",
-              "morning": "ORL",
-              "afternoon": "CS"
-            },
-            {
-              "status": "",
-              "morning": "",
-              "afternoon": ""
-            },
-            {
-              "status": "",
-              "morning": "",
-              "afternoon": ""
-            },
-            {
-              "status": "",
-              "morning": "",
-              "afternoon": ""
-            },
-            {
-              "status": "",
-              "morning": "",
-              "afternoon": ""
-            },
-            {
-              "status": "G",
-              "morning": "",
-              "afternoon": ""
-            },
-            {
-              "status": "RG",
-              "morning": "",
-              "afternoon": ""
-            },
-            {
-              "status": "",
-              "morning": "END",
-              "afternoon": "CS"
-            },
-            {
-              "status": "",
-              "morning": "",
-              "afternoon": ""
-            },
-            {
-              "status": "",
-              "morning": "",
-              "afternoon": ""
-            },
-            {
-              "status": "",
-              "morning": "",
-              "afternoon": ""
-            },
-            {
-              "status": "",
-              "morning": "END",
-              "afternoon": "CS"
-            },
-            {
-              "status": "",
-              "morning": "",
-              "afternoon": ""
-            }
-          ]
-        },
-        {
-          "id": "WIDEHEM",
-          "days": [
-            {
-              "status": "",
-              "morning": "",
-              "afternoon": ""
-            },
-            {
-              "status": "",
-              "morning": "",
-              "afternoon": ""
             },
             {
               "status": "",
@@ -3128,6 +2594,92 @@
             },
             {
               "status": "",
+              "morning": "ORL",
+              "afternoon": "ORL"
+            },
+            {
+              "status": "",
+              "morning": "",
+              "afternoon": ""
+            },
+            {
+              "status": "",
+              "morning": "",
+              "afternoon": ""
+            },
+            {
+              "status": "",
+              "morning": "",
+              "afternoon": ""
+            },
+            {
+              "status": "G",
+              "morning": "DVI",
+              "afternoon": "DVI"
+            },
+            {
+              "status": "RG",
+              "morning": "",
+              "afternoon": ""
+            },
+            {
+              "status": "",
+              "morning": "",
+              "afternoon": ""
+            },
+            {
+              "status": "",
+              "morning": "REA",
+              "afternoon": "REA"
+            },
+            {
+              "status": "",
+              "morning": "",
+              "afternoon": ""
+            },
+            {
+              "status": "",
+              "morning": "",
+              "afternoon": ""
+            },
+            {
+              "status": "",
+              "morning": "",
+              "afternoon": ""
+            },
+            {
+              "status": "",
+              "morning": "DVI",
+              "afternoon": "DVI"
+            }
+          ]
+        },
+        {
+          "id": "SEVERAC",
+          "initials": "MS",
+          "days": [
+            {
+              "status": "",
+              "morning": "REA",
+              "afternoon": "REA"
+            },
+            {
+              "status": "",
+              "morning": "",
+              "afternoon": ""
+            },
+            {
+              "status": "G",
+              "morning": "",
+              "afternoon": ""
+            },
+            {
+              "status": "RG",
+              "morning": "",
+              "afternoon": ""
+            },
+            {
+              "status": "",
               "morning": "",
               "afternoon": ""
             },
@@ -3147,9 +2699,34 @@
               "afternoon": "ORL"
             },
             {
+              "status": "",
+              "morning": "MAT",
+              "afternoon": "CS"
+            },
+            {
+              "status": "",
+              "morning": "END",
+              "afternoon": "END"
+            },
+            {
+              "status": "",
+              "morning": "REA",
+              "afternoon": "REA"
+            },
+            {
+              "status": "",
+              "morning": "",
+              "afternoon": ""
+            },
+            {
+              "status": "",
+              "morning": "",
+              "afternoon": ""
+            },
+            {
               "status": "G",
-              "morning": "VIS",
-              "afternoon": "VIS"
+              "morning": "MAT",
+              "afternoon": "MAT"
             },
             {
               "status": "RG",
@@ -3158,23 +2735,89 @@
             },
             {
               "status": "",
-              "morning": "END",
-              "afternoon": "END"
+              "morning": "",
+              "afternoon": ""
+            },
+            {
+              "status": "",
+              "morning": "VIS",
+              "afternoon": "CS"
             },
             {
               "status": "",
               "morning": "END",
-              "afternoon": "END"
+              "afternoon": "CS"
             },
             {
               "status": "",
-              "morning": "MAT",
+              "morning": "REA",
+              "afternoon": "REA"
+            },
+            {
+              "status": "",
+              "morning": "",
+              "afternoon": ""
+            },
+            {
+              "status": "",
+              "morning": "",
               "afternoon": ""
             },
             {
               "status": "",
               "morning": "MAT",
+              "afternoon": "MAT"
+            },
+            {
+              "status": "",
+              "morning": "REA",
+              "afternoon": "REA"
+            },
+            {
+              "status": "",
+              "morning": "VIS",
+              "afternoon": "VIS"
+            },
+            {
+              "status": "G",
+              "morning": "ORL",
+              "afternoon": "CS"
+            },
+            {
+              "status": "RG",
+              "morning": "",
               "afternoon": ""
+            },
+            {
+              "status": "",
+              "morning": "",
+              "afternoon": ""
+            },
+            {
+              "status": "",
+              "morning": "",
+              "afternoon": ""
+            },
+            {
+              "status": "",
+              "morning": "REA",
+              "afternoon": "REA"
+            },
+            {
+              "status": "18",
+              "morning": "REA",
+              "afternoon": "REA"
+            }
+          ]
+        },
+        {
+          "id": "SULTAN",
+          "initials": "WS",
+          "days": [
+            {
+              "status": "",
+              "morning": "CI",
+              "afternoon": "CI"
             },
             {
               "status": "",
@@ -3183,7 +2826,7 @@
             },
             {
               "status": "",
-              "morning": "MAT",
+              "morning": "ORT",
               "afternoon": "CS"
             },
             {
@@ -3193,13 +2836,83 @@
             },
             {
               "status": "",
+              "morning": "END",
+              "afternoon": "END"
+            },
+            {
+              "status": "",
+              "morning": "",
+              "afternoon": ""
+            },
+            {
+              "status": "",
+              "morning": "",
+              "afternoon": ""
+            },
+            {
+              "status": "",
               "morning": "VIS",
               "afternoon": "VIS"
             },
             {
               "status": "G",
+              "morning": "REA",
+              "afternoon": "REA"
+            },
+            {
+              "status": "RG",
+              "morning": "",
+              "afternoon": ""
+            },
+            {
+              "status": "",
+              "morning": "ORT",
+              "afternoon": "ORT"
+            },
+            {
+              "status": "",
+              "morning": "VIS",
+              "afternoon": "VIS"
+            },
+            {
+              "status": "",
+              "morning": "",
+              "afternoon": ""
+            },
+            {
+              "status": "",
+              "morning": "",
+              "afternoon": ""
+            },
+            {
+              "status": "",
+              "morning": "REA",
+              "afternoon": "REA"
+            },
+            {
+              "status": "",
               "morning": "END",
               "afternoon": "END"
+            },
+            {
+              "status": "18",
+              "morning": "",
+              "afternoon": ""
+            },
+            {
+              "status": "",
+              "morning": "REA",
+              "afternoon": "REA"
+            },
+            {
+              "status": "",
+              "morning": "END",
+              "afternoon": "END"
+            },
+            {
+              "status": "G",
+              "morning": "REA",
+              "afternoon": "REA"
             },
             {
               "status": "RG",
@@ -3213,6 +2926,399 @@
             },
             {
               "status": "",
+              "morning": "",
+              "afternoon": ""
+            },
+            {
+              "status": "",
+              "morning": "END",
+              "afternoon": "END"
+            },
+            {
+              "status": "",
+              "morning": "",
+              "afternoon": ""
+            },
+            {
+              "status": "A",
+              "morning": "",
+              "afternoon": ""
+            },
+            {
+              "status": "",
+              "morning": "",
+              "afternoon": ""
+            },
+            {
+              "status": "",
+              "morning": "",
+              "afternoon": ""
+            },
+            {
+              "status": "",
+              "morning": "REA",
+              "afternoon": "REA"
+            },
+            {
+              "status": "",
+              "morning": "VIS",
+              "afternoon": "VIS"
+            }
+          ]
+        },
+        {
+          "id": "SUPLY",
+          "initials": "CS",
+          "days": [
+            {
+              "status": "G",
+              "morning": "VIS",
+              "afternoon": "CS"
+            },
+            {
+              "status": "RG",
+              "morning": "",
+              "afternoon": ""
+            },
+            {
+              "status": "",
+              "morning": "END",
+              "afternoon": "END"
+            },
+            {
+              "status": "",
+              "morning": "VIS",
+              "afternoon": "CS"
+            },
+            {
+              "status": "",
+              "morning": "",
+              "afternoon": ""
+            },
+            {
+              "status": "",
+              "morning": "",
+              "afternoon": ""
+            },
+            {
+              "status": "",
+              "morning": "",
+              "afternoon": ""
+            },
+            {
+              "status": "",
+              "morning": "",
+              "afternoon": ""
+            },
+            {
+              "status": "18",
+              "morning": "VIS",
+              "afternoon": "VIS"
+            },
+            {
+              "status": "",
+              "morning": "ORL",
+              "afternoon": "ORL"
+            },
+            {
+              "status": "",
+              "morning": "END",
+              "afternoon": "CS"
+            },
+            {
+              "status": "G",
+              "morning": "ORL",
+              "afternoon": "ORL"
+            },
+            {
+              "status": "RG",
+              "morning": "",
+              "afternoon": ""
+            },
+            {
+              "status": "",
+              "morning": "",
+              "afternoon": ""
+            },
+            {
+              "status": "",
+              "morning": "ORT",
+              "afternoon": "ORT"
+            },
+            {
+              "status": "",
+              "morning": "",
+              "afternoon": ""
+            },
+            {
+              "status": "",
+              "morning": "ORT",
+              "afternoon": "ORT"
+            },
+            {
+              "status": "",
+              "morning": "END",
+              "afternoon": "CS"
+            },
+            {
+              "status": "",
+              "morning": "REA",
+              "afternoon": "REA"
+            },
+            {
+              "status": "",
+              "morning": "",
+              "afternoon": ""
+            },
+            {
+              "status": "",
+              "morning": "",
+              "afternoon": ""
+            },
+            {
+              "status": "",
+              "morning": "VIS",
+              "afternoon": "CS"
+            },
+            {
+              "status": "G",
+              "morning": "VIS",
+              "afternoon": "CS"
+            },
+            {
+              "status": "RG",
+              "morning": "",
+              "afternoon": ""
+            },
+            {
+              "status": "",
+              "morning": "ORL",
+              "afternoon": "ORL"
+            },
+            {
+              "status": "",
+              "morning": "REA",
+              "afternoon": "REA"
+            },
+            {
+              "status": "",
+              "morning": "",
+              "afternoon": ""
+            },
+            {
+              "status": "",
+              "morning": "",
+              "afternoon": ""
+            },
+            {
+              "status": "",
+              "morning": "ORL",
+              "afternoon": "ORL"
+            },
+            {
+              "status": "",
+              "morning": "MAT",
+              "afternoon": "CS"
+            }
+          ]
+        },
+        {
+          "id": "WIDEHEM",
+          "initials": "RW",
+          "days": [
+            {
+              "status": "",
+              "morning": "END",
+              "afternoon": "CS"
+            },
+            {
+              "status": "",
+              "morning": "REA",
+              "afternoon": "REA"
+            },
+            {
+              "status": "G",
+              "morning": "VIS",
+              "afternoon": "VIS"
+            },
+            {
+              "status": "RG",
+              "morning": "",
+              "afternoon": ""
+            },
+            {
+              "status": "18",
+              "morning": "CI",
+              "afternoon": "CI"
+            },
+            {
+              "status": "",
+              "morning": "",
+              "afternoon": ""
+            },
+            {
+              "status": "",
+              "morning": "",
+              "afternoon": ""
+            },
+            {
+              "status": "",
+              "morning": "REA",
+              "afternoon": "REA"
+            },
+            {
+              "status": "",
+              "morning": "",
+              "afternoon": ""
+            },
+            {
+              "status": "",
+              "morning": "REA",
+              "afternoon": "REA"
+            },
+            {
+              "status": "",
+              "morning": "RI",
+              "afternoon": "RI"
+            },
+            {
+              "status": "",
+              "morning": "VIS",
+              "afternoon": "VIS"
+            },
+            {
+              "status": "",
+              "morning": "",
+              "afternoon": ""
+            },
+            {
+              "status": "G",
+              "morning": "REA",
+              "afternoon": "REA"
+            },
+            {
+              "status": "RG",
+              "morning": "",
+              "afternoon": ""
+            },
+            {
+              "status": "",
+              "morning": "END",
+              "afternoon": "CS"
+            },
+            {
+              "status": "CP",
+              "morning": "",
+              "afternoon": ""
+            },
+            {
+              "status": "CP",
+              "morning": "",
+              "afternoon": ""
+            },
+            {
+              "status": "CP",
+              "morning": "",
+              "afternoon": ""
+            },
+            {
+              "status": "",
+              "morning": "",
+              "afternoon": ""
+            },
+            {
+              "status": "",
+              "morning": "",
+              "afternoon": ""
+            },
+            {
+              "status": "",
+              "morning": "",
+              "afternoon": ""
+            },
+            {
+              "status": "",
+              "morning": "",
+              "afternoon": ""
+            },
+            {
+              "status": "",
+              "morning": "",
+              "afternoon": ""
+            },
+            {
+              "status": "G",
+              "morning": "VIS",
+              "afternoon": "CS"
+            },
+            {
+              "status": "RG",
+              "morning": "",
+              "afternoon": ""
+            },
+            {
+              "status": "",
+              "morning": "",
+              "afternoon": ""
+            },
+            {
+              "status": "",
+              "morning": "",
+              "afternoon": ""
+            },
+            {
+              "status": "",
+              "morning": "END",
+              "afternoon": "CS"
+            },
+            {
+              "status": "",
+              "morning": "END",
+              "afternoon": "END"
+            }
+          ]
+        },
+        {
+          "id": "ZAMARON",
+          "initials": "FZ",
+          "days": [
+            {
+              "status": "CP",
+              "morning": "",
+              "afternoon": ""
+            },
+            {
+              "status": "CP",
+              "morning": "",
+              "afternoon": ""
+            },
+            {
+              "status": "CP",
+              "morning": "",
+              "afternoon": ""
+            },
+            {
+              "status": "CP",
+              "morning": "",
+              "afternoon": ""
+            },
+            {
+              "status": "CP",
+              "morning": "",
+              "afternoon": ""
+            },
+            {
+              "status": "",
+              "morning": "",
+              "afternoon": ""
+            },
+            {
+              "status": "",
+              "morning": "",
+              "afternoon": ""
+            },
+            {
+              "status": "",
               "morning": "END",
               "afternoon": "END"
             },
@@ -3227,7 +3333,389 @@
               "afternoon": ""
             },
             {
+              "status": "G",
+              "morning": "VIS",
+              "afternoon": "VIS"
+            },
+            {
+              "status": "RG",
+              "morning": "",
+              "afternoon": ""
+            },
+            {
               "status": "",
+              "morning": "",
+              "afternoon": ""
+            },
+            {
+              "status": "",
+              "morning": "",
+              "afternoon": ""
+            },
+            {
+              "status": "",
+              "morning": "MAT",
+              "afternoon": "MAT"
+            },
+            {
+              "status": "",
+              "morning": "ORL",
+              "afternoon": "ORL"
+            },
+            {
+              "status": "",
+              "morning": "ORL",
+              "afternoon": "CS"
+            },
+            {
+              "status": "",
+              "morning": "",
+              "afternoon": ""
+            },
+            {
+              "status": "",
+              "morning": "END",
+              "afternoon": "END"
+            },
+            {
+              "status": "",
+              "morning": "",
+              "afternoon": ""
+            },
+            {
+              "status": "",
+              "morning": "",
+              "afternoon": ""
+            },
+            {
+              "status": "A",
+              "morning": "",
+              "afternoon": ""
+            },
+            {
+              "status": "",
+              "morning": "ORL",
+              "afternoon": "ORL"
+            },
+            {
+              "status": "",
+              "morning": "ORL",
+              "afternoon": "ORL"
+            },
+            {
+              "status": "",
+              "morning": "",
+              "afternoon": ""
+            },
+            {
+              "status": "",
+              "morning": "REA",
+              "afternoon": "REA"
+            },
+            {
+              "status": "",
+              "morning": "",
+              "afternoon": ""
+            },
+            {
+              "status": "",
+              "morning": "",
+              "afternoon": ""
+            },
+            {
+              "status": "18",
+              "morning": "",
+              "afternoon": ""
+            },
+            {
+              "status": "",
+              "morning": "ORL",
+              "afternoon": "CS"
+            }
+          ]
+        },
+        {
+          "id": "TRAN",
+          "initials": "DT",
+          "days": [
+            {
+              "status": "",
+              "morning": "",
+              "afternoon": ""
+            },
+            {
+              "status": "",
+              "morning": "MAT",
+              "afternoon": "CS"
+            },
+            {
+              "status": "",
+              "morning": "END",
+              "afternoon": "END"
+            },
+            {
+              "status": "G",
+              "morning": "END",
+              "afternoon": "CS"
+            },
+            {
+              "status": "RG",
+              "morning": "",
+              "afternoon": ""
+            },
+            {
+              "status": "",
+              "morning": "",
+              "afternoon": ""
+            },
+            {
+              "status": "",
+              "morning": "REA",
+              "afternoon": ""
+            },
+            {
+              "status": "",
+              "morning": "ORL",
+              "afternoon": "ORL"
+            },
+            {
+              "status": "",
+              "morning": "ORL",
+              "afternoon": "ORL"
+            },
+            {
+              "status": "",
+              "morning": "VIS",
+              "afternoon": "VIS"
+            },
+            {
+              "status": "",
+              "morning": "VIS",
+              "afternoon": "VIS"
+            },
+            {
+              "status": "",
+              "morning": "MAT",
+              "afternoon": "MAT"
+            },
+            {
+              "status": "",
+              "morning": "",
+              "afternoon": ""
+            },
+            {
+              "status": "A",
+              "morning": "",
+              "afternoon": ""
+            },
+            {
+              "status": "G",
+              "morning": "VIS",
+              "afternoon": "CS"
+            },
+            {
+              "status": "RG",
+              "morning": "",
+              "afternoon": ""
+            },
+            {
+              "status": "",
+              "morning": "REA",
+              "afternoon": "REA"
+            },
+            {
+              "status": "",
+              "morning": "",
+              "afternoon": ""
+            },
+            {
+              "status": "",
+              "morning": "ORT",
+              "afternoon": "ORT"
+            },
+            {
+              "status": "",
+              "morning": "REA",
+              "afternoon": ""
+            },
+            {
+              "status": "",
+              "morning": "",
+              "afternoon": ""
+            },
+            {
+              "status": "",
+              "morning": "ORT",
+              "afternoon": "ORT"
+            },
+            {
+              "status": "",
+              "morning": "VIS",
+              "afternoon": "VIS"
+            },
+            {
+              "status": "",
+              "morning": "END",
+              "afternoon": "CS"
+            },
+            {
+              "status": "",
+              "morning": "REA",
+              "afternoon": "REA"
+            },
+            {
+              "status": "G",
+              "morning": "VIS",
+              "afternoon": "VIS"
+            },
+            {
+              "status": "RG",
+              "morning": "",
+              "afternoon": ""
+            },
+            {
+              "status": "",
+              "morning": "",
+              "afternoon": ""
+            },
+            {
+              "status": "",
+              "morning": "MAT",
+              "afternoon": "MAT"
+            },
+            {
+              "status": "",
+              "morning": "",
+              "afternoon": ""
+            }
+          ]
+        },
+        {
+          "id": "PRUNET",
+          "initials": "BP",
+          "days": [
+            {
+              "status": "",
+              "morning": "END",
+              "afternoon": "END"
+            },
+            {
+              "status": "G",
+              "morning": "END",
+              "afternoon": "CS"
+            },
+            {
+              "status": "RG",
+              "morning": "",
+              "afternoon": ""
+            },
+            {
+              "status": "",
+              "morning": "END",
+              "afternoon": "CS"
+            },
+            {
+              "status": "",
+              "morning": "END",
+              "afternoon": "END"
+            },
+            {
+              "status": "",
+              "morning": "",
+              "afternoon": ""
+            },
+            {
+              "status": "",
+              "morning": "",
+              "afternoon": ""
+            },
+            {
+              "status": "",
+              "morning": "",
+              "afternoon": ""
+            },
+            {
+              "status": "",
+              "morning": "VIS",
+              "afternoon": "CS"
+            },
+            {
+              "status": "",
+              "morning": "",
+              "afternoon": ""
+            },
+            {
+              "status": "18",
+              "morning": "",
+              "afternoon": ""
+            },
+            {
+              "status": "",
+              "morning": "",
+              "afternoon": ""
+            },
+            {
+              "status": "G",
+              "morning": "MAT",
+              "afternoon": "MAT"
+            },
+            {
+              "status": "RG",
+              "morning": "",
+              "afternoon": ""
+            },
+            {
+              "status": "",
+              "morning": "VIS",
+              "afternoon": "VIS"
+            },
+            {
+              "status": "",
+              "morning": "DVI",
+              "afternoon": "DVI"
+            },
+            {
+              "status": "",
+              "morning": "REA",
+              "afternoon": "REA"
+            },
+            {
+              "status": "",
+              "morning": "VIS",
+              "afternoon": "CS"
+            },
+            {
+              "status": "",
+              "morning": "VIS",
+              "afternoon": "VIS"
+            },
+            {
+              "status": "A",
+              "morning": "",
+              "afternoon": ""
+            },
+            {
+              "status": "",
+              "morning": "",
+              "afternoon": ""
+            },
+            {
+              "status": "",
+              "morning": "ORL",
+              "afternoon": "ORL"
+            },
+            {
+              "status": "",
+              "morning": "END",
+              "afternoon": "END"
+            },
+            {
+              "status": "G",
+              "morning": "REA",
+              "afternoon": "REA"
+            },
+            {
+              "status": "RG",
               "morning": "",
               "afternoon": ""
             },
@@ -3235,6 +3723,57 @@
               "status": "",
               "morning": "CI",
               "afternoon": "CI"
+            },
+            {
+              "status": "",
+              "morning": "",
+              "afternoon": ""
+            },
+            {
+              "status": "",
+              "morning": "",
+              "afternoon": ""
+            },
+            {
+              "status": "",
+              "morning": "",
+              "afternoon": ""
+            },
+            {
+              "status": "",
+              "morning": "VIS",
+              "afternoon": "CS"
+            }
+          ]
+        },
+        {
+          "id": "DRUGE",
+          "initials": "DD",
+          "days": [
+            {
+              "status": "",
+              "morning": "",
+              "afternoon": ""
+            },
+            {
+              "status": "",
+              "morning": "END",
+              "afternoon": "END"
+            },
+            {
+              "status": "",
+              "morning": "MAT",
+              "afternoon": "MAT"
+            },
+            {
+              "status": "",
+              "morning": "REA",
+              "afternoon": "REA"
+            },
+            {
+              "status": "",
+              "morning": "REA",
+              "afternoon": "REA"
             },
             {
               "status": "",
@@ -3255,171 +3794,6 @@
               "status": "",
               "morning": "DVI",
               "afternoon": "DVI"
-            }
-          ]
-        },
-        {
-          "id": "ZAMARON",
-          "days": [
-            {
-              "status": "",
-              "morning": "",
-              "afternoon": ""
-            },
-            {
-              "status": "",
-              "morning": "",
-              "afternoon": ""
-            },
-            {
-              "status": "",
-              "morning": "",
-              "afternoon": ""
-            },
-            {
-              "status": "",
-              "morning": "",
-              "afternoon": ""
-            },
-            {
-              "status": "18",
-              "morning": "REA",
-              "afternoon": "REA"
-            },
-            {
-              "status": "",
-              "morning": "",
-              "afternoon": ""
-            },
-            {
-              "status": "",
-              "morning": "REA",
-              "afternoon": ""
-            },
-            {
-              "status": "",
-              "morning": "END",
-              "afternoon": "END"
-            },
-            {
-              "status": "",
-              "morning": "REA",
-              "afternoon": "REA"
-            },
-            {
-              "status": "",
-              "morning": "ORT",
-              "afternoon": "ORT"
-            },
-            {
-              "status": "G",
-              "morning": "END",
-              "afternoon": "CS"
-            },
-            {
-              "status": "RG",
-              "morning": "",
-              "afternoon": ""
-            },
-            {
-              "status": "",
-              "morning": "",
-              "afternoon": ""
-            },
-            {
-              "status": "",
-              "morning": "",
-              "afternoon": ""
-            },
-            {
-              "status": "",
-              "morning": "ORT",
-              "afternoon": "ORT"
-            },
-            {
-              "status": "",
-              "morning": "REA",
-              "afternoon": "REA"
-            },
-            {
-              "status": "",
-              "morning": "ORT",
-              "afternoon": "CS"
-            },
-            {
-              "status": "",
-              "morning": "END",
-              "afternoon": "CS"
-            },
-            {
-              "status": "",
-              "morning": "CI",
-              "afternoon": "CI"
-            },
-            {
-              "status": "",
-              "morning": "",
-              "afternoon": ""
-            },
-            {
-              "status": "G",
-              "morning": "",
-              "afternoon": ""
-            },
-            {
-              "status": "RG",
-              "morning": "",
-              "afternoon": ""
-            },
-            {
-              "status": "",
-              "morning": "REA",
-              "afternoon": "REA"
-            },
-            {
-              "status": "",
-              "morning": "VIS",
-              "afternoon": "VIS"
-            },
-            {
-              "status": "",
-              "morning": "",
-              "afternoon": ""
-            },
-            {
-              "status": "",
-              "morning": "",
-              "afternoon": ""
-            },
-            {
-              "status": "",
-              "morning": "",
-              "afternoon": ""
-            },
-            {
-              "status": "",
-              "morning": "",
-              "afternoon": ""
-            },
-            {
-              "status": "18",
-              "morning": "",
-              "afternoon": ""
-            },
-            {
-              "status": "",
-              "morning": "VIS",
-              "afternoon": "VIS"
-            }
-          ]
-        },
-        {
-          "id": "TRAN",
-          "days": [
-            {
-              "status": "",
-              "morning": "END",
-              "afternoon": "CS"
             },
             {
               "status": "",
@@ -3427,47 +3801,12 @@
               "afternoon": "CS"
             },
             {
-              "status": "",
-              "morning": "ORT",
-              "afternoon": "CS"
-            },
-            {
-              "status": "",
+              "status": "CP",
               "morning": "",
               "afternoon": ""
             },
             {
-              "status": "",
-              "morning": "",
-              "afternoon": ""
-            },
-            {
-              "status": "",
-              "morning": "",
-              "afternoon": ""
-            },
-            {
-              "status": "",
-              "morning": "",
-              "afternoon": ""
-            },
-            {
-              "status": "G",
-              "morning": "",
-              "afternoon": ""
-            },
-            {
-              "status": "RG",
-              "morning": "",
-              "afternoon": ""
-            },
-            {
-              "status": "",
-              "morning": "CI",
-              "afternoon": "CI"
-            },
-            {
-              "status": "",
+              "status": "CP",
               "morning": "",
               "afternoon": ""
             },
@@ -3482,44 +3821,14 @@
               "afternoon": ""
             },
             {
-              "status": "",
-              "morning": "",
-              "afternoon": ""
-            },
-            {
-              "status": "",
-              "morning": "VIS",
-              "afternoon": "CS"
-            },
-            {
-              "status": "",
-              "morning": "VIS",
-              "afternoon": "VIS"
-            },
-            {
-              "status": "18",
-              "morning": "ORT",
-              "afternoon": "ORT"
-            },
-            {
-              "status": "G",
-              "morning": "",
-              "afternoon": ""
-            },
-            {
-              "status": "RG",
+              "status": "CP",
               "morning": "",
               "afternoon": ""
             },
             {
               "status": "",
               "morning": "MAT",
-              "afternoon": ""
-            },
-            {
-              "status": "",
-              "morning": "",
-              "afternoon": ""
+              "afternoon": "CS"
             },
             {
               "status": "",
@@ -3528,233 +3837,13 @@
             },
             {
               "status": "",
-              "morning": "",
-              "afternoon": ""
-            },
-            {
-              "status": "",
-              "morning": "END",
-              "afternoon": "END"
-            },
-            {
-              "status": "",
-              "morning": "VIS",
-              "afternoon": "VIS"
-            },
-            {
-              "status": "",
-              "morning": "END",
-              "afternoon": "END"
-            },
-            {
-              "status": "",
-              "morning": "MAT",
-              "afternoon": ""
-            },
-            {
-              "status": "",
-              "morning": "REA",
-              "afternoon": ""
-            },
-            {
-              "status": "",
-              "morning": "END",
-              "afternoon": "CS"
-            },
-            {
-              "status": "G",
-              "morning": "ORL",
-              "afternoon": "ORL"
-            }
-          ]
-        },
-        {
-          "id": "PRUNET",
-          "days": [
-            {
-              "status": "",
-              "morning": "VIS",
-              "afternoon": "VIS"
-            },
-            {
-              "status": "",
-              "morning": "ORL",
-              "afternoon": "ORL"
-            },
-            {
-              "status": "",
-              "morning": "REA",
-              "afternoon": "REA"
-            },
-            {
-              "status": "G",
-              "morning": "END",
-              "afternoon": "END"
-            },
-            {
-              "status": "RG",
-              "morning": "",
-              "afternoon": ""
-            },
-            {
-              "status": "",
-              "morning": "",
-              "afternoon": ""
-            },
-            {
-              "status": "",
-              "morning": "",
-              "afternoon": ""
-            },
-            {
-              "status": "",
-              "morning": "VIS",
-              "afternoon": "CS"
-            },
-            {
-              "status": "CP",
-              "morning": "",
-              "afternoon": ""
-            },
-            {
-              "status": "CP",
-              "morning": "",
-              "afternoon": ""
-            },
-            {
-              "status": "CP",
-              "morning": "",
-              "afternoon": ""
-            },
-            {
-              "status": "CP",
-              "morning": "",
-              "afternoon": ""
-            },
-            {
-              "status": "",
-              "morning": "",
-              "afternoon": ""
-            },
-            {
-              "status": "",
-              "morning": "",
-              "afternoon": ""
-            },
-            {
-              "status": "G",
-              "morning": "END",
-              "afternoon": "CS"
-            },
-            {
-              "status": "RG",
-              "morning": "",
-              "afternoon": ""
-            },
-            {
-              "status": "",
-              "morning": "ORL",
-              "afternoon": "ORL"
-            },
-            {
-              "status": "",
-              "morning": "",
-              "afternoon": ""
-            },
-            {
-              "status": "",
-              "morning": "VIS",
-              "afternoon": "VIS"
-            },
-            {
-              "status": "",
-              "morning": "",
-              "afternoon": ""
-            },
-            {
-              "status": "",
-              "morning": "",
-              "afternoon": ""
-            },
-            {
-              "status": "",
-              "morning": "REA",
-              "afternoon": "REA"
-            },
-            {
-              "status": "",
-              "morning": "",
-              "afternoon": ""
-            },
-            {
-              "status": "",
-              "morning": "REA",
-              "afternoon": "REA"
-            },
-            {
-              "status": "",
-              "morning": "END",
-              "afternoon": "CS"
-            },
-            {
-              "status": "G",
-              "morning": "",
-              "afternoon": ""
-            },
-            {
-              "status": "RG",
-              "morning": "",
-              "afternoon": ""
-            },
-            {
-              "status": "",
-              "morning": "",
-              "afternoon": ""
-            },
-            {
-              "status": "",
-              "morning": "",
-              "afternoon": ""
-            },
-            {
-              "status": "",
-              "morning": "",
-              "afternoon": ""
-            }
-          ]
-        },
-        {
-          "id": "DRUGE",
-          "days": [
-            {
-              "status": "18",
-              "morning": "VIS",
-              "afternoon": "VIS"
+              "morning": "RI",
+              "afternoon": "RI"
             },
             {
               "status": "",
               "morning": "CI",
               "afternoon": "CI"
-            },
-            {
-              "status": "",
-              "morning": "ORL",
-              "afternoon": "ORL"
-            },
-            {
-              "status": "",
-              "morning": "REA",
-              "afternoon": "REA"
-            },
-            {
-              "status": "",
-              "morning": "MAT",
-              "afternoon": "MAT"
-            },
-            {
-              "status": "",
-              "morning": "",
-              "afternoon": ""
             },
             {
               "status": "",
@@ -3773,98 +3862,8 @@
             },
             {
               "status": "",
-              "morning": "VIS",
-              "afternoon": "VIS"
-            },
-            {
-              "status": "",
-              "morning": "REA",
-              "afternoon": "REA"
-            },
-            {
-              "status": "",
-              "morning": "",
-              "afternoon": ""
-            },
-            {
-              "status": "",
-              "morning": "",
-              "afternoon": ""
-            },
-            {
-              "status": "",
-              "morning": "",
-              "afternoon": ""
-            },
-            {
-              "status": "F",
-              "morning": "",
-              "afternoon": ""
-            },
-            {
-              "status": "F",
-              "morning": "",
-              "afternoon": ""
-            },
-            {
-              "status": "",
-              "morning": "END",
-              "afternoon": "END"
-            },
-            {
-              "status": "G",
-              "morning": "VIS",
+              "morning": "MAT",
               "afternoon": "CS"
-            },
-            {
-              "status": "RG",
-              "morning": "",
-              "afternoon": ""
-            },
-            {
-              "status": "",
-              "morning": "",
-              "afternoon": ""
-            },
-            {
-              "status": "A",
-              "morning": "",
-              "afternoon": ""
-            },
-            {
-              "status": "",
-              "morning": "VIS",
-              "afternoon": "CS"
-            },
-            {
-              "status": "18",
-              "morning": "END",
-              "afternoon": "END"
-            },
-            {
-              "status": "",
-              "morning": "ORL",
-              "afternoon": "ORL"
-            },
-            {
-              "status": "",
-              "morning": "ORL",
-              "afternoon": "CS"
-            },
-            {
-              "status": "",
-              "morning": "REA",
-              "afternoon": "REA"
-            },
-            {
-              "status": "",
-              "morning": "",
-              "afternoon": ""
-            },
-            {
-              "status": "",
-              "morning": "",
-              "afternoon": ""
             },
             {
               "status": "",
@@ -3872,9 +3871,34 @@
               "afternoon": "VIS"
             },
             {
-              "status": "G",
-              "morning": "ORT",
-              "afternoon": "CS"
+              "status": "",
+              "morning": "",
+              "afternoon": ""
+            },
+            {
+              "status": "",
+              "morning": "",
+              "afternoon": ""
+            },
+            {
+              "status": "",
+              "morning": "",
+              "afternoon": ""
+            },
+            {
+              "status": "",
+              "morning": "",
+              "afternoon": ""
+            },
+            {
+              "status": "",
+              "morning": "",
+              "afternoon": ""
+            },
+            {
+              "status": "",
+              "morning": "REA",
+              "afternoon": "REA"
             }
           ]
         }
