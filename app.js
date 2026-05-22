@@ -151,16 +151,18 @@ function renderTable(month,daySlots,week){
   const smap={};
   SECTORS_DEF.forEach(s=>{ smap[s.code]=Array(7).fill(null).map(()=>({am:[],pm:[]})); });
 
-  month.doctors.forEach(doc=>{
+month.doctors.forEach(doc=>{
     daySlots.forEach((slot,dow)=>{
       if(!slot) return;
-      const entry=doc.days[slot.dayIdx]||{};
+      const entry = doc.days[slot.dayIdx]||{};
       if(entry.status && ABSENT_STATUSES.has(entry.status)) return;
       const status=entry.status||'';
-      if(entry.morning && smap[entry.morning])
-        smap[entry.morning][dow].am.push({init:doc.initials,status});
-      if(entry.afternoon && smap[entry.afternoon])
-        smap[entry.afternoon][dow].pm.push({init:doc.initials,status});
+      const morningKey = entry.morning && entry.morning.startsWith('CS-') ? 'CS' : entry.morning;
+      const afternoonKey = entry.afternoon && entry.afternoon.startsWith('CS-') ? 'CS' : entry.afternoon;
+      if(morningKey && smap[morningKey])
+        smap[morningKey][dow].am.push({init:doc.initials,status,sector:entry.morning});
+      if(afternoonKey && smap[afternoonKey])
+        smap[afternoonKey][dow].pm.push({init:doc.initials,status,sector:entry.afternoon});
     });
   });
 
