@@ -30,6 +30,10 @@
 </header>
 
 <!-- WEEK NAV -->
+<div class="view-toggle-main">
+  <button id="btnPlanning" class="view-main-btn active">Planning</button>
+  <button id="btnMedecins" class="view-main-btn">Médecins</button>
+</div>
 <nav class="week-nav">
   <span class="nav-label">Mois</span>
   <select class="month-select" id="monthSelect"></select>
@@ -56,12 +60,20 @@
 </div>
 
 <!-- TABLE -->
-<div class="table-container">
-  <table class="planning-table" id="planningTable"></table>
+<div id="planningView">
+  <div class="table-container">
+    <table class="planning-table" id="planningTable"></table>
+  </div>
+  <div id="bottomSection"></div>
 </div>
-
-<!-- BOTTOM -->
-<div id="bottomSection"></div>
+<div id="medecinsView" style="display:none">
+  <div class="table-container">
+    <table class="planning-table" id="bilanMensuel"></table>
+  </div>
+  <div class="table-container" style="margin-top:0">
+    <table class="planning-table" id="bilanAnnuel"></table>
+  </div>
+</div>
 
 <script src="./data.js"></script>
 <script src="./rules.js"></script>
