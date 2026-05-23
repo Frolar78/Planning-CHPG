@@ -2,16 +2,16 @@
 
 // ── CONFIG ─────────────────────────────────────────────────────────────
 const SECTORS_DEF = [
-  { code:'VIS', label:'Bloc viscéral',           icon:'🫀' },
-  { code:'REA', label:'Réanimation',              icon:'🫁' },
-  { code:'ORT', label:'Orthopédie',               icon:'🦴' },
-  { code:'DVI', label:'Pose DVI',                 icon:'💉' },
-  { code:'ORL', label:'ORL / Ophtalmologie',      icon:'👁️' },
-  { code:'END', label:'Endoscopies',              icon:'🔬' },
-  { code:'CI',  label:'Cardio interventionnelle', icon:'🫀' },
-  { code:'RI',  label:'Radio interventionnelle',  icon:'📡' },
-  { code:'MAT', label:'Maternité',                icon:'👶' },
-  { code:'CS',  label:'Consultation',             icon:'📋' },
+  { code:'VIS', label:'Bloc viscéral',           icon:'activity' },
+  { code:'REA', label:'Réanimation',              icon:'heart-pulse' },
+  { code:'ORT', label:'Orthopédie',               icon:'bone' },
+  { code:'DVI', label:'Pose DVI',                 icon:'syringe' },
+  { code:'ORL', label:'ORL / Ophtalmologie',      icon:'eye' },
+  { code:'END', label:'Endoscopies',              icon:'microscope' },
+  { code:'CI',  label:'Cardio interventionnelle', icon:'heart' },
+  { code:'RI',  label:'Radio interventionnelle',  icon:'scan' },
+  { code:'MAT', label:'Maternité',                icon:'baby' },
+  { code:'CS',  label:'Consultation',             icon:'stethoscope' },
 ];
 
 const SECTOR_COLORS = {
@@ -169,8 +169,8 @@ function renderTable(month,daySlots,week){
   active.forEach(s=>{
     tbody+=`<tr class="sector-row"><td class="td-sector">
       <div class="sector-label">
-        <span class="sector-icon">${s.icon}</span>
-        <span class="sector-name-text">${esc(s.label)}</span>
+      <i data-lucide="${esc(s.icon)}" class="sector-icon-svg"></i>
+      <span class="sector-name-text">${esc(s.label)}</span>
       </div></td>`;
     daySlots.forEach((slot,dow)=>{
       const isWe=slot?isWeekend(slot.weekday):true;
@@ -252,6 +252,8 @@ function renderBottom(month,daySlots,week){
   html+=`</tbody></table></div></div></div>`;
   document.getElementById('bottomSection').innerHTML=html;
 }
+
+if(typeof lucide !== 'undefined') lucide.createIcons();
 
 // ── EXPORT EXCEL ───────────────────────────────────────────────────────
 async function exportExcel(){
