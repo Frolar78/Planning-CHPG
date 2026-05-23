@@ -253,13 +253,11 @@ function renderBottom(month,daySlots,week){
   document.getElementById('bottomSection').innerHTML=html;
 }
 
-setTimeout(()=>{
-  if(typeof lucide!=='undefined'){
-    lucide.createIcons({
-      attrs:{ 'stroke-width':'1.5', width:'16', height:'16' }
-    });
-  }
-}, 0);
+requestAnimationFrame(()=>{
+  requestAnimationFrame(()=>{
+    if(typeof lucide!=='undefined') lucide.createIcons();
+  });
+});
 
 // ── EXPORT EXCEL ───────────────────────────────────────────────────────
 async function exportExcel(){
