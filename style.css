@@ -569,3 +569,97 @@ body {
   width: 42px;
   visibility: hidden;
 }
+
+.view-toggle-main {
+  background: var(--white);
+  border-bottom: 1px solid var(--line);
+  padding: 8px 32px;
+  display: flex;
+  gap: 4px;
+}
+
+.view-main-btn {
+  border: 1.5px solid var(--line);
+  background: var(--white);
+  border-radius: 8px;
+  padding: 6px 16px;
+  font-size: 13px;
+  font-weight: 600;
+  font-family: 'DM Sans', sans-serif;
+  color: var(--ink-3);
+  cursor: pointer;
+  transition: all .15s;
+}
+
+.view-main-btn.active {
+  background: var(--red);
+  border-color: var(--red);
+  color: var(--white);
+}
+
+.bilan-table {
+  width: 100%;
+  border-collapse: separate;
+  border-spacing: 0;
+  background: var(--white);
+  font-size: 12px;
+}
+
+.bilan-table th {
+  background: var(--line-light);
+  font-size: 10px;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: .06em;
+  color: var(--ink-4);
+  padding: 8px 10px;
+  border-bottom: 1px solid var(--line);
+  border-right: 1px solid var(--line);
+  text-align: center;
+  white-space: nowrap;
+}
+
+.bilan-table th.col-name { text-align: left; min-width: 160px; }
+.bilan-table th.col-sector { min-width: 100px; }
+
+.bilan-table td {
+  padding: 7px 10px;
+  border-bottom: 1px solid var(--line);
+  border-right: 1px solid var(--line);
+  text-align: center;
+  color: var(--ink-2);
+  font-weight: 500;
+}
+
+.bilan-table td.col-name {
+  text-align: left;
+  font-weight: 700;
+  color: var(--ink);
+  position: sticky;
+  left: 0;
+  background: var(--white);
+  z-index: 2;
+}
+
+.bilan-table td.col-sector {
+  font-size: 11px;
+  font-weight: 700;
+}
+
+.bilan-table tr:last-child td { border-bottom: none; }
+.bilan-table td:last-child,
+.bilan-table th:last-child { border-right: none; }
+
+.bilan-table td.val-zero { color: var(--ink-4); }
+.bilan-table td.val-g { color: #B91C1C; font-weight: 700; }
+.bilan-table td.val-18 { color: #B45309; font-weight: 700; }
+.bilan-table td.val-absent { color: var(--ink-3); }
+
+.bilan-section-title {
+  padding: 12px 24px 6px;
+  font-size: 12px;
+  font-weight: 700;
+  color: var(--ink-3);
+  text-transform: uppercase;
+  letter-spacing: .06em;
+}
