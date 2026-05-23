@@ -126,6 +126,7 @@ function render(){
   const daySlots=weekDaysFull(week);
   renderTable(month,daySlots,week);
   renderBottom(month,daySlots,week);
+  requestAnimationFrame(()=>{ if(typeof lucide!=='undefined') lucide.createIcons(); });
 }
 
 // ── TABLE ──────────────────────────────────────────────────────────────
@@ -252,12 +253,6 @@ function renderBottom(month,daySlots,week){
   html+=`</tbody></table></div></div></div>`;
   document.getElementById('bottomSection').innerHTML=html;
 }
-
-requestAnimationFrame(()=>{
-  requestAnimationFrame(()=>{
-    if(typeof lucide!=='undefined') lucide.createIcons();
-  });
-});
 
 // ── EXPORT EXCEL ───────────────────────────────────────────────────────
 async function exportExcel(){
