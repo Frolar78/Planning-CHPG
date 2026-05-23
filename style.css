@@ -258,7 +258,9 @@ body {
   border-bottom: 1px solid var(--line);
   border-right: 1px solid var(--line);
   vertical-align: top;
-  min-width: 88px;
+  width: 88px; 
+  min-width: 88px; 
+  max-width: 88px;
 }
 .th-day:last-child { border-right: none; }
 .th-day.weekend { background: var(--line-light); }
@@ -358,13 +360,14 @@ body {
 
 .slot {
   padding: 4px 3px;
-  display: flex;
-  flex-direction: row;
-  flex-wrap: wrap;
+  display: grid;
+  grid-template-columns: 1fr 1fr;
   gap: 2px;
   align-content: flex-start;
   border-right: 1px solid var(--line-light);
   min-height: 56px;
+  width: 44px;
+  overflow: hidden;
 }
 
 .slot:last-child { border-right: none; }
