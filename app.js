@@ -116,6 +116,135 @@ function weekDaysFull(weekInfo){
   return out;
 }
 
+// ── VUE MÉDECINS ───────────────────────────────────────────────────────
+let currentMainView = 'planning';
+
+function initViewToggle(){
+  document.getElementById('btnPlanning').onclick=()=>setMainView('planning');
+  document.getElementById('btnMedecins').onclick=()=>setMainView('medecins');
+}
+
+function setMainView(v){
+  currentMainView=v;
+  document.getElementById('btnPlanning').classList.toggle('active',v==='planning');
+  document.getElementById('btnMedecins').classList.toggle('active',v==='medecins');
+  document.getElementById('planningView').style.display=v==='planning'?'':'none';
+  document.getElementById('medecinsView').style.display=v==='medecins'?'':'none';
+  document.getElementById('exportBtn').style.display=v==='planning'?'':'none';
+  if(v==='medecins') renderMedecins();
+}
+
+function renderMedecins(){
+  renderBilanMensuel();
+  renderBilanAnnuel();
+}
+
+function renderBilanMensuel(){
+  const month=DATA.months.find(m=>m.id===currentMonthId);
+  const CODES=['G','18','RG','A','CP','F','R'];
+
+  let html=`<thead><tr>
+    <th class="col-name">Médecin</th>
+    <th class="col-sector">Secteur</th>
+    <th>G</th><th>18h</th><th>RG</th><th>A</th><th>CP</th><th>F</th><th>R</th>
+    <th>Présents</th>
+  </tr></thead><tbody>`;
+
+  month.doctors.forEach(doc=>{
+    const counts={G:0,'18':0,RG:0,A:0,CP:0,F:0,R:0};
+    let presents=0;
+
+    doc.days.forEach(entry=>{
+      const st=entry.status||'';
+      if(counts[st]!==undefined) counts[st]++;
+      // Présent = pas absent (pas RG/A/CP/F/R)
+      if(!['RG','A','CP','F','R'].includes(st)) presents++;
+    });
+
+    // Secteur du mois
+    const sector=doc.days.find(d=>d.morning&&!d.morning.startsWith('CS-'))?.morning||'—';
+
+    const name=(doc.id==='PRUNET'?'PR ':'DR ')+doc.id.charAt(0)+doc.id.slice(1).toLowerCase();
+
+    html+=`<tr>
+      <td class="col-name">${esc(name)}</td>
+      <td class="col-sector">${esc(sector)}</td>
+      <td class="${counts.G?'val-g':'val-zero'}">${counts.G||'—'}</td>
+      <td class="${counts['18']?'val-18':'val-zero'}">${counts['18']||'—'}</td>
+      <td class="${counts.RG?'val-absent':'val-zero'}">${counts.RG||'—'}</td>
+      <td class="${counts.A?'val-absent':'val-zero'}">${counts.A||'—'}</td>
+      <td class="${counts.CP?'val-absent':'val-zero'}">${counts.CP||'—'}</td>
+      <td class="${counts.F?'val-absent':'val-zero'}">${counts.F||'—'}</td>
+      <td class="${counts.R?'val-absent':'val-zero'}">${counts.R||'—'}</td>
+      <td><strong>${presents}</strong></td>
+    </tr>`;
+  });
+
+  html+='</tbody>';
+  const table=document.getElementById('bilanMensuel');
+  table.className='bilan-table';
+  table.innerHTML=html;
+
+  // Titre section
+  const container=table.closest('.table-container');
+  let title=container.previousElementSibling;
+  if(!title||!title.classList.contains('bilan-section-title')){
+    title=document.createElement('div');
+    title.className='bilan-section-title';
+    container.parentElement.insertBefore(title,container);
+  }
+  title.textContent=`Bilan mensuel — ${month.label}`;
+}
+
+function renderBilanAnnuel(){
+  // Agréger tous les mois
+  const totals={};
+  DATA.months.forEach(month=>{
+    month.doctors.forEach(doc=>{
+      if(!totals[doc.id]) totals[doc.id]={G:0,'18':0,RG:0,A:0,CP:0,F:0,R:0,presents:0};
+      doc.days.forEach(entry=>{
+        const st=entry.status||'';
+        if(totals[doc.id][st]!==undefined) totals[doc.id][st]++;
+        if(!['RG','A','CP','F','R'].includes(st)) totals[doc.id].presents++;
+      });
+    });
+  });
+
+  let html=`<thead><tr>
+    <th class="col-name">Médecin</th>
+    <th>G</th><th>18h</th><th>RG</th><th>A</th><th>CP</th><th>F</th><th>R</th>
+    <th>Présents</th>
+  </tr></thead><tbody>`;
+
+  Object.entries(totals).forEach(([id,counts])=>{
+    const name=(id==='PRUNET'?'PR ':'DR ')+id.charAt(0)+id.slice(1).toLowerCase();
+    html+=`<tr>
+      <td class="col-name">${esc(name)}</td>
+      <td class="${counts.G?'val-g':'val-zero'}">${counts.G||'—'}</td>
+      <td class="${counts['18']?'val-18':'val-zero'}">${counts['18']||'—'}</td>
+      <td class="${counts.RG?'val-absent':'val-zero'}">${counts.RG||'—'}</td>
+      <td class="${counts.A?'val-absent':'val-zero'}">${counts.A||'—'}</td>
+      <td class="${counts.CP?'val-absent':'val-zero'}">${counts.CP||'—'}</td>
+      <td class="${counts.F?'val-absent':'val-zero'}">${counts.F||'—'}</td>
+      <td class="${counts.R?'val-absent':'val-zero'}">${counts.R||'—'}</td>
+      <td><strong>${counts.presents}</strong></td>
+    </tr>`;
+  });
+
+  html+='</tbody>';
+  const table=document.getElementById('bilanAnnuel');
+  table.className='bilan-table';
+  table.innerHTML=html;
+
+  let title=table.closest('.table-container').previousElementSibling;
+  if(!title||!title.classList.contains('bilan-section-title')){
+    title=document.createElement('div');
+    title.className='bilan-section-title';
+    table.closest('.table-container').parentElement.insertBefore(title,table.closest('.table-container'));
+  }
+  title.textContent='Bilan annuel 2026';
+}
+
 // ── INIT ───────────────────────────────────────────────────────────────
 async function init(){
   try{
@@ -130,6 +259,7 @@ async function init(){
   buildMonthSelect();
   buildWeekNav();
   document.getElementById('exportBtn').onclick=exportExcel;
+  initViewToggle();
   render();
 }
 
