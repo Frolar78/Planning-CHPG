@@ -28,8 +28,6 @@ const SECTOR_LABELS_XL = {
 
 const DAYS_FR = ['LUNDI','MARDI','MERCREDI','JEUDI','VENDREDI','SAMEDI','DIMANCHE'];
 
-const ABSENT_STATUSES = new Set(['RG','CP','A','F','R']);
-
 // ── STATE ──────────────────────────────────────────────────────────────
 let DATA = null;
 let currentMonthId = null;
