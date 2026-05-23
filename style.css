@@ -234,15 +234,15 @@ body {
 
 /* ── TABLE HEADER ── */
 .th-sector {
-  width: 160px;
-  min-width: 140px;
+  width: 180px;
+  min-width: 160px;
   padding: 12px 16px;
   text-align: left;
-  font-size: 10px;
-  font-weight: 700;
+  font-size: 12px;
+  font-weight: 800;
   text-transform: uppercase;
   letter-spacing: .08em;
-  color: var(--ink-4);
+  color: var(--ink-3);
   background: var(--line-light);
   border-bottom: 1px solid var(--line);
   border-right: 1px solid var(--line);
@@ -339,9 +339,9 @@ body {
   display: block;
 }
 .sector-name-text {
-  font-size: 12px;
+  font-size: 13px;
   font-weight: 700;
-  color: var(--ink-2);
+  color: var(--ink);
   line-height: 1.2;
 }
 
@@ -381,16 +381,16 @@ body {
   display: inline-flex;
   align-items: center;
   justify-content: center;
-  font-size: 9px;
+  font-size: 11px;
   font-weight: 700;
   font-family: var(--mono);
-  padding: 2px 5px;
+  padding: 2px 4px;
   border-radius: 5px;
   background: #F1F5F9;
   color: var(--ink-2);
   cursor: default;
   white-space: nowrap;
-  max-width: 42px;
+  max-width: 44px;
   overflow: hidden;
   text-overflow: ellipsis;
 }
@@ -470,10 +470,10 @@ body {
   display: inline-flex;
   margin: 1px;
 }
-.name-tag.guard { background: var(--red-soft); color: var(--red); }
-.name-tag.h18   { background: var(--amber-soft); color: var(--amber); }
-.name-tag.rg    { background: var(--line-light); color: var(--ink-4); }
-.name-tag.absent{ background: var(--line-light); color: var(--ink-4); }
+.name-tag.guard  { background: #EFF6FF; color: #1D4ED8; }
+.name-tag.h18    { background: #F0FDF4; color: #166534; }
+.name-tag.rg     { background: #F5F3FF; color: #6D28D9; }
+.name-tag.absent { background: #F9FAFB; color: #6B7280; border: 1px solid #E5E7EB; }
 
 @media (max-width: 900px) {
   .header { padding: 0 16px; }
@@ -555,13 +555,13 @@ body {
 }
 
 .chip-guard {
-  background: #FEE2E2;
-  color: #B91C1C;
+  background: #EFF6FF;
+  color: #1D4ED8;
 }
 
 .chip-h18 {
-  background: #FEF3C7;
-  color: #B45309;
+  background: #F0FDF4;
+  color: #166534;
 }
 
 .slot-name-spacer {
