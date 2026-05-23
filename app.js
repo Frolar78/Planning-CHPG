@@ -47,13 +47,58 @@ function isoWeek(dateStr){
 }
 
 function getWeeksInMonth(month){
-  const weeks=[]; let cur=null;
-  month.days.forEach((d,i)=>{
-    const wn=isoWeek(d.date);
-    if(!cur||cur.weekNum!==wn){ cur={weekNum:wn,days:[]}; weeks.push(cur); }
-    cur.days.push({...d,dayIdx:i});
+  // Trouver toutes les semaines ISO qui touchent ce mois
+  const weekNums=[...new Set(month.days.map(d=>isoWeek(d.date)))];
+  const weeks=[];
+
+  weekNums.forEach(wn=>{
+    // Construire la semaine complète Lun-Dim
+    // Trouver un jour de cette semaine dans ce mois
+    const refDay=month.days.find(d=>isoWeek(d.date)===wn);
+    if(!refDay) return;
+
+    // Calculer le lundi de cette semaine
+    const refDate=new Date(refDay.date);
+    const dow=refDate.getDay()||7; // 1=Lun..7=Dim
+    const monday=new Date(refDate);
+    monday.setDate(refDate.getDate()-(dow-1));
+
+    // Compter combien de jours de cette semaine sont dans ce mois vs autres mois
+    let daysInThisMonth=0, daysInOtherMonths=0;
+    for(let i=0;i<7;i++){
+      const d=new Date(monday);
+      d.setDate(monday.getDate()+i);
+      if(d.getMonth()+1===month.month && d.getFullYear()===month.year){
+        daysInThisMonth++;
+      } else {
+        daysInOtherMonths++;
+      }
+    }
+
+    // Cette semaine appartient à ce mois seulement si majorité des jours y sont
+    if(daysInThisMonth<=daysInOtherMonths) return;
+
+    // Construire les 7 jours de la semaine complète
+    const days=[];
+    for(let i=0;i<7;i++){
+      const d=new Date(monday);
+      d.setDate(monday.getDate()+i);
+      const dateStr=`${d.getFullYear()}-${String(d.getMonth()+1).padStart(2,'0')}-${String(d.getDate()).padStart(2,'0')}`;
+      // Chercher ce jour dans les données du mois
+      const found=month.days.find(md=>md.date===dateStr);
+      if(found){
+        // Jour dans ce mois — on a les données
+        days.push({...found, dayIdx:month.days.indexOf(found)});
+      } else {
+        // Jour hors mois — on crée un slot vide
+        const wd=['D','L','M','M','J','V','S'][d.getDay()];
+        days.push({day:d.getDate(), weekday:wd, date:dateStr, dayIdx:-1});
+      }
+    }
+    weeks.push({weekNum:wn, days});
   });
-  return weeks;
+
+  return weeks.sort((a,b)=>a.weekNum-b.weekNum);
 }
 
 function weekDaysFull(weekInfo){
@@ -159,7 +204,7 @@ function renderTable(month,daySlots,week){
   month.doctors.forEach(doc=>{
     daySlots.forEach((slot,dow)=>{
       if(!slot) return;
-      const entry=doc.days[slot.dayIdx]||{};
+      const entry=slot.dayIdx>=0?(doc.days[slot.dayIdx]||{}):{};
       if(entry.status && ABSENT_STATUSES.has(entry.status)) return;
       const status=entry.status||'';
       const mKey=entry.morning&&entry.morning.startsWith('CS-')?'CS':entry.morning;
@@ -231,7 +276,7 @@ function renderBottom(month,daySlots,week){
   month.doctors.forEach(doc=>{
     daySlots.forEach((slot,dow)=>{
       if(!slot) return;
-      const entry=doc.days[slot.dayIdx]||{};
+      const entry=slot.dayIdx>=0?(doc.days[slot.dayIdx]||{}):{};
       const st=entry.status||'';
       if(st==='G') guards[dow].push(doc.initials);
       if(st==='18') h18[dow]=doc.initials;
