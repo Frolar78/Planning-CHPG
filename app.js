@@ -77,8 +77,8 @@ async function init(){
   const now=new Date();
   const found=DATA.months.find(m=>m.year===now.getFullYear()&&m.month===now.getMonth()+1);
   currentMonthId=found?found.id:DATA.months[0].id;
-  buildMonthSelect();
-  buildWeekNav();
+  MonthSelect();
+  WeekNav();
   document.getElementById('exportBtn').onclick=exportExcel;
   render();
 }
@@ -101,8 +101,11 @@ function buildWeekNav(){
   const month=DATA.months.find(m=>m.id===currentMonthId);
   const weeks=getWeeksInMonth(month);
   const today=todayStr();
-  const todayWk=weeks.findIndex(w=>w.days.some(d=>d.date===today));
-  if(todayWk>=0) currentWeekIdx=todayWk;
+  // Auto-select uniquement si on change de mois
+  if(currentWeekIdx===0){
+    const todayWk=weeks.findIndex(w=>w.days.some(d=>d.date===today));
+    if(todayWk>=0) currentWeekIdx=todayWk;
+  }
   const container=document.getElementById('weekPills');
   container.innerHTML='';
   weeks.forEach((w,i)=>{
@@ -232,7 +235,7 @@ function renderBottom(month,daySlots,week){
       if(st==='G') guards[dow].push(doc.initials);
       if(st==='18') h18[dow]=doc.initials;
       if(st==='RG') sorties[dow].push(doc.initials);
-      if(['A','CP','F'].includes(st)) absents[dow].push({init:doc.initials,reason:st});
+      if(['A','CP','F','R','I','E'].includes(st)) absents[dow].push({init:doc.initials,reason:st});
     });
   });
   function buildRow(label,cellsFn){
@@ -316,7 +319,7 @@ async function exportExcel(){
       if(st==='G') guards[dow].push(init);
       if(st==='18') h18[dow]=init;
       if(st==='RG') sorties[dow].push(init);
-      if(['A','CP','F'].includes(st)) absents[dow].push(init);
+      if(['A','CP','F','R','I','E'].includes(st)) absents[dow].push(init);
       if(ABSENT_STATUSES.has(st)) return;
       const amKey=am.startsWith('CS-')?'CS':am;
       const pmKey=pm.startsWith('CS-')?'CS':pm;
