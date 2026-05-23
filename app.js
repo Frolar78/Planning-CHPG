@@ -14,7 +14,22 @@ const SECTORS_DEF = [
   { code:'CS',  label:'Consultation',             icon:'📋' },
 ];
 
+const SECTOR_COLORS = {
+  VIS:'DDEEFF', REA:'E8E0F0', ORT:'F3AA7D', DVI:'F3AA7D',
+  ORL:'FFFFC9', END:'FFFFFF', CI:'E7E6E6',  RI:'E7E6E6',
+  MAT:'FFA7A9', CS:'D9EAD3',
+};
+
+const SECTOR_LABELS_XL = {
+  VIS:'VISCÉRAL', REA:'RÉANIMATION', ORT:'ORTHOPÉDIE', DVI:'POSE DVI',
+  ORL:'ORL / OPHTALMO', END:'ENDOSCOPIES', CI:'CARDIO / RADIO INTER.',
+  RI:'RADIO INTER.', MAT:'MATERNITÉ', CS:'CONSULTATIONS',
+};
+
 const DAYS_FR = ['LUNDI','MARDI','MERCREDI','JEUDI','VENDREDI','SAMEDI','DIMANCHE'];
+
+const ABSENT_STATUSES = new Set(['RG','CP','A','F','R']);
+
 // ── STATE ──────────────────────────────────────────────────────────────
 let DATA = null;
 let currentMonthId = null;
@@ -66,6 +81,7 @@ async function init(){
   currentMonthId=found?found.id:DATA.months[0].id;
   buildMonthSelect();
   buildWeekNav();
+  document.getElementById('exportBtn').onclick=exportExcel;
   render();
 }
 
@@ -75,17 +91,11 @@ function buildMonthSelect(){
   sel.innerHTML='';
   DATA.months.forEach(m=>{
     const opt=document.createElement('option');
-    opt.value=m.id;
-    opt.textContent=m.label;
+    opt.value=m.id; opt.textContent=m.label;
     if(m.id===currentMonthId) opt.selected=true;
     sel.appendChild(opt);
   });
-  sel.onchange=()=>{
-    currentMonthId=sel.value;
-    currentWeekIdx=0;
-    buildWeekNav();
-    render();
-  };
+  sel.onchange=()=>{ currentMonthId=sel.value; currentWeekIdx=0; buildWeekNav(); render(); };
 }
 
 // ── WEEK NAV ───────────────────────────────────────────────────────────
@@ -93,11 +103,8 @@ function buildWeekNav(){
   const month=DATA.months.find(m=>m.id===currentMonthId);
   const weeks=getWeeksInMonth(month);
   const today=todayStr();
-
-  // Auto-select current week
   const todayWk=weeks.findIndex(w=>w.days.some(d=>d.date===today));
   if(todayWk>=0) currentWeekIdx=todayWk;
-
   const container=document.getElementById('weekPills');
   container.innerHTML='';
   weeks.forEach((w,i)=>{
@@ -126,11 +133,7 @@ function render(){
 // ── TABLE ──────────────────────────────────────────────────────────────
 function renderTable(month,daySlots,week){
   const today=todayStr();
-
-  // Header
-  let thead=`<thead><tr>
-    <th class="th-sector">SECTEUR</th>`;
-
+  let thead=`<thead><tr><th class="th-sector">SECTEUR</th>`;
   daySlots.forEach((slot,i)=>{
     if(!slot){ thead+=`<th class="th-day weekend"></th>`; return; }
     const isWe=isWeekend(slot.weekday);
@@ -147,52 +150,37 @@ function renderTable(month,daySlots,week){
   });
   thead+=`</tr></thead>`;
 
-  // Build sector→day→slot data
   const smap={};
   SECTORS_DEF.forEach(s=>{ smap[s.code]=Array(7).fill(null).map(()=>({am:[],pm:[]})); });
 
-month.doctors.forEach(doc=>{
+  month.doctors.forEach(doc=>{
     daySlots.forEach((slot,dow)=>{
       if(!slot) return;
-      const entry = doc.days[slot.dayIdx]||{};
+      const entry=doc.days[slot.dayIdx]||{};
       if(entry.status && ABSENT_STATUSES.has(entry.status)) return;
       const status=entry.status||'';
-      const morningKey = entry.morning && entry.morning.startsWith('CS-') ? 'CS' : entry.morning;
-      const afternoonKey = entry.afternoon && entry.afternoon.startsWith('CS-') ? 'CS' : entry.afternoon;
-      if(morningKey && smap[morningKey])
-        smap[morningKey][dow].am.push({init:doc.initials,status,sector:entry.morning});
-      if(afternoonKey && smap[afternoonKey])
-        smap[afternoonKey][dow].pm.push({init:doc.initials,status,sector:entry.afternoon});
+      const mKey=entry.morning&&entry.morning.startsWith('CS-')?'CS':entry.morning;
+      const pKey=entry.afternoon&&entry.afternoon.startsWith('CS-')?'CS':entry.afternoon;
+      if(mKey&&smap[mKey]) smap[mKey][dow].am.push({init:doc.initials,status,sector:entry.morning});
+      if(pKey&&smap[pKey]) smap[pKey][dow].pm.push({init:doc.initials,status,sector:entry.afternoon});
     });
   });
 
-  // Active sectors only
-  const active=SECTORS_DEF.filter(s=>
-    smap[s.code].some(d=>d.am.length||d.pm.length)
-  );
-
-  // Rows
+  const active=SECTORS_DEF.filter(s=>smap[s.code].some(d=>d.am.length||d.pm.length));
   let tbody='<tbody>';
   active.forEach(s=>{
-    tbody+=`<tr class="sector-row">
-      <td class="td-sector">
-        <div class="sector-label">
-          <span class="sector-icon">${s.icon}</span>
-          <span class="sector-name-text">${esc(s.label)}</span>
-        </div>
-      </td>`;
-
+    tbody+=`<tr class="sector-row"><td class="td-sector">
+      <div class="sector-label">
+        <span class="sector-icon">${s.icon}</span>
+        <span class="sector-name-text">${esc(s.label)}</span>
+      </div></td>`;
     daySlots.forEach((slot,dow)=>{
       const isWe=slot?isWeekend(slot.weekday):true;
       const isTd=slot?slot.date===today:false;
       const cls=['td-day',isWe?'weekend':'',isTd?'today':''].filter(Boolean).join(' ');
       tbody+=`<td class="${cls}">`;
-
       if(!slot||(!smap[s.code][dow].am.length&&!smap[s.code][dow].pm.length)){
-        tbody+=`<div class="slot-pair">
-          <div class="slot"><span class="slot-dash">—</span></div>
-          <div class="slot"><span class="slot-dash">—</span></div>
-        </div>`;
+        tbody+=`<div class="slot-pair"><div class="slot"><span class="slot-dash">—</span></div><div class="slot"><span class="slot-dash">—</span></div></div>`;
       } else {
         const amNames=smap[s.code][dow].am;
         const pmNames=smap[s.code][dow].pm;
@@ -220,200 +208,216 @@ month.doctors.forEach(doc=>{
     tbody+=`</tr>`;
   });
   tbody+='</tbody>';
-
   document.getElementById('planningTable').innerHTML=thead+tbody;
 }
 
 // ── BOTTOM SECTION ─────────────────────────────────────────────────────
-function renderBottom(month, daySlots, week){
-  const guards  = Array(7).fill(null).map(()=>[]);
-  const h18     = Array(7).fill('');
-  const sorties = Array(7).fill(null).map(()=>[]);
-  const absents = Array(7).fill(null).map(()=>[]);
-
+function renderBottom(month,daySlots,week){
+  const guards=Array(7).fill(null).map(()=>[]);
+  const h18=Array(7).fill('');
+  const sorties=Array(7).fill(null).map(()=>[]);
+  const absents=Array(7).fill(null).map(()=>[]);
   month.doctors.forEach(doc=>{
     daySlots.forEach((slot,dow)=>{
       if(!slot) return;
-      const entry = doc.days[slot.dayIdx]||{};
-      const st = entry.status||'';
-      if(st==='G')  guards[dow].push(doc.initials);
-      if(st==='18') h18[dow] = doc.initials;
+      const entry=doc.days[slot.dayIdx]||{};
+      const st=entry.status||'';
+      if(st==='G') guards[dow].push(doc.initials);
+      if(st==='18') h18[dow]=doc.initials;
       if(st==='RG') sorties[dow].push(doc.initials);
-      if(['A','CP','F'].includes(st)) absents[dow].push({init:doc.initials, reason:st});
+      if(['A','CP','F'].includes(st)) absents[dow].push({init:doc.initials,reason:st});
     });
   });
-
-  function buildRow(label, cellsFn){
-    let row = `<tr><td class="bt-label">${label}</td>`;
+  function buildRow(label,cellsFn){
+    let row=`<tr><td class="bt-label">${label}</td>`;
     daySlots.forEach((slot,dow)=>{
-      const isWe = slot ? isWeekend(slot.weekday) : true;
-      row += `<td class="bt-cell${isWe?' weekend':''}">${slot ? cellsFn(dow) : ''}</td>`;
+      const isWe=slot?isWeekend(slot.weekday):true;
+      row+=`<td class="bt-cell${isWe?' weekend':''}">${slot?cellsFn(dow):''}</td>`;
     });
-    return row + '</tr>';
+    return row+'</tr>';
   }
-
-  let html = `<div class="bottom-tables"><div class="bt-card">
+  let html=`<div class="bottom-tables"><div class="bt-card">
     <div class="bt-card-header">Gardes &amp; fonctions</div>
     <div class="bt-scroll"><table class="bt-table"><tbody>`;
-
-  html += buildRow('Garde 24h', dow =>
-    guards[dow].length
-      ? guards[dow].map(i=>`<span class="name-tag guard">${i}</span>`).join('')
-      : '<span class="bt-dash">—</span>'
-  );
-  html += buildRow('8h – 18h', dow =>
-    h18[dow] ? `<span class="name-tag h18">${h18[dow]}</span>` : '<span class="bt-dash">—</span>'
-  );
-  html += buildRow('Sortie de garde', dow =>
-    sorties[dow].length
-      ? sorties[dow].map(i=>`<span class="name-tag rg">${i}</span>`).join('')
-      : '<span class="bt-dash">—</span>'
-  );
-  html += buildRow('Absences / CP / F', dow =>
-    absents[dow].length
-      ? absents[dow].map(a=>`<span class="name-tag absent" title="${a.reason}">${a.init}</span>`).join('')
-      : '<span class="bt-dash">—</span>'
-  );
-
-  html += `</tbody></table></div></div></div>`;
-  document.getElementById('bottomSection').innerHTML = html;
+  html+=buildRow('Garde 24h',dow=>guards[dow].length?guards[dow].map(i=>`<span class="name-tag guard">${i}</span>`).join(''):'<span class="bt-dash">—</span>');
+  html+=buildRow('8h – 18h',dow=>h18[dow]?`<span class="name-tag h18">${h18[dow]}</span>`:'<span class="bt-dash">—</span>');
+  html+=buildRow('Sortie de garde',dow=>sorties[dow].length?sorties[dow].map(i=>`<span class="name-tag rg">${i}</span>`).join(''):'<span class="bt-dash">—</span>');
+  html+=buildRow('Absences / CP / F',dow=>absents[dow].length?absents[dow].map(a=>`<span class="name-tag absent" title="${a.reason}">${a.init}</span>`).join(''):'<span class="bt-dash">—</span>');
+  html+=`</tbody></table></div></div></div>`;
+  document.getElementById('bottomSection').innerHTML=html;
 }
 
 // ── EXPORT EXCEL ───────────────────────────────────────────────────────
-document.addEventListener('DOMContentLoaded',()=>{
-  document.getElementById('exportBtn').onclick=exportExcel;
-});
-
 function exportExcel(){
   if(typeof XLSX==='undefined'){ alert('SheetJS non chargé'); return; }
+
   const month=DATA.months.find(m=>m.id===currentMonthId);
   const weeks=getWeeksInMonth(month);
   const week=weeks[currentWeekIdx];
   const daySlots=weekDaysFull(week);
-  const DAYS_FR=['LUNDI','MARDI','MERCREDI','JEUDI','VENDREDI','SAMEDI','DIMANCHE'];
-  const C={red:'CE1126',redMid:'A50E1F',redLight:'FCE8EB',charcoal:'1A1A2E',slate:'374151',muted:'9CA3AF',line:'F3F4F6',lineDark:'E5E7EB',bg:'FAFAFA',white:'FFFFFF',greenBg:'ECFDF5',greenFg:'065F46',amberBg:'FFFBEB',amberFg:'B45309'};
 
-  const st=(bg,fg,bold=false,sz=10,h='center',wrap=false)=>({
-    fill:{patternType:'solid',fgColor:{rgb:bg}},
-    font:{name:'Calibri',sz,bold,color:{rgb:fg}},
-    alignment:{horizontal:h,vertical:'center',wrapText:wrap},
-    border:{right:{style:'thin',color:{rgb:C.lineDark}},bottom:{style:'thin',color:{rgb:C.lineDark}}}
-  });
+  const C={
+    red:'CE1126', redDark:'9A0D1C', redLt:'FCE8EB',
+    greyHd:'D9D9D9', greyLt:'F2F2F2', we:'EFEFEF',
+    white:'FFFFFF', ink:'000000', muted:'595959',
+    guard:'FFE0E0', guardFg:'B91C1C',
+    h18:'FFF2CC',   h18Fg:'B45309',
+    rg:'E2EFDA',    rgFg:'166534',
+    abs:'F2F2F2',   absFg:'595959',
+    dark:'1A1A2E',
+  };
 
-  // Build sector assignments
-  const sectorRows=SECTORS_DEF.map(s=>({...s,days:Array(7).fill(null).map(()=>({am:[],pm:[]}))}));
-  const sectorIdx=Object.fromEntries(sectorRows.map((s,i)=>[s.code,i]));
-  const guardsArr=Array(7).fill(null).map(()=>[]);
-  const h18Arr=Array(7).fill('');
-  const sortiesArr=Array(7).fill(null).map(()=>[]);
-  const absentsArr=Array(7).fill(null).map(()=>[]);
+  // Cell style helper
+  function st(bg, fg, bold=false, sz=10, h='center', wrap=false){
+    return {
+      fill:{patternType:'solid', fgColor:{rgb:bg}},
+      font:{name:'Arial', sz, bold, color:{rgb:fg}},
+      alignment:{horizontal:h, vertical:'center', wrapText:wrap},
+      border:{
+        left:  {style:'thin', color:{rgb:'CCCCCC'}},
+        right: {style:'thin', color:{rgb:'CCCCCC'}},
+        top:   {style:'thin', color:{rgb:'CCCCCC'}},
+        bottom:{style:'thin', color:{rgb:'CCCCCC'}},
+      }
+    };
+  }
+  function stThick(bg,fg,bold=false,sz=10){
+    const s=st(bg,fg,bold,sz,'left');
+    s.border.left={style:'medium',color:{rgb:'888888'}};
+    return s;
+  }
+
+  // Build data
+  const smap={};
+  SECTORS_DEF.forEach(s=>{ smap[s.code]=Array(7).fill(null).map(()=>({am:[],pm:[]})); });
+  const guards=Array(7).fill(null).map(()=>[]);
+  const h18=Array(7).fill('');
+  const sorties=Array(7).fill(null).map(()=>[]);
+  const absArr=Array(7).fill(null).map(()=>[]);
 
   month.doctors.forEach(doc=>{
     daySlots.forEach((slot,dow)=>{
       if(!slot) return;
       const entry=doc.days[slot.dayIdx]||{};
-      const st2=entry.status||'';
-      if(st2==='G') guardsArr[dow].push(doc.initials);
-      if(st2==='18') h18Arr[dow]=doc.initials;
-      if(st2==='RG') sortiesArr[dow].push(doc.initials);
-      if(['A','CP','F'].includes(st2)) absentsArr[dow].push(doc.initials);
-      if(ABSENT_STATUSES.has(st2)) return;
-      const mKey=entry.morning&&entry.morning.startsWith('CS-')?'CS':entry.morning;
-      const pKey=entry.afternoon&&entry.afternoon.startsWith('CS-')?'CS':entry.afternoon;
-      if(mKey&&sectorIdx[mKey]!==undefined) sectorRows[sectorIdx[mKey]].days[dow].am.push({init:doc.initials,sector:entry.morning});
-      if(pKey&&sectorIdx[pKey]!==undefined) sectorRows[sectorIdx[pKey]].days[dow].pm.push({init:doc.initials,sector:entry.afternoon});
+      const status=entry.status||'';
+      const am=entry.morning||'';
+      const pm=entry.afternoon||'';
+      if(status==='G') guards[dow].push(doc.initials);
+      if(status==='18') h18[dow]=doc.initials;
+      if(status==='RG') sorties[dow].push(doc.initials);
+      if(['A','CP','F'].includes(status)) absArr[dow].push(doc.initials);
+      if(ABSENT_STATUSES.has(status)) return;
+      const mKey=am.startsWith('CS-')?'CS':am;
+      const pKey=pm.startsWith('CS-')?'CS':pm;
+      const mSub=am.includes('-')?am.split('-')[1]:'';
+      const pSub=pm.includes('-')?pm.split('-')[1]:'';
+      if(mKey&&smap[mKey]) smap[mKey][dow].am.push({init:doc.initials,sub:mSub,status});
+      if(pKey&&smap[pKey]) smap[pKey][dow].pm.push({init:doc.initials,sub:pSub,status});
     });
   });
 
-  const rows=[];const merges=[];let r=0;
+  const rows=[];
+  const merges=[];
+  let r=0;
 
-  // Title
-  rows.push([{v:`PLANNING · SEMAINE ${week.weekNum} · CHPG MONACO`,s:st(C.red,C.white,true,13)},
-    ...Array(14).fill({v:'',s:st(C.red,C.white)})]);
+  // ── Row 0: Title
+  const firstSlot=daySlots.find(s=>s);
+  const lastSlot=[...daySlots].reverse().find(s=>s);
+  const fmtDate=ds=>{ const d=new Date(ds); return d.toLocaleDateString('fr-FR',{day:'2-digit',month:'2-digit',year:'numeric'}); };
+  const title=`PLANNING ANESTHÉSISTES — Semaine ${week.weekNum} — ${fmtDate(firstSlot.date)} au ${fmtDate(lastSlot.date)}`;
+  rows.push([{v:title, s:st(C.red,C.white,true,14)}, ...Array(14).fill({v:'',s:st(C.red,C.white)})]);
   merges.push({s:{r,c:0},e:{r,c:14}}); r++;
 
-  rows.push([{v:"Service d'Anesthésie-Réanimation",s:st(C.redMid,C.redLight,false,9)},
-    ...Array(14).fill({v:'',s:st(C.redMid,C.redLight)})]);
+  // ── Row 1: Subtitle
+  rows.push([{v:"CHPG Monaco · Service d'Anesthésie-Réanimation", s:st(C.redDark,C.white,false,10)}, ...Array(14).fill({v:'',s:st(C.redDark,C.white)})]);
   merges.push({s:{r,c:0},e:{r,c:14}}); r++;
 
-  // Day headers — 2 cols per day (AM/PM)
-  const dayRow=[{v:'SECTEUR',s:st(C.charcoal,C.white,true,10,'left')}];
+  // ── Row 2: Spacer
+  rows.push(Array(15).fill({v:'',s:st(C.greyLt,C.ink)}));
+  merges.push({s:{r,c:0},e:{r,c:14}}); r++;
+
+  // ── Row 3: Day headers
+  const dayRow=[{v:'SECTEUR', s:st(C.greyHd,C.muted,true,9,'left')}];
   daySlots.forEach((slot,i)=>{
     const isWe=i>=5;
-    const bg=isWe?C.slate:C.charcoal;
+    const bg=isWe?C.we:C.greyHd;
     const dt=slot?new Date(slot.date):null;
-    const ds=dt?dt.toLocaleDateString('fr-FR',{day:'2-digit',month:'short'}).toUpperCase():'';
-    dayRow.push({v:`${DAYS_FR[i]}${ds?'\n'+ds:''}`,s:st(bg,isWe?C.muted:C.white,true,9,'center',true)});
-    dayRow.push({v:'',s:st(bg,isWe?C.muted:C.white)});
+    const ds=dt?dt.toLocaleDateString('fr-FR',{day:'2-digit',month:'2-digit'}):'';
+    const label=DAYS_FR[i]+(ds?'\n'+ds:'');
+    dayRow.push({v:label, s:st(bg,isWe?C.muted:C.ink,true,9,'center',true)});
+    dayRow.push({v:'',    s:st(bg,isWe?C.muted:C.ink)});
   });
-  rows.push(dayRow); r++;
+  rows.push(dayRow);
+  // Merge each day across its 2 cols
+  daySlots.forEach((_,i)=>{ merges.push({s:{r,c:1+i*2},e:{r,c:2+i*2}}); });
+  r++;
 
-  // AM/PM subheader
-  const ampmRow=[{v:'',s:st(C.charcoal,C.white)}];
+  // ── Row 4: AM/PM subheader
+  const ampmRow=[{v:'', s:st(C.greyHd,C.ink)}];
   daySlots.forEach((_,i)=>{
     const isWe=i>=5;
-    ampmRow.push({v:'AM',s:st(isWe?C.slate:C.red,C.white,true,8)});
-    ampmRow.push({v:'PM',s:st(isWe?C.slate:C.muted,C.white,true,8)});
+    ampmRow.push({v:'AM', s:st(isWe?C.we:C.red,    C.white,true,8)});
+    ampmRow.push({v:'PM', s:st(isWe?C.we:'374151', C.white,true,8)});
   });
   rows.push(ampmRow); r++;
 
-  // Merge day headers across AM/PM cols
-  daySlots.forEach((_,i)=>{
-    merges.push({s:{r:2,c:1+i*2},e:{r:2,c:2+i*2}});
-  });
-
-  // Sector rows
-  const activeSectors=sectorRows.filter(s=>s.days.some(d=>d.am.length||d.pm.length));
+  // ── Sector rows
+  const activeSectors=SECTORS_DEF.filter(s=>smap[s.code].some(d=>d.am.length||d.pm.length));
   activeSectors.forEach(sec=>{
-    const row=[{v:sec.label,s:{...st(C.line,C.charcoal,true,10,'left'),border:{right:{style:'medium',color:{rgb:'CCCCCC'}},bottom:{style:'thin',color:{rgb:C.lineDark}}}}}];
+    const secBg=SECTOR_COLORS[sec.code]||C.white;
+    const row=[{v:SECTOR_LABELS_XL[sec.code]||sec.label, s:stThick(secBg,C.ink,true,10)}];
     for(let i=0;i<7;i++){
       const isWe=i>=5;
-      const bg=isWe?C.bg:C.white;
-      const am=sec.days[i].am;
-      const pm=sec.days[i].pm;
-      const fmtNames=(arr)=>arr.map(p=>{
-        const sub=p.sector&&p.sector.includes('-')?` (${p.sector.split('-')[1]})` :'';
-        return p.init+sub;
-      }).join(', ');
-      row.push({v:am.length?fmtNames(am):'—',s:st(bg,am.length?C.charcoal:C.muted,false,9,'center',true)});
-      row.push({v:pm.length?fmtNames(pm):'—',s:st(bg,pm.length?C.charcoal:C.muted,false,9,'center',true)});
+      const bg=isWe?C.we:(SECTOR_COLORS[sec.code]||C.white);
+      const fmt=arr=>arr.length?arr.map(p=>p.init+(p.sub?' ('+p.sub+')':'')).join('\n'):'—';
+      row.push({v:fmt(smap[sec.code][i].am), s:st(bg,smap[sec.code][i].am.length?C.ink:C.muted,smap[sec.code][i].am.length>0,9,'center',true)});
+      row.push({v:fmt(smap[sec.code][i].pm), s:st(bg,smap[sec.code][i].pm.length?C.ink:C.muted,smap[sec.code][i].pm.length>0,9,'center',true)});
     }
     rows.push(row); r++;
   });
 
-  // Spacer
-  rows.push(Array(15).fill({v:'',s:st(C.line,C.line)}));
+  // ── Spacer
+  rows.push(Array(15).fill({v:'',s:st(C.greyLt,C.ink)}));
   merges.push({s:{r,c:0},e:{r,c:14}}); r++;
 
-  // Gardes section
-  rows.push([{v:'GARDES & FONCTIONS',s:st(C.line,C.muted,true,8,'left')},...Array(14).fill({v:'',s:st(C.line,C.muted)})]);
+  // ── Gardes header
+  rows.push([{v:'GARDES & FONCTIONS', s:st(C.greyHd,C.muted,true,9,'left')}, ...Array(14).fill({v:'',s:st(C.greyHd,C.muted)})]);
   merges.push({s:{r,c:0},e:{r,c:14}}); r++;
 
-  const infoRow2=(lbl,valsFn)=>{
-    const row=[{v:lbl,s:st(C.line,C.slate,true,9,'left')}];
+  function infoRow(label, vals, bgV, fgV){
+    const row=[{v:label, s:st(C.greyLt,C.ink,true,9,'left')}];
     for(let i=0;i<7;i++){
-      const isWe=i>=5; const v=valsFn(i);
-      row.push({v:v||(isWe?'':'—'),s:st(v?C.redLight:(isWe?C.bg:C.white),v?C.red:C.muted,false,9,'center',true)});
-      row.push({v:'',s:st(isWe?C.bg:C.white,C.white)});
+      const isWe=i>=5;
+      const v=vals[i]||'';
+      const bg=isWe?C.we:(v?bgV:C.white);
+      const fg=v?fgV:C.muted;
+      // Merge AM+PM cols
+      row.push({v:v||'—', s:st(bg,fg,!!v,9,'center',true)});
+      row.push({v:'',     s:st(bg,C.white)});
     }
+    // Add merges for this row
+    for(let i=0;i<7;i++){ merges.push({s:{r,c:1+i*2},e:{r,c:2+i*2}}); }
     return row;
-  };
+  }
 
-  rows.push(infoRow2('Garde 24h',i=>guardsArr[i].join(' / '))); r++;
-  rows.push(infoRow2('8h – 18h',i=>h18Arr[i])); r++;
-  rows.push(infoRow2('Sortie de garde',i=>sortiesArr[i].join(' / '))); r++;
-  rows.push(infoRow2('Absences / CP / F',i=>absentsArr[i].join(' / '))); r++;
+  rows.push(infoRow('Garde 24h',        guards.map(g=>g.join(' / ')),  C.guard, C.guardFg)); r++;
+  rows.push(infoRow('8h – 18h',         h18,                            C.h18,   C.h18Fg));   r++;
+  rows.push(infoRow('Sortie de garde',  sorties.map(s=>s.join(' / ')), C.rg,    C.rgFg));    r++;
+  rows.push(infoRow('Absences / CP / F',absArr.map(a=>a.join(' / ')),  C.abs,   C.absFg));   r++;
 
-  // Footer
-  rows.push([{v:`Généré le ${new Date().toLocaleDateString('fr-FR')}  ·  CHPG Monaco · Confidentiel`,
-    s:st(C.charcoal,C.muted,false,7,'center')},...Array(14).fill({v:'',s:st(C.charcoal,C.muted)})]);
+  // ── Footer
+  rows.push([{v:`Généré le ${new Date().toLocaleDateString('fr-FR')}  ·  CHPG Monaco · Anesthésie-Réanimation  ·  Confidentiel`, s:st(C.dark,C.muted,false,7,'center')}, ...Array(14).fill({v:'',s:st(C.dark,C.muted)})]);
   merges.push({s:{r,c:0},e:{r,c:14}});
 
+  // ── Build sheet
   const ws=XLSX.utils.aoa_to_sheet(rows);
   ws['!merges']=merges;
-  ws['!cols']=[{wch:22},...Array(14).fill({wch:10})];
-  ws['!rows']=[{hpt:28},{hpt:14},{hpt:32},{hpt:16},...Array(rows.length-4).fill({hpt:20})];
-  ws['!pageSetup']={orientation:'landscape',paperSize:9,fitToPage:true,fitToWidth:1};
+  ws['!cols']=[{wch:22},...Array(14).fill({wch:8})];
+  ws['!rows']=[
+    {hpt:28},{hpt:16},{hpt:6},{hpt:28},{hpt:16},
+    ...Array(activeSectors.length).fill({hpt:36}),
+    {hpt:8},{hpt:16},{hpt:20},{hpt:20},{hpt:20},{hpt:20},{hpt:14}
+  ];
 
   const wb=XLSX.utils.book_new();
   XLSX.utils.book_append_sheet(wb,ws,`S${week.weekNum}`);
