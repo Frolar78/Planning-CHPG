@@ -319,7 +319,13 @@ function renderBottom(month,daySlots,week){
   html+=buildRow('Garde 24h',dow=>guards[dow].length?guards[dow].map(i=>`<span class="name-tag guard">${i}</span>`).join(''):'<span class="bt-dash">—</span>');
   html+=buildRow('8h – 18h',dow=>h18[dow]?`<span class="name-tag h18">${h18[dow]}</span>`:'<span class="bt-dash">—</span>');
   html+=buildRow('Sortie de garde',dow=>sorties[dow].length?sorties[dow].map(i=>`<span class="name-tag rg">${i}</span>`).join(''):'<span class="bt-dash">—</span>');
-  html+=buildRow('Absences / CP / F',dow=>absents[dow].length?absents[dow].map(a=>`<span class="name-tag absent" title="${a.reason}">${a.init}</span>`).join(''):'<span class="bt-dash">—</span>');
+  html+=buildRow('Absences / CP / F',dow=>{
+    if(!absents[dow].length) return '<span class="bt-dash">—</span>';
+    const chips=absents[dow].map(a=>`<span class="name-tag absent" title="${a.reason}">${a.init}</span>`);
+    const lines=[];
+    for(let i=0;i<chips.length;i+=4) lines.push(`<div style="display:flex;gap:2px;justify-content:center;flex-wrap:wrap">${chips.slice(i,i+4).join('')}</div>`);
+    return lines.join('');
+  });
   html+=`</tbody></table></div></div></div>`;
   document.getElementById('bottomSection').innerHTML=html;
 }
@@ -572,8 +578,13 @@ async function exportExcel(){
   gardeRow('Garde 24h',guards.map(g=>g.join(' / ')),C.guard,C.guardFg); row++;
   gardeRow('8h – 18h',h18,C.h18,C.h18Fg); row++;
   gardeRow('Sortie de garde',sorties.map(s=>s.join(' / ')),C.rg,C.rgFg); row++;
-  gardeRow('Absences / CP / F',absents.map(a=>a.join(' / ')),C.abs,C.absFg); row++;
-
+  gardeRow('Absences / CP / F',absents.map(a=>{
+    if(!a.length) return '';
+    const lines=[];
+    for(let i=0;i<a.length;i+=4) lines.push(a.slice(i,i+4).join(' · '));
+    return lines.join('\n');
+  }),C.abs,C.absFg); row++;
+  
   // Footer
   merge(ws,row,1,row,25);
   setCell(ws,row,1,`Généré le ${new Date().toLocaleDateString('fr-FR')}  ·  CHPG Monaco · Anesthésie-Réanimation  ·  Confidentiel`,
