@@ -562,6 +562,7 @@ async function exportExcel(){
   ws.getRow(row).height=14; row++;
 
 function gardeRow(label,vals,bgV,fgV,customHeight){
+    ws.getRow(row).height=customHeight||20;
     setCell(ws,row,1,label,font(true,9,C.ink),fill(C.greyLt),align('left','middle'),bAll);
     for(let dow=0;dow<7;dow++){
       const cs=colStart(dow); const isWe=dow>=5; const n=isWe?2:4;
@@ -572,7 +573,6 @@ function gardeRow(label,vals,bgV,fgV,customHeight){
         fill(isWe&&!v?C.we:v?bgV:'FFFFFF'),
         align('center','middle',true),bAll);
     }
-    ws.getRow(row).height=customHeight||20;
   }
 
 gardeRow('Garde 24h',guards.map(g=>g.join(' / ')),C.guard,C.guardFg,20); row++;
