@@ -77,7 +77,7 @@ async function init(){
   const now=new Date();
   const found=DATA.months.find(m=>m.year===now.getFullYear()&&m.month===now.getMonth()+1);
   currentMonthId=found?found.id:DATA.months[0].id;
-  MonthSelect();
+  buildMonthSelect();
   WeekNav();
   document.getElementById('exportBtn').onclick=exportExcel;
   render();
