@@ -131,7 +131,24 @@ function setMainView(v){
   document.getElementById('planningView').style.display=v==='planning'?'':'none';
   document.getElementById('medecinsView').style.display=v==='medecins'?'':'none';
   document.getElementById('exportBtn').style.display=v==='planning'?'':'none';
-  if(v==='medecins') renderMedecins();
+  if(v==='medecins'){ buildDoctorSelect(); renderMedecins(); }
+}
+
+function buildDoctorSelect(){
+  const month=DATA.months.find(m=>m.id===currentMonthId);
+  const sel=document.getElementById('doctorSelect');
+  if(!sel) return;
+  sel.style.display='block';
+  const current=sel.value;
+  sel.innerHTML='<option value="">Tous les médecins</option>';
+  month.doctors.forEach(doc=>{
+    const name=(doc.id==='PRUNET'?'PR ':'DR ')+doc.id.charAt(0)+doc.id.slice(1).toLowerCase();
+    const opt=document.createElement('option');
+    opt.value=doc.id; opt.textContent=name;
+    if(doc.id===current) opt.selected=true;
+    sel.appendChild(opt);
+  });
+  sel.onchange=renderMedecins;
 }
 
 function renderMedecins(){
@@ -141,31 +158,43 @@ function renderMedecins(){
 
 function renderBilanMensuel(){
   const month=DATA.months.find(m=>m.id===currentMonthId);
-  const CODES=['G','18','RG','A','CP','F','R'];
+  const filterDoc=document.getElementById('doctorSelect')?.value||'';
+  const doctors=filterDoc?month.doctors.filter(d=>d.id===filterDoc):month.doctors;
 
   let html=`<thead><tr>
     <th class="col-name">Médecin</th>
     <th class="col-sector">Secteur</th>
-    <th>G</th><th>18h</th><th>RG</th><th>A</th><th>CP</th><th>F</th><th>R</th>
-    <th>Présents</th>
+    <th title="Gardes 24h">G</th>
+    <th title="Journées 8h-18h">18h</th>
+    <th title="Repos de garde">RG</th>
+    <th title="Absence">A</th>
+    <th title="Congés payés">CP</th>
+    <th title="Formation">F</th>
+    <th title="Récup samedi">R</th>
+    <th title="Jours travaillés">Présents</th>
   </tr></thead><tbody>`;
 
-  month.doctors.forEach(doc=>{
+  doctors.forEach(doc=>{
     const counts={G:0,'18':0,RG:0,A:0,CP:0,F:0,R:0};
     let presents=0;
-
-    doc.days.forEach(entry=>{
+    month.days.forEach((day,i)=>{
+      const entry=doc.days[i]||{};
       const st=entry.status||'';
       if(counts[st]!==undefined) counts[st]++;
-      // Présent = pas absent (pas RG/A/CP/F/R)
-      if(!['RG','A','CP','F','R'].includes(st)) presents++;
+      const isWe=isWeekend(day.weekday);
+      if(isWe){
+        if(st==='G') presents++;
+      } else {
+        if(!['RG','A','CP','F','R'].includes(st)) presents++;
+      }
     });
-
-    // Secteur du mois
-    const sector=doc.days.find(d=>d.morning&&!d.morning.startsWith('CS-'))?.morning||'—';
-
+    const sectorCounts={};
+    doc.days.forEach(entry=>{
+      const s=entry.morning&&!entry.morning.startsWith('CS-')?entry.morning:null;
+      if(s) sectorCounts[s]=(sectorCounts[s]||0)+1;
+    });
+    const sector=Object.entries(sectorCounts).sort((a,b)=>b[1]-a[1])[0]?.[0]||'VOLANT';
     const name=(doc.id==='PRUNET'?'PR ':'DR ')+doc.id.charAt(0)+doc.id.slice(1).toLowerCase();
-
     html+=`<tr>
       <td class="col-name">${esc(name)}</td>
       <td class="col-sector">${esc(sector)}</td>
@@ -179,43 +208,44 @@ function renderBilanMensuel(){
       <td><strong>${presents}</strong></td>
     </tr>`;
   });
-
   html+='</tbody>';
   const table=document.getElementById('bilanMensuel');
   table.className='bilan-table';
   table.innerHTML=html;
-
-  // Titre section
-  const container=table.closest('.table-container');
-  let title=container.previousElementSibling;
+  let title=table.closest('.table-container').previousElementSibling;
   if(!title||!title.classList.contains('bilan-section-title')){
     title=document.createElement('div');
     title.className='bilan-section-title';
-    container.parentElement.insertBefore(title,container);
+    table.closest('.table-container').parentElement.insertBefore(title,table.closest('.table-container'));
   }
   title.textContent=`Bilan mensuel — ${month.label}`;
 }
 
 function renderBilanAnnuel(){
-  // Agréger tous les mois
+  const filterDoc=document.getElementById('doctorSelect')?.value||'';
   const totals={};
   DATA.months.forEach(month=>{
     month.doctors.forEach(doc=>{
+      if(filterDoc&&doc.id!==filterDoc) return;
       if(!totals[doc.id]) totals[doc.id]={G:0,'18':0,RG:0,A:0,CP:0,F:0,R:0,presents:0};
-      doc.days.forEach(entry=>{
+      month.days.forEach((day,i)=>{
+        const entry=doc.days[i]||{};
         const st=entry.status||'';
         if(totals[doc.id][st]!==undefined) totals[doc.id][st]++;
-        if(!['RG','A','CP','F','R'].includes(st)) totals[doc.id].presents++;
+        const isWe=isWeekend(day.weekday);
+        if(isWe){
+          if(st==='G') totals[doc.id].presents++;
+        } else {
+          if(!['RG','A','CP','F','R'].includes(st)) totals[doc.id].presents++;
+        }
       });
     });
   });
-
   let html=`<thead><tr>
     <th class="col-name">Médecin</th>
     <th>G</th><th>18h</th><th>RG</th><th>A</th><th>CP</th><th>F</th><th>R</th>
     <th>Présents</th>
   </tr></thead><tbody>`;
-
   Object.entries(totals).forEach(([id,counts])=>{
     const name=(id==='PRUNET'?'PR ':'DR ')+id.charAt(0)+id.slice(1).toLowerCase();
     html+=`<tr>
@@ -230,12 +260,10 @@ function renderBilanAnnuel(){
       <td><strong>${counts.presents}</strong></td>
     </tr>`;
   });
-
   html+='</tbody>';
   const table=document.getElementById('bilanAnnuel');
   table.className='bilan-table';
   table.innerHTML=html;
-
   let title=table.closest('.table-container').previousElementSibling;
   if(!title||!title.classList.contains('bilan-section-title')){
     title=document.createElement('div');
@@ -260,6 +288,10 @@ async function init(){
   buildWeekNav();
   document.getElementById('exportBtn').onclick=exportExcel;
   initViewToggle();
+  const docSel=document.createElement('select');
+  docSel.id='doctorSelect';
+  docSel.style.cssText='border:1.5px solid #E2E8F0;border-radius:8px;padding:6px 10px;font-size:13px;font-weight:600;font-family:DM Sans,sans-serif;color:#0F172A;background:white;outline:none;cursor:pointer;display:none;margin:10px 32px 0;';
+  document.getElementById('medecinsView').prepend(docSel);
   render();
 }
 
@@ -273,7 +305,14 @@ function buildMonthSelect(){
     if(m.id===currentMonthId) opt.selected=true;
     sel.appendChild(opt);
   });
-  sel.onchange=()=>{ currentMonthId=sel.value; currentWeekIdx=0; buildWeekNav(); render(); };
+  sel.onchange=()=>{
+    currentMonthId=sel.value;
+    currentWeekIdx=0;
+    window._weekInitialized=false;
+    buildWeekNav();
+    render();
+    if(currentMainView==='medecins') renderMedecins();
+  };
 }
 
 // ── WEEK NAV ───────────────────────────────────────────────────────────
