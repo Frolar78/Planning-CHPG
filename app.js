@@ -86,13 +86,18 @@ function getWeeksInMonth(month){
       const dateStr=`${d.getFullYear()}-${String(d.getMonth()+1).padStart(2,'0')}-${String(d.getDate()).padStart(2,'0')}`;
       // Chercher ce jour dans les données du mois
       const found=month.days.find(md=>md.date===dateStr);
-      if(found){
-        // Jour dans ce mois — on a les données
-        days.push({...found, dayIdx:month.days.indexOf(found)});
+     if(found){
+        days.push({...found, dayIdx:month.days.indexOf(found), sourceMonth: null});
       } else {
-        // Jour hors mois — on crée un slot vide
+        // Jour hors mois — chercher dans les autres mois du DATA
         const wd=['D','L','M','M','J','V','S'][d.getDay()];
-        days.push({day:d.getDate(), weekday:wd, date:dateStr, dayIdx:-1});
+        const otherMonth=DATA.months.find(m=>m.days.some(md=>md.date===dateStr));
+        if(otherMonth){
+          const otherDay=otherMonth.days.find(md=>md.date===dateStr);
+          days.push({...otherDay, dayIdx:otherMonth.days.indexOf(otherDay), sourceMonth:otherMonth});
+        } else {
+          days.push({day:d.getDate(), weekday:wd, date:dateStr, dayIdx:-1, sourceMonth:null});
+        }
       }
     }
     weeks.push({weekNum:wn, days});
@@ -201,10 +206,18 @@ function renderTable(month,daySlots,week){
   const smap={};
   SECTORS_DEF.forEach(s=>{ smap[s.code]=Array(7).fill(null).map(()=>({am:[],pm:[]})); });
 
-  month.doctors.forEach(doc=>{
+month.doctors.forEach(doc=>{
     daySlots.forEach((slot,dow)=>{
       if(!slot) return;
-      const entry=slot.dayIdx>=0?(doc.days[slot.dayIdx]||{}):{};
+      let entry={};
+      if(slot.dayIdx>=0){
+        if(slot.sourceMonth){
+          const otherDoc=slot.sourceMonth.doctors.find(d=>d.id===doc.id);
+          entry=otherDoc?(otherDoc.days[slot.dayIdx]||{}):{};
+        } else {
+          entry=doc.days[slot.dayIdx]||{};
+        }
+      }
       if(entry.status && ABSENT_STATUSES.has(entry.status)) return;
       const status=entry.status||'';
       const mKey=entry.morning&&entry.morning.startsWith('CS-')?'CS':entry.morning;
@@ -276,7 +289,15 @@ function renderBottom(month,daySlots,week){
   month.doctors.forEach(doc=>{
     daySlots.forEach((slot,dow)=>{
       if(!slot) return;
-      const entry=slot.dayIdx>=0?(doc.days[slot.dayIdx]||{}):{};
+      let entry={};
+      if(slot.dayIdx>=0){
+        if(slot.sourceMonth){
+          const otherDoc=slot.sourceMonth.doctors.find(d=>d.id===doc.id);
+          entry=otherDoc?(otherDoc.days[slot.dayIdx]||{}):{};
+        } else {
+          entry=doc.days[slot.dayIdx]||{};
+        }
+      }
       const st=entry.status||'';
       if(st==='G') guards[dow].push(doc.initials);
       if(st==='18') h18[dow]=doc.initials;
