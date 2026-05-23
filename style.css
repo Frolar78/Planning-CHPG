@@ -329,11 +329,13 @@ body {
   gap: 8px;
 }
 .sector-icon-svg {
-  width: 16px;
-  height: 16px;
+  width: 18px;
+  height: 18px;
   flex-shrink: 0;
   stroke: var(--ink-3);
-  stroke-width: 2;
+  stroke-width: 1.5;
+  fill: none;
+  display: block;
 }
 .sector-name-text {
   font-size: 12px;
