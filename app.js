@@ -561,19 +561,22 @@ async function exportExcel(){
   setCell(ws,row,1,'GARDES & FONCTIONS',font(true,9,C.muted),fill(C.greyHd),align('left','middle'));
   ws.getRow(row).height=14; row++;
 
-  function gardeRow(label,vals,bgV,fgV){
-    const maxLines=Math.max(...vals.map(v=>v?String(v).split('\n').length:1),1);
-    ws.getRow(row).height=Math.max(18,maxLines*16);
+function gardeRow(label,vals,bgV,fgV){
+    ws.getRow(row).height=20;
     setCell(ws,row,1,label,font(true,9,C.ink),fill(C.greyLt),align('left','middle'),bAll);
+    let maxLines=1;
     for(let dow=0;dow<7;dow++){
       const cs=colStart(dow); const isWe=dow>=5; const n=isWe?2:4;
       merge(ws,row,cs,row,cs+n-1);
-      const v=vals[dow];
+      const v=vals[dow]||'';
+      const lines=v?v.split('\n').length:1;
+      if(lines>maxLines) maxLines=lines;
       setCell(ws,row,cs,v||'—',
         font(!!v,9,v?fgV:C.muted),
         fill(isWe&&!v?C.we:v?bgV:'FFFFFF'),
         align('center','middle',true),bAll);
     }
+   ws.getRow(row).height=50;
   }
 
   gardeRow('Garde 24h',guards.map(g=>g.join(' / ')),C.guard,C.guardFg); row++;
