@@ -254,180 +254,296 @@ function renderBottom(month,daySlots,week){
 }
 
 // ── EXPORT EXCEL ───────────────────────────────────────────────────────
-function exportExcel(){
-  if(typeof XLSX==='undefined'){ alert('SheetJS non chargé'); return; }
+async function exportExcel(){
+  if(typeof ExcelJS==='undefined'){ alert('ExcelJS non chargé'); return; }
 
   const month=DATA.months.find(m=>m.id===currentMonthId);
   const weeks=getWeeksInMonth(month);
   const week=weeks[currentWeekIdx];
   const daySlots=weekDaysFull(week);
 
-  const C={
-    red:'CE1126', redDark:'9A0D1C', redLt:'FCE8EB',
-    greyHd:'D9D9D9', greyLt:'F2F2F2', we:'EFEFEF',
-    white:'FFFFFF', ink:'000000', muted:'595959',
-    guard:'FFE0E0', guardFg:'B91C1C',
-    h18:'FFF2CC',   h18Fg:'B45309',
-    rg:'E2EFDA',    rgFg:'166534',
-    abs:'F2F2F2',   absFg:'595959',
-    dark:'1A1A2E',
+  const DOCTORS_INFO=[
+    ['PR PRUNET','BP','81409'],['DR ALBOUY','SA','85019'],['DR ARMANDO','GA','81867'],
+    ['DR BONNET','LB','81322'],['DR BOUREGBA','MB','81859'],['DR CATINEAU','JC','81268'],
+    ['DR FROHLICH','AFR','82616'],['DR FERRIERO','AF','82565'],['DR GHIGLIONE','SG','81809'],
+    ['DR GUERIN','JPG','82022'],['DR LEVASSEUR','LUL','82558'],['DR LEY','LL','82132'],
+    ['DR MENADE','RM','81378'],['DR OPPRECHT','NO','82188'],['DR PARTOUCHE','NP','81806'],
+    ['DR ROUSSEAU','GR','81860'],['DR SUPLY','CS','82578'],['DR SEVERAC','MS','82401'],
+    ['DR SULTAN','WS','81348'],['DR TRAN','DT','83783'],['DR ZAMARON','FZ','82481'],
+    ['DR WIDEHEM','RW','82101'],['DR SALA','NS','81397'],['DR DRUGE','DD',''],
+  ];
+  const SPECIAL_DECT=[
+    ['Garde réa','83636'],['Garde bloc/mater','82103'],
+    ['Secrétariat Tamaris','81380'],['Secrétariat réa','89819'],
+  ];
+  const SECTOR_COLORS_XL={
+    VIS:'DDEEFF',REA:'E8E0F0',ORT:'F3AA7D',DVI:'F3AA7D',
+    ORL:'FFFFC9',END:'FFFFFF',CI:'E7E6E6',RI:'E7E6E6',
+    MAT:'FFA7A9',CS:'D9EAD3',
   };
-
-  // Cell style helper
-  function st(bg, fg, bold=false, sz=10, h='center', wrap=false){
-    return {
-      fill:{patternType:'solid', fgColor:{rgb:bg}},
-      font:{name:'Arial', sz, bold, color:{rgb:fg}},
-      alignment:{horizontal:h, vertical:'center', wrapText:wrap},
-      border:{
-        left:  {style:'thin', color:{rgb:'CCCCCC'}},
-        right: {style:'thin', color:{rgb:'CCCCCC'}},
-        top:   {style:'thin', color:{rgb:'CCCCCC'}},
-        bottom:{style:'thin', color:{rgb:'CCCCCC'}},
-      }
-    };
-  }
-  function stThick(bg,fg,bold=false,sz=10){
-    const s=st(bg,fg,bold,sz,'left');
-    s.border.left={style:'medium',color:{rgb:'888888'}};
-    return s;
-  }
+  const SECTOR_LABELS_XL={
+    VIS:'VISCÉRAL',REA:'RÉANIMATION',ORT:'ORTHOPÉDIE',DVI:'POSE DVI',
+    ORL:'ORL / OPHTALMO',END:'ENDOSCOPIES',CI:'CARDIO / RADIO INTER.',
+    RI:'RADIO INTER.',MAT:'MATERNITÉ',CS:'CONSULTATIONS',
+  };
+  const SECTORS_XL=['VIS','REA','ORT','DVI','ORL','END','CI','RI','MAT','CS'];
+  const DAYS_FR_XL=['LUNDI','MARDI','MERCREDI','JEUDI','VENDREDI','SAMEDI','DIMANCHE'];
+  const C={
+    red:'CE1126',redDark:'9A0D1C',greyHd:'D9D9D9',
+    greyLt:'F2F2F2',we:'EFEFEF',white:'FFFFFF',ink:'000000',muted:'595959',
+    guard:'FFE0E0',guardFg:'B91C1C',h18:'FFF2CC',h18Fg:'B45309',
+    rg:'E2EFDA',rgFg:'166534',abs:'F2F2F2',absFg:'595959',dark:'1A1A2E',
+  };
 
   // Build data
   const smap={};
-  SECTORS_DEF.forEach(s=>{ smap[s.code]=Array(7).fill(null).map(()=>({am:[],pm:[]})); });
+  SECTORS_XL.forEach(s=>{ smap[s]=Array(7).fill(null).map(()=>({am:[],pm:[]})); });
   const guards=Array(7).fill(null).map(()=>[]);
   const h18=Array(7).fill('');
   const sorties=Array(7).fill(null).map(()=>[]);
-  const absArr=Array(7).fill(null).map(()=>[]);
+  const absents=Array(7).fill(null).map(()=>[]);
 
   month.doctors.forEach(doc=>{
+    let init=doc.initials;
+    if(init==='CSU') init='CS';
     daySlots.forEach((slot,dow)=>{
       if(!slot) return;
       const entry=doc.days[slot.dayIdx]||{};
-      const status=entry.status||'';
+      const st=entry.status||'';
       const am=entry.morning||'';
       const pm=entry.afternoon||'';
-      if(status==='G') guards[dow].push(doc.initials);
-      if(status==='18') h18[dow]=doc.initials;
-      if(status==='RG') sorties[dow].push(doc.initials);
-      if(['A','CP','F'].includes(status)) absArr[dow].push(doc.initials);
-      if(ABSENT_STATUSES.has(status)) return;
-      const mKey=am.startsWith('CS-')?'CS':am;
-      const pKey=pm.startsWith('CS-')?'CS':pm;
-      const mSub=am.includes('-')?am.split('-')[1]:'';
-      const pSub=pm.includes('-')?pm.split('-')[1]:'';
-      if(mKey&&smap[mKey]) smap[mKey][dow].am.push({init:doc.initials,sub:mSub,status});
-      if(pKey&&smap[pKey]) smap[pKey][dow].pm.push({init:doc.initials,sub:pSub,status});
+      if(st==='G') guards[dow].push(init);
+      if(st==='18') h18[dow]=init;
+      if(st==='RG') sorties[dow].push(init);
+      if(['A','CP','F'].includes(st)) absents[dow].push(init);
+      if(ABSENT_STATUSES.has(st)) return;
+      const amKey=am.startsWith('CS-')?'CS':am;
+      const pmKey=pm.startsWith('CS-')?'CS':pm;
+      const amSub=am.includes('-')?am.split('-')[1]:'';
+      const pmSub=pm.includes('-')?pm.split('-')[1]:'';
+      if(amKey&&smap[amKey]) smap[amKey][dow].am.push({init,sub:amSub,status:st});
+      if(pmKey&&smap[pmKey]) smap[pmKey][dow].pm.push({init,sub:pmSub,status:st});
     });
   });
 
-  const rows=[];
-  const merges=[];
-  let r=0;
+  const colStart=dow=>dow<5?2+dow*4:22+(dow-5)*2;
 
-  // ── Row 0: Title
-  const firstSlot=daySlots.find(s=>s);
-  const lastSlot=[...daySlots].reverse().find(s=>s);
-  const fmtDate=ds=>{ const d=new Date(ds); return d.toLocaleDateString('fr-FR',{day:'2-digit',month:'2-digit',year:'numeric'}); };
-  const title=`PLANNING ANESTHÉSISTES — Semaine ${week.weekNum} — ${fmtDate(firstSlot.date)} au ${fmtDate(lastSlot.date)}`;
-  rows.push([{v:title, s:st(C.red,C.white,true,14)}, ...Array(14).fill({v:'',s:st(C.red,C.white)})]);
-  merges.push({s:{r,c:0},e:{r,c:14}}); r++;
-
-  // ── Row 1: Subtitle
-  rows.push([{v:"CHPG Monaco · Service d'Anesthésie-Réanimation", s:st(C.redDark,C.white,false,10)}, ...Array(14).fill({v:'',s:st(C.redDark,C.white)})]);
-  merges.push({s:{r,c:0},e:{r,c:14}}); r++;
-
-  // ── Row 2: Spacer
-  rows.push(Array(15).fill({v:'',s:st(C.greyLt,C.ink)}));
-  merges.push({s:{r,c:0},e:{r,c:14}}); r++;
-
-  // ── Row 3: Day headers
-  const dayRow=[{v:'SECTEUR', s:st(C.greyHd,C.muted,true,9,'left')}];
-  daySlots.forEach((slot,i)=>{
-    const isWe=i>=5;
-    const bg=isWe?C.we:C.greyHd;
-    const dt=slot?new Date(slot.date):null;
-    const ds=dt?dt.toLocaleDateString('fr-FR',{day:'2-digit',month:'2-digit'}):'';
-    const label=DAYS_FR[i]+(ds?'\n'+ds:'');
-    dayRow.push({v:label, s:st(bg,isWe?C.muted:C.ink,true,9,'center',true)});
-    dayRow.push({v:'',    s:st(bg,isWe?C.muted:C.ink)});
+  // ExcelJS
+  const wb=new ExcelJS.Workbook();
+  const ws=wb.addWorksheet(`Semaine ${week.weekNum}`,{
+    pageSetup:{orientation:'landscape',paperSize:9,fitToPage:true,fitToWidth:1}
   });
-  rows.push(dayRow);
-  // Merge each day across its 2 cols
-  daySlots.forEach((_,i)=>{ merges.push({s:{r,c:1+i*2},e:{r,c:2+i*2}}); });
-  r++;
+  ws.views=[{showGridLines:false}];
 
-  // ── Row 4: AM/PM subheader
-  const ampmRow=[{v:'', s:st(C.greyHd,C.ink)}];
-  daySlots.forEach((_,i)=>{
-    const isWe=i>=5;
-    ampmRow.push({v:'AM', s:st(isWe?C.we:C.red,    C.white,true,8)});
-    ampmRow.push({v:'PM', s:st(isWe?C.we:'374151', C.white,true,8)});
-  });
-  rows.push(ampmRow); r++;
+  // Column widths
+  ws.getColumn(1).width=20;
+  for(let dow=0;dow<5;dow++){
+    const cs=colStart(dow);
+    for(let ci=0;ci<4;ci++) ws.getColumn(cs+ci).width=6.5;
+  }
+  for(let dow=5;dow<7;dow++){
+    const cs=colStart(dow);
+    ws.getColumn(cs).width=6.5; ws.getColumn(cs+1).width=6.5;
+  }
+  ws.getColumn(26).width=2;
+  ws.getColumn(27).width=20;
+  ws.getColumn(28).width=8;
+  ws.getColumn(29).width=9;
 
-  // ── Sector rows
-  const activeSectors=SECTORS_DEF.filter(s=>smap[s.code].some(d=>d.am.length||d.pm.length));
-  activeSectors.forEach(sec=>{
-    const secBg=SECTOR_COLORS[sec.code]||C.white;
-    const row=[{v:SECTOR_LABELS_XL[sec.code]||sec.label, s:stThick(secBg,C.ink,true,10)}];
-    for(let i=0;i<7;i++){
-      const isWe=i>=5;
-      const bg=isWe?C.we:(SECTOR_COLORS[sec.code]||C.white);
-      const fmt=arr=>arr.length?arr.map(p=>p.init+(p.sub?' ('+p.sub+')':'')).join('\n'):'—';
-      row.push({v:fmt(smap[sec.code][i].am), s:st(bg,smap[sec.code][i].am.length?C.ink:C.muted,smap[sec.code][i].am.length>0,9,'center',true)});
-      row.push({v:fmt(smap[sec.code][i].pm), s:st(bg,smap[sec.code][i].pm.length?C.ink:C.muted,smap[sec.code][i].pm.length>0,9,'center',true)});
-    }
-    rows.push(row); r++;
-  });
+  const thin={style:'thin',color:{argb:'FFCCCCCC'}};
+  const thick={style:'medium',color:{argb:'FF888888'}};
+  const bAll={top:thin,bottom:thin,left:thin,right:thin};
+  const bThick={top:thin,bottom:thin,left:thick,right:thin};
 
-  // ── Spacer
-  rows.push(Array(15).fill({v:'',s:st(C.greyLt,C.ink)}));
-  merges.push({s:{r,c:0},e:{r,c:14}}); r++;
+  function fill(hex){ return {type:'pattern',pattern:'solid',fgColor:{argb:'FF'+hex}}; }
+  function font(bold,sz,hex){ return {name:'Arial',bold,size:sz,color:{argb:'FF'+hex}}; }
+  function align(h,v,wrap){ return {horizontal:h,vertical:v,wrapText:!!wrap}; }
 
-  // ── Gardes header
-  rows.push([{v:'GARDES & FONCTIONS', s:st(C.greyHd,C.muted,true,9,'left')}, ...Array(14).fill({v:'',s:st(C.greyHd,C.muted)})]);
-  merges.push({s:{r,c:0},e:{r,c:14}}); r++;
-
-  function infoRow(label, vals, bgV, fgV){
-    const row=[{v:label, s:st(C.greyLt,C.ink,true,9,'left')}];
-    for(let i=0;i<7;i++){
-      const isWe=i>=5;
-      const v=vals[i]||'';
-      const bg=isWe?C.we:(v?bgV:C.white);
-      const fg=v?fgV:C.muted;
-      // Merge AM+PM cols
-      row.push({v:v||'—', s:st(bg,fg,!!v,9,'center',true)});
-      row.push({v:'',     s:st(bg,C.white)});
-    }
-    // Add merges for this row
-    for(let i=0;i<7;i++){ merges.push({s:{r,c:1+i*2},e:{r,c:2+i*2}}); }
-    return row;
+  function setCell(ws,r,c,val,f,fi,al,bo){
+    const cell=ws.getCell(r,c);
+    if(val!==undefined) cell.value=val;
+    if(f) cell.font=f;
+    if(fi) cell.fill=fi;
+    if(al) cell.alignment=al;
+    if(bo) cell.border=bo;
+    return cell;
   }
 
-  rows.push(infoRow('Garde 24h',        guards.map(g=>g.join(' / ')),  C.guard, C.guardFg)); r++;
-  rows.push(infoRow('8h – 18h',         h18,                            C.h18,   C.h18Fg));   r++;
-  rows.push(infoRow('Sortie de garde',  sorties.map(s=>s.join(' / ')), C.rg,    C.rgFg));    r++;
-  rows.push(infoRow('Absences / CP / F',absArr.map(a=>a.join(' / ')),  C.abs,   C.absFg));   r++;
+  function merge(ws,r1,c1,r2,c2){ ws.mergeCells(r1,c1,r2,c2); }
 
-  // ── Footer
-  rows.push([{v:`Généré le ${new Date().toLocaleDateString('fr-FR')}  ·  CHPG Monaco · Anesthésie-Réanimation  ·  Confidentiel`, s:st(C.dark,C.muted,false,7,'center')}, ...Array(14).fill({v:'',s:st(C.dark,C.muted)})]);
-  merges.push({s:{r,c:0},e:{r,c:14}});
+  let row=1;
 
-  // ── Build sheet
-  const ws=XLSX.utils.aoa_to_sheet(rows);
-  ws['!merges']=merges;
-  ws['!cols']=[{wch:22},...Array(14).fill({wch:8})];
-  ws['!rows']=[
-    {hpt:28},{hpt:16},{hpt:6},{hpt:28},{hpt:16},
-    ...Array(activeSectors.length).fill({hpt:36}),
-    {hpt:8},{hpt:16},{hpt:20},{hpt:20},{hpt:20},{hpt:20},{hpt:14}
-  ];
+  // Title
+  const firstSlot=daySlots.find(s=>s);
+  const lastSlot=[...daySlots].reverse().find(s=>s);
+  const fmtD=ds=>new Date(ds).toLocaleDateString('fr-FR',{day:'2-digit',month:'2-digit',year:'numeric'});
+  const title=`PLANNING ANESTHÉSISTES — Semaine ${week.weekNum} — ${fmtD(firstSlot.date)} au ${fmtD(lastSlot.date)}`;
+  merge(ws,row,1,row,25);
+  setCell(ws,row,1,title,font(true,13,'FFFFFF'),fill(C.red),align('center','middle'));
+  ws.getRow(row).height=26; row++;
 
-  const wb=XLSX.utils.book_new();
-  XLSX.utils.book_append_sheet(wb,ws,`S${week.weekNum}`);
-  XLSX.writeFile(wb,`Planning_S${week.weekNum}_CHPG.xlsx`);
+  merge(ws,row,1,row,25);
+  setCell(ws,row,1,"CHPG Monaco · Service d'Anesthésie-Réanimation",
+    font(false,9,'FFFFFF'),fill(C.redDark),align('center','middle'));
+  ws.getRow(row).height=14; row++;
+
+  ws.getRow(row).height=5; row++;
+
+  // Day headers
+  ws.getRow(row).height=26;
+  setCell(ws,row,1,'SECTEUR',font(true,9,C.muted),fill(C.greyHd),align('center','middle'),bAll);
+  for(let dow=0;dow<7;dow++){
+    const cs=colStart(dow); const isWe=dow>=5; const n=isWe?2:4;
+    merge(ws,row,cs,row,cs+n-1);
+    const slot=daySlots[dow];
+    let val=DAYS_FR_XL[dow];
+    if(slot){
+      const dt=new Date(slot.date);
+      val=DAYS_FR_XL[dow]+'\n'+dt.toLocaleDateString('fr-FR',{day:'2-digit',month:'2-digit'});
+    }
+    setCell(ws,row,cs,val,
+      font(true,10,isWe?C.muted:C.ink),
+      fill(isWe?C.we:C.greyHd),
+      align('center','middle',true),bAll);
+  }
+  row++;
+
+  // AM/PM subheader
+  ws.getRow(row).height=14;
+  setCell(ws,row,1,'',null,fill(C.greyHd),null,bAll);
+  for(let dow=0;dow<7;dow++){
+    const cs=colStart(dow); const isWe=dow>=5;
+    if(isWe){
+      merge(ws,row,cs,row,cs+1);
+      setCell(ws,row,cs,'GARDE 24H',font(true,7,'AAAAAA'),fill(C.we),align('center','middle'),bAll);
+    } else {
+      merge(ws,row,cs,row,cs+1);
+      setCell(ws,row,cs,'AM',font(true,8,'FFFFFF'),fill(C.red),align('center','middle'),bAll);
+      merge(ws,row,cs+2,row,cs+3);
+      setCell(ws,row,cs+2,'PM',font(true,8,'FFFFFF'),fill('374151'),align('center','middle'),bAll);
+    }
+  }
+  row++;
+
+  // Sector rows
+  const active=SECTORS_XL.filter(s=>smap[s].some(d=>d.am.length||d.pm.length));
+  const getCsBg=(n,def)=>n.sub?SECTOR_COLORS_XL[n.sub]||def:def;
+
+  active.forEach(sec=>{
+    const secBg=SECTOR_COLORS_XL[sec]||'FFFFFF';
+    let maxRows=1;
+    for(let dow=0;dow<7;dow++){
+      const am=smap[sec][dow].am.slice(0,4);
+      const pm=smap[sec][dow].pm.slice(0,4);
+      if(dow<5) maxRows=Math.max(maxRows,Math.max(am.length?Math.ceil(am.length/2):1,pm.length?Math.ceil(pm.length/2):1));
+      else maxRows=Math.max(maxRows,am.length?Math.ceil(am.length/2):1);
+    }
+    for(let ro=0;ro<maxRows;ro++) ws.getRow(row+ro).height=16;
+    if(maxRows>1) merge(ws,row,1,row+maxRows-1,1);
+    setCell(ws,row,1,SECTOR_LABELS_XL[sec]||sec,font(true,9,C.ink),fill(secBg),align('left','middle'),bThick);
+
+    for(let dow=0;dow<7;dow++){
+      const cs=colStart(dow); const isWe=dow>=5; const bg=isWe?C.we:secBg;
+      if(isWe){
+        const names=smap[sec][dow].am;
+        merge(ws,row,cs,row+maxRows-1,cs+1);
+        setCell(ws,row,cs,names[0]?names[0].init:'—',
+          font(!!names[0],10,names[0]?C.ink:C.muted),fill(bg),align('center','middle'),bAll);
+      } else {
+        const amN=smap[sec][dow].am.slice(0,4);
+        const pmN=smap[sec][dow].pm.slice(0,4);
+        const amP=[]; for(let i=0;i<amN.length;i+=2) amP.push(amN.slice(i,i+2));
+        const pmP=[]; for(let i=0;i<pmN.length;i+=2) pmP.push(pmN.slice(i,i+2));
+        if(!amP.length) amP.push([]);
+        if(!pmP.length) pmP.push([]);
+        for(let pi=0;pi<maxRows;pi++){
+          const ap=amP[pi]||[];
+          for(let ni=0;ni<2;ni++){
+            const n=ap[ni];
+            const cbg=n?getCsBg(n,bg):bg;
+            setCell(ws,row+pi,cs+ni,n?n.init:'',font(!!n,9,C.ink),fill(cbg),align('center','middle'),bAll);
+          }
+          const pp=pmP[pi]||[];
+          for(let ni=0;ni<2;ni++){
+            const n=pp[ni];
+            const cbg=n?getCsBg(n,bg):bg;
+            setCell(ws,row+pi,cs+2+ni,n?n.init:'',font(!!n,9,C.ink),fill(cbg),align('center','middle'),bAll);
+          }
+        }
+      }
+    }
+    row+=maxRows;
+  });
+
+  // Spacer
+  ws.getRow(row).height=6;
+  merge(ws,row,1,row,25); ws.getCell(row,1).fill=fill(C.greyLt); row++;
+
+  // Gardes header
+  merge(ws,row,1,row,25);
+  setCell(ws,row,1,'GARDES & FONCTIONS',font(true,9,C.muted),fill(C.greyHd),align('left','middle'));
+  ws.getRow(row).height=14; row++;
+
+  function gardeRow(label,vals,bgV,fgV){
+    ws.getRow(row).height=18;
+    setCell(ws,row,1,label,font(true,9,C.ink),fill(C.greyLt),align('left','middle'),bAll);
+    for(let dow=0;dow<7;dow++){
+      const cs=colStart(dow); const isWe=dow>=5; const n=isWe?2:4;
+      merge(ws,row,cs,row,cs+n-1);
+      const v=vals[dow];
+      setCell(ws,row,cs,v||'—',
+        font(!!v,9,v?fgV:C.muted),
+        fill(isWe&&!v?C.we:v?bgV:'FFFFFF'),
+        align('center','middle'),bAll);
+    }
+  }
+
+  gardeRow('Garde 24h',guards.map(g=>g.join(' / ')),C.guard,C.guardFg); row++;
+  gardeRow('8h – 18h',h18,C.h18,C.h18Fg); row++;
+  gardeRow('Sortie de garde',sorties.map(s=>s.join(' / ')),C.rg,C.rgFg); row++;
+  gardeRow('Absences / CP / F',absents.map(a=>a.join(' / ')),C.abs,C.absFg); row++;
+
+  // Footer
+  merge(ws,row,1,row,25);
+  setCell(ws,row,1,`Généré le ${new Date().toLocaleDateString('fr-FR')}  ·  CHPG Monaco · Anesthésie-Réanimation  ·  Confidentiel`,
+    font(false,7,'999999'),fill(C.dark),align('center','middle'));
+  ws.getRow(row).height=12;
+
+  // Right table
+  merge(ws,1,27,1,29);
+  setCell(ws,1,27,'ANESTHÉSISTES & N° DECT',font(true,10,'FFFFFF'),fill(C.red),align('center','middle',true));
+  ws.getRow(2).height=8;
+  for(let c=27;c<=29;c++) ws.getCell(2,c).fill=fill(C.red);
+
+  ws.getRow(3).height=18;
+  for(const [col,lbl,h] of [[27,'NOM','left'],[28,'INIT.','center'],[29,'DECT','center']]){
+    setCell(ws,3,col,lbl,font(true,9,'FFFFFF'),fill('374151'),align(h,'middle'),bAll);
+  }
+
+  let r2=4;
+  for(const [name,init,dect] of DOCTORS_INFO){
+    ws.getRow(r2).height=13;
+    setCell(ws,r2,27,name,font(false,9,C.ink),null,align('left','middle'),bAll);
+    setCell(ws,r2,28,init,font(false,9,C.ink),null,align('center','middle'),bAll);
+    setCell(ws,r2,29,dect,font(false,9,C.ink),null,align('center','middle'),bAll);
+    r2++;
+  }
+  ws.getRow(r2).height=6; r2++;
+  for(const [lbl,dect] of SPECIAL_DECT){
+    ws.getRow(r2).height=13;
+    merge(ws,r2,27,r2,28);
+    setCell(ws,r2,27,lbl,font(true,8,C.muted),fill(C.greyLt),align('left','middle'),bAll);
+    setCell(ws,r2,29,dect,font(false,8,C.ink),null,align('center','middle'),bAll);
+    r2++;
+  }
+
+  // Download
+  const buf=await wb.xlsx.writeBuffer();
+  const blob=new Blob([buf],{type:'application/vnd.openxmlformats-officedocument.spreadsheetml.sheet'});
+  const url=URL.createObjectURL(blob);
+  const a=document.createElement('a');
+  a.href=url; a.download=`Planning_S${week.weekNum}_CHPG.xlsx`; a.click();
+  URL.revokeObjectURL(url);
 }
 
 init();
