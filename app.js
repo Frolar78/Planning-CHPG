@@ -270,7 +270,7 @@ async function exportExcel(){
     ['DR MENADE','RM','81378'],['DR OPPRECHT','NO','82188'],['DR PARTOUCHE','NP','81806'],
     ['DR ROUSSEAU','GR','81860'],['DR SUPLY','CS','82578'],['DR SEVERAC','MS','82401'],
     ['DR SULTAN','WS','81348'],['DR TRAN','DT','83783'],['DR ZAMARON','FZ','82481'],
-    ['DR WIDEHEM','RW','82101'],['DR SALA','NS','81397'],['DR DRUGE','DD',''],
+    ['DR WIDEHEM','RW','82101'],['DR SALA','NS','81397'],
   ];
   const SPECIAL_DECT=[
     ['Garde réa','83636'],['Garde bloc/mater','82103'],
