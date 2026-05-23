@@ -643,22 +643,32 @@ async function exportExcel(){
 
   ws.getRow(row).height=5; row++;
 
-  // Day headers
-  ws.getRow(row).height=36;
+// Day headers — ligne 1 : nom du jour
+  ws.getRow(row).height=18;
   setCell(ws,row,1,'SECTEUR',font(true,9,C.muted),fill(C.greyHd),align('center','middle'),bAll);
   for(let dow=0;dow<7;dow++){
     const cs=colStart(dow); const isWe=dow>=5; const n=isWe?2:4;
     merge(ws,row,cs,row,cs+n-1);
-    const slot=daySlots[dow];
-    let val=DAYS_FR_XL[dow];
-    if(slot){
-      const dt=new Date(slot.date);
-      val=DAYS_FR_XL[dow]+'\n'+dt.toLocaleDateString('fr-FR',{day:'2-digit',month:'2-digit'});
-    }
-    setCell(ws,row,cs,val,
+    setCell(ws,row,cs,DAYS_FR_XL[dow],
       font(true,10,isWe?C.muted:C.ink),
       fill(isWe?C.we:C.greyHd),
-      align('center','middle',true),bAll);
+      align('center','middle'),bAll);
+  }
+  row++;
+
+  // Day headers — ligne 2 : date
+  ws.getRow(row).height=14;
+  setCell(ws,row,1,'',null,fill(C.greyHd),null,bAll);
+  for(let dow=0;dow<7;dow++){
+    const cs=colStart(dow); const isWe=dow>=5; const n=isWe?2:4;
+    merge(ws,row,cs,row,cs+n-1);
+    const slot=daySlots[dow];
+    const dt=slot?new Date(slot.date):null;
+    const dateStr=dt?dt.toLocaleDateString('fr-FR',{day:'2-digit',month:'2-digit'}):'';
+    setCell(ws,row,cs,dateStr,
+      font(false,9,isWe?C.muted:C.ink),
+      fill(isWe?C.we:C.greyHd),
+      align('center','middle'),bAll);
   }
   row++;
 
