@@ -578,14 +578,22 @@ function gardeRow(label,vals,bgV,fgV,customHeight){
 gardeRow('Garde 24h',guards.map(g=>g.join(' / ')),C.guard,C.guardFg,20); row++;
   gardeRow('8h – 18h',h18,C.h18,C.h18Fg,20); row++;
   gardeRow('Sortie de garde',sorties.map(s=>s.join(' / ')),C.rg,C.rgFg,20); row++;
-  const absVals=absents.map(a=>{
-    if(!a.length) return '';
-    const lines=[];
-    for(let i=0;i<a.length;i+=4) lines.push(a.slice(i,i+4).join('  ·  '));
-    return lines.join('\n');
-  });
-  const maxAbsLines=Math.max(...absVals.map(v=>v?v.split('\n').length:1),1);
-  gardeRow('Absences / CP / F',absVals,C.abs,C.absFg,maxAbsLines*20); row++;
+const maxAbsLines=Math.max(...absents.map(a=>Math.ceil(a.length/4)||1));
+  for(let li=0;li<maxAbsLines;li++){
+    ws.getRow(row).height=18;
+    setCell(ws,row,1,li===0?'Absences / CP / F':'',font(true,9,C.ink),fill(C.greyLt),align('left','middle'),bAll);
+    for(let dow=0;dow<7;dow++){
+      const cs=colStart(dow); const isWe=dow>=5; const n=isWe?2:4;
+      merge(ws,row,cs,row,cs+n-1);
+      const slice=absents[dow].slice(li*4,(li+1)*4);
+      const v=slice.join('  ·  ');
+      setCell(ws,row,cs,v||'',
+        font(!!v,9,v?C.absFg:C.muted),
+        fill(isWe&&!v?C.we:v?C.abs:'FFFFFF'),
+        align('center','middle'),bAll);
+    }
+    row++;
+  }
   
   // Footer
   merge(ws,row,1,row,25);
