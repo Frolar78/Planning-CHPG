@@ -411,6 +411,14 @@ month.doctors.forEach(doc=>{
       tbody+=`<td class="${cls}">`;
       if(!slot||(!smap[s.code][dow].am.length&&!smap[s.code][dow].pm.length)){
         tbody+=`<div class="slot-pair"><div class="slot"><span class="slot-dash">—</span></div><div class="slot"><span class="slot-dash">—</span></div></div>`;
+      } else if(isWe){
+        // Weekend: 1 seule chip centrée sur toute la largeur
+        const names=smap[s.code][dow].am;
+        const chips=names.map(p=>{
+          const c=p.status==='G'?'slot-name chip-guard':'slot-name';
+          return '<span class="'+c+'">'+(p.init||'')+'</span>';
+        });
+        tbody+=`<div class="slot-pair" style="display:flex;align-items:center;justify-content:center;gap:4px;height:100%">${chips.join('')}</div>`;
       } else {
         const amNames=smap[s.code][dow].am;
         const pmNames=smap[s.code][dow].pm;
@@ -636,7 +644,7 @@ async function exportExcel(){
   ws.getRow(row).height=5; row++;
 
   // Day headers
-  ws.getRow(row).height=26;
+  ws.getRow(row).height=36;
   setCell(ws,row,1,'SECTEUR',font(true,9,C.muted),fill(C.greyHd),align('center','middle'),bAll);
   for(let dow=0;dow<7;dow++){
     const cs=colStart(dow); const isWe=dow>=5; const n=isWe?2:4;
@@ -655,7 +663,7 @@ async function exportExcel(){
   row++;
 
   // AM/PM subheader
-  ws.getRow(row).height=14;
+  ws.getRow(row).height=16;
   setCell(ws,row,1,'',null,fill(C.greyHd),null,bAll);
   for(let dow=0;dow<7;dow++){
     const cs=colStart(dow); const isWe=dow>=5;
