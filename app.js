@@ -2,16 +2,16 @@
 
 // ── CONFIG ─────────────────────────────────────────────────────────────
 const SECTORS_DEF = [
-  { code:'VIS', label:'Bloc viscéral',           icon:'activity' },
-  { code:'REA', label:'Réanimation',              icon:'heart-pulse' },
-  { code:'ORT', label:'Orthopédie',               icon:'bone' },
-  { code:'DVI', label:'Pose DVI',                 icon:'syringe' },
-  { code:'ORL', label:'ORL / Ophtalmologie',      icon:'eye' },
-  { code:'END', label:'Endoscopies',              icon:'microscope' },
-  { code:'CI',  label:'Cardio interventionnelle', icon:'heart' },
-  { code:'RI',  label:'Radio interventionnelle',  icon:'scan' },
-  { code:'MAT', label:'Maternité',                icon:'baby' },
-  { code:'CS',  label:'Consultation',             icon:'stethoscope' },
+  { code:'VIS', label:'Bloc viscéral',           icon:'Activity' },
+  { code:'REA', label:'Réanimation',              icon:'HeartPulse' },
+  { code:'ORT', label:'Orthopédie',               icon:'Bone' },
+  { code:'DVI', label:'Pose DVI',                 icon:'Syringe' },
+  { code:'ORL', label:'ORL / Ophtalmologie',      icon:'Eye' },
+  { code:'END', label:'Endoscopies',              icon:'Microscope' },
+  { code:'CI',  label:'Cardio interventionnelle', icon:'Heart' },
+  { code:'RI',  label:'Radio interventionnelle',  icon:'Scan' },
+  { code:'MAT', label:'Maternité',                icon:'Baby' },
+  { code:'CS',  label:'Consultation',             icon:'Stethoscope' },
 ];
 
 const SECTOR_COLORS = {
@@ -253,7 +253,13 @@ function renderBottom(month,daySlots,week){
   document.getElementById('bottomSection').innerHTML=html;
 }
 
-setTimeout(()=>{ if(typeof lucide!=='undefined') lucide.createIcons(); }, 0);
+setTimeout(()=>{
+  if(typeof lucide!=='undefined'){
+    lucide.createIcons({
+      attrs:{ 'stroke-width':'1.5', width:'16', height:'16' }
+    });
+  }
+}, 0);
 
 // ── EXPORT EXCEL ───────────────────────────────────────────────────────
 async function exportExcel(){
