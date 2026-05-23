@@ -562,7 +562,7 @@ async function exportExcel(){
   ws.getRow(row).height=14; row++;
 
   function gardeRow(label,vals,bgV,fgV){
-    ws.getRow(row).height=30;
+    ws.getRow(row).height=40;
     setCell(ws,row,1,label,font(true,9,C.ink),fill(C.greyLt),align('left','middle'),bAll);
     for(let dow=0;dow<7;dow++){
       const cs=colStart(dow); const isWe=dow>=5; const n=isWe?2:4;
