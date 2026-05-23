@@ -561,36 +561,31 @@ async function exportExcel(){
   setCell(ws,row,1,'GARDES & FONCTIONS',font(true,9,C.muted),fill(C.greyHd),align('left','middle'));
   ws.getRow(row).height=14; row++;
 
-function gardeRow(label,vals,bgV,fgV){
-    ws.getRow(row).height=20;
+function gardeRow(label,vals,bgV,fgV,customHeight){
     setCell(ws,row,1,label,font(true,9,C.ink),fill(C.greyLt),align('left','middle'),bAll);
-    let maxLines=1;
     for(let dow=0;dow<7;dow++){
       const cs=colStart(dow); const isWe=dow>=5; const n=isWe?2:4;
       merge(ws,row,cs,row,cs+n-1);
       const v=vals[dow]||'';
-      const lines=v?v.split('\n').length:1;
-      if(lines>maxLines) maxLines=lines;
       setCell(ws,row,cs,v||'—',
         font(!!v,9,v?fgV:C.muted),
         fill(isWe&&!v?C.we:v?bgV:'FFFFFF'),
         align('center','middle',true),bAll);
     }
-   ws.getRow(row).height=50;
+    ws.getRow(row).height=customHeight||20;
   }
 
-  gardeRow('Garde 24h',guards.map(g=>g.join(' / ')),C.guard,C.guardFg); row++;
-  gardeRow('8h – 18h',h18,C.h18,C.h18Fg); row++;
-  gardeRow('Sortie de garde',sorties.map(s=>s.join(' / ')),C.rg,C.rgFg); row++;
+gardeRow('Garde 24h',guards.map(g=>g.join(' / ')),C.guard,C.guardFg,20); row++;
+  gardeRow('8h – 18h',h18,C.h18,C.h18Fg,20); row++;
+  gardeRow('Sortie de garde',sorties.map(s=>s.join(' / ')),C.rg,C.rgFg,20); row++;
   const absVals=absents.map(a=>{
     if(!a.length) return '';
     const lines=[];
     for(let i=0;i<a.length;i+=4) lines.push(a.slice(i,i+4).join('  ·  '));
     return lines.join('\n');
   });
-  const maxAbsLines=Math.max(...absVals.map(v=>v?v.split('\n').length:1));
-  gardeRow('Absences / CP / F',absVals,C.abs,C.absFg);
-  ws.getRow(row).height=Math.max(18,maxAbsLines*16); row++;
+  const maxAbsLines=Math.max(...absVals.map(v=>v?v.split('\n').length:1),1);
+  gardeRow('Absences / CP / F',absVals,C.abs,C.absFg,maxAbsLines*20); row++;
   
   // Footer
   merge(ws,row,1,row,25);
