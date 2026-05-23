@@ -101,10 +101,11 @@ function buildWeekNav(){
   const month=DATA.months.find(m=>m.id===currentMonthId);
   const weeks=getWeeksInMonth(month);
   const today=todayStr();
-  // Auto-select uniquement si on change de mois
-  if(currentWeekIdx===0){
+// Auto-select semaine courante uniquement au premier chargement
+  if(currentWeekIdx===0&&!window._weekInitialized){
     const todayWk=weeks.findIndex(w=>w.days.some(d=>d.date===today));
     if(todayWk>=0) currentWeekIdx=todayWk;
+    window._weekInitialized=true;
   }
   const container=document.getElementById('weekPills');
   container.innerHTML='';
