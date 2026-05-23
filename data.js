@@ -25,8 +25,8 @@ const DOCTORS = [
   { id: 'ZAMARON',   name: 'DR ZAMARON',   initials: 'FZ'  },
   { id: 'TRAN',      name: 'DR TRAN',      initials: 'DT'  },
   { id: 'PRUNET',    name: 'PR PRUNET',    initials: 'BP'  },
-  { id: 'ARMAND',    name: 'DR ARMAND',    initials: 'AD', from: '2026-11-01' },
-  { id: 'DRUGE',     name: 'DR DRUGE',     initials: 'DD'  },
+  { id: 'ARMAND',    name: 'DR ARMAND',    initials: 'CA', from: '2026-11-01' },
+  { id: 'DRUGE',     name: 'DR DRUGE',     initials: 'AD'  },
 ];
 
 // ── SECTEURS ───────────────────────────────────────────────────────────
