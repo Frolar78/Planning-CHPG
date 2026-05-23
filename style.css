@@ -460,13 +460,15 @@ body {
 }
 
 .name-tag {
-  font-size: 10.5px;
+  font-size: 10px;
   font-weight: 600;
   font-family: var(--mono);
-  padding: 2px 7px;
+  padding: 2px 5px;
   border-radius: 5px;
   background: var(--line-light);
   color: var(--ink-2);
+  display: inline-flex;
+  margin: 1px;
 }
 .name-tag.guard { background: var(--red-soft); color: var(--red); }
 .name-tag.h18   { background: var(--amber-soft); color: var(--amber); }
@@ -506,11 +508,11 @@ body {
 .bt-scroll { overflow-x: auto; }
 
 .bt-cell {
-  padding: 7px 6px;
+  padding: 5px 4px;
   text-align: center;
   border-right: 1px solid var(--line);
   border-bottom: 1px solid var(--line);
-  vertical-align: middle;
+  vertical-align: top;
   width: 100px;
   min-width: 100px;
   max-width: 100px;
