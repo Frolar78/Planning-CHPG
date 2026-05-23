@@ -198,9 +198,21 @@ month.doctors.forEach(doc=>{
         const pmNames=smap[s.code][dow].pm;
         tbody+=`<div class="slot-pair">
           <div class="slot">${amNames.length
-? amNames.map(p=>{ const sub=p.sector&&p.sector.includes('-')?p.sector.split('-')[1]:null; const cls=p.status==='G'?'slot-name chip-guard':p.status==='18'?'slot-name chip-h18':'slot-name'; return `<span class="${cls}" title="${sub?'CS '+esc(sub):''}">${esc(p.init)}</span>`; }).join('')          }</div>
+            ? amNames.map(p=>{
+                const sub=p.sector&&p.sector.includes('-')?p.sector.split('-')[1]:null;
+                const c=p.status==='G'?'slot-name chip-guard':p.status==='18'?'slot-name chip-h18':'slot-name';
+                return '<span class="'+c+'" title="'+(sub?'CS '+sub:'')+'">'+(p.init||'')+'</span>';
+              }).join('')
+            : '<span class="slot-dash">—</span>'
+          }</div>
           <div class="slot">${pmNames.length
-? pmNames.map(p=>{ const sub=p.sector&&p.sector.includes('-')?p.sector.split('-')[1]:null; const cls=p.status==='G'?'slot-name chip-guard':p.status==='18'?'slot-name chip-h18':'slot-name'; return `<span class="${cls}" title="${sub?'CS '+esc(sub):''}">${esc(p.init)}</span>`; }).join('')          }</div>
+            ? pmNames.map(p=>{
+                const sub=p.sector&&p.sector.includes('-')?p.sector.split('-')[1]:null;
+                const c=p.status==='G'?'slot-name chip-guard':p.status==='18'?'slot-name chip-h18':'slot-name';
+                return '<span class="'+c+'" title="'+(sub?'CS '+sub:'')+'">'+(p.init||'')+'</span>';
+              }).join('')
+            : '<span class="slot-dash">—</span>'
+          }</div>
         </div>`;
       }
       tbody+=`</td>`;
