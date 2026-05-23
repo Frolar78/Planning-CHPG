@@ -253,7 +253,7 @@ function renderBottom(month,daySlots,week){
   document.getElementById('bottomSection').innerHTML=html;
 }
 
-if(typeof lucide !== 'undefined') lucide.createIcons();
+setTimeout(()=>{ if(typeof lucide!=='undefined') lucide.createIcons(); }, 0);
 
 // ── EXPORT EXCEL ───────────────────────────────────────────────────────
 async function exportExcel(){
