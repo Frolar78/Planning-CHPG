@@ -361,11 +361,10 @@ body {
 
 .slot {
   padding: 4px 3px;
-  display: flex;
-  flex-direction: row;
-  flex-wrap: wrap;
+  display: grid;
+  grid-template-columns: 1fr 1fr;
   gap: 2px;
-  align-content: flex-start;
+  align-content: start;
   border-right: 1px solid var(--line-light);
   min-height: 56px;
   flex: 1;
@@ -557,4 +556,10 @@ body {
 .chip-h18 {
   background: #FEF3C7;
   color: #B45309;
+}
+
+.slot-name-spacer {
+  display: inline-flex;
+  width: 42px;
+  visibility: hidden;
 }
