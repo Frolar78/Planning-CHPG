@@ -562,7 +562,7 @@ async function exportExcel(){
   ws.getRow(row).height=14; row++;
 
   function gardeRow(label,vals,bgV,fgV){
-    ws.getRow(row).height=18;
+    ws.getRow(row).height=30;
     setCell(ws,row,1,label,font(true,9,C.ink),fill(C.greyLt),align('left','middle'),bAll);
     for(let dow=0;dow<7;dow++){
       const cs=colStart(dow); const isWe=dow>=5; const n=isWe?2:4;
@@ -571,7 +571,7 @@ async function exportExcel(){
       setCell(ws,row,cs,v||'—',
         font(!!v,9,v?fgV:C.muted),
         fill(isWe&&!v?C.we:v?bgV:'FFFFFF'),
-        align('center','middle'),bAll);
+        align('center','middle',true),bAll);
     }
   }
 
@@ -581,7 +581,7 @@ async function exportExcel(){
   gardeRow('Absences / CP / F',absents.map(a=>{
     if(!a.length) return '';
     const lines=[];
-    for(let i=0;i<a.length;i+=4) lines.push(a.slice(i,i+4).join(' · '));
+    for(let i=0;i<a.length;i+=4) lines.push(a.slice(i,i+4).join('  ·  '));
     return lines.join('\n');
   }),C.abs,C.absFg); row++;
   
