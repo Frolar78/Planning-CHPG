@@ -562,7 +562,7 @@ async function exportExcel(){
   ws.getRow(row).height=14; row++;
 
   function gardeRow(label,vals,bgV,fgV){
-    ws.getRow(row).height=40;
+    ws.getRow(row).height=18;
     setCell(ws,row,1,label,font(true,9,C.ink),fill(C.greyLt),align('left','middle'),bAll);
     for(let dow=0;dow<7;dow++){
       const cs=colStart(dow); const isWe=dow>=5; const n=isWe?2:4;
@@ -578,12 +578,15 @@ async function exportExcel(){
   gardeRow('Garde 24h',guards.map(g=>g.join(' / ')),C.guard,C.guardFg); row++;
   gardeRow('8h – 18h',h18,C.h18,C.h18Fg); row++;
   gardeRow('Sortie de garde',sorties.map(s=>s.join(' / ')),C.rg,C.rgFg); row++;
-  gardeRow('Absences / CP / F',absents.map(a=>{
+  const absVals=absents.map(a=>{
     if(!a.length) return '';
     const lines=[];
     for(let i=0;i<a.length;i+=4) lines.push(a.slice(i,i+4).join('  ·  '));
     return lines.join('\n');
-  }),C.abs,C.absFg); row++;
+  });
+  const maxAbsLines=Math.max(...absVals.map(v=>v?v.split('\n').length:1));
+  gardeRow('Absences / CP / F',absVals,C.abs,C.absFg);
+  ws.getRow(row).height=Math.max(18,maxAbsLines*16); row++;
   
   // Footer
   merge(ws,row,1,row,25);
