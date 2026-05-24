@@ -436,7 +436,7 @@ body {
 
 <script>
 // ── CONFIG ────────────────────────────────────────────────────────────
-const API_URL = 'https://script.google.com/macros/s/AKfycbyvmAM4y2iPtDjAq-269VHeS2L-fMM9HxCiCLinnGCh9rtRcdSzd1ibLl3EY-ZLmrPqMQ/exec';
+const API_URL = 'https://script.google.com/macros/s/AKfycbxeObnbfC_Fg3HCblaugobvzOuOyFdaUlm0uR1evjls49PPVoXQYA0qjkcunav0RwFqww/exec';
 const YEAR = 2026;
 const MONTHS_FR = ['Janvier','Février','Mars','Avril','Mai','Juin',
                    'Juillet','Août','Septembre','Octobre','Novembre','Décembre'];
@@ -490,10 +490,8 @@ async function doLogin() {
 // ── API ───────────────────────────────────────────────────────────────
 async function apiCall(action, extra = {}) {
   const body = {action, code: currentCode, ...extra};
-  const res = await fetch(API_URL, {
-    method: 'POST',
-    body: JSON.stringify(body),
-  });
+  const params = new URLSearchParams({payload: JSON.stringify(body)});
+  const res = await fetch(API_URL + '?' + params.toString());
   return res.json();
 }
 
