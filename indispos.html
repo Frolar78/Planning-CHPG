@@ -610,8 +610,6 @@ function endDrag() {
 document.addEventListener('mouseup', () => { isDragging = false; });
 
 function applyTool(date) {
-  const isPast = date < new Date().toISOString().slice(0, 10);
-  if (isPast) return;
 
   if (currentTool === 'ERASE') {
     delete indispos[date];
