@@ -1,0 +1,661 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+<meta charset="UTF-8"/>
+<meta name="viewport" content="width=device-width,initial-scale=1.0"/>
+<title>Indisponibilités — CHPG Monaco</title>
+<link rel="preconnect" href="https://fonts.googleapis.com"/>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;600;700&family=DM+Mono:wght@500&display=swap"/>
+<style>
+:root {
+  --red: #CE1126;
+  --ink: #0F172A;
+  --ink-2: #334155;
+  --ink-3: #64748B;
+  --ink-4: #94A3B8;
+  --line: #E2E8F0;
+  --bg: #F8FAFC;
+  --white: #FFFFFF;
+  --radius: 12px;
+
+  --vac:    #EFF6FF; --vac-fg:    #1D4ED8; --vac-border: #BFDBFE;
+  --form:   #F5F3FF; --form-fg:   #6D28D9; --form-border: #DDD6FE;
+  --indispo:#F9FAFB; --indispo-fg:#6B7280; --indispo-border:#E5E7EB;
+  --souhait:#F0FDF4; --souhait-fg:#166534; --souhait-border:#BBF7D0;
+}
+
+* { box-sizing:border-box; margin:0; padding:0; }
+
+body {
+  font-family:'DM Sans',system-ui,sans-serif;
+  background:var(--bg);
+  color:var(--ink);
+  min-height:100vh;
+  -webkit-font-smoothing:antialiased;
+}
+
+/* ── HEADER ── */
+.header {
+  background:var(--red);
+  padding:0 20px;
+  height:56px;
+  display:flex;
+  align-items:center;
+  justify-content:space-between;
+  position:sticky;
+  top:0;
+  z-index:100;
+}
+.header-brand { display:flex; align-items:center; gap:10px; }
+.header-flag {
+  width:24px; height:24px; border-radius:5px;
+  overflow:hidden; display:flex; flex-direction:column;
+}
+.flag-top { flex:1; background:var(--red); }
+.flag-bottom { flex:1; background:white; }
+.header-title { color:white; font-size:15px; font-weight:700; }
+.header-user {
+  color:rgba(255,255,255,.8);
+  font-size:13px; font-weight:600;
+}
+
+/* ── LOGIN ── */
+.login-screen {
+  display:flex;
+  align-items:center;
+  justify-content:center;
+  min-height:calc(100vh - 56px);
+  padding:20px;
+}
+.login-card {
+  background:white;
+  border:1px solid var(--line);
+  border-radius:var(--radius);
+  padding:32px 28px;
+  width:100%;
+  max-width:380px;
+  box-shadow:0 4px 24px rgba(0,0,0,.08);
+}
+.login-logo {
+  width:48px; height:48px;
+  background:var(--red);
+  border-radius:10px;
+  display:flex; align-items:center; justify-content:center;
+  margin:0 auto 20px;
+}
+.login-logo svg { color:white; }
+.login-title {
+  font-size:20px; font-weight:700;
+  text-align:center; margin-bottom:6px;
+}
+.login-sub {
+  font-size:13px; color:var(--ink-3);
+  text-align:center; margin-bottom:28px;
+}
+.login-label {
+  display:block;
+  font-size:12px; font-weight:600;
+  color:var(--ink-3);
+  text-transform:uppercase;
+  letter-spacing:.05em;
+  margin-bottom:8px;
+}
+.login-input {
+  width:100%;
+  border:1.5px solid var(--line);
+  border-radius:8px;
+  padding:12px 14px;
+  font-size:16px;
+  font-family:'DM Mono',monospace;
+  font-weight:500;
+  letter-spacing:.1em;
+  text-transform:uppercase;
+  text-align:center;
+  outline:none;
+  transition:border-color .15s;
+  margin-bottom:16px;
+}
+.login-input:focus { border-color:var(--red); }
+.login-btn {
+  width:100%;
+  background:var(--red);
+  color:white;
+  border:none;
+  border-radius:8px;
+  padding:13px;
+  font-size:15px;
+  font-weight:700;
+  font-family:'DM Sans',sans-serif;
+  cursor:pointer;
+  transition:opacity .15s;
+}
+.login-btn:hover { opacity:.88; }
+.login-error {
+  color:#B91C1C;
+  font-size:13px;
+  text-align:center;
+  margin-top:12px;
+  display:none;
+}
+
+/* ── MAIN APP ── */
+.app { display:none; }
+
+/* ── LEGENDE ── */
+.legend {
+  display:flex;
+  gap:8px;
+  flex-wrap:wrap;
+  padding:12px 16px;
+  background:white;
+  border-bottom:1px solid var(--line);
+}
+.legend-item {
+  display:flex; align-items:center; gap:5px;
+  font-size:12px; font-weight:600; color:var(--ink-2);
+  cursor:pointer;
+  padding:4px 10px;
+  border-radius:20px;
+  border:1.5px solid transparent;
+  transition:all .15s;
+  user-select:none;
+}
+.legend-item.active-tool {
+  border-color:currentColor;
+}
+.legend-item.vac    { background:var(--vac);    color:var(--vac-fg); }
+.legend-item.form   { background:var(--form);   color:var(--form-fg); }
+.legend-item.indispo{ background:var(--indispo); color:var(--indispo-fg); }
+.legend-item.souhait{ background:var(--souhait); color:var(--souhait-fg); }
+.legend-item.erase  { background:#FFF; color:var(--ink-3); border:1.5px solid var(--line); }
+
+.tool-hint {
+  padding:8px 16px;
+  font-size:12px;
+  color:var(--ink-3);
+  background:white;
+  border-bottom:1px solid var(--line);
+}
+
+/* ── MONTH NAV ── */
+.month-nav {
+  display:flex;
+  align-items:center;
+  justify-content:space-between;
+  padding:12px 16px;
+  background:white;
+  border-bottom:1px solid var(--line);
+  position:sticky;
+  top:56px;
+  z-index:50;
+}
+.month-nav-btn {
+  border:1.5px solid var(--line);
+  background:white;
+  border-radius:8px;
+  padding:7px 14px;
+  font-size:13px;
+  font-weight:600;
+  font-family:'DM Sans',sans-serif;
+  cursor:pointer;
+  color:var(--ink-2);
+  transition:all .15s;
+}
+.month-nav-btn:hover { border-color:var(--red); color:var(--red); }
+.month-title {
+  font-size:16px;
+  font-weight:700;
+  color:var(--ink);
+}
+
+/* ── CALENDAR ── */
+.calendar-container {
+  padding:12px 16px 100px;
+}
+.calendar-grid {
+  display:grid;
+  grid-template-columns:repeat(7,1fr);
+  gap:4px;
+}
+.cal-header {
+  text-align:center;
+  font-size:11px;
+  font-weight:700;
+  color:var(--ink-4);
+  padding:6px 0;
+  text-transform:uppercase;
+  letter-spacing:.04em;
+}
+.cal-day {
+  border-radius:8px;
+  padding:6px 4px;
+  min-height:52px;
+  cursor:pointer;
+  transition:all .12s;
+  border:1.5px solid transparent;
+  position:relative;
+  display:flex;
+  flex-direction:column;
+  align-items:center;
+  gap:3px;
+  background:white;
+  border-color:var(--line);
+  -webkit-tap-highlight-color:transparent;
+}
+.cal-day:active { transform:scale(.95); }
+.cal-day.empty { background:transparent; border-color:transparent; cursor:default; }
+.cal-day.weekend { background:var(--bg); }
+.cal-day.today { border-color:var(--red) !important; }
+.cal-day.past { opacity:.5; cursor:default; }
+
+.cal-day-num {
+  font-size:13px;
+  font-weight:700;
+  color:var(--ink-2);
+  line-height:1;
+}
+.cal-day.weekend .cal-day-num { color:var(--ink-4); }
+
+.cal-day-badge {
+  font-size:9px;
+  font-weight:700;
+  padding:2px 5px;
+  border-radius:4px;
+  letter-spacing:.03em;
+  text-align:center;
+}
+
+/* Statuts */
+.cal-day.vac     { background:var(--vac);     border-color:var(--vac-border); }
+.cal-day.form    { background:var(--form);    border-color:var(--form-border); }
+.cal-day.indispo { background:var(--indispo); border-color:var(--indispo-border); }
+.cal-day.souhait { background:var(--souhait); border-color:var(--souhait-border); }
+
+.cal-day.vac     .cal-day-num { color:var(--vac-fg); }
+.cal-day.form    .cal-day-num { color:var(--form-fg); }
+.cal-day.indispo .cal-day-num { color:var(--indispo-fg); }
+.cal-day.souhait .cal-day-num { color:var(--souhait-fg); }
+
+.vac-badge     { background:var(--vac);    color:var(--vac-fg); }
+.form-badge    { background:var(--form);   color:var(--form-fg); }
+.indispo-badge { background:var(--indispo);color:var(--indispo-fg); }
+.souhait-badge { background:var(--souhait);color:var(--souhait-fg); }
+
+/* ── BOTTOM BAR ── */
+.bottom-bar {
+  position:fixed;
+  bottom:0; left:0; right:0;
+  background:white;
+  border-top:1px solid var(--line);
+  padding:12px 16px;
+  display:flex;
+  gap:10px;
+  box-shadow:0 -4px 16px rgba(0,0,0,.06);
+  z-index:100;
+}
+.save-btn {
+  flex:1;
+  background:var(--red);
+  color:white;
+  border:none;
+  border-radius:10px;
+  padding:14px;
+  font-size:15px;
+  font-weight:700;
+  font-family:'DM Sans',sans-serif;
+  cursor:pointer;
+  transition:opacity .15s;
+}
+.save-btn:hover { opacity:.88; }
+.save-btn:disabled { opacity:.5; cursor:not-allowed; }
+
+.stats-bar {
+  background:var(--bg);
+  border-top:1px solid var(--line);
+  padding:8px 16px;
+  display:flex;
+  gap:12px;
+  flex-wrap:wrap;
+}
+.stat-item {
+  font-size:12px;
+  font-weight:600;
+  display:flex;
+  align-items:center;
+  gap:4px;
+}
+
+/* ── TOAST ── */
+.toast {
+  position:fixed;
+  top:70px; left:50%; transform:translateX(-50%);
+  background:var(--ink);
+  color:white;
+  padding:10px 20px;
+  border-radius:8px;
+  font-size:13px;
+  font-weight:600;
+  z-index:999;
+  opacity:0;
+  transition:opacity .2s;
+  pointer-events:none;
+  white-space:nowrap;
+}
+.toast.show { opacity:1; }
+
+/* ── YEAR OVERVIEW ── */
+.year-btn {
+  border:1.5px solid var(--line);
+  background:white;
+  border-radius:8px;
+  padding:7px 14px;
+  font-size:13px;
+  font-weight:600;
+  font-family:'DM Sans',sans-serif;
+  cursor:pointer;
+  color:var(--ink-2);
+  transition:all .15s;
+}
+.year-btn:hover { border-color:var(--red); color:var(--red); }
+.year-btn.active { background:var(--red); border-color:var(--red); color:white; }
+</style>
+</head>
+<body>
+
+<!-- HEADER -->
+<header class="header">
+  <div class="header-brand">
+    <div class="header-flag">
+      <div class="flag-top"></div>
+      <div class="flag-bottom"></div>
+    </div>
+    <span class="header-title">Mes indisponibilités</span>
+  </div>
+  <span class="header-user" id="headerUser"></span>
+</header>
+
+<!-- LOGIN -->
+<div class="login-screen" id="loginScreen">
+  <div class="login-card">
+    <div class="login-logo">
+      <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+        <rect x="3" y="11" width="18" height="11" rx="2"/>
+        <path d="M7 11V7a5 5 0 0 1 10 0v4"/>
+      </svg>
+    </div>
+    <div class="login-title">Accès sécurisé</div>
+    <div class="login-sub">CHPG Monaco · Anesthésie-Réanimation<br>Saisissez votre code d'accès personnel</div>
+    <label class="login-label" for="codeInput">Code d'accès</label>
+    <input class="login-input" id="codeInput" type="text" maxlength="8"
+      placeholder="XXXXXXXX" autocomplete="off" autocorrect="off"
+      autocapitalize="characters" spellcheck="false"/>
+    <button class="login-btn" id="loginBtn" onclick="doLogin()">Accéder →</button>
+    <div class="login-error" id="loginError">Code invalide. Vérifiez et réessayez.</div>
+  </div>
+</div>
+
+<!-- APP -->
+<div class="app" id="app">
+
+  <!-- Légende / outils -->
+  <div class="legend" id="legend">
+    <div class="legend-item vac active-tool" data-tool="VAC" onclick="selectTool('VAC')">🏖️ Vacances</div>
+    <div class="legend-item form" data-tool="FORM" onclick="selectTool('FORM')">📚 Formation</div>
+    <div class="legend-item indispo" data-tool="INDISPO" onclick="selectTool('INDISPO')">🚫 Indisponible</div>
+    <div class="legend-item souhait" data-tool="SOUHAIT" onclick="selectTool('SOUHAIT')">⭐ Garde souhaitée</div>
+    <div class="legend-item erase" data-tool="ERASE" onclick="selectTool('ERASE')">✕ Effacer</div>
+  </div>
+  <div class="tool-hint" id="toolHint">Outil actif : <strong>Vacances</strong> — Touchez un jour pour l'appliquer</div>
+
+  <!-- Stats annuelles -->
+  <div class="stats-bar" id="statsBar"></div>
+
+  <!-- Navigation mois -->
+  <div class="month-nav">
+    <button class="month-nav-btn" onclick="prevMonth()">← Préc.</button>
+    <span class="month-title" id="monthTitle"></span>
+    <button class="month-nav-btn" onclick="nextMonth()">Suiv. →</button>
+  </div>
+
+  <!-- Calendrier -->
+  <div class="calendar-container">
+    <div class="calendar-grid" id="calGrid"></div>
+  </div>
+
+  <!-- Bouton sauvegarder -->
+  <div class="bottom-bar">
+    <button class="save-btn" id="saveBtn" onclick="saveIndispos()">
+      💾 Sauvegarder mes indisponibilités
+    </button>
+  </div>
+
+</div>
+
+<!-- Toast -->
+<div class="toast" id="toast"></div>
+
+<script>
+// ── CONFIG ────────────────────────────────────────────────────────────
+const API_URL = 'https://script.google.com/macros/s/AKfycbyvmAM4y2iPtDjAq-269VHeS2L-fMM9HxCiCLinnGCh9rtRcdSzd1ibLl3EY-ZLmrPqMQ/exec';
+const YEAR = 2026;
+const MONTHS_FR = ['Janvier','Février','Mars','Avril','Mai','Juin',
+                   'Juillet','Août','Septembre','Octobre','Novembre','Décembre'];
+const DAYS_FR = ['Lun','Mar','Mer','Jeu','Ven','Sam','Dim'];
+const STATUS_LABELS = {
+  VAC:'Vacances', FORM:'Formation', INDISPO:'Indisponible', SOUHAIT:'Garde souhaitée'
+};
+
+// ── STATE ─────────────────────────────────────────────────────────────
+let currentUser = null;
+let currentCode = '';
+let currentMonth = new Date().getMonth(); // 0-based
+let currentTool = 'VAC';
+let indispos = {}; // {date: status}
+let isDragging = false;
+let hasChanges = false;
+
+// ── LOGIN ─────────────────────────────────────────────────────────────
+document.getElementById('codeInput').addEventListener('keydown', e => {
+  if (e.key === 'Enter') doLogin();
+});
+
+async function doLogin() {
+  const code = document.getElementById('codeInput').value.trim().toUpperCase();
+  if (code.length < 4) return;
+
+  const btn = document.getElementById('loginBtn');
+  btn.textContent = 'Connexion...';
+  btn.disabled = true;
+
+  try {
+    const res = await apiCall('login', {code});
+    if (res.success) {
+      currentUser = res;
+      currentCode = code;
+      document.getElementById('loginScreen').style.display = 'none';
+      document.getElementById('app').style.display = 'block';
+      document.getElementById('headerUser').textContent = res.name || res.id;
+      await loadIndispos();
+      renderMonth();
+    } else {
+      document.getElementById('loginError').style.display = 'block';
+    }
+  } catch(e) {
+    document.getElementById('loginError').style.display = 'block';
+  }
+  btn.textContent = 'Accéder →';
+  btn.disabled = false;
+}
+
+// ── API ───────────────────────────────────────────────────────────────
+async function apiCall(action, extra = {}) {
+  const body = {action, code: currentCode, ...extra};
+  const res = await fetch(API_URL, {
+    method: 'POST',
+    body: JSON.stringify(body),
+  });
+  return res.json();
+}
+
+// ── LOAD / SAVE ───────────────────────────────────────────────────────
+async function loadIndispos() {
+  const res = await apiCall('getIndispos');
+  if (res.success) {
+    indispos = res.indispos || {};
+    updateStats();
+  }
+}
+
+async function saveIndispos() {
+  const btn = document.getElementById('saveBtn');
+  btn.textContent = '⏳ Sauvegarde...';
+  btn.disabled = true;
+
+  const res = await apiCall('saveIndispos', {indispos});
+  if (res.success) {
+    hasChanges = false;
+    showToast('✅ Indisponibilités sauvegardées');
+  } else {
+    showToast('❌ Erreur lors de la sauvegarde');
+  }
+
+  btn.textContent = '💾 Sauvegarder mes indisponibilités';
+  btn.disabled = false;
+}
+
+// ── TOOL ──────────────────────────────────────────────────────────────
+function selectTool(tool) {
+  currentTool = tool;
+  document.querySelectorAll('.legend-item').forEach(el => {
+    el.classList.toggle('active-tool', el.dataset.tool === tool);
+  });
+  const labels = {...STATUS_LABELS, ERASE: 'Effacer'};
+  document.getElementById('toolHint').innerHTML =
+    `Outil actif : <strong>${labels[tool]}</strong> — Touchez un jour pour l'appliquer`;
+}
+
+// ── CALENDAR RENDER ───────────────────────────────────────────────────
+function renderMonth() {
+  const grid = document.getElementById('calGrid');
+  document.getElementById('monthTitle').textContent = `${MONTHS_FR[currentMonth]} ${YEAR}`;
+
+  const firstDay = new Date(YEAR, currentMonth, 1);
+  const daysInMonth = new Date(YEAR, currentMonth + 1, 0).getDate();
+  const today = new Date().toISOString().slice(0, 10);
+
+  // Day headers
+  let html = DAYS_FR.map(d => `<div class="cal-header">${d}</div>`).join('');
+
+  // Empty cells before first day
+  let startDow = firstDay.getDay() || 7; // 1=Mon..7=Sun
+  for (let i = 1; i < startDow; i++) {
+    html += `<div class="cal-day empty"></div>`;
+  }
+
+  // Days
+  for (let d = 1; d <= daysInMonth; d++) {
+    const date = `${YEAR}-${String(currentMonth+1).padStart(2,'0')}-${String(d).padStart(2,'0')}`;
+    const dow = new Date(date).getDay(); // 0=Sun, 6=Sat
+    const isWe = dow === 0 || dow === 6;
+    const status = indispos[date] || '';
+    const isPast = date < today;
+
+    let cls = 'cal-day';
+    if (isWe) cls += ' weekend';
+    if (date === today) cls += ' today';
+    if (isPast) cls += ' past';
+    if (status) cls += ' ' + status.toLowerCase();
+
+    const badge = status
+      ? `<div class="cal-day-badge ${status.toLowerCase()}-badge">${STATUS_LABELS[status]?.slice(0,3) || status}</div>`
+      : '';
+
+    html += `<div class="${cls}" data-date="${date}"
+      ontouchstart="startDrag('${date}')"
+      ontouchmove="handleDragMove(event)"
+      ontouchend="endDrag()"
+      onmousedown="startDrag('${date}')"
+      onmouseover="handleMouseOver('${date}')"
+      onmouseup="endDrag()">
+      <div class="cal-day-num">${d}</div>
+      ${badge}
+    </div>`;
+  }
+
+  grid.innerHTML = html;
+}
+
+// ── DRAG INTERACTION ──────────────────────────────────────────────────
+function startDrag(date) {
+  isDragging = true;
+  applyTool(date);
+}
+
+function handleMouseOver(date) {
+  if (isDragging) applyTool(date);
+}
+
+function handleDragMove(e) {
+  if (!isDragging) return;
+  e.preventDefault();
+  const touch = e.touches[0];
+  const el = document.elementFromPoint(touch.clientX, touch.clientY);
+  if (el && el.dataset.date) applyTool(el.dataset.date);
+}
+
+function endDrag() {
+  isDragging = false;
+}
+
+document.addEventListener('mouseup', () => { isDragging = false; });
+
+function applyTool(date) {
+  const isPast = date < new Date().toISOString().slice(0, 10);
+  if (isPast) return;
+
+  if (currentTool === 'ERASE') {
+    delete indispos[date];
+  } else {
+    indispos[date] = currentTool;
+  }
+  hasChanges = true;
+  renderMonth();
+  updateStats();
+}
+
+// ── MONTH NAV ─────────────────────────────────────────────────────────
+function prevMonth() {
+  if (currentMonth > 0) { currentMonth--; renderMonth(); }
+}
+function nextMonth() {
+  if (currentMonth < 11) { currentMonth++; renderMonth(); }
+}
+
+// ── STATS ─────────────────────────────────────────────────────────────
+function updateStats() {
+  const counts = {VAC:0, FORM:0, INDISPO:0, SOUHAIT:0};
+  Object.values(indispos).forEach(s => { if(counts[s]!==undefined) counts[s]++; });
+
+  document.getElementById('statsBar').innerHTML = `
+    <div class="stat-item" style="color:var(--vac-fg)">🏖️ ${counts.VAC} jours</div>
+    <div class="stat-item" style="color:var(--form-fg)">📚 ${counts.FORM} jours</div>
+    <div class="stat-item" style="color:var(--indispo-fg)">🚫 ${counts.INDISPO} jours</div>
+    <div class="stat-item" style="color:var(--souhait-fg)">⭐ ${counts.SOUHAIT} gardes souhaitées</div>
+  `;
+}
+
+// ── TOAST ─────────────────────────────────────────────────────────────
+function showToast(msg) {
+  const t = document.getElementById('toast');
+  t.textContent = msg;
+  t.classList.add('show');
+  setTimeout(() => t.classList.remove('show'), 2500);
+}
+
+// Warn before leaving with unsaved changes
+window.addEventListener('beforeunload', e => {
+  if (hasChanges) e.preventDefault();
+});
+</script>
+</body>
+</html>
