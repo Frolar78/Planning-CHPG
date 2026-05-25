@@ -394,8 +394,10 @@ month.doctors.forEach(doc=>{
       const pKey=entry.afternoon&&entry.afternoon.startsWith('CS-')?'CS':entry.afternoon;
       if(mKey&&smap[mKey]) smap[mKey][dow].am.push({init:doc.initials,status,sector:entry.morning});
       if(pKey&&smap[pKey]) smap[pKey][dow].pm.push({init:doc.initials,status,sector:entry.afternoon});
-      // CS parallèle (MAR qui apparaît dans 2 secteurs simultanément)
+      // CS parallèle
       if(entry.cs&&smap['CS']) smap['CS'][dow].am.push({init:doc.initials,status,sector:entry.cs});
+      // REA parallèle (MAR de MAT affilié REA)
+      if(entry.cs2&&smap[entry.cs2]) smap[entry.cs2][dow].am.push({init:doc.initials,status,sector:entry.cs2});
     });
   });
 
@@ -585,6 +587,9 @@ async function exportExcel(){
       if(cs&&smap['CS']){
         const csSub=cs.includes('-')?cs.split('-')[1]:'';
         smap['CS'][dow].am.push({init,sub:csSub,status:st});
+      // REA parallèle
+      const cs2=entry.cs2||'';
+      if(cs2&&smap[cs2]) smap[cs2][dow].am.push({init,sub:'',status:st});
       }
     });
   });
