@@ -25518,8 +25518,8 @@
             },
             {
               "status": "",
-              "morning": "END",
-              "afternoon": "MAT",
+              "morning": "VIS",
+              "afternoon": "VIS",
               "cs": ""
             },
             {
