@@ -2,7 +2,7 @@
 
 // ── CONFIG CHAT ───────────────────────────────────────────────────────
 const CHAT_ADMIN_CODE = 'CHPG2026ADMIN';
-const CHAT_API_URL = 'https://script.google.com/macros/s/AKfycbyvmAM4y2iPtDjAq-269VHeS2L-fMM9HxCiCLinnGCh9rtRcdSzd1ibLl3EY-ZLmrPqMQ/exec';
+const CHAT_API_URL = 'https://script.google.com/macros/s/AKfycbxZavweHP-hbJ0XatEr_PGAyeosJNx69qPl6DFjVaQOoX65vOuiNy5RVqoyhY3Oj3elHQ/exec';
 
 // ── STATE ─────────────────────────────────────────────────────────────
 let chatAuthenticated = false;
