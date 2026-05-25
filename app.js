@@ -396,8 +396,10 @@ month.doctors.forEach(doc=>{
       if(pKey&&smap[pKey]) smap[pKey][dow].pm.push({init:doc.initials,status,sector:entry.afternoon});
       // CS parallèle
       if(entry.cs&&smap['CS']) smap['CS'][dow].am.push({init:doc.initials,status,sector:entry.cs});
-      // REA parallèle (MAR de MAT affilié REA)
+      // REA parallèle matin
       if(entry.cs2&&smap[entry.cs2]) smap[entry.cs2][dow].am.push({init:doc.initials,status,sector:entry.cs2});
+      // REA parallèle aprem
+      if(entry.cs3&&smap[entry.cs3]) smap[entry.cs3][dow].pm.push({init:doc.initials,status,sector:entry.cs3});
     });
   });
 
@@ -590,6 +592,8 @@ async function exportExcel(){
       // REA parallèle
       const cs2=entry.cs2||'';
       if(cs2&&smap[cs2]) smap[cs2][dow].am.push({init,sub:'',status:st});
+      const cs3=entry.cs3||'';
+      if(cs3&&smap[cs3]) smap[cs3][dow].pm.push({init,sub:'',status:st});
       }
     });
   });
