@@ -293,6 +293,7 @@ async function init(){
   docSel.style.cssText='border:1.5px solid #E2E8F0;border-radius:8px;padding:6px 10px;font-size:13px;font-weight:600;font-family:DM Sans,sans-serif;color:#0F172A;background:white;outline:none;cursor:pointer;display:none;margin:10px 32px 0;';
   document.getElementById('medecinsView').prepend(docSel);
   render();
+  initChat();
 }
 
 // ── MONTH SELECT ───────────────────────────────────────────────────────
