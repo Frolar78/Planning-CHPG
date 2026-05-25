@@ -523,12 +523,12 @@
             {
               "status": "",
               "morning": "CS-MAT",
-              "afternoon": "CS-MAT"
+              "afternoon": "REA"
             },
             {
               "status": "",
               "morning": "CS-ORT",
-              "afternoon": "CS-ORT"
+              "afternoon": "REA"
             },
             {
               "status": "",
@@ -558,7 +558,7 @@
             {
               "status": "",
               "morning": "CS-MAT",
-              "afternoon": "CS-MAT"
+              "afternoon": "REA"
             },
             {
               "status": "A",
@@ -593,7 +593,7 @@
             {
               "status": "",
               "morning": "CS-ORL",
-              "afternoon": "CS-ORL"
+              "afternoon": "REA"
             },
             {
               "status": "",
@@ -623,12 +623,12 @@
             {
               "status": "18",
               "morning": "CS-POLY",
-              "afternoon": "CS-POLY"
+              "afternoon": "REA"
             },
             {
               "status": "",
               "morning": "CS-MAT",
-              "afternoon": "CS-MAT"
+              "afternoon": "REA"
             },
             {
               "status": "A",
@@ -658,12 +658,12 @@
             {
               "status": "",
               "morning": "CS-POLY",
-              "afternoon": "CS-POLY"
+              "afternoon": "REA"
             },
             {
               "status": "",
               "morning": "CS-MAT",
-              "afternoon": "CS-MAT"
+              "afternoon": "REA"
             },
             {
               "status": "",
@@ -1031,12 +1031,12 @@
             {
               "status": "",
               "morning": "CS-MAT",
-              "afternoon": "CS-MAT"
+              "afternoon": "REA"
             },
             {
               "status": "G",
               "morning": "CS-POLY",
-              "afternoon": "CS-POLY"
+              "afternoon": "REA"
             },
             {
               "status": "RG",
@@ -1071,12 +1071,12 @@
             {
               "status": "",
               "morning": "CS-POLY",
-              "afternoon": "CS-POLY"
+              "afternoon": "REA"
             },
             {
               "status": "",
               "morning": "CS-MAT",
-              "afternoon": "CS-MAT"
+              "afternoon": "REA"
             },
             {
               "status": "",
@@ -1136,7 +1136,7 @@
             {
               "status": "",
               "morning": "CS-MAT",
-              "afternoon": "CS-MAT"
+              "afternoon": "REA"
             },
             {
               "status": "A",
@@ -1227,7 +1227,7 @@
             {
               "status": "",
               "morning": "CS-MAT",
-              "afternoon": "CS-MAT"
+              "afternoon": "REA"
             },
             {
               "status": "",
@@ -1262,7 +1262,7 @@
             {
               "status": "G",
               "morning": "CS-MAT",
-              "afternoon": "CS-MAT"
+              "afternoon": "REA"
             },
             {
               "status": "RG",
@@ -4711,17 +4711,17 @@
             {
               "status": "",
               "morning": "CS-POLY",
-              "afternoon": "CS-POLY"
+              "afternoon": "REA"
             },
             {
               "status": "",
               "morning": "CS-MAT",
-              "afternoon": "CS-MAT"
+              "afternoon": "REA"
             },
             {
               "status": "",
               "morning": "CS-ORL",
-              "afternoon": "CS-ORL"
+              "afternoon": "REA"
             },
             {
               "status": "",
@@ -4746,12 +4746,12 @@
             {
               "status": "",
               "morning": "CS-POLY",
-              "afternoon": "CS-POLY"
+              "afternoon": "REA"
             },
             {
               "status": "",
               "morning": "CS-MAT",
-              "afternoon": "CS-MAT"
+              "afternoon": "REA"
             },
             {
               "status": "",
@@ -4781,12 +4781,12 @@
             {
               "status": "18",
               "morning": "CS-POLY",
-              "afternoon": "CS-POLY"
+              "afternoon": "REA"
             },
             {
               "status": "",
               "morning": "CS-MAT",
-              "afternoon": "CS-MAT"
+              "afternoon": "REA"
             },
             {
               "status": "",
@@ -4821,7 +4821,7 @@
             {
               "status": "",
               "morning": "CS-MAT",
-              "afternoon": "CS-MAT"
+              "afternoon": "REA"
             },
             {
               "status": "A",
@@ -5144,7 +5144,7 @@
             {
               "status": "",
               "morning": "CS-MAT",
-              "afternoon": "CS-MAT"
+              "afternoon": "REA"
             },
             {
               "status": "G",
@@ -5179,7 +5179,7 @@
             {
               "status": "",
               "morning": "CS-MAT",
-              "afternoon": "CS-MAT"
+              "afternoon": "REA"
             },
             {
               "status": "",
@@ -5214,7 +5214,7 @@
             {
               "status": "",
               "morning": "CS-ORL",
-              "afternoon": "CS-ORL"
+              "afternoon": "REA"
             },
             {
               "status": "",
@@ -5264,7 +5264,7 @@
             {
               "status": "",
               "morning": "CS-ORT",
-              "afternoon": "CS-ORT"
+              "afternoon": "REA"
             },
             {
               "status": "",
@@ -5360,7 +5360,7 @@
             {
               "status": "",
               "morning": "CS-MAT",
-              "afternoon": "CS-MAT"
+              "afternoon": "REA"
             },
             {
               "status": "G",
@@ -5395,7 +5395,7 @@
             {
               "status": "",
               "morning": "CS-MAT",
-              "afternoon": "CS-MAT"
+              "afternoon": "REA"
             },
             {
               "status": "G",
@@ -8446,7 +8446,7 @@
             {
               "status": "",
               "morning": "CS-MAT",
-              "afternoon": "CS-MAT"
+              "afternoon": "REA"
             },
             {
               "status": "",
@@ -8476,12 +8476,12 @@
             {
               "status": "",
               "morning": "CS-POLY",
-              "afternoon": "CS-POLY"
+              "afternoon": "REA"
             },
             {
               "status": "",
               "morning": "CS-MAT",
-              "afternoon": "CS-MAT"
+              "afternoon": "REA"
             },
             {
               "status": "",
@@ -8516,7 +8516,7 @@
             {
               "status": "",
               "morning": "CS-MAT",
-              "afternoon": "CS-MAT"
+              "afternoon": "REA"
             },
             {
               "status": "",
@@ -8551,7 +8551,7 @@
             {
               "status": "",
               "morning": "CS-MAT",
-              "afternoon": "CS-MAT"
+              "afternoon": "REA"
             },
             {
               "status": "",
@@ -8919,7 +8919,7 @@
             {
               "status": "",
               "morning": "CS-MAT",
-              "afternoon": "CS-MAT"
+              "afternoon": "REA"
             },
             {
               "status": "",
@@ -8954,7 +8954,7 @@
             {
               "status": "",
               "morning": "CS-MAT",
-              "afternoon": "CS-MAT"
+              "afternoon": "REA"
             },
             {
               "status": "",
@@ -8989,7 +8989,7 @@
             {
               "status": "",
               "morning": "CS-MAT",
-              "afternoon": "CS-MAT"
+              "afternoon": "REA"
             },
             {
               "status": "",
@@ -9024,7 +9024,7 @@
             {
               "status": "G",
               "morning": "CS-MAT",
-              "afternoon": "CS-MAT"
+              "afternoon": "REA"
             },
             {
               "status": "RG",
@@ -9220,7 +9220,7 @@
             {
               "status": "",
               "morning": "CS-MAT",
-              "afternoon": "CS-MAT"
+              "afternoon": "REA"
             }
           ]
         },
@@ -12475,7 +12475,7 @@
             {
               "status": "",
               "morning": "CS-MAT",
-              "afternoon": "CS-MAT"
+              "afternoon": "REA"
             },
             {
               "status": "",
@@ -12505,17 +12505,17 @@
             {
               "status": "",
               "morning": "CS-POLY",
-              "afternoon": "CS-POLY"
+              "afternoon": "REA"
             },
             {
               "status": "",
               "morning": "CS-MAT",
-              "afternoon": "CS-MAT"
+              "afternoon": "REA"
             },
             {
               "status": "",
               "morning": "CS-ORL",
-              "afternoon": "CS-ORL"
+              "afternoon": "REA"
             },
             {
               "status": "",
@@ -12540,17 +12540,17 @@
             {
               "status": "",
               "morning": "CS-ORL",
-              "afternoon": "CS-ORL"
+              "afternoon": "REA"
             },
             {
               "status": "",
               "morning": "CS-MAT",
-              "afternoon": "CS-MAT"
+              "afternoon": "REA"
             },
             {
               "status": "",
               "morning": "CS-ORT",
-              "afternoon": "CS-ORT"
+              "afternoon": "REA"
             },
             {
               "status": "",
@@ -12580,7 +12580,7 @@
             {
               "status": "",
               "morning": "CS-MAT",
-              "afternoon": "CS-MAT"
+              "afternoon": "REA"
             },
             {
               "status": "",
@@ -12615,7 +12615,7 @@
             {
               "status": "",
               "morning": "CS-MAT",
-              "afternoon": "CS-MAT"
+              "afternoon": "REA"
             }
           ]
         },
@@ -12968,7 +12968,7 @@
             {
               "status": "",
               "morning": "CS-MAT",
-              "afternoon": "CS-MAT"
+              "afternoon": "REA"
             },
             {
               "status": "",
@@ -13003,12 +13003,12 @@
             {
               "status": "",
               "morning": "CS-MAT",
-              "afternoon": "CS-MAT"
+              "afternoon": "REA"
             },
             {
               "status": "",
               "morning": "CS-POLY",
-              "afternoon": "CS-POLY"
+              "afternoon": "REA"
             },
             {
               "status": "G",
@@ -13073,7 +13073,7 @@
             {
               "status": "",
               "morning": "CS-MAT",
-              "afternoon": "CS-MAT"
+              "afternoon": "REA"
             },
             {
               "status": "",
@@ -14598,7 +14598,7 @@
             {
               "status": "",
               "morning": "CS-MAT",
-              "afternoon": "CS-MAT"
+              "afternoon": "REA"
             },
             {
               "status": "",
@@ -16450,12 +16450,12 @@
             {
               "status": "",
               "morning": "CS-MAT",
-              "afternoon": "CS-MAT"
+              "afternoon": "REA"
             },
             {
               "status": "",
               "morning": "CS-ORL",
-              "afternoon": "CS-ORL"
+              "afternoon": "REA"
             },
             {
               "status": "",
@@ -16485,12 +16485,12 @@
             {
               "status": "",
               "morning": "CS-MAT",
-              "afternoon": "CS-MAT"
+              "afternoon": "REA"
             },
             {
               "status": "",
               "morning": "CS-ORT",
-              "afternoon": "CS-ORT"
+              "afternoon": "REA"
             },
             {
               "status": "",
@@ -16520,7 +16520,7 @@
             {
               "status": "",
               "morning": "CS-MAT",
-              "afternoon": "CS-MAT"
+              "afternoon": "REA"
             },
             {
               "status": "",
@@ -16550,12 +16550,12 @@
             {
               "status": "",
               "morning": "CS-POLY",
-              "afternoon": "CS-POLY"
+              "afternoon": "REA"
             },
             {
               "status": "",
               "morning": "CS-MAT",
-              "afternoon": "CS-MAT"
+              "afternoon": "REA"
             },
             {
               "status": "",
@@ -17154,7 +17154,7 @@
             {
               "status": "",
               "morning": "CS-MAT",
-              "afternoon": "CS-MAT"
+              "afternoon": "REA"
             },
             {
               "status": "",
@@ -18533,7 +18533,7 @@
             {
               "status": "",
               "morning": "CS-MAT",
-              "afternoon": "CS-MAT"
+              "afternoon": "REA"
             },
             {
               "status": "G",
@@ -18568,7 +18568,7 @@
             {
               "status": "",
               "morning": "CS-MAT",
-              "afternoon": "CS-MAT"
+              "afternoon": "REA"
             },
             {
               "status": "",
@@ -18638,7 +18638,7 @@
             {
               "status": "",
               "morning": "CS-ORL",
-              "afternoon": "CS-ORL"
+              "afternoon": "REA"
             },
             {
               "status": "",
@@ -19604,7 +19604,7 @@
             {
               "status": "",
               "morning": "CS-MAT",
-              "afternoon": "CS-MAT"
+              "afternoon": "REA"
             },
             {
               "status": "",
@@ -20479,7 +20479,7 @@
             {
               "status": "",
               "morning": "CS-ORL",
-              "afternoon": "CS-ORL"
+              "afternoon": "REA"
             },
             {
               "status": "",
@@ -20514,7 +20514,7 @@
             {
               "status": "",
               "morning": "CS-MAT",
-              "afternoon": "CS-MAT"
+              "afternoon": "REA"
             },
             {
               "status": "",
@@ -20544,12 +20544,12 @@
             {
               "status": "",
               "morning": "CS-POLY",
-              "afternoon": "CS-POLY"
+              "afternoon": "REA"
             },
             {
               "status": "",
               "morning": "CS-MAT",
-              "afternoon": "CS-MAT"
+              "afternoon": "REA"
             },
             {
               "status": "",
@@ -20579,12 +20579,12 @@
             {
               "status": "",
               "morning": "CS-POLY",
-              "afternoon": "CS-POLY"
+              "afternoon": "REA"
             },
             {
               "status": "",
               "morning": "CS-MAT",
-              "afternoon": "CS-MAT"
+              "afternoon": "REA"
             },
             {
               "status": "",
@@ -20947,7 +20947,7 @@
             {
               "status": "",
               "morning": "CS-MAT",
-              "afternoon": "CS-MAT"
+              "afternoon": "REA"
             },
             {
               "status": "",
@@ -20972,7 +20972,7 @@
             {
               "status": "",
               "morning": "CS-MAT",
-              "afternoon": "CS-MAT"
+              "afternoon": "REA"
             },
             {
               "status": "",
@@ -21007,7 +21007,7 @@
             {
               "status": "",
               "morning": "CS-MAT",
-              "afternoon": "CS-MAT"
+              "afternoon": "REA"
             },
             {
               "status": "",
@@ -21042,7 +21042,7 @@
             {
               "status": "",
               "morning": "CS-MAT",
-              "afternoon": "CS-MAT"
+              "afternoon": "REA"
             },
             {
               "status": "G",
@@ -21077,7 +21077,7 @@
             {
               "status": "",
               "morning": "CS-MAT",
-              "afternoon": "CS-MAT"
+              "afternoon": "REA"
             }
           ]
         },
@@ -21093,7 +21093,7 @@
             {
               "status": "",
               "morning": "CS-MAT",
-              "afternoon": "CS-MAT"
+              "afternoon": "REA"
             },
             {
               "status": "",
@@ -24419,7 +24419,7 @@
             {
               "status": "",
               "morning": "CS-MAT",
-              "afternoon": "CS-MAT"
+              "afternoon": "REA"
             },
             {
               "status": "",
@@ -24454,7 +24454,7 @@
             {
               "status": "",
               "morning": "CS-MAT",
-              "afternoon": "CS-MAT"
+              "afternoon": "REA"
             },
             {
               "status": "",
@@ -24489,7 +24489,7 @@
             {
               "status": "",
               "morning": "CS-MAT",
-              "afternoon": "CS-MAT"
+              "afternoon": "REA"
             },
             {
               "status": "",
@@ -24519,12 +24519,12 @@
             {
               "status": "",
               "morning": "CS-POLY",
-              "afternoon": "CS-POLY"
+              "afternoon": "REA"
             },
             {
               "status": "",
               "morning": "CS-MAT",
-              "afternoon": "CS-MAT"
+              "afternoon": "REA"
             },
             {
               "status": "",
@@ -24559,7 +24559,7 @@
             {
               "status": "",
               "morning": "CS-MAT",
-              "afternoon": "CS-MAT"
+              "afternoon": "REA"
             },
             {
               "status": "",
@@ -24927,7 +24927,7 @@
             {
               "status": "",
               "morning": "CS-MAT",
-              "afternoon": "CS-MAT"
+              "afternoon": "REA"
             },
             {
               "status": "",
@@ -24962,7 +24962,7 @@
             {
               "status": "",
               "morning": "CS-MAT",
-              "afternoon": "CS-MAT"
+              "afternoon": "REA"
             },
             {
               "status": "",
@@ -24997,7 +24997,7 @@
             {
               "status": "G",
               "morning": "CS-MAT",
-              "afternoon": "CS-MAT"
+              "afternoon": "REA"
             },
             {
               "status": "RG",
@@ -25032,7 +25032,7 @@
             {
               "status": "",
               "morning": "CS-MAT",
-              "afternoon": "CS-MAT"
+              "afternoon": "REA"
             },
             {
               "status": "",
@@ -28499,7 +28499,7 @@
             {
               "status": "",
               "morning": "CS-MAT",
-              "afternoon": "CS-MAT"
+              "afternoon": "REA"
             },
             {
               "status": "",
@@ -28534,12 +28534,12 @@
             {
               "status": "",
               "morning": "CS-MAT",
-              "afternoon": "CS-MAT"
+              "afternoon": "REA"
             },
             {
               "status": "",
               "morning": "CS-ORT",
-              "afternoon": "CS-ORT"
+              "afternoon": "REA"
             },
             {
               "status": "",
@@ -28564,17 +28564,17 @@
             {
               "status": "18",
               "morning": "CS-POLY",
-              "afternoon": "CS-POLY"
+              "afternoon": "REA"
             },
             {
               "status": "",
               "morning": "CS-MAT",
-              "afternoon": "CS-MAT"
+              "afternoon": "REA"
             },
             {
               "status": "",
               "morning": "CS-ORT",
-              "afternoon": "CS-ORT"
+              "afternoon": "REA"
             },
             {
               "status": "",
@@ -28599,17 +28599,17 @@
             {
               "status": "",
               "morning": "CS-POLY",
-              "afternoon": "CS-POLY"
+              "afternoon": "REA"
             },
             {
               "status": "",
               "morning": "CS-MAT",
-              "afternoon": "CS-MAT"
+              "afternoon": "REA"
             },
             {
               "status": "",
               "morning": "CS-ORT",
-              "afternoon": "CS-ORT"
+              "afternoon": "REA"
             },
             {
               "status": "",
@@ -28972,7 +28972,7 @@
             {
               "status": "",
               "morning": "CS-ORL",
-              "afternoon": "CS-ORL"
+              "afternoon": "REA"
             },
             {
               "status": "18",
@@ -29133,7 +29133,7 @@
             {
               "status": "",
               "morning": "CS-MAT",
-              "afternoon": "CS-MAT"
+              "afternoon": "REA"
             },
             {
               "status": "G",
@@ -29168,12 +29168,12 @@
             {
               "status": "",
               "morning": "CS-MAT",
-              "afternoon": "CS-MAT"
+              "afternoon": "REA"
             },
             {
               "status": "G",
               "morning": "CS-POLY",
-              "afternoon": "CS-POLY"
+              "afternoon": "REA"
             },
             {
               "status": "RG",
@@ -29203,7 +29203,7 @@
             {
               "status": "",
               "morning": "CS-MAT",
-              "afternoon": "CS-MAT"
+              "afternoon": "REA"
             },
             {
               "status": "",
@@ -30687,7 +30687,7 @@
             {
               "status": "",
               "morning": "CS-MAT",
-              "afternoon": "CS-MAT"
+              "afternoon": "REA"
             },
             {
               "status": "",
@@ -32528,7 +32528,7 @@
             {
               "status": "",
               "morning": "CS-MAT",
-              "afternoon": "CS-MAT"
+              "afternoon": "REA"
             },
             {
               "status": "",
@@ -32558,12 +32558,12 @@
             {
               "status": "18",
               "morning": "CS-ORL",
-              "afternoon": "CS-ORL"
+              "afternoon": "REA"
             },
             {
               "status": "",
               "morning": "CS-MAT",
-              "afternoon": "CS-MAT"
+              "afternoon": "REA"
             },
             {
               "status": "",
@@ -32593,12 +32593,12 @@
             {
               "status": "",
               "morning": "CS-POLY",
-              "afternoon": "CS-POLY"
+              "afternoon": "REA"
             },
             {
               "status": "",
               "morning": "CS-MAT",
-              "afternoon": "CS-MAT"
+              "afternoon": "REA"
             },
             {
               "status": "",
@@ -32628,12 +32628,12 @@
             {
               "status": "",
               "morning": "CS-POLY",
-              "afternoon": "CS-POLY"
+              "afternoon": "REA"
             },
             {
               "status": "",
               "morning": "CS-MAT",
-              "afternoon": "CS-MAT"
+              "afternoon": "REA"
             },
             {
               "status": "",
@@ -32663,7 +32663,7 @@
             {
               "status": "",
               "morning": "CS-POLY",
-              "afternoon": "CS-POLY"
+              "afternoon": "REA"
             }
           ]
         },
@@ -32779,7 +32779,7 @@
             {
               "status": "18",
               "morning": "CS-MAT",
-              "afternoon": "CS-MAT"
+              "afternoon": "REA"
             },
             {
               "status": "",
@@ -32814,7 +32814,7 @@
             {
               "status": "",
               "morning": "CS-MAT",
-              "afternoon": "CS-MAT"
+              "afternoon": "REA"
             },
             {
               "status": "",
@@ -33177,12 +33177,12 @@
             {
               "status": "",
               "morning": "CS-MAT",
-              "afternoon": "CS-MAT"
+              "afternoon": "REA"
             },
             {
               "status": "",
               "morning": "CS-POLY",
-              "afternoon": "CS-POLY"
+              "afternoon": "REA"
             },
             {
               "status": "G",
@@ -33212,7 +33212,7 @@
             {
               "status": "18",
               "morning": "CS-ORL",
-              "afternoon": "CS-ORL"
+              "afternoon": "REA"
             },
             {
               "status": "G",
@@ -34546,7 +34546,7 @@
             {
               "status": "",
               "morning": "CS-MAT",
-              "afternoon": "CS-MAT"
+              "afternoon": "REA"
             },
             {
               "status": "",
@@ -34616,7 +34616,7 @@
             {
               "status": "",
               "morning": "CS-MAT",
-              "afternoon": "CS-MAT"
+              "afternoon": "REA"
             },
             {
               "status": "F",
@@ -36468,7 +36468,7 @@
             {
               "status": "",
               "morning": "CS-MAT",
-              "afternoon": "CS-MAT"
+              "afternoon": "REA"
             },
             {
               "status": "",
@@ -36503,7 +36503,7 @@
             {
               "status": "",
               "morning": "CS-MAT",
-              "afternoon": "CS-MAT"
+              "afternoon": "REA"
             },
             {
               "status": "",
@@ -36533,12 +36533,12 @@
             {
               "status": "18",
               "morning": "CS-POLY",
-              "afternoon": "CS-POLY"
+              "afternoon": "REA"
             },
             {
               "status": "",
               "morning": "CS-MAT",
-              "afternoon": "CS-MAT"
+              "afternoon": "REA"
             },
             {
               "status": "",
@@ -36568,17 +36568,17 @@
             {
               "status": "",
               "morning": "CS-ORL",
-              "afternoon": "CS-ORL"
+              "afternoon": "REA"
             },
             {
               "status": "",
               "morning": "CS-MAT",
-              "afternoon": "CS-MAT"
+              "afternoon": "REA"
             },
             {
               "status": "",
               "morning": "CS-ORT",
-              "afternoon": "CS-ORT"
+              "afternoon": "REA"
             },
             {
               "status": "",
@@ -36608,7 +36608,7 @@
             {
               "status": "",
               "morning": "CS-MAT",
-              "afternoon": "CS-MAT"
+              "afternoon": "REA"
             },
             {
               "status": "",
@@ -36654,7 +36654,7 @@
             {
               "status": "18",
               "morning": "CS-MAT",
-              "afternoon": "CS-MAT"
+              "afternoon": "REA"
             },
             {
               "status": "",
@@ -36689,7 +36689,7 @@
             {
               "status": "",
               "morning": "CS-MAT",
-              "afternoon": "CS-MAT"
+              "afternoon": "REA"
             },
             {
               "status": "",
@@ -36724,12 +36724,12 @@
             {
               "status": "",
               "morning": "CS-MAT",
-              "afternoon": "CS-MAT"
+              "afternoon": "REA"
             },
             {
               "status": "",
               "morning": "CS-POLY",
-              "afternoon": "CS-POLY"
+              "afternoon": "REA"
             },
             {
               "status": "A",
@@ -36759,7 +36759,7 @@
             {
               "status": "",
               "morning": "CS-ORL",
-              "afternoon": "CS-ORL"
+              "afternoon": "REA"
             },
             {
               "status": "",
@@ -39657,7 +39657,7 @@
             {
               "status": "",
               "morning": "CS-MAT",
-              "afternoon": "CS-MAT"
+              "afternoon": "REA"
             },
             {
               "status": "",
@@ -40532,7 +40532,7 @@
             {
               "status": "",
               "morning": "CS-MAT",
-              "afternoon": "CS-MAT"
+              "afternoon": "REA"
             },
             {
               "status": "",
@@ -40567,7 +40567,7 @@
             {
               "status": "",
               "morning": "CS-MAT",
-              "afternoon": "CS-MAT"
+              "afternoon": "REA"
             },
             {
               "status": "",
@@ -40602,12 +40602,12 @@
             {
               "status": "",
               "morning": "CS-MAT",
-              "afternoon": "CS-MAT"
+              "afternoon": "REA"
             },
             {
               "status": "",
               "morning": "CS-ORL",
-              "afternoon": "CS-ORL"
+              "afternoon": "REA"
             },
             {
               "status": "",
@@ -40637,7 +40637,7 @@
             {
               "status": "",
               "morning": "CS-MAT",
-              "afternoon": "CS-MAT"
+              "afternoon": "REA"
             },
             {
               "status": "",
@@ -40748,7 +40748,7 @@
             {
               "status": "",
               "morning": "CS-MAT",
-              "afternoon": "CS-MAT"
+              "afternoon": "REA"
             },
             {
               "status": "",
@@ -40783,7 +40783,7 @@
             {
               "status": "",
               "morning": "CS-MAT",
-              "afternoon": "CS-MAT"
+              "afternoon": "REA"
             },
             {
               "status": "",
@@ -41146,7 +41146,7 @@
             {
               "status": "",
               "morning": "CS-MAT",
-              "afternoon": "CS-MAT"
+              "afternoon": "REA"
             },
             {
               "status": "",
@@ -41181,7 +41181,7 @@
             {
               "status": "",
               "morning": "CS-MAT",
-              "afternoon": "CS-MAT"
+              "afternoon": "REA"
             },
             {
               "status": "",
@@ -44472,7 +44472,7 @@
             {
               "status": "",
               "morning": "CS-MAT",
-              "afternoon": "CS-MAT"
+              "afternoon": "REA"
             },
             {
               "status": "",
@@ -44507,7 +44507,7 @@
             {
               "status": "",
               "morning": "CS-MAT",
-              "afternoon": "CS-MAT"
+              "afternoon": "REA"
             },
             {
               "status": "",
@@ -44542,7 +44542,7 @@
             {
               "status": "",
               "morning": "CS-MAT",
-              "afternoon": "CS-MAT"
+              "afternoon": "REA"
             },
             {
               "status": "",
@@ -44572,12 +44572,12 @@
             {
               "status": "",
               "morning": "CS-ORL",
-              "afternoon": "CS-ORL"
+              "afternoon": "REA"
             },
             {
               "status": "",
               "morning": "CS-ORL",
-              "afternoon": "CS-ORL"
+              "afternoon": "REA"
             },
             {
               "status": "",
@@ -44612,7 +44612,7 @@
             {
               "status": "",
               "morning": "CS-MAT",
-              "afternoon": "CS-MAT"
+              "afternoon": "REA"
             }
           ]
         },
@@ -44623,7 +44623,7 @@
             {
               "status": "",
               "morning": "CS-MAT",
-              "afternoon": "CS-MAT"
+              "afternoon": "REA"
             },
             {
               "status": "",
@@ -44658,7 +44658,7 @@
             {
               "status": "",
               "morning": "CS-MAT",
-              "afternoon": "CS-MAT"
+              "afternoon": "REA"
             },
             {
               "status": "",
@@ -44693,7 +44693,7 @@
             {
               "status": "18",
               "morning": "CS-MAT",
-              "afternoon": "CS-MAT"
+              "afternoon": "REA"
             },
             {
               "status": "",
@@ -44728,17 +44728,17 @@
             {
               "status": "",
               "morning": "CS-ORL",
-              "afternoon": "CS-ORL"
+              "afternoon": "REA"
             },
             {
               "status": "",
               "morning": "CS-POLY",
-              "afternoon": "CS-POLY"
+              "afternoon": "REA"
             },
             {
               "status": "",
               "morning": "CS-MAT",
-              "afternoon": "CS-MAT"
+              "afternoon": "REA"
             },
             {
               "status": "",
@@ -45211,7 +45211,7 @@
             {
               "status": "",
               "morning": "CS-MAT",
-              "afternoon": "CS-MAT"
+              "afternoon": "REA"
             },
             {
               "status": "G",
@@ -45246,7 +45246,7 @@
             {
               "status": "G",
               "morning": "CS-ORL",
-              "afternoon": "CS-ORL"
+              "afternoon": "REA"
             },
             {
               "status": "RG",
@@ -47661,7 +47661,7 @@
             {
               "status": "",
               "morning": "CS-MAT",
-              "afternoon": "CS-MAT"
+              "afternoon": "REA"
             },
             {
               "status": "",
