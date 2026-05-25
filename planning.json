@@ -24012,8 +24012,8 @@
             },
             {
               "status": "R",
-              "morning": "END",
-              "afternoon": "END",
+              "morning": "",
+              "afternoon": "",
               "cs": ""
             },
             {
