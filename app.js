@@ -394,6 +394,8 @@ month.doctors.forEach(doc=>{
       const pKey=entry.afternoon&&entry.afternoon.startsWith('CS-')?'CS':entry.afternoon;
       if(mKey&&smap[mKey]) smap[mKey][dow].am.push({init:doc.initials,status,sector:entry.morning});
       if(pKey&&smap[pKey]) smap[pKey][dow].pm.push({init:doc.initials,status,sector:entry.afternoon});
+      // CS parallèle (MAR qui apparaît dans 2 secteurs simultanément)
+      if(entry.cs&&smap['CS']) smap['CS'][dow].am.push({init:doc.initials,status,sector:entry.cs});
     });
   });
 
@@ -578,6 +580,12 @@ async function exportExcel(){
       const pmSub=pm.includes('-')?pm.split('-')[1]:'';
       if(amKey&&smap[amKey]) smap[amKey][dow].am.push({init,sub:amSub,status:st});
       if(pmKey&&smap[pmKey]) smap[pmKey][dow].pm.push({init,sub:pmSub,status:st});
+      // CS parallèle
+      const cs=entry.cs||'';
+      if(cs&&smap['CS']){
+        const csSub=cs.includes('-')?cs.split('-')[1]:'';
+        smap['CS'][dow].am.push({init,sub:csSub,status:st});
+      }
     });
   });
 
