@@ -1,0 +1,989 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Comité · Planning CHPG Monaco</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@300;400;500;600;700&family=DM+Mono:wght@400;500&display=swap" rel="stylesheet">
+<style>
+:root {
+  --red: #CE1126;
+  --red-soft: #F8E8EB;
+  --ink: #0F172A;
+  --ink-2: #334155;
+  --ink-3: #64748B;
+  --ink-4: #94A3B8;
+  --line: #E2E8F0;
+  --line-light: #F1F5F9;
+  --bg: #F8FAFC;
+  --white: #FFFFFF;
+  --green: #166534;
+  --green-soft: #F0FDF4;
+  --orange: #C2410C;
+  --orange-soft: #FFF7ED;
+  --radius: 12px;
+  --mono: 'DM Mono', monospace;
+}
+* { box-sizing: border-box; margin: 0; padding: 0; }
+body {
+  font-family: 'DM Sans', sans-serif;
+  background: var(--bg);
+  color: var(--ink);
+  min-height: 100vh;
+  font-size: 13px;
+  -webkit-font-smoothing: antialiased;
+}
+
+/* ── AUTH ── */
+.auth-overlay {
+  position: fixed; inset: 0;
+  background: var(--ink);
+  display: flex; align-items: center; justify-content: center;
+  z-index: 1000;
+}
+.auth-box {
+  background: var(--white);
+  border-radius: 16px;
+  padding: 40px;
+  width: 360px;
+  text-align: center;
+}
+.auth-flag {
+  display: flex; width: 36px; height: 36px;
+  border-radius: 8px; overflow: hidden; margin: 0 auto 16px;
+  box-shadow: 0 2px 8px rgba(0,0,0,.2);
+}
+.auth-flag-top { flex: 1; background: var(--red); }
+.auth-flag-bot { flex: 1; background: var(--white); border-top: 1px solid var(--line); }
+.auth-title { font-size: 18px; font-weight: 700; color: var(--ink); margin-bottom: 4px; }
+.auth-sub { font-size: 12px; color: var(--ink-3); margin-bottom: 24px; }
+.auth-input {
+  width: 100%; border: 2px solid var(--line); border-radius: 10px;
+  padding: 12px 14px; font-size: 15px; font-family: var(--mono);
+  text-align: center; text-transform: uppercase; letter-spacing: .12em;
+  outline: none; margin-bottom: 12px; transition: border-color .15s;
+}
+.auth-input:focus { border-color: var(--red); }
+.auth-btn {
+  width: 100%; background: var(--red); color: white; border: none;
+  border-radius: 10px; padding: 12px; font-size: 14px; font-weight: 700;
+  font-family: 'DM Sans', sans-serif; cursor: pointer; transition: opacity .15s;
+}
+.auth-btn:hover { opacity: .88; }
+.auth-error { font-size: 12px; color: var(--red); margin-top: 8px; display: none; }
+
+/* ── HEADER ── */
+.header {
+  background: var(--white); border-bottom: 1px solid var(--line);
+  padding: 0 32px; display: flex; align-items: center;
+  justify-content: space-between; height: 60px;
+  position: sticky; top: 0; z-index: 100;
+}
+.header-brand { display: flex; align-items: center; gap: 12px; }
+.header-flag {
+  display: flex; width: 26px; height: 26px; border-radius: 5px;
+  overflow: hidden; box-shadow: 0 1px 3px rgba(0,0,0,.15);
+}
+.flag-top { flex: 1; background: var(--red); }
+.flag-bot { flex: 1; background: var(--white); border-top: 1px solid var(--line); }
+.header-title { font-size: 14px; font-weight: 700; color: var(--ink); }
+.header-sub { font-size: 11px; color: var(--ink-4); }
+.header-badge {
+  background: var(--red-soft); color: var(--red);
+  font-size: 10px; font-weight: 700; padding: 4px 10px;
+  border-radius: 20px; letter-spacing: .04em;
+}
+
+/* ── NAV TABS ── */
+.nav-tabs {
+  background: var(--white); border-bottom: 1px solid var(--line);
+  padding: 0 32px; display: flex; gap: 0;
+}
+.nav-tab {
+  padding: 14px 20px; font-size: 13px; font-weight: 600;
+  color: var(--ink-3); cursor: pointer; border-bottom: 2px solid transparent;
+  transition: all .15s; background: none; border-top: none;
+  border-left: none; border-right: none; font-family: 'DM Sans', sans-serif;
+  display: flex; align-items: center; gap: 6px;
+}
+.nav-tab:hover { color: var(--ink); }
+.nav-tab.active { color: var(--red); border-bottom-color: var(--red); }
+.nav-tab .tab-count {
+  background: var(--red-soft); color: var(--red);
+  font-size: 10px; font-weight: 700; padding: 1px 6px; border-radius: 10px;
+}
+
+/* ── MAIN ── */
+.main { padding: 24px 32px; max-width: 1400px; }
+.tab-panel { display: none; }
+.tab-panel.active { display: block; }
+
+/* ── CARDS ── */
+.card {
+  background: var(--white); border: 1px solid var(--line);
+  border-radius: var(--radius); overflow: hidden;
+  box-shadow: 0 1px 3px rgba(0,0,0,.04); margin-bottom: 20px;
+}
+.card-header {
+  padding: 12px 16px; background: var(--line-light);
+  border-bottom: 1px solid var(--line);
+  display: flex; align-items: center; justify-content: space-between;
+}
+.card-title {
+  font-size: 11px; font-weight: 700; text-transform: uppercase;
+  letter-spacing: .08em; color: var(--ink-3);
+}
+.card-body { padding: 16px; }
+
+/* ── DIAGNOSTIC ── */
+.diag-grid {
+  display: grid; grid-template-columns: repeat(4, 1fr); gap: 12px;
+}
+.diag-month {
+  border: 1px solid var(--line); border-radius: 10px; overflow: hidden;
+  cursor: pointer; transition: box-shadow .15s;
+}
+.diag-month:hover { box-shadow: 0 2px 8px rgba(0,0,0,.1); }
+.diag-month-header {
+  padding: 8px 12px; font-size: 11px; font-weight: 700;
+  display: flex; align-items: center; justify-content: space-between;
+}
+.diag-month-body { padding: 8px 12px 10px; }
+.diag-ok { background: var(--green-soft); border-color: #BBF7D0; }
+.diag-ok .diag-month-header { background: #DCFCE7; color: var(--green); }
+.diag-warn { background: var(--orange-soft); border-color: #FED7AA; }
+.diag-warn .diag-month-header { background: #FFEDD5; color: var(--orange); }
+.diag-err { background: #FFF1F2; border-color: #FECDD3; }
+.diag-err .diag-month-header { background: #FFE4E6; color: var(--red); }
+
+.viol-count {
+  font-size: 20px; font-weight: 700; line-height: 1;
+}
+.viol-label { font-size: 10px; color: var(--ink-4); margin-top: 2px; }
+.viol-list { margin-top: 8px; }
+.viol-item {
+  font-size: 10px; font-family: var(--mono); padding: 2px 0;
+  border-top: 1px solid rgba(0,0,0,.06); color: var(--ink-2);
+}
+.viol-item:first-child { border-top: none; }
+
+/* Détail violations */
+.diag-detail { display: none; margin-top: 20px; }
+.diag-detail.open { display: block; }
+.detail-header {
+  display: flex; align-items: center; justify-content: space-between;
+  margin-bottom: 12px;
+}
+.detail-title { font-size: 14px; font-weight: 700; color: var(--ink); }
+.detail-close {
+  background: var(--line-light); border: 1px solid var(--line);
+  border-radius: 6px; padding: 4px 10px; font-size: 12px;
+  cursor: pointer; font-family: 'DM Sans', sans-serif;
+}
+.viol-table { width: 100%; border-collapse: collapse; font-size: 12px; }
+.viol-table th {
+  background: var(--line-light); padding: 8px 10px; text-align: left;
+  font-size: 10px; font-weight: 700; text-transform: uppercase;
+  letter-spacing: .06em; color: var(--ink-4);
+  border-bottom: 1px solid var(--line);
+}
+.viol-table td {
+  padding: 7px 10px; border-bottom: 1px solid var(--line);
+  vertical-align: middle;
+}
+.viol-table tr:last-child td { border-bottom: none; }
+.badge {
+  display: inline-flex; align-items: center; padding: 2px 8px;
+  border-radius: 20px; font-size: 10px; font-weight: 700;
+  font-family: var(--mono);
+}
+.badge-red { background: #FFE4E6; color: var(--red); }
+.badge-orange { background: #FFEDD5; color: var(--orange); }
+.badge-green { background: #DCFCE7; color: var(--green); }
+.badge-grey { background: var(--line-light); color: var(--ink-3); }
+
+/* Filtres */
+.filter-row {
+  display: flex; gap: 8px; margin-bottom: 16px; flex-wrap: wrap;
+}
+.filter-btn {
+  border: 1.5px solid var(--line); background: var(--white);
+  border-radius: 8px; padding: 5px 12px; font-size: 11px; font-weight: 600;
+  font-family: 'DM Sans', sans-serif; color: var(--ink-3); cursor: pointer;
+  transition: all .15s;
+}
+.filter-btn:hover { border-color: var(--red); color: var(--red); }
+.filter-btn.active { background: var(--red); border-color: var(--red); color: white; }
+
+/* Résumé violations */
+.summary-grid {
+  display: grid; grid-template-columns: repeat(5, 1fr); gap: 12px;
+  margin-bottom: 20px;
+}
+.summary-card {
+  background: var(--white); border: 1px solid var(--line);
+  border-radius: 10px; padding: 12px 14px;
+  text-align: center;
+}
+.summary-num { font-size: 24px; font-weight: 700; color: var(--ink); }
+.summary-label { font-size: 10px; color: var(--ink-4); margin-top: 2px; }
+.summary-num.red { color: var(--red); }
+.summary-num.orange { color: var(--orange); }
+.summary-num.green { color: var(--green); }
+
+/* Bouton refresh */
+.btn-primary {
+  background: var(--red); color: white; border: none; border-radius: 8px;
+  padding: 8px 16px; font-size: 12px; font-weight: 700;
+  font-family: 'DM Sans', sans-serif; cursor: pointer;
+  display: flex; align-items: center; gap: 6px; transition: opacity .15s;
+}
+.btn-primary:hover { opacity: .88; }
+.btn-primary:disabled { opacity: .5; cursor: not-allowed; }
+.btn-secondary {
+  background: var(--white); color: var(--ink-2); border: 1.5px solid var(--line);
+  border-radius: 8px; padding: 8px 16px; font-size: 12px; font-weight: 600;
+  font-family: 'DM Sans', sans-serif; cursor: pointer; transition: all .15s;
+}
+.btn-secondary:hover { border-color: var(--ink-2); }
+
+/* Loading */
+.loading {
+  display: flex; align-items: center; justify-content: center;
+  gap: 8px; padding: 40px; color: var(--ink-4); font-size: 13px;
+}
+.spinner {
+  width: 18px; height: 18px; border: 2px solid var(--line);
+  border-top-color: var(--red); border-radius: 50%;
+  animation: spin .8s linear infinite;
+}
+@keyframes spin { to { transform: rotate(360deg); } }
+
+/* ── INDISPOS ── */
+.indispos-grid {
+  display: grid; grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
+  gap: 10px; margin-bottom: 20px;
+}
+.mar-card {
+  border: 1px solid var(--line); border-radius: 10px; padding: 12px;
+  display: flex; align-items: center; gap: 10px;
+}
+.mar-avatar {
+  width: 36px; height: 36px; border-radius: 8px;
+  display: flex; align-items: center; justify-content: center;
+  font-size: 12px; font-weight: 700; font-family: var(--mono); flex-shrink: 0;
+}
+.mar-avatar.done { background: #DCFCE7; color: var(--green); }
+.mar-avatar.partial { background: #FFEDD5; color: var(--orange); }
+.mar-avatar.none { background: #FFE4E6; color: var(--red); }
+.mar-info { flex: 1; min-width: 0; }
+.mar-name { font-size: 12px; font-weight: 600; color: var(--ink); white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
+.mar-count { font-size: 10px; color: var(--ink-4); margin-top: 1px; }
+
+/* Heatmap */
+.heatmap-container { overflow-x: auto; }
+.heatmap { display: grid; grid-template-columns: 60px repeat(52, 1fr); gap: 2px; min-width: 800px; }
+.heatmap-label { font-size: 9px; color: var(--ink-4); display: flex; align-items: center; }
+.heatmap-cell {
+  height: 20px; border-radius: 3px; cursor: pointer;
+  transition: opacity .15s;
+}
+.heatmap-cell:hover { opacity: .8; }
+.heat-0 { background: #F1F5F9; }
+.heat-1 { background: #FEF3C7; }
+.heat-2 { background: #FED7AA; }
+.heat-3 { background: #FCA5A5; }
+.heat-4 { background: #CE1126; }
+.heatmap-legend {
+  display: flex; align-items: center; gap: 6px;
+  margin-top: 8px; font-size: 10px; color: var(--ink-4);
+}
+.legend-cell { width: 16px; height: 16px; border-radius: 3px; }
+
+/* ── STATS GARDES ── */
+.stats-table { width: 100%; border-collapse: collapse; font-size: 12px; }
+.stats-table th {
+  background: var(--line-light); padding: 8px 10px;
+  font-size: 10px; font-weight: 700; text-transform: uppercase;
+  letter-spacing: .06em; color: var(--ink-4);
+  border-bottom: 1px solid var(--line); text-align: center;
+}
+.stats-table th:first-child { text-align: left; }
+.stats-table td {
+  padding: 7px 10px; border-bottom: 1px solid var(--line);
+  text-align: center; color: var(--ink-2);
+}
+.stats-table td:first-child { text-align: left; font-weight: 600; }
+.stats-table tr:last-child td { border-bottom: none; }
+.bar-cell { position: relative; }
+.bar-bg {
+  height: 6px; background: var(--line-light);
+  border-radius: 3px; overflow: hidden; width: 60px; display: inline-block;
+}
+.bar-fill { height: 100%; border-radius: 3px; background: var(--red); }
+.bar-fill.ok { background: var(--green); }
+.bar-fill.warn { background: var(--orange); }
+
+@media (max-width: 900px) {
+  .main { padding: 16px; }
+  .nav-tabs { padding: 0 16px; }
+  .header { padding: 0 16px; }
+  .diag-grid { grid-template-columns: repeat(2, 1fr); }
+  .summary-grid { grid-template-columns: repeat(3, 1fr); }
+}
+</style>
+</head>
+<body>
+
+<!-- AUTH -->
+<div class="auth-overlay" id="authOverlay">
+  <div class="auth-box">
+    <div class="auth-flag">
+      <div class="auth-flag-top"></div>
+      <div class="auth-flag-bot"></div>
+    </div>
+    <div class="auth-title">Espace Comité</div>
+    <div class="auth-sub">CHPG Monaco · Anesthésie-Réanimation</div>
+    <input class="auth-input" id="authInput" type="password"
+      placeholder="Code administrateur" autocomplete="off"/>
+    <button class="auth-btn" onclick="authenticate()">Accéder →</button>
+    <div class="auth-error" id="authError">Code incorrect.</div>
+  </div>
+</div>
+
+<!-- HEADER -->
+<div class="header">
+  <div class="header-brand">
+    <div class="header-flag">
+      <div class="flag-top"></div>
+      <div class="flag-bot"></div>
+    </div>
+    <div>
+      <div class="header-title">Planning CHPG Monaco</div>
+      <div class="header-sub">Service d'Anesthésie-Réanimation</div>
+    </div>
+  </div>
+  <div style="display:flex;align-items:center;gap:12px">
+    <span class="header-badge">ESPACE COMITÉ</span>
+    <a href="./index.html" style="font-size:12px;color:var(--ink-3);text-decoration:none">← Planning</a>
+  </div>
+</div>
+
+<!-- NAV TABS -->
+<div class="nav-tabs">
+  <button class="nav-tab active" onclick="showTab('diagnostic')" id="tab-diagnostic">
+    🔍 Diagnostic planning
+    <span class="tab-count" id="count-violations">—</span>
+  </button>
+  <button class="nav-tab" onclick="showTab('indispos')" id="tab-indispos">
+    📅 Indisponibilités
+  </button>
+  <button class="nav-tab" onclick="showTab('gardes')" id="tab-gardes">
+    🏥 Générateur gardes
+  </button>
+</div>
+
+<!-- MAIN -->
+<div class="main">
+
+  <!-- TAB DIAGNOSTIC -->
+  <div class="tab-panel active" id="panel-diagnostic">
+    <div style="display:flex;align-items:center;justify-content:space-between;margin-bottom:16px">
+      <div>
+        <div style="font-size:16px;font-weight:700;color:var(--ink)">Diagnostic planning 2026</div>
+        <div style="font-size:12px;color:var(--ink-3);margin-top:2px">
+          Vérification des règles métier sur les 12 mois
+        </div>
+      </div>
+      <button class="btn-primary" onclick="runDiagnostic()" id="btnDiag">
+        <span>↻</span> Lancer le diagnostic
+      </button>
+    </div>
+
+    <div id="diagLoading" style="display:none">
+      <div class="loading"><div class="spinner"></div> Analyse en cours...</div>
+    </div>
+
+    <div id="diagResults" style="display:none">
+      <!-- Résumé -->
+      <div class="summary-grid" id="diagSummary"></div>
+
+      <!-- Filtres -->
+      <div class="filter-row">
+        <button class="filter-btn active" onclick="filterViol('all',this)">Tout</button>
+        <button class="filter-btn" onclick="filterViol('CS',this)">CS</button>
+        <button class="filter-btn" onclick="filterViol('REA',this)">REA</button>
+        <button class="filter-btn" onclick="filterViol('END',this)">END</button>
+        <button class="filter-btn" onclick="filterViol('ORL',this)">ORL</button>
+        <button class="filter-btn" onclick="filterViol('RI',this)">RI/CI</button>
+        <button class="filter-btn" onclick="filterViol('MAT',this)">MAT</button>
+      </div>
+
+      <!-- Grille mois -->
+      <div class="diag-grid" id="diagGrid"></div>
+
+      <!-- Détail -->
+      <div class="diag-detail" id="diagDetail">
+        <div class="detail-header">
+          <div class="detail-title" id="detailTitle"></div>
+          <button class="detail-close" onclick="closeDetail()">✕ Fermer</button>
+        </div>
+        <div class="card">
+          <div class="card-body" style="padding:0;overflow-x:auto">
+            <table class="viol-table" id="detailTable">
+              <thead><tr>
+                <th>Date</th><th>Jour</th><th>Secteur</th><th>Attendu</th><th>Réel</th><th>Écart</th>
+              </tr></thead>
+              <tbody id="detailBody"></tbody>
+            </table>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div id="diagEmpty" style="padding:40px;text-align:center;color:var(--ink-4)">
+      Cliquez sur "Lancer le diagnostic" pour analyser le planning.
+    </div>
+  </div>
+
+  <!-- TAB INDISPOS -->
+  <div class="tab-panel" id="panel-indispos">
+    <div style="display:flex;align-items:center;justify-content:space-between;margin-bottom:16px">
+      <div>
+        <div style="font-size:16px;font-weight:700;color:var(--ink)">Indisponibilités 2026</div>
+        <div style="font-size:12px;color:var(--ink-3);margin-top:2px">État des saisies par MAR et semaines de tension</div>
+      </div>
+      <button class="btn-primary" onclick="loadIndispos()">↻ Actualiser</button>
+    </div>
+
+    <div id="indisposLoading" style="display:none">
+      <div class="loading"><div class="spinner"></div> Chargement...</div>
+    </div>
+
+    <div id="indisposResults" style="display:none">
+      <div class="card" style="margin-bottom:20px">
+        <div class="card-header">
+          <span class="card-title">État des saisies par MAR</span>
+          <div style="display:flex;gap:12px;font-size:11px">
+            <span style="color:var(--green)">● Saisi</span>
+            <span style="color:var(--orange)">● Partiel</span>
+            <span style="color:var(--red)">● Non saisi</span>
+          </div>
+        </div>
+        <div class="card-body">
+          <div class="indispos-grid" id="marGrid"></div>
+        </div>
+      </div>
+
+      <div class="card">
+        <div class="card-header">
+          <span class="card-title">Heatmap des semaines de tension</span>
+          <span style="font-size:11px;color:var(--ink-4)">Plus c'est rouge = plus d'absences simultanées</span>
+        </div>
+        <div class="card-body">
+          <div class="heatmap-container">
+            <div class="heatmap" id="heatmap"></div>
+          </div>
+          <div class="heatmap-legend">
+            <span>Tension :</span>
+            <div class="legend-cell heat-0"></div><span>0</span>
+            <div class="legend-cell heat-1"></div><span>1-3</span>
+            <div class="legend-cell heat-2"></div><span>4-6</span>
+            <div class="legend-cell heat-3"></div><span>7-9</span>
+            <div class="legend-cell heat-4"></div><span>10+</span>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div id="indisposEmpty" style="padding:40px;text-align:center;color:var(--ink-4)">
+      Cliquez sur "Actualiser" pour charger les indisponibilités.
+    </div>
+  </div>
+
+  <!-- TAB GARDES -->
+  <div class="tab-panel" id="panel-gardes">
+    <div style="display:flex;align-items:center;justify-content:space-between;margin-bottom:16px">
+      <div>
+        <div style="font-size:16px;font-weight:700;color:var(--ink)">Générateur de gardes</div>
+        <div style="font-size:12px;color:var(--ink-3);margin-top:2px">
+          Génère le planning de gardes annuel depuis les indisponibilités saisies
+        </div>
+      </div>
+      <div style="display:flex;gap:8px">
+        <button class="btn-secondary" onclick="loadStats()">↻ Voir stats actuelles</button>
+        <button class="btn-primary" onclick="generateGardes()" id="btnGenerate">
+          ⚡ Générer le planning
+        </button>
+      </div>
+    </div>
+
+    <div class="card" style="margin-bottom:20px">
+      <div class="card-header"><span class="card-title">Règles appliquées</span></div>
+      <div class="card-body">
+        <div style="display:grid;grid-template-columns:1fr 1fr;gap:8px;font-size:12px;color:var(--ink-2)">
+          <div>• 2 gardes/jour : 1 G (REA) + 1 G2 (MAT)</div>
+          <div>• PRUNET : priorité mardi, pas de weekend, 130%</div>
+          <div>• Équité absolue indépendante des indispos</div>
+          <div>• SULTAN : préférence G2 (MAT)</div>
+          <div>• BONNET / BOUREGBA : jamais de garde</div>
+          <div>• RG automatique le lendemain de chaque garde</div>
+          <div>• R (récup samedi) placé 2-16 semaines après</div>
+          <div>• 18h : 1/jour, MB/LB ont 1.5x plus que les autres</div>
+        </div>
+      </div>
+    </div>
+
+    <div id="gardesLoading" style="display:none">
+      <div class="loading"><div class="spinner"></div> Génération en cours (peut prendre 30-60s)...</div>
+    </div>
+
+    <div id="gardesResults" style="display:none">
+      <div class="card">
+        <div class="card-header">
+          <span class="card-title">Statistiques d'équité</span>
+          <div style="display:flex;gap:12px;font-size:11px">
+            <span style="color:var(--green)">● Équitable</span>
+            <span style="color:var(--orange)">● Écart modéré</span>
+            <span style="color:var(--red)">● Écart important</span>
+          </div>
+        </div>
+        <div class="card-body" style="padding:0;overflow-x:auto">
+          <table class="stats-table" id="statsTable">
+            <thead><tr>
+              <th>Médecin</th>
+              <th>Cible</th>
+              <th>Total G</th>
+              <th>G REA</th>
+              <th>G2 MAT</th>
+              <th>Lun</th><th>Mar</th><th>Mer</th>
+              <th>Jeu</th><th>Ven</th><th>Sam</th><th>Dim</th>
+              <th>Récup R</th>
+              <th>18H</th>
+            </tr></thead>
+            <tbody id="statsBody"></tbody>
+          </table>
+        </div>
+      </div>
+    </div>
+
+    <div id="gardesEmpty" style="padding:40px;text-align:center;color:var(--ink-4)">
+      Cliquez sur "Générer le planning" pour créer le planning de gardes,
+      ou "Voir stats actuelles" pour afficher les statistiques existantes.
+    </div>
+  </div>
+
+</div>
+
+<script>
+'use strict';
+
+const API_URL = 'https://script.google.com/macros/s/AKfycbxZavweHP-hbJ0XatEr_PGAyeosJNx69qPl6DFjVaQOoX65vOuiNy5RVqoyhY3Oj3elHQ/exec';
+const ADMIN_CODE = 'CHPG2026ADMIN';
+
+let authenticated = false;
+let allViolations = [];
+let activeFilter = 'all';
+
+// ── AUTH ──────────────────────────────────────────────────────────────
+document.getElementById('authInput').addEventListener('keydown', e => {
+  if (e.key === 'Enter') authenticate();
+});
+
+function authenticate() {
+  const code = document.getElementById('authInput').value.trim().toUpperCase();
+  if (code === ADMIN_CODE) {
+    authenticated = true;
+    document.getElementById('authOverlay').style.display = 'none';
+  } else {
+    document.getElementById('authError').style.display = 'block';
+  }
+}
+
+// ── TABS ──────────────────────────────────────────────────────────────
+function showTab(name) {
+  document.querySelectorAll('.tab-panel').forEach(p => p.classList.remove('active'));
+  document.querySelectorAll('.nav-tab').forEach(t => t.classList.remove('active'));
+  document.getElementById('panel-' + name).classList.add('active');
+  document.getElementById('tab-' + name).classList.add('active');
+}
+
+// ── DIAGNOSTIC ────────────────────────────────────────────────────────
+const DAYS_FR = ['D','L','M','M','J','V','S'];
+const MONTH_NAMES = ['Janvier','Février','Mars','Avril','Mai','Juin',
+                     'Juillet','Août','Septembre','Octobre','Novembre','Décembre'];
+
+const NEEDS = {
+  1: {VIS:4,ORT:2,ORL:2,END:3,CI:1,REA:2,MAT:1},
+  2: {VIS:3,ORT:1,ORL:2,END:3,CI:1,REA:2,DVI:1,MAT:1},
+  3: {VIS:3,ORT:2,ORL:2,END:3,RI:1,CI:1,REA:2,MAT:1},
+  4: {VIS:3,ORT:1,ORL:2,END:3,RI:1,REA:2,MAT:1},
+  5: {VIS:3,ORT:1,ORL:2,END:3,CI:1,REA:2,MAT:1},
+};
+const CS_EXPECTED = {1:4,2:3,3:4,4:4,5:0};
+const ABSENT = new Set(['RG','A','CP','F','R','I','E']);
+
+async function runDiagnostic() {
+  document.getElementById('diagLoading').style.display = 'block';
+  document.getElementById('diagResults').style.display = 'none';
+  document.getElementById('diagEmpty').style.display = 'none';
+  document.getElementById('btnDiag').disabled = true;
+
+  try {
+    const data = await fetch('./planning.json?' + Date.now()).then(r => r.json());
+    allViolations = [];
+
+    data.months.forEach(month => {
+      month.days.forEach((day, dayIdx) => {
+        const dow = new Date(day.date).getDay();
+        const isWe = dow === 0 || dow === 6;
+        if (isWe) return;
+
+        const countAM = {}, countPM = {};
+        month.doctors.forEach(doc => {
+          const entry = doc.days[dayIdx] || {};
+          if (!entry.morning) return;
+          if (ABSENT.has(entry.status)) return;
+
+          const norm = (m) => {
+            if (m === 'CS-ORL' || m === 'CS-POLY') return 'ORL';
+            if (m === 'CS-MAT') return 'MAT';
+            if (m && m.startsWith('CS-')) return 'CS';
+            return m;
+          };
+          const mKey = norm(entry.morning);
+          const pKey = norm(entry.afternoon);
+          countAM[mKey] = (countAM[mKey]||0) + 1;
+          if (pKey) countPM[pKey] = (countPM[pKey]||0) + 1;
+
+          // CS parallèles
+          if (entry.cs) {
+            const csKey = entry.cs.startsWith('CS-') ? 'CS' : entry.cs;
+            countAM[csKey] = (countAM[csKey]||0) + 1;
+          }
+        });
+
+        const dayNeeds = NEEDS[dow] || {};
+        Object.entries(dayNeeds).forEach(([sector, expected]) => {
+          const actual = countAM[sector] || 0;
+          if (actual < expected) {
+            allViolations.push({
+              date: day.date, dow, month: month.month,
+              monthLabel: month.label,
+              sector, expected, actual,
+              type: sector,
+            });
+          }
+        });
+
+        const csExp = CS_EXPECTED[dow] || 0;
+        const csAct = countPM['CS'] || 0;
+        if (csAct !== csExp) {
+          allViolations.push({
+            date: day.date, dow, month: month.month,
+            monthLabel: month.label,
+            sector: 'CS-PM', expected: csExp, actual: csAct,
+            type: 'CS',
+          });
+        }
+      });
+    });
+
+    renderDiagnostic();
+  } catch(e) {
+    alert('Erreur : ' + e.message);
+  } finally {
+    document.getElementById('diagLoading').style.display = 'none';
+    document.getElementById('btnDiag').disabled = false;
+  }
+}
+
+function renderDiagnostic() {
+  const filtered = activeFilter === 'all'
+    ? allViolations
+    : allViolations.filter(v => {
+        if (activeFilter === 'RI') return v.type === 'RI' || v.type === 'CI';
+        return v.type === activeFilter;
+      });
+
+  // Résumé
+  const byType = {};
+  filtered.forEach(v => { byType[v.type] = (byType[v.type]||0) + 1; });
+  const totalMois = new Set(filtered.map(v => v.month)).size;
+
+  document.getElementById('diagSummary').innerHTML = `
+    <div class="summary-card">
+      <div class="summary-num ${filtered.length > 50 ? 'red' : filtered.length > 20 ? 'orange' : 'green'}">${filtered.length}</div>
+      <div class="summary-label">Violations totales</div>
+    </div>
+    <div class="summary-card">
+      <div class="summary-num">${totalMois}</div>
+      <div class="summary-label">Mois concernés</div>
+    </div>
+    <div class="summary-card">
+      <div class="summary-num orange">${byType['REA']||0}</div>
+      <div class="summary-label">REA sous-staffé</div>
+    </div>
+    <div class="summary-card">
+      <div class="summary-num">${(byType['RI']||0)+(byType['CI']||0)}</div>
+      <div class="summary-label">RI/CI absent</div>
+    </div>
+    <div class="summary-card">
+      <div class="summary-num">${byType['CS']||0}</div>
+      <div class="summary-label">CS-PM incorrectes</div>
+    </div>
+  `;
+
+  // Update tab count
+  document.getElementById('count-violations').textContent = allViolations.length;
+
+  // Grille mois
+  const byMonth = {};
+  for (let m = 1; m <= 12; m++) byMonth[m] = [];
+  filtered.forEach(v => byMonth[v.month].push(v));
+
+  const grid = document.getElementById('diagGrid');
+  grid.innerHTML = '';
+  for (let m = 1; m <= 12; m++) {
+    const viols = byMonth[m];
+    const cls = viols.length === 0 ? 'diag-ok' : viols.length <= 5 ? 'diag-warn' : 'diag-err';
+    const icon = viols.length === 0 ? '✅' : viols.length <= 5 ? '⚠️' : '❌';
+    const preview = viols.slice(0, 4);
+
+    const card = document.createElement('div');
+    card.className = `diag-month ${cls}`;
+    card.onclick = () => showDetail(m);
+    card.innerHTML = `
+      <div class="diag-month-header">
+        <span>${MONTH_NAMES[m-1]}</span>
+        <span>${icon} ${viols.length}</span>
+      </div>
+      <div class="diag-month-body">
+        <div class="viol-count">${viols.length}</div>
+        <div class="viol-label">violation${viols.length !== 1 ? 's' : ''}</div>
+        <div class="viol-list">
+          ${preview.map(v => `<div class="viol-item">${v.date.slice(5)} · ${v.sector} (${v.actual}/${v.expected})</div>`).join('')}
+          ${viols.length > 4 ? `<div class="viol-item" style="color:var(--ink-4)">+${viols.length-4} autres...</div>` : ''}
+        </div>
+      </div>
+    `;
+    grid.appendChild(card);
+  }
+
+  document.getElementById('diagResults').style.display = 'block';
+}
+
+function filterViol(type, btn) {
+  activeFilter = type;
+  document.querySelectorAll('.filter-btn').forEach(b => b.classList.remove('active'));
+  btn.classList.add('active');
+  renderDiagnostic();
+}
+
+function showDetail(month) {
+  const filtered = activeFilter === 'all'
+    ? allViolations.filter(v => v.month === month)
+    : allViolations.filter(v => v.month === month && (
+        activeFilter === 'RI' ? (v.type === 'RI' || v.type === 'CI') : v.type === activeFilter
+      ));
+
+  document.getElementById('detailTitle').textContent =
+    `${MONTH_NAMES[month-1]} — ${filtered.length} violation${filtered.length !== 1 ? 's' : ''}`;
+
+  const tbody = document.getElementById('detailBody');
+  tbody.innerHTML = filtered.map(v => {
+    const diff = v.actual - v.expected;
+    const diffCls = diff < 0 ? 'badge-red' : diff > 0 ? 'badge-orange' : 'badge-green';
+    const sectorCls = v.type === 'CS' ? 'badge-grey' :
+                      v.type === 'REA' ? 'badge-orange' : 'badge-red';
+    return `<tr>
+      <td><span style="font-family:var(--mono);font-size:11px">${v.date}</span></td>
+      <td>${['D','L','M','M','J','V','S'][v.dow]}</td>
+      <td><span class="badge ${sectorCls}">${v.sector}</span></td>
+      <td style="text-align:center">${v.expected}</td>
+      <td style="text-align:center">${v.actual}</td>
+      <td><span class="badge ${diffCls}">${diff > 0 ? '+' : ''}${diff}</span></td>
+    </tr>`;
+  }).join('');
+
+  document.getElementById('diagDetail').classList.add('open');
+  document.getElementById('diagDetail').scrollIntoView({behavior:'smooth',block:'nearest'});
+}
+
+function closeDetail() {
+  document.getElementById('diagDetail').classList.remove('open');
+}
+
+// ── INDISPOS ──────────────────────────────────────────────────────────
+const MARS = [
+  {id:'ALBOUY',initials:'SA'},{id:'ARMANDO',initials:'GA'},
+  {id:'BONNET',initials:'LB'},{id:'BOUREGBA',initials:'MB'},
+  {id:'CATINEAU',initials:'JC'},{id:'FROHLICH',initials:'AFR'},
+  {id:'FERRIERO',initials:'AF'},{id:'GHIGLIONE',initials:'SG'},
+  {id:'GUERIN',initials:'JPG'},{id:'LEVASSEUR',initials:'LUL'},
+  {id:'LEY',initials:'LL'},{id:'MENADE',initials:'RM'},
+  {id:'OPPRECHT',initials:'NO'},{id:'PARTOUCHE',initials:'NP'},
+  {id:'ROUSSEAU',initials:'GR'},{id:'SALA',initials:'NS'},
+  {id:'SEVERAC',initials:'MS'},{id:'SULTAN',initials:'WS'},
+  {id:'SUPLY',initials:'CS'},{id:'WIDEHEM',initials:'RW'},
+  {id:'ZAMARON',initials:'FZ'},{id:'TRAN',initials:'DT'},
+  {id:'PRUNET',initials:'BP'},
+];
+
+async function loadIndispos() {
+  document.getElementById('indisposLoading').style.display = 'block';
+  document.getElementById('indisposResults').style.display = 'none';
+  document.getElementById('indisposEmpty').style.display = 'none';
+
+  try {
+    const params = new URLSearchParams({payload: JSON.stringify({
+      action:'getAllIndispos', code: ADMIN_CODE
+    })});
+    const res = await fetch(API_URL + '?' + params.toString());
+    const data = await res.json();
+    if (!data.success) throw new Error(data.error);
+
+    renderIndispos(data.data);
+  } catch(e) {
+    alert('Erreur : ' + e.message);
+    document.getElementById('indisposEmpty').style.display = 'block';
+  } finally {
+    document.getElementById('indisposLoading').style.display = 'none';
+  }
+}
+
+function renderIndispos(indisposData) {
+  // MAR cards
+  const grid = document.getElementById('marGrid');
+  grid.innerHTML = '';
+  MARS.forEach(mar => {
+    const marData = indisposData[mar.id] || {};
+    const count = Object.keys(marData).length;
+    const cls = count >= 30 ? 'done' : count > 0 ? 'partial' : 'none';
+    const label = count === 0 ? 'Non saisi' : `${count} jour${count>1?'s':''}`;
+    grid.innerHTML += `
+      <div class="mar-card">
+        <div class="mar-avatar ${cls}">${mar.initials}</div>
+        <div class="mar-info">
+          <div class="mar-name">DR ${mar.id.charAt(0)+mar.id.slice(1).toLowerCase()}</div>
+          <div class="mar-count">${label}</div>
+        </div>
+      </div>
+    `;
+  });
+
+  // Heatmap semaines
+  const weekData = {};
+  Object.entries(indisposData).forEach(([docId, dates]) => {
+    Object.keys(dates).forEach(date => {
+      const dt = new Date(date);
+      const wn = getWeekNum(dt);
+      weekData[wn] = (weekData[wn]||0) + 1;
+    });
+  });
+
+  const heatmap = document.getElementById('heatmap');
+  heatmap.innerHTML = '<div class="heatmap-label">Semaine</div>';
+  for (let w = 1; w <= 52; w++) {
+    const count = weekData[w] || 0;
+    const heat = count === 0 ? 0 : count < 4 ? 1 : count < 7 ? 2 : count < 10 ? 3 : 4;
+    heatmap.innerHTML += `<div class="heatmap-cell heat-${heat}" title="S${w}: ${count} indispos"></div>`;
+  }
+
+  document.getElementById('indisposResults').style.display = 'block';
+}
+
+function getWeekNum(dt) {
+  const tmp = new Date(Date.UTC(dt.getFullYear(),dt.getMonth(),dt.getDate()));
+  tmp.setUTCDate(tmp.getUTCDate()+4-(tmp.getUTCDay()||7));
+  const ys = new Date(Date.UTC(tmp.getUTCFullYear(),0,1));
+  return Math.ceil((((tmp-ys)/86400000)+1)/7);
+}
+
+// ── GARDES ────────────────────────────────────────────────────────────
+async function loadStats() {
+  document.getElementById('gardesLoading').style.display = 'block';
+  document.getElementById('gardesResults').style.display = 'none';
+  document.getElementById('gardesEmpty').style.display = 'none';
+
+  try {
+    const params = new URLSearchParams({payload: JSON.stringify({
+      action:'getStats', code: ADMIN_CODE
+    })});
+    const res = await fetch(API_URL + '?' + params.toString());
+    const data = await res.json();
+    if (!data.success) throw new Error(data.error || 'Stats non disponibles');
+    renderStats(data.stats);
+  } catch(e) {
+    document.getElementById('gardesEmpty').textContent = 'Stats non disponibles. Lancez d\'abord le générateur.';
+    document.getElementById('gardesEmpty').style.display = 'block';
+  } finally {
+    document.getElementById('gardesLoading').style.display = 'none';
+  }
+}
+
+async function generateGardes() {
+  if (!confirm('Lancer la génération du planning de gardes ?\nCette opération peut prendre 30-60 secondes.')) return;
+
+  document.getElementById('gardesLoading').style.display = 'block';
+  document.getElementById('gardesResults').style.display = 'none';
+  document.getElementById('gardesEmpty').style.display = 'none';
+  document.getElementById('btnGenerate').disabled = true;
+
+  try {
+    const params = new URLSearchParams({payload: JSON.stringify({
+      action:'generateGardes', code: ADMIN_CODE
+    })});
+    const res = await fetch(API_URL + '?' + params.toString());
+    const data = await res.json();
+    if (!data.success) throw new Error(data.error);
+    renderStats(data.stats);
+    alert('✅ Planning de gardes généré avec succès !');
+  } catch(e) {
+    alert('Erreur : ' + e.message);
+    document.getElementById('gardesEmpty').style.display = 'block';
+  } finally {
+    document.getElementById('gardesLoading').style.display = 'none';
+    document.getElementById('btnGenerate').disabled = false;
+  }
+}
+
+function renderStats(stats) {
+  if (!stats || !stats.length) {
+    document.getElementById('gardesEmpty').style.display = 'block';
+    return;
+  }
+
+  const maxG = Math.max(...stats.map(s => s.total||0));
+  const minG = Math.min(...stats.filter(s=>s.total>0).map(s => s.total||0));
+
+  const tbody = document.getElementById('statsBody');
+  tbody.innerHTML = stats.map(s => {
+    const pct = maxG > 0 ? (s.total/maxG*100) : 0;
+    const diff = s.total - (s.cible||0);
+    const cls = Math.abs(diff) <= 1 ? 'ok' : Math.abs(diff) <= 2 ? 'warn' : '';
+    return `<tr>
+      <td>${s.medecin}</td>
+      <td style="color:var(--ink-4)">${s.cible||'—'}</td>
+      <td>
+        <div style="display:flex;align-items:center;gap:6px">
+          <span style="font-weight:700">${s.total||0}</span>
+          <div class="bar-bg"><div class="bar-fill ${cls}" style="width:${pct}%"></div></div>
+        </div>
+      </td>
+      <td>${s.g||0}</td>
+      <td>${s.g2||0}</td>
+      <td>${s.lun||0}</td><td>${s.mar||0}</td><td>${s.mer||0}</td>
+      <td>${s.jeu||0}</td><td>${s.ven||0}</td>
+      <td>${s.sat||0}</td><td>${s.dim||0}</td>
+      <td>${s.recupR||0}</td>
+      <td>${s.h18||0}</td>
+    </tr>`;
+  }).join('');
+
+  document.getElementById('gardesResults').style.display = 'block';
+}
+</script>
+</body>
+</html>
