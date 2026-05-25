@@ -290,11 +290,9 @@ body {
   transition: opacity .15s;
 }
 .heatmap-cell:hover { opacity: .8; }
-.heat-0 { background: #F1F5F9; }
-.heat-1 { background: #FEF3C7; }
-.heat-2 { background: #FED7AA; }
-.heat-3 { background: #FCA5A5; }
-.heat-4 { background: #CE1126; }
+.heat-ok   { background: #DCFCE7; }
+.heat-warn { background: #FEF3C7; }
+.heat-err  { background: #FCA5A5; }
 .heatmap-legend {
   display: flex; align-items: center; gap: 6px;
   margin-top: 8px; font-size: 10px; color: var(--ink-4);
@@ -485,14 +483,12 @@ body {
           <div class="heatmap-container">
             <div class="heatmap" id="heatmap"></div>
           </div>
-          <div class="heatmap-legend">
-            <span>Tension :</span>
-            <div class="legend-cell heat-0"></div><span>0</span>
-            <div class="legend-cell heat-1"></div><span>1-3</span>
-            <div class="legend-cell heat-2"></div><span>4-6</span>
-            <div class="legend-cell heat-3"></div><span>7-9</span>
-            <div class="legend-cell heat-4"></div><span>10+</span>
-          </div>
+         <div class="heatmap-legend">
+  <span>Effectif estimé :</span>
+  <div class="legend-cell heat-ok"></div><span>&gt;75 présences</span>
+  <div class="legend-cell heat-warn"></div><span>65–75</span>
+  <div class="legend-cell heat-err"></div><span>&lt;65</span>
+</div>
         </div>
       </div>
     </div>
@@ -854,14 +850,20 @@ async function loadIndispos() {
 }
 
 function renderIndispos(indisposData) {
+  const TOTAL_DAYS = 365;
+  const TOTAL_MARS = 23;
+  const DAYS_PER_WEEK = 5;
+  const MAX_PRESENTS_WEEK = TOTAL_MARS * DAYS_PER_WEEK; // 115
+
   // MAR cards
   const grid = document.getElementById('marGrid');
   grid.innerHTML = '';
   MARS.forEach(mar => {
     const marData = indisposData[mar.id] || {};
     const count = Object.keys(marData).length;
-    const cls = count >= 30 ? 'done' : count > 0 ? 'partial' : 'none';
-    const label = count === 0 ? 'Non saisi' : `${count} jour${count>1?'s':''}`;
+    const cls = count > 0 ? 'done' : 'none';
+    const pct = Math.round(count / TOTAL_DAYS * 100);
+    const label = count === 0 ? 'Non saisi' : `${count} jours — ${pct}%`;
     grid.innerHTML += `
       <div class="mar-card">
         <div class="mar-avatar ${cls}">${mar.initials}</div>
@@ -873,22 +875,28 @@ function renderIndispos(indisposData) {
     `;
   });
 
-  // Heatmap semaines
-  const weekData = {};
+  // Heatmap — compter indispos par semaine
+  const weekIndispos = {};
   Object.entries(indisposData).forEach(([docId, dates]) => {
     Object.keys(dates).forEach(date => {
       const dt = new Date(date);
+      // Uniquement jours de semaine
+      const dow = dt.getDay();
+      if (dow === 0 || dow === 6) return;
       const wn = getWeekNum(dt);
-      weekData[wn] = (weekData[wn]||0) + 1;
+      weekIndispos[wn] = (weekIndispos[wn]||0) + 1;
     });
   });
 
   const heatmap = document.getElementById('heatmap');
   heatmap.innerHTML = '<div class="heatmap-label">Semaine</div>';
   for (let w = 1; w <= 52; w++) {
-    const count = weekData[w] || 0;
-    const heat = count === 0 ? 0 : count < 4 ? 1 : count < 7 ? 2 : count < 10 ? 3 : 4;
-    heatmap.innerHTML += `<div class="heatmap-cell heat-${heat}" title="S${w}: ${count} indispos"></div>`;
+    const indispos = weekIndispos[w] || 0;
+    const presents = MAX_PRESENTS_WEEK - indispos;
+    // Vert > 75, Jaune 65-75, Rouge < 65
+    const heat = presents > 75 ? 0 : presents >= 65 ? 1 : 2;
+    const cls = heat === 0 ? 'heat-ok' : heat === 1 ? 'heat-warn' : 'heat-err';
+    heatmap.innerHTML += `<div class="heatmap-cell ${cls}" title="S${w}: ${presents} présences estimées (${indispos} indispos)"></div>`;
   }
 
   document.getElementById('indisposResults').style.display = 'block';
