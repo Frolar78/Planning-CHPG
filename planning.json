@@ -1307,7 +1307,7 @@
             {
               "status": "",
               "morning": "ORL",
-              "afternoon": "ORL"
+              "afternoon": "CS-INTER"
             },
             {
               "status": "",
@@ -2721,7 +2721,7 @@
             {
               "status": "",
               "morning": "RI",
-              "afternoon": "RI"
+              "afternoon": "CS-INTER"
             },
             {
               "status": "18",
@@ -3617,7 +3617,7 @@
             {
               "status": "",
               "morning": "RI",
-              "afternoon": "RI"
+              "afternoon": "CS-INTER"
             },
             {
               "status": "",
@@ -3652,7 +3652,7 @@
             {
               "status": "",
               "morning": "RI",
-              "afternoon": "RI"
+              "afternoon": "CS-INTER"
             },
             {
               "status": "18",
@@ -3743,7 +3743,7 @@
             {
               "status": "",
               "morning": "RI",
-              "afternoon": "RI"
+              "afternoon": "CS-INTER"
             },
             {
               "status": "A",
@@ -5224,7 +5224,7 @@
             {
               "status": "G",
               "morning": "ORL",
-              "afternoon": "ORL"
+              "afternoon": "CS-INTER"
             },
             {
               "status": "RG",
@@ -7490,7 +7490,7 @@
             {
               "status": "",
               "morning": "RI",
-              "afternoon": "RI"
+              "afternoon": "CS-INTER"
             },
             {
               "status": "",
@@ -7671,7 +7671,7 @@
             {
               "status": "",
               "morning": "RI",
-              "afternoon": "RI"
+              "afternoon": "CS-INTER"
             },
             {
               "status": "",
@@ -7741,7 +7741,7 @@
             {
               "status": "",
               "morning": "RI",
-              "afternoon": "RI"
+              "afternoon": "CS-INTER"
             },
             {
               "status": "",
@@ -9090,7 +9090,7 @@
             {
               "status": "",
               "morning": "RI",
-              "afternoon": "RI"
+              "afternoon": "CS-INTER"
             },
             {
               "status": "A",
@@ -10534,7 +10534,7 @@
             {
               "status": "",
               "morning": "RI",
-              "afternoon": "RI"
+              "afternoon": "CS-INTER"
             },
             {
               "status": "",
@@ -10574,7 +10574,7 @@
             {
               "status": "",
               "morning": "RI",
-              "afternoon": "RI"
+              "afternoon": "CS-INTER"
             },
             {
               "status": "G",
@@ -10609,7 +10609,7 @@
             {
               "status": "G",
               "morning": "RI",
-              "afternoon": "RI"
+              "afternoon": "CS-INTER"
             },
             {
               "status": "RG",
@@ -10644,7 +10644,7 @@
             {
               "status": "",
               "morning": "RI",
-              "afternoon": "RI"
+              "afternoon": "CS-INTER"
             },
             {
               "status": "",
@@ -11500,7 +11500,7 @@
             {
               "status": "",
               "morning": "CI",
-              "afternoon": "CS-INTER"
+              "afternoon": "CI"
             },
             {
               "status": "",
@@ -13013,7 +13013,7 @@
             {
               "status": "G",
               "morning": "ORL",
-              "afternoon": "ORL"
+              "afternoon": "CS-INTER"
             },
             {
               "status": "RG",
@@ -13078,7 +13078,7 @@
             {
               "status": "",
               "morning": "ORL",
-              "afternoon": "ORL"
+              "afternoon": "CS-INTER"
             },
             {
               "status": "18",
@@ -13134,7 +13134,7 @@
             {
               "status": "",
               "morning": "ORL",
-              "afternoon": "ORL"
+              "afternoon": "CS-INTER"
             },
             {
               "status": "G",
@@ -13239,7 +13239,7 @@
             {
               "status": "",
               "morning": "ORL",
-              "afternoon": "ORL"
+              "afternoon": "CS-INTER"
             }
           ]
         },
@@ -14593,7 +14593,7 @@
             {
               "status": "",
               "morning": "ORT",
-              "afternoon": "ORT"
+              "afternoon": "CS-END"
             },
             {
               "status": "",
@@ -14608,7 +14608,7 @@
             {
               "status": "",
               "morning": "ORL",
-              "afternoon": "ORL"
+              "afternoon": "CS-INTER"
             },
             {
               "status": "G",
@@ -15439,7 +15439,7 @@
             {
               "status": "",
               "morning": "RI",
-              "afternoon": "RI"
+              "afternoon": "CS-INTER"
             },
             {
               "status": "",
@@ -17129,7 +17129,7 @@
             {
               "status": "G",
               "morning": "VIS",
-              "afternoon": "VIS"
+              "afternoon": "CS-INTER"
             },
             {
               "status": "RG",
@@ -17164,7 +17164,7 @@
             {
               "status": "",
               "morning": "RI",
-              "afternoon": "RI"
+              "afternoon": "CS-INTER"
             },
             {
               "status": "F",
@@ -19614,7 +19614,7 @@
             {
               "status": "",
               "morning": "RI",
-              "afternoon": "RI"
+              "afternoon": "CS-INTER"
             },
             {
               "status": "",
@@ -19670,7 +19670,7 @@
             {
               "status": "",
               "morning": "RI",
-              "afternoon": "RI"
+              "afternoon": "CS-INTER"
             },
             {
               "status": "",
@@ -22542,7 +22542,7 @@
             {
               "status": "",
               "morning": "RI",
-              "afternoon": "RI"
+              "afternoon": "CS-INTER"
             },
             {
               "status": "",
@@ -23513,7 +23513,7 @@
             {
               "status": "",
               "morning": "RI",
-              "afternoon": "RI"
+              "afternoon": "CS-INTER"
             },
             {
               "status": "",
@@ -23548,7 +23548,7 @@
             {
               "status": "",
               "morning": "RI",
-              "afternoon": "RI"
+              "afternoon": "CS-INTER"
             },
             {
               "status": "",
@@ -23599,7 +23599,7 @@
             {
               "status": "",
               "morning": "RI",
-              "afternoon": "RI"
+              "afternoon": "CS-INTER"
             },
             {
               "status": "18",
@@ -24937,7 +24937,7 @@
             {
               "status": "18",
               "morning": "VIS",
-              "afternoon": "VIS"
+              "afternoon": "CS-INTER"
             },
             {
               "status": "G",
@@ -24967,7 +24967,7 @@
             {
               "status": "",
               "morning": "ORL",
-              "afternoon": "ORL"
+              "afternoon": "CS-INTER"
             },
             {
               "status": "",
@@ -25063,7 +25063,7 @@
             {
               "status": "",
               "morning": "ORL",
-              "afternoon": "ORL"
+              "afternoon": "CS-INTER"
             },
             {
               "status": "",
@@ -25133,7 +25133,7 @@
             {
               "status": "",
               "morning": "ORL",
-              "afternoon": "ORL"
+              "afternoon": "CS-INTER"
             },
             {
               "status": "G",
@@ -25168,7 +25168,7 @@
             {
               "status": "G",
               "morning": "VIS",
-              "afternoon": "VIS"
+              "afternoon": "CS-INTER"
             },
             {
               "status": "RG",
@@ -25203,7 +25203,7 @@
             {
               "status": "",
               "morning": "ORL",
-              "afternoon": "ORL"
+              "afternoon": "CS-INTER"
             },
             {
               "status": "",
@@ -26647,7 +26647,7 @@
             {
               "status": "",
               "morning": "ORL",
-              "afternoon": "ORL"
+              "afternoon": "CS-INTER"
             },
             {
               "status": "G",
@@ -26934,7 +26934,7 @@
             {
               "status": "",
               "morning": "MAT",
-              "afternoon": "MAT"
+              "afternoon": "CS-INTER"
             },
             {
               "status": "",
@@ -28977,12 +28977,12 @@
             {
               "status": "18",
               "morning": "VIS",
-              "afternoon": "VIS"
+              "afternoon": "CS-INTER"
             },
             {
               "status": "",
               "morning": "VIS",
-              "afternoon": "VIS"
+              "afternoon": "CS-INTER"
             },
             {
               "status": "",
@@ -29213,7 +29213,7 @@
             {
               "status": "18",
               "morning": "VIS",
-              "afternoon": "VIS"
+              "afternoon": "CS-INTER"
             },
             {
               "status": "",
@@ -29248,7 +29248,7 @@
             {
               "status": "",
               "morning": "ORT",
-              "afternoon": "ORT"
+              "afternoon": "CS-INTER"
             },
             {
               "status": "18",
@@ -30617,7 +30617,7 @@
             {
               "status": "",
               "morning": "VIS",
-              "afternoon": "VIS"
+              "afternoon": "CS-ORT"
             },
             {
               "status": "",
@@ -30627,7 +30627,7 @@
             {
               "status": "G",
               "morning": "ORT",
-              "afternoon": "ORT"
+              "afternoon": "CS-INTER"
             },
             {
               "status": "RG",
@@ -33187,7 +33187,7 @@
             {
               "status": "G",
               "morning": "VIS",
-              "afternoon": "VIS"
+              "afternoon": "CS-INTER"
             },
             {
               "status": "F",
@@ -34556,7 +34556,7 @@
             {
               "status": "18",
               "morning": "ORL",
-              "afternoon": "ORL"
+              "afternoon": "CS-INTER"
             },
             {
               "status": "G",
@@ -34938,7 +34938,7 @@
             {
               "status": "",
               "morning": "MAT",
-              "afternoon": "MAT"
+              "afternoon": "CS-END"
             },
             {
               "status": "18",
@@ -35562,7 +35562,7 @@
             {
               "status": "",
               "morning": "ORL",
-              "afternoon": "ORL"
+              "afternoon": "CS-INTER"
             },
             {
               "status": "",
@@ -35597,7 +35597,7 @@
             {
               "status": "",
               "morning": "RI",
-              "afternoon": "RI"
+              "afternoon": "CS-INTER"
             },
             {
               "status": "18",
@@ -37252,7 +37252,7 @@
             {
               "status": "G",
               "morning": "VIS",
-              "afternoon": "VIS"
+              "afternoon": "CS-INTER"
             },
             {
               "status": "RG",
@@ -38631,7 +38631,7 @@
             {
               "status": "",
               "morning": "RI",
-              "afternoon": "RI"
+              "afternoon": "CS-INTER"
             },
             {
               "status": "",
@@ -39018,7 +39018,7 @@
             {
               "status": "",
               "morning": "MAT",
-              "afternoon": "MAT"
+              "afternoon": "CS-INTER"
             },
             {
               "status": "",
@@ -39562,7 +39562,7 @@
             {
               "status": "",
               "morning": "RI",
-              "afternoon": "RI"
+              "afternoon": "CS-INTER"
             },
             {
               "status": "",
@@ -39592,7 +39592,7 @@
             {
               "status": "",
               "morning": "RI",
-              "afternoon": "RI"
+              "afternoon": "CS-INTER"
             },
             {
               "status": "",
@@ -39688,7 +39688,7 @@
             {
               "status": "",
               "morning": "RI",
-              "afternoon": "RI"
+              "afternoon": "CS-INTER"
             },
             {
               "status": "",
@@ -39793,7 +39793,7 @@
             {
               "status": "G",
               "morning": "RI",
-              "afternoon": "RI"
+              "afternoon": "CS-INTER"
             },
             {
               "status": "RG",
@@ -41221,7 +41221,7 @@
             {
               "status": "",
               "morning": "RI",
-              "afternoon": "RI"
+              "afternoon": "CS-INTER"
             },
             {
               "status": "G",
@@ -41256,7 +41256,7 @@
             {
               "status": "G",
               "morning": "RI",
-              "afternoon": "RI"
+              "afternoon": "CS-INTER"
             },
             {
               "status": "RG",
@@ -42157,7 +42157,7 @@
             {
               "status": "",
               "morning": "CI",
-              "afternoon": "CS-INTER"
+              "afternoon": "CI"
             },
             {
               "status": "",
@@ -42660,7 +42660,7 @@
             {
               "status": "",
               "morning": "CI",
-              "afternoon": "CS-INTER"
+              "afternoon": "CI"
             },
             {
               "status": "",
@@ -43496,7 +43496,7 @@
             {
               "status": "",
               "morning": "RI",
-              "afternoon": "RI"
+              "afternoon": "CS-INTER"
             },
             {
               "status": "",
@@ -43531,7 +43531,7 @@
             {
               "status": "",
               "morning": "RI",
-              "afternoon": "RI"
+              "afternoon": "CS-INTER"
             },
             {
               "status": "",
@@ -43566,7 +43566,7 @@
             {
               "status": "",
               "morning": "RI",
-              "afternoon": "RI"
+              "afternoon": "CS-INTER"
             },
             {
               "status": "",
@@ -43601,7 +43601,7 @@
             {
               "status": "G",
               "morning": "RI",
-              "afternoon": "RI"
+              "afternoon": "CS-INTER"
             },
             {
               "status": "RG",
@@ -44723,7 +44723,7 @@
             {
               "status": "",
               "morning": "ORT",
-              "afternoon": "ORT"
+              "afternoon": "CS-END"
             },
             {
               "status": "",
@@ -45146,12 +45146,12 @@
             {
               "status": "",
               "morning": "RI",
-              "afternoon": "RI"
+              "afternoon": "CS-INTER"
             },
             {
               "status": "",
               "morning": "RI",
-              "afternoon": "RI"
+              "afternoon": "CS-INTER"
             },
             {
               "status": "",
@@ -45181,7 +45181,7 @@
             {
               "status": "",
               "morning": "RI",
-              "afternoon": "RI"
+              "afternoon": "CS-INTER"
             },
             {
               "status": "",
@@ -46595,7 +46595,7 @@
             {
               "status": "",
               "morning": "CI",
-              "afternoon": "CS-INTER"
+              "afternoon": "CI"
             },
             {
               "status": "",
@@ -46630,12 +46630,12 @@
             {
               "status": "",
               "morning": "CI",
-              "afternoon": "CS-INTER"
+              "afternoon": "CI"
             },
             {
               "status": "",
               "morning": "RI",
-              "afternoon": "RI"
+              "afternoon": "CS-INTER"
             },
             {
               "status": "",
@@ -46670,7 +46670,7 @@
             {
               "status": "G",
               "morning": "VIS",
-              "afternoon": "VIS"
+              "afternoon": "CS-INTER"
             },
             {
               "status": "RG",
@@ -47531,7 +47531,7 @@
             {
               "status": "",
               "morning": "RI",
-              "afternoon": "RI"
+              "afternoon": "CS-INTER"
             },
             {
               "status": "",
@@ -47666,12 +47666,12 @@
             {
               "status": "",
               "morning": "VIS",
-              "afternoon": "VIS"
+              "afternoon": "CS-INTER"
             },
             {
               "status": "",
               "morning": "VIS",
-              "afternoon": "VIS"
+              "afternoon": "CS-INTER"
             }
           ]
         },
