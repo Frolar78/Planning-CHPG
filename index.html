@@ -10,6 +10,54 @@
   <script src="https://cdnjs.cloudflare.com/ajax/libs/exceljs/4.3.0/exceljs.min.js"></script>
   <script src="https://cdn.jsdelivr.net/npm/lucide@latest/dist/umd/lucide.min.js"></script>
 </head>
+  
+  <!-- CHAT -->
+<button class="chat-btn" id="chatBtn" title="Assistant Planning">
+  <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+    <path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z"/>
+  </svg>
+</button>
+
+<div class="chat-panel" id="chatPanel">
+  <div class="chat-header">
+    <div class="chat-header-title">
+      <div class="chat-header-dot"></div>
+      Assistant Planning CHPG
+    </div>
+    <button class="chat-close" id="chatClose">✕</button>
+  </div>
+
+  <!-- Auth -->
+  <div class="chat-auth-screen" id="chatAuthScreen">
+    <div class="chat-auth-title">Accès réservé au comité</div>
+    <div class="chat-auth-sub">Saisissez le code administrateur</div>
+    <input class="chat-auth-input" id="chatAuthInput" type="password"
+      placeholder="Code admin" autocomplete="off"/>
+    <button class="chat-auth-btn" id="chatAuthBtn">Accéder →</button>
+    <div class="chat-auth-error" id="chatAuthError">Code invalide.</div>
+  </div>
+
+  <!-- Main -->
+  <div class="chat-main-screen" id="chatMainScreen">
+    <div class="chat-modif-summary" id="chatModifSummary"></div>
+    <div class="chat-messages" id="chatMessages"></div>
+    <div class="chat-typing" id="chatTyping">
+      <span></span><span></span><span></span>
+    </div>
+    <div class="chat-input-row">
+      <textarea class="chat-input" id="chatInput"
+        placeholder="Décrivez la modification souhaitée..." rows="1"></textarea>
+      <button class="chat-send" id="chatSend">
+        <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5">
+          <line x1="22" y1="2" x2="11" y2="13"/><polygon points="22 2 15 22 11 13 2 9 22 2"/>
+        </svg>
+      </button>
+    </div>
+  </div>
+</div>
+
+<script src="./chat.js"></script>
+  
 <body>
 
 <!-- HEADER -->
