@@ -437,7 +437,7 @@ body {
 <script>
 // ── CONFIG ────────────────────────────────────────────────────────────
 const API_URL = 'https://script.google.com/macros/s/AKfycbxZavweHP-hbJ0XatEr_PGAyeosJNx69qPl6DFjVaQOoX65vOuiNy5RVqoyhY3Oj3elHQ/exec';
-const YEAR = 2026;
+let YEAR = new Date().getFullYear(); // sera mis à jour après login
 const MONTHS_FR = ['Janvier','Février','Mars','Avril','Mai','Juin',
                    'Juillet','Août','Septembre','Octobre','Novembre','Décembre'];
 const DAYS_FR = ['Lun','Mar','Mer','Jeu','Ven','Sam','Dim'];
@@ -471,6 +471,7 @@ async function doLogin() {
     const res = await apiCall('login', {code});
     if (res.success) {
       currentUser = res;
+      YEAR = res.year || YEAR;
       currentCode = code;
       document.getElementById('loginScreen').style.display = 'none';
       document.getElementById('app').style.display = 'block';
