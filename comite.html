@@ -723,7 +723,7 @@ async function runDiagnostic() {
   document.getElementById('btnDiag').disabled = true;
 
   try {
-    const data = await fetch('./planning.json?' + Date.now()).then(r => r.json());
+    const data = await fetch('./planning_2026.json?' + Date.now()).then(r => r.json());
     allViolations = [];
 
     data.months.forEach(month => {
