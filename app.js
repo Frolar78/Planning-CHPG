@@ -276,7 +276,7 @@ function renderBilanAnnuel(){
 // ── INIT ───────────────────────────────────────────────────────────────
 async function init(){
   try{
-    DATA=await fetch('./planning.json').then(r=>r.json());
+    DATA=await fetch('./planning_2026.json').then(r=>r.json());
   }catch(e){
     document.body.innerHTML=`<div style="padding:40px;font-family:sans-serif;color:#CE1126"><h2>Erreur de chargement</h2><pre>${esc(e.message)}</pre></div>`;
     return;
