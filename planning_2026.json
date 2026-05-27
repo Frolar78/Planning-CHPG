@@ -38195,15 +38195,15 @@
               "cs": ""
             },
             {
-              "status": "G",
+              "status": "",
               "morning": "ORT",
               "afternoon": "CS-ORT",
               "cs": ""
             },
             {
-              "status": "RG",
-              "morning": "",
-              "afternoon": "",
+              "status": "",
+              "morning": "ORT",
+              "afternoon": "CS-ORT",
               "cs": ""
             },
             {
@@ -38381,15 +38381,15 @@
               "cs": ""
             },
             {
-              "status": "",
+              "status": "G",
               "morning": "VIS",
               "afternoon": "CS-VIS",
               "cs": ""
             },
             {
-              "status": "",
-              "morning": "VIS",
-              "afternoon": "CS-VIS",
+              "status": "RG",
+              "morning": "",
+              "afternoon": "",
               "cs": ""
             },
             {
@@ -38575,7 +38575,7 @@
             {
               "status": "",
               "morning": "ORT",
-              "afternoon": "CS-ORT",
+              "afternoon": "ORT",
               "cs": ""
             },
             {
@@ -39322,9 +39322,9 @@
             },
             {
               "status": "G",
-              "morning": "ORT",
-              "afternoon": "ORT",
-              "cs": ""
+              "morning": "ORL",
+              "afternoon": "ORL",
+              "cs": "CS-ORL"
             },
             {
               "status": "RG",
@@ -40253,7 +40253,7 @@
             {
               "status": "18",
               "morning": "VIS",
-              "afternoon": "VIS",
+              "afternoon": "CS-VIS",
               "cs": ""
             },
             {
@@ -41742,7 +41742,7 @@
               "status": "",
               "morning": "ORL",
               "afternoon": "ORL",
-              "cs": "CS-ORL"
+              "cs": "CS-POLY"
             },
             {
               "status": "",
@@ -41926,8 +41926,8 @@
             },
             {
               "status": "",
-              "morning": "",
-              "afternoon": "",
+              "morning": "VIS",
+              "afternoon": "VIS",
               "cs": ""
             },
             {
@@ -42112,9 +42112,9 @@
             },
             {
               "status": "",
-              "morning": "ORL",
-              "afternoon": "ORL",
-              "cs": "CS-POLY"
+              "morning": "END",
+              "afternoon": "END",
+              "cs": ""
             },
             {
               "status": "",
