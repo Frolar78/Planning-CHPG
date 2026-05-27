@@ -450,7 +450,7 @@ body {
   <div class="tab-panel active" id="panel-diagnostic">
     <div style="display:flex;align-items:center;justify-content:space-between;margin-bottom:16px">
       <div>
-        <div style="font-size:16px;font-weight:700;color:var(--ink)">Diagnostic planning 2026</div>
+        <div style="font-size:16px;font-weight:700;color:var(--ink)">Diagnostic planning <span class="year-label">2026</span></div>
         <div style="font-size:12px;color:var(--ink-3);margin-top:2px">
           Vérification des règles métier sur les 12 mois
         </div>
@@ -510,7 +510,7 @@ body {
   <div class="tab-panel" id="panel-indispos">
     <div style="display:flex;align-items:center;justify-content:space-between;margin-bottom:16px">
       <div>
-        <div style="font-size:16px;font-weight:700;color:var(--ink)">Indisponibilités 2026</div>
+        <div style="font-size:16px;font-weight:700;color:var(--ink)">Indisponibilités <span class="year-label">2026</span></div>
         <div style="font-size:12px;color:var(--ink-3);margin-top:2px">État des saisies par MAR et semaines de tension</div>
       </div>
       <button class="btn-primary" onclick="loadIndispos()">↻ Actualiser</button>
@@ -634,7 +634,7 @@ body {
   <div class="tab-panel" id="panel-calendrier">
     <div style="display:flex;align-items:center;justify-content:space-between;margin-bottom:16px">
       <div>
-        <div style="font-size:16px;font-weight:700;color:var(--ink)">Planning de gardes 2026</div>
+        <div style="font-size:16px;font-weight:700;color:var(--ink)">Planning de gardes <span class="year-label">2026</span></div>
         <div style="font-size:12px;color:var(--ink-3);margin-top:2px">Vue mensuelle détaillée</div>
       </div>
       <button class="btn-primary" onclick="loadCalendrier()">↻ Charger</button>
@@ -703,6 +703,9 @@ async function loadActiveYear() {
     const data = await res.json();
     if (data.success && data.year) {
       YEAR = data.year;
+      
+      // Mettre à jour les titres
+document.querySelectorAll('.year-label').forEach(el => el.textContent = YEAR);
     }
   } catch(e) {
     console.log('Année par défaut : 2026');
@@ -738,7 +741,7 @@ async function runDiagnostic() {
   document.getElementById('btnDiag').disabled = true;
 
   try {
-    const data = await fetch('./planning_2026.json?' + Date.now()).then(r => r.json());
+    const data = await fetch(`./planning_${YEAR}.json?` + Date.now()).then(r => r.json());
     allViolations = [];
 
     data.months.forEach(month => {
@@ -1144,7 +1147,7 @@ async function loadCalendrier() {
     for (let m = 0; m < 12; m++) {
       const opt = document.createElement('option');
       opt.value = m;
-      opt.textContent = MONTH_NAMES_CAL[m] + ' 2026';
+      opt.textContent = MONTH_NAMES_CAL[m] + ' ' + YEAR;
       if (m === currentCalMonth) opt.selected = true;
       sel.appendChild(opt);
     }
@@ -1173,10 +1176,10 @@ function renderCalendrier() {
   const sel = document.getElementById('monthSelectGardes');
   currentCalMonth = parseInt(sel.value);
   const today = new Date().toISOString().slice(0,10);
-  const firstDay = new Date(2026, currentCalMonth, 1);
-  let startDow = firstDay.getDay();
-  startDow = startDow === 0 ? 6 : startDow - 1;
-  const daysInMonth = new Date(2026, currentCalMonth+1, 0).getDate();
+  const firstDay = new Date(YEAR, currentCalMonth, 1);
+let startDow = firstDay.getDay();
+startDow = startDow === 0 ? 6 : startDow - 1;
+const daysInMonth = new Date(YEAR, currentCalMonth+1, 0).getDate();
 
   function getDayEntries(dateStr) {
     const dayData = gardesData[dateStr] || {};
@@ -1198,8 +1201,8 @@ function renderCalendrier() {
 
   const ORDER = ['G','G2','RG','18','R','A','CP','F'];
   for (let d = 1; d <= daysInMonth; d++) {
-    const dt = new Date(2026, currentCalMonth, d);
-    const dateStr = `2026-${String(currentCalMonth+1).padStart(2,'0')}-${String(d).padStart(2,'0')}`;
+    const dt = new Date(YEAR, currentCalMonth, d);
+    const dateStr = `${YEAR}-${String(currentCalMonth+1).padStart(2,'0')}-${String(d).padStart(2,'0')}`;
     const dow = dt.getDay();
     const isWe = dow === 0 || dow === 6;
     const isToday = dateStr === today;
