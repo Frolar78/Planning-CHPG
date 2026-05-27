@@ -20342,9 +20342,9 @@
             },
             {
               "status": "G",
-              "morning": "ORL",
-              "afternoon": "ORL",
-              "cs": "CS-ORL"
+              "morning": "VIS",
+              "afternoon": "VIS",
+              "cs": ""
             },
             {
               "status": "RG",
@@ -21871,15 +21871,15 @@
               "cs": ""
             },
             {
-              "status": "",
+              "status": "G",
               "morning": "VIS",
               "afternoon": "VIS",
               "cs": ""
             },
             {
-              "status": "",
-              "morning": "VIS",
-              "afternoon": "VIS",
+              "status": "RG",
+              "morning": "",
+              "afternoon": "",
               "cs": ""
             },
             {
@@ -22063,16 +22063,16 @@
               "cs": "CS-ORL"
             },
             {
-              "status": "G",
+              "status": "",
               "morning": "REA",
               "afternoon": "REA",
               "cs": ""
             },
             {
-              "status": "RG",
-              "morning": "",
-              "afternoon": "",
-              "cs": ""
+              "status": "",
+              "morning": "ORL",
+              "afternoon": "ORL",
+              "cs": "CS-ORL"
             },
             {
               "status": "",
