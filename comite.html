@@ -673,6 +673,7 @@ body {
 
 const API_URL = 'https://script.google.com/macros/s/AKfycbxZavweHP-hbJ0XatEr_PGAyeosJNx69qPl6DFjVaQOoX65vOuiNy5RVqoyhY3Oj3elHQ/exec';
 const ADMIN_CODE = 'CHPG2026ADMIN';
+let YEAR = 2026;
 
 let authenticated = false;
 let allViolations = [];
@@ -688,11 +689,25 @@ function authenticate() {
   if (code === ADMIN_CODE) {
     authenticated = true;
     document.getElementById('authOverlay').style.display = 'none';
+    loadActiveYear();
   } else {
     document.getElementById('authError').style.display = 'block';
   }
 }
-
+async function loadActiveYear() {
+  try {
+    const params = new URLSearchParams({payload: JSON.stringify({
+      action: 'login', code: ADMIN_CODE
+    })});
+    const res = await fetch(API_URL + '?' + params.toString());
+    const data = await res.json();
+    if (data.success && data.year) {
+      YEAR = data.year;
+    }
+  } catch(e) {
+    console.log('Année par défaut : 2026');
+  }
+}
 // ── TABS ──────────────────────────────────────────────────────────────
 function showTab(name) {
   document.querySelectorAll('.tab-panel').forEach(p => p.classList.remove('active'));
