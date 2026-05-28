@@ -422,11 +422,11 @@ body {
   </div>
   <div style="display:flex;align-items:center;gap:12px">
     <span class="header-badge">ESPACE COMITÉ</span>
-    <div style="display:flex;gap:4px">
-      <button class="year-btn active" data-year="2026" onclick="setYear(2026)">2026</button>
-      <button class="year-btn" data-year="2027" onclick="setYear(2027)">2027</button>
-      <button class="year-btn" data-year="2028" onclick="setYear(2028)">2028</button>
-    </div>
+    <select id="yearSelect" onchange="setYear(parseInt(this.value))"
+      style="border:1.5px solid var(--line);border-radius:8px;padding:5px 10px;
+             font-size:13px;font-weight:600;font-family:'DM Sans',sans-serif;
+             color:var(--ink);background:white;outline:none;cursor:pointer;">
+    </select>
     <button class="btn-secondary" onclick="initYear()" style="font-size:11px;padding:5px 10px">
       ➕ Init <span class="year-label-next"></span>
     </button>
@@ -714,6 +714,7 @@ async function loadActiveYear() {
     const data = await res.json();
     if (data.success && data.year) {
       YEAR = data.year;
+      buildYearSelect();
       
       // Mettre à jour les titres
 document.querySelectorAll('.year-label').forEach(el => el.textContent = YEAR);
@@ -1268,9 +1269,7 @@ async function setYear(newYear) {
     YEAR = newYear;
     document.querySelectorAll('.year-label').forEach(el => el.textContent = YEAR);
     document.querySelectorAll('.year-label-next').forEach(el => el.textContent = YEAR + 1);
-    document.querySelectorAll('.year-btn').forEach(btn => {
-      btn.classList.toggle('active', parseInt(btn.dataset.year) === YEAR);
-    });
+    buildYearSelect();
     alert(`✅ Année active : ${YEAR}`);
   } catch(e) {
     alert('Erreur : ' + e.message);
@@ -1305,6 +1304,18 @@ async function publishPlanning() {
     alert(`✅ ${data.message}`);
   } catch(e) {
     alert('Erreur : ' + e.message);
+  }
+}
+function buildYearSelect() {
+  const sel = document.getElementById('yearSelect');
+  sel.innerHTML = '';
+  const currentYear = new Date().getFullYear();
+  for (let y = 2026; y <= currentYear + 2; y++) {
+    const opt = document.createElement('option');
+    opt.value = y;
+    opt.textContent = y;
+    if (y === YEAR) opt.selected = true;
+    sel.appendChild(opt);
   }
 }
 </script>
