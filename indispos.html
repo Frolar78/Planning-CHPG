@@ -453,6 +453,7 @@ let currentTool = 'VAC';
 let indispos = {}; // {date: status}
 let isDragging = false;
 let hasChanges = false;
+let vacConfig = null;
 
 // ── LOGIN ─────────────────────────────────────────────────────────────
 document.getElementById('codeInput').addEventListener('keydown', e => {
@@ -477,6 +478,7 @@ async function doLogin() {
       document.getElementById('app').style.display = 'block';
       document.getElementById('headerUser').textContent = res.name || res.id;
       await loadIndispos();
+      await loadVacConfig();
       renderMonth();
     } else {
       document.getElementById('loginError').style.display = 'block';
@@ -504,7 +506,17 @@ async function loadIndispos() {
     updateStats();
   }
 }
-
+async function loadVacConfig() {
+  try {
+    const res = await apiCall('getVacConfig');
+    if (res.success) {
+      vacConfig = res;
+      updateVacBanner();
+    }
+  } catch(e) {
+    console.log('VacConfig non disponible');
+  }
+}
 async function saveIndispos() {
   const btn = document.getElementById('saveBtn');
   btn.textContent = '⏳ Sauvegarde...';
