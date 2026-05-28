@@ -606,8 +606,11 @@ if (vacConfig) {
   const periode = vacConfig.periodes.find(p => date >= p.debut && date <= p.fin);
   if (periode && (periode.bloque || periode.seuilAtteint)) isBlocked = true;
 }
-    const premierJour = premierJourAnneePlanning(YEAR).toISOString().slice(0,10);
-    const isAvantPremierJour = date < premierJour;
+    const pj = premierJourAnneePlanning(YEAR);
+    const premierJour = `${pj.getFullYear()}-${String(pj.getMonth()+1).padStart(2,'0')}-${String(pj.getDate()).padStart(2,'0')}`;
+    const dernierJour = premierJourAnneePlanning(YEAR + 1);
+    const dernierJourStr = `${dernierJour.getFullYear()}-${String(dernierJour.getMonth()+1).padStart(2,'0')}-${String(dernierJour.getDate()-1).padStart(2,'0')}`;
+    const isAvantPremierJour = date < premierJour || date > dernierJourStr;
 
     let cls = 'cal-day';
     if (isWe) cls += ' weekend';
