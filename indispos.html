@@ -406,6 +406,7 @@ body {
     <div class="legend-item erase" data-tool="ERASE" onclick="selectTool('ERASE')">✕ Effacer</div>
   </div>
   <div class="tool-hint" id="toolHint">Outil actif : <strong>Vacances</strong> — Touchez un jour pour l'appliquer</div>
+<div id="vacBanner" style="display:none;padding:8px 16px;font-size:12px;font-weight:600;border-bottom:1px solid var(--line);background:#FFF7ED;color:#C2410C;"></div>
 
   <!-- Stats annuelles -->
   <div class="stats-bar" id="statsBar"></div>
@@ -517,6 +518,26 @@ async function loadVacConfig() {
     console.log('VacConfig non disponible');
   }
 }
+function updateVacBanner() {
+  if (!vacConfig) return;
+  const banner = document.getElementById('vacBanner');
+  const msgs = [];
+
+  vacConfig.periodes.forEach(p => {
+    if (p.seuilAtteint) {
+      msgs.push(`🚫 ${p.nom} · Seuil atteint (${p.marEnVac}/${p.seuil})`);
+    } else if (p.bloque) {
+      msgs.push(`🔒 ${p.nom} · ${p.marAvantNonValides} MAR avant vous n'ont pas encore saisi`);
+    }
+  });
+
+  if (msgs.length) {
+    banner.style.display = 'block';
+    banner.innerHTML = msgs.join(' &nbsp;·&nbsp; ');
+  } else {
+    banner.style.display = 'none';
+  }
+}
 async function saveIndispos() {
   const btn = document.getElementById('saveBtn');
   btn.textContent = '⏳ Sauvegarde...';
@@ -570,7 +591,13 @@ function renderMonth() {
     const isWe = dow === 0 || dow === 6;
     const status = indispos[date] || '';
     const isPast = date < today;
-
+    
+// Vérifier blocage VAC/FORM
+let isBlocked = false;
+if (vacConfig) {
+  const periode = vacConfig.periodes.find(p => date >= p.debut && date <= p.fin);
+  if (periode && (periode.bloque || periode.seuilAtteint)) isBlocked = true;
+}
     let cls = 'cal-day';
     if (isWe) cls += ' weekend';
     if (date === today) cls += ' today';
@@ -578,8 +605,11 @@ function renderMonth() {
     if (status) cls += ' ' + status.toLowerCase();
 
     const badge = status
-      ? `<div class="cal-day-badge ${status.toLowerCase()}-badge">${STATUS_LABELS[status]?.slice(0,3) || status}</div>`
-      : '';
+  ? `<div class="cal-day-badge ${status.toLowerCase()}-badge">${STATUS_LABELS[status]?.slice(0,3) || status}</div>`
+  : '';
+const lockIcon = isBlocked && !status
+  ? `<div style="font-size:10px;position:absolute;top:2px;right:3px;opacity:0.5">🔒</div>`
+  : '';
 
     html += `<div class="${cls}" data-date="${date}"
       ontouchstart="startDrag('${date}')"
@@ -588,6 +618,7 @@ function renderMonth() {
       onmousedown="startDrag('${date}')"
       onmouseover="handleMouseOver('${date}')"
       onmouseup="endDrag()">
+      ${lockIcon}
       <div class="cal-day-num">${d}</div>
       ${badge}
     </div>`;
@@ -621,6 +652,32 @@ function endDrag() {
 document.addEventListener('mouseup', () => { isDragging = false; });
 
 function applyTool(date) {
+  if (currentTool === 'VAC' || currentTool === 'FORM') {
+    if (vacConfig) {
+      // Vérifier quota VAC atteint (jours ouvrés)
+      const dow = new Date(date).getDay();
+      const isOuvre = dow !== 0 && dow !== 6;
+      if (currentTool === 'VAC' && isOuvre) {
+        let vacOuvres = Object.entries(indispos).filter(([d, s]) => {
+          const dw = new Date(d).getDay();
+          return s === 'VAC' && dw !== 0 && dw !== 6 && d !== date;
+        }).length;
+        if (vacOuvres >= vacConfig.quotaVac) {
+          showToast(`🚫 Quota atteint — ${vacConfig.quotaVac} jours ouvrés maximum`);
+          return;
+        }
+      }
+      // Vérifier période bloquée
+      const periode = vacConfig.periodes.find(p => date >= p.debut && date <= p.fin);
+      if (periode && (periode.bloque || periode.seuilAtteint)) {
+        const msg = periode.seuilAtteint
+          ? `🚫 ${periode.nom} · Seuil atteint`
+          : `🔒 ${periode.nom} · ${periode.marAvantNonValides} MAR avant vous n'ont pas saisi`;
+        showToast(msg);
+        return;
+      }
+    }
+  }
 
   if (currentTool === 'ERASE') {
     delete indispos[date];
@@ -643,10 +700,21 @@ function nextMonth() {
 // ── STATS ─────────────────────────────────────────────────────────────
 function updateStats() {
   const counts = {VAC:0, FORM:0, INDISPO:0, SOUHAIT:0};
-  Object.values(indispos).forEach(s => { if(counts[s]!==undefined) counts[s]++; });
+  // Compter uniquement les jours ouvrés pour VAC
+  let vacOuvres = 0;
+  Object.entries(indispos).forEach(([date, s]) => {
+    if (counts[s] !== undefined) counts[s]++;
+    if (s === 'VAC') {
+      const dow = new Date(date).getDay();
+      if (dow !== 0 && dow !== 6) vacOuvres++;
+    }
+  });
+
+  const quotaVac = vacConfig ? vacConfig.quotaVac : 40;
+  const quotaColor = vacOuvres >= quotaVac ? '#B91C1C' : 'var(--vac-fg)';
 
   document.getElementById('statsBar').innerHTML = `
-    <div class="stat-item" style="color:var(--vac-fg)">🏖️ ${counts.VAC} jours</div>
+    <div class="stat-item" style="color:${quotaColor}">🏖️ ${vacOuvres}/${quotaVac} jours ouvrés</div>
     <div class="stat-item" style="color:var(--form-fg)">📚 ${counts.FORM} jours</div>
     <div class="stat-item" style="color:var(--indispo-fg)">🚫 ${counts.INDISPO} jours</div>
     <div class="stat-item" style="color:var(--souhait-fg)">⭐ ${counts.SOUHAIT} gardes souhaitées</div>
