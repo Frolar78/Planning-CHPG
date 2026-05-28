@@ -461,7 +461,8 @@ let indispos = {}; // {date: status}
 let isDragging = false;
 let hasChanges = false;
 let vacConfig = null;
-
+let displayYear = YEAR;
+  
 // ── LOGIN ─────────────────────────────────────────────────────────────
 document.getElementById('codeInput').addEventListener('keydown', e => {
   if (e.key === 'Enter') doLogin();
@@ -480,6 +481,7 @@ async function doLogin() {
     if (res.success) {
       currentUser = res;
       YEAR = res.year || YEAR;
+      displayYear = YEAR;
       currentCode = code;
       document.getElementById('loginScreen').style.display = 'none';
       document.getElementById('app').style.display = 'block';
@@ -701,8 +703,6 @@ function applyTool(date) {
 }
 
 // ── MONTH NAV ─────────────────────────────────────────────────────────
-let displayYear = YEAR;
-
 function prevMonth() {
   if (currentMonth > 0) {
     currentMonth--;
