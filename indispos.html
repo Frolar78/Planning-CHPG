@@ -575,10 +575,10 @@ function selectTool(tool) {
 // ── CALENDAR RENDER ───────────────────────────────────────────────────
 function renderMonth() {
   const grid = document.getElementById('calGrid');
-  document.getElementById('monthTitle').textContent = `${MONTHS_FR[currentMonth]} ${YEAR}`;
+  document.getElementById('monthTitle').textContent = `${MONTHS_FR[currentMonth]} ${displayYear}`;
 
-  const firstDay = new Date(YEAR, currentMonth, 1);
-  const daysInMonth = new Date(YEAR, currentMonth + 1, 0).getDate();
+  const firstDay = new Date(displayYear, currentMonth, 1);
+  const daysInMonth = new Date(displayYear, currentMonth + 1, 0).getDate();
   const today = new Date().toISOString().slice(0, 10);
 
   // Day headers
@@ -592,7 +592,7 @@ function renderMonth() {
 
   // Days
   for (let d = 1; d <= daysInMonth; d++) {
-    const date = `${YEAR}-${String(currentMonth+1).padStart(2,'0')}-${String(d).padStart(2,'0')}`;
+    const date = `${displayYear}-${String(currentMonth+1).padStart(2,'0')}-${String(d).padStart(2,'0')}`;
     const dow = new Date(date).getDay(); // 0=Sun, 6=Sat
     const isWe = dow === 0 || dow === 6;
     const status = indispos[date] || '';
@@ -604,10 +604,13 @@ if (vacConfig) {
   const periode = vacConfig.periodes.find(p => date >= p.debut && date <= p.fin);
   if (periode && (periode.bloque || periode.seuilAtteint)) isBlocked = true;
 }
+    const premierJour = premierJourAnneePlanning(YEAR).toISOString().slice(0,10);
+    const isAvantPremierJour = date < premierJour;
+
     let cls = 'cal-day';
     if (isWe) cls += ' weekend';
     if (date === today) cls += ' today';
-    if (isPast) cls += ' past';
+    if (isPast || isAvantPremierJour) cls += ' past';
     if (status) cls += ' ' + status.toLowerCase();
 
     const badge = status
@@ -698,11 +701,25 @@ function applyTool(date) {
 }
 
 // ── MONTH NAV ─────────────────────────────────────────────────────────
+let displayYear = YEAR;
+
 function prevMonth() {
-  if (currentMonth > 0) { currentMonth--; renderMonth(); }
+  if (currentMonth > 0) {
+    currentMonth--;
+  } else if (displayYear > YEAR) {
+    currentMonth = 11;
+    displayYear--;
+  }
+  renderMonth();
 }
 function nextMonth() {
-  if (currentMonth < 11) { currentMonth++; renderMonth(); }
+  if (currentMonth < 11) {
+    currentMonth++;
+  } else if (displayYear === YEAR) {
+    currentMonth = 0;
+    displayYear = YEAR + 1;
+  }
+  renderMonth();
 }
 
 // ── STATS ─────────────────────────────────────────────────────────────
