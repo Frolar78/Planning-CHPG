@@ -667,8 +667,11 @@ document.addEventListener('mouseup', () => { isDragging = false; });
 
 function applyTool(date) {
   if (currentTool === 'VAC' || currentTool === 'FORM') {
-    const premierJour = premierJourAnneePlanning(YEAR).toISOString().slice(0,10);
-  if (date < premierJour) return;
+    const pj = premierJourAnneePlanning(YEAR);
+  const premierJour = `${pj.getFullYear()}-${String(pj.getMonth()+1).padStart(2,'0')}-${String(pj.getDate()).padStart(2,'0')}`;
+  const dj = premierJourAnneePlanning(YEAR + 1);
+  const dernierJour = `${dj.getFullYear()}-${String(dj.getMonth()+1).padStart(2,'0')}-${String(dj.getDate()-1).padStart(2,'0')}`;
+  if (date < premierJour || date > dernierJour) return;
     if (vacConfig) {
       // Vérifier quota VAC atteint (jours ouvrés)
       const dow = new Date(date).getDay();
