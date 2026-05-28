@@ -422,6 +422,17 @@ body {
   </div>
   <div style="display:flex;align-items:center;gap:12px">
     <span class="header-badge">ESPACE COMITÉ</span>
+    <div style="display:flex;gap:4px">
+      <button class="year-btn active" data-year="2026" onclick="setYear(2026)">2026</button>
+      <button class="year-btn" data-year="2027" onclick="setYear(2027)">2027</button>
+      <button class="year-btn" data-year="2028" onclick="setYear(2028)">2028</button>
+    </div>
+    <button class="btn-secondary" onclick="initYear()" style="font-size:11px;padding:5px 10px">
+      ➕ Init <span class="year-label-next"></span>
+    </button>
+    <button class="btn-primary" onclick="publishPlanning()" style="font-size:11px;padding:5px 10px">
+      🚀 Publier <span class="year-label"></span>
+    </button>
     <a href="./index.html" style="font-size:12px;color:var(--ink-3);text-decoration:none">← Planning</a>
   </div>
 </div>
@@ -706,6 +717,10 @@ async function loadActiveYear() {
       
       // Mettre à jour les titres
 document.querySelectorAll('.year-label').forEach(el => el.textContent = YEAR);
+document.querySelectorAll('.year-label-next').forEach(el => el.textContent = YEAR + 1);
+document.querySelectorAll('.year-btn').forEach(btn => {
+  btn.classList.toggle('active', parseInt(btn.dataset.year) === YEAR);
+});
     }
   } catch(e) {
     console.log('Année par défaut : 2026');
@@ -1239,6 +1254,57 @@ const daysInMonth = new Date(YEAR, currentCalMonth+1, 0).getDate();
 
   html += '</div>';
   document.getElementById('calGrid').innerHTML = html;
+}
+// ── GESTION ANNÉE ─────────────────────────────────────────────────────
+async function setYear(newYear) {
+  if (!confirm(`Basculer sur l'année ${newYear} ?`)) return;
+  try {
+    const params = new URLSearchParams({payload: JSON.stringify({
+      action: 'setActiveYear', code: ADMIN_CODE, year: newYear
+    })});
+    const res = await fetch(API_URL + '?' + params.toString());
+    const data = await res.json();
+    if (!data.success) throw new Error(data.error);
+    YEAR = newYear;
+    document.querySelectorAll('.year-label').forEach(el => el.textContent = YEAR);
+    document.querySelectorAll('.year-btn').forEach(btn => {
+      btn.classList.toggle('active', parseInt(btn.dataset.year) === YEAR);
+    });
+    alert(`✅ Année active : ${YEAR}`);
+  } catch(e) {
+    alert('Erreur : ' + e.message);
+  }
+}
+
+async function initYear() {
+  const newYear = YEAR + 1;
+  if (!confirm(`Initialiser INDISPOS_${newYear} ?\nCela créera l'onglet pour l'année ${newYear}.`)) return;
+  try {
+    const params = new URLSearchParams({payload: JSON.stringify({
+      action: 'initYear', code: ADMIN_CODE, year: newYear
+    })});
+    const res = await fetch(API_URL + '?' + params.toString());
+    const data = await res.json();
+    if (!data.success) throw new Error(data.error);
+    alert(`✅ ${data.message}`);
+  } catch(e) {
+    alert('Erreur : ' + e.message);
+  }
+}
+
+async function publishPlanning() {
+  if (!confirm(`Publier le planning ${YEAR} ?\nCette opération peut prendre 30-60 secondes.`)) return;
+  try {
+    const params = new URLSearchParams({payload: JSON.stringify({
+      action: 'publishPlanning', code: ADMIN_CODE
+    })});
+    const res = await fetch(API_URL + '?' + params.toString());
+    const data = await res.json();
+    if (!data.success) throw new Error(data.error);
+    alert(`✅ ${data.message}`);
+  } catch(e) {
+    alert('Erreur : ' + e.message);
+  }
 }
 </script>
 </body>
