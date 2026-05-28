@@ -439,6 +439,12 @@ body {
 // ── CONFIG ────────────────────────────────────────────────────────────
 const API_URL = 'https://script.google.com/macros/s/AKfycbxZavweHP-hbJ0XatEr_PGAyeosJNx69qPl6DFjVaQOoX65vOuiNy5RVqoyhY3Oj3elHQ/exec';
 let YEAR = new Date().getFullYear(); // sera mis à jour après login
+function premierJourAnneePlanning(y) {
+  const jan1 = new Date(y, 0, 1);
+  const dow = jan1.getDay();
+  const offset = dow === 1 ? 7 : dow === 0 ? 1 : 8 - dow;
+  return new Date(y, 0, 1 + offset);
+}
 const MONTHS_FR = ['Janvier','Février','Mars','Avril','Mai','Juin',
                    'Juillet','Août','Septembre','Octobre','Novembre','Décembre'];
 const DAYS_FR = ['Lun','Mar','Mer','Jeu','Ven','Sam','Dim'];
@@ -449,7 +455,7 @@ const STATUS_LABELS = {
 // ── STATE ─────────────────────────────────────────────────────────────
 let currentUser = null;
 let currentCode = '';
-let currentMonth = new Date().getMonth(); // 0-based
+let currentMonth = 0; // toujours démarrer sur janvier
 let currentTool = 'VAC';
 let indispos = {}; // {date: status}
 let isDragging = false;
@@ -653,6 +659,8 @@ document.addEventListener('mouseup', () => { isDragging = false; });
 
 function applyTool(date) {
   if (currentTool === 'VAC' || currentTool === 'FORM') {
+    const premierJour = premierJourAnneePlanning(YEAR).toISOString().slice(0,10);
+  if (date < premierJour) return;
     if (vacConfig) {
       // Vérifier quota VAC atteint (jours ouvrés)
       const dow = new Date(date).getDay();
