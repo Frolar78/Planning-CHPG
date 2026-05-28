@@ -532,10 +532,10 @@ function updateVacBanner() {
   const msgs = [];
 
   vacConfig.periodes.forEach(p => {
-    if (p.seuilAtteint) {
-      msgs.push(`🚫 ${p.nom} · Seuil atteint (${p.marEnVac}/${p.seuil})`);
+    if (p.tousBloqués) {
+      msgs.push(`🚫 ${p.nom} · Période saturée`);
     } else if (p.bloque) {
-      msgs.push(`🔒 ${p.nom} · ${p.marAvantNonValides} MAR avant vous n'ont pas encore saisi`);
+      msgs.push(`⚠️ ${p.nom} · Certains jours saturés`);
     }
   });
 
@@ -604,7 +604,7 @@ function renderMonth() {
 let isBlocked = false;
 if (vacConfig) {
   const periode = vacConfig.periodes.find(p => date >= p.debut && date <= p.fin);
-  if (periode && (periode.bloque || periode.seuilAtteint)) isBlocked = true;
+  if (periode && periode.joursBloqués && periode.joursBloqués.includes(date)) isBlocked = true;
 }
     const pj = premierJourAnneePlanning(YEAR);
     const premierJour = `${pj.getFullYear()}-${String(pj.getMonth()+1).padStart(2,'0')}-${String(pj.getDate()).padStart(2,'0')}`;
@@ -686,13 +686,10 @@ function applyTool(date) {
           return;
         }
       }
-      // Vérifier période bloquée
+      // Vérifier période bloquée jour par jour
       const periode = vacConfig.periodes.find(p => date >= p.debut && date <= p.fin);
-      if (periode && (periode.bloque || periode.seuilAtteint)) {
-        const msg = periode.seuilAtteint
-          ? `🚫 ${periode.nom} · Seuil atteint`
-          : `🔒 ${periode.nom} · ${periode.marAvantNonValides} MAR avant vous n'ont pas saisi`;
-        showToast(msg);
+      if (periode && periode.joursBloqués && periode.joursBloqués.includes(date)) {
+        showToast(`⚠️ ${periode.nom} · Ce jour est saturé (seuil atteint)`);
         return;
       }
     }
