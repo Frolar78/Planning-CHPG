@@ -1267,6 +1267,7 @@ async function setYear(newYear) {
     if (!data.success) throw new Error(data.error);
     YEAR = newYear;
     document.querySelectorAll('.year-label').forEach(el => el.textContent = YEAR);
+    document.querySelectorAll('.year-label-next').forEach(el => el.textContent = YEAR + 1);
     document.querySelectorAll('.year-btn').forEach(btn => {
       btn.classList.toggle('active', parseInt(btn.dataset.year) === YEAR);
     });
