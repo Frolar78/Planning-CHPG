@@ -397,93 +397,9 @@
               "cs": ""
             },
             {
-              "status": "",
-              "morning": "VIS",
-              "afternoon": "VIS",
-              "cs": ""
-            },
-            {
-              "status": "",
+              "status": "A",
               "morning": "",
               "afternoon": "",
-              "cs": ""
-            },
-            {
-              "status": "",
-              "morning": "",
-              "afternoon": "",
-              "cs": ""
-            },
-            {
-              "status": "",
-              "morning": "VIS",
-              "afternoon": "VIS",
-              "cs": ""
-            },
-            {
-              "status": "",
-              "morning": "VIS",
-              "afternoon": "VIS",
-              "cs": ""
-            },
-            {
-              "status": "",
-              "morning": "VIS",
-              "afternoon": "VIS",
-              "cs": ""
-            },
-            {
-              "status": "",
-              "morning": "VIS",
-              "afternoon": "VIS",
-              "cs": ""
-            },
-            {
-              "status": "",
-              "morning": "VIS",
-              "afternoon": "VIS",
-              "cs": ""
-            },
-            {
-              "status": "",
-              "morning": "",
-              "afternoon": "",
-              "cs": ""
-            },
-            {
-              "status": "",
-              "morning": "",
-              "afternoon": "",
-              "cs": ""
-            },
-            {
-              "status": "",
-              "morning": "VIS",
-              "afternoon": "CS-VIS",
-              "cs": ""
-            },
-            {
-              "status": "",
-              "morning": "VIS",
-              "afternoon": "VIS",
-              "cs": ""
-            },
-            {
-              "status": "",
-              "morning": "VIS",
-              "afternoon": "VIS",
-              "cs": ""
-            },
-            {
-              "status": "",
-              "morning": "VIS",
-              "afternoon": "VIS",
-              "cs": ""
-            },
-            {
-              "status": "",
-              "morning": "VIS",
-              "afternoon": "VIS",
               "cs": ""
             },
             {
@@ -502,6 +418,48 @@
               "status": "",
               "morning": "VIS",
               "afternoon": "VIS",
+              "cs": ""
+            },
+            {
+              "status": "",
+              "morning": "VIS",
+              "afternoon": "VIS",
+              "cs": ""
+            },
+            {
+              "status": "",
+              "morning": "VIS",
+              "afternoon": "VIS",
+              "cs": ""
+            },
+            {
+              "status": "",
+              "morning": "VIS",
+              "afternoon": "VIS",
+              "cs": ""
+            },
+            {
+              "status": "18",
+              "morning": "VIS",
+              "afternoon": "VIS",
+              "cs": ""
+            },
+            {
+              "status": "G",
+              "morning": "REA",
+              "afternoon": "REA",
+              "cs": ""
+            },
+            {
+              "status": "RG",
+              "morning": "",
+              "afternoon": "",
+              "cs": ""
+            },
+            {
+              "status": "R",
+              "morning": "",
+              "afternoon": "",
               "cs": ""
             },
             {
@@ -543,7 +501,49 @@
             {
               "status": "",
               "morning": "VIS",
-              "afternoon": "CS-VIS",
+              "afternoon": "VIS",
+              "cs": ""
+            },
+            {
+              "status": "",
+              "morning": "VIS",
+              "afternoon": "VIS",
+              "cs": ""
+            },
+            {
+              "status": "G",
+              "morning": "VIS",
+              "afternoon": "VIS",
+              "cs": ""
+            },
+            {
+              "status": "RG",
+              "morning": "",
+              "afternoon": "",
+              "cs": ""
+            },
+            {
+              "status": "",
+              "morning": "VIS",
+              "afternoon": "VIS",
+              "cs": ""
+            },
+            {
+              "status": "",
+              "morning": "",
+              "afternoon": "",
+              "cs": ""
+            },
+            {
+              "status": "",
+              "morning": "",
+              "afternoon": "",
+              "cs": ""
+            },
+            {
+              "status": "A",
+              "morning": "",
+              "afternoon": "",
               "cs": ""
             },
             {
@@ -5423,13 +5423,13 @@
               "cs": ""
             },
             {
-              "status": "",
+              "status": "G",
               "morning": "VIS",
               "afternoon": "VIS",
               "cs": ""
             },
             {
-              "status": "",
+              "status": "RG",
               "morning": "",
               "afternoon": "",
               "cs": ""
@@ -5483,33 +5483,33 @@
               "cs": ""
             },
             {
-              "status": "",
-              "morning": "VIS",
-              "afternoon": "CS-VIS",
+              "status": "A",
+              "morning": "",
+              "afternoon": "",
               "cs": ""
             },
             {
-              "status": "",
-              "morning": "VIS",
-              "afternoon": "CS-VIS",
+              "status": "A",
+              "morning": "",
+              "afternoon": "",
               "cs": ""
             },
             {
-              "status": "",
-              "morning": "VIS",
-              "afternoon": "CS-VIS",
+              "status": "A",
+              "morning": "",
+              "afternoon": "",
               "cs": ""
             },
             {
-              "status": "",
-              "morning": "VIS",
-              "afternoon": "CS-VIS",
+              "status": "A",
+              "morning": "",
+              "afternoon": "",
               "cs": ""
             },
             {
-              "status": "",
-              "morning": "VIS",
-              "afternoon": "VIS",
+              "status": "A",
+              "morning": "",
+              "afternoon": "",
               "cs": ""
             },
             {
@@ -9771,9 +9771,51 @@
               "cs": ""
             },
             {
+              "status": "G",
+              "morning": "VIS",
+              "afternoon": "VIS",
+              "cs": ""
+            },
+            {
+              "status": "RG",
+              "morning": "",
+              "afternoon": "",
+              "cs": ""
+            },
+            {
+              "status": "G",
+              "morning": "REA",
+              "afternoon": "REA",
+              "cs": ""
+            },
+            {
+              "status": "RG",
+              "morning": "",
+              "afternoon": "",
+              "cs": ""
+            },
+            {
               "status": "",
               "morning": "VIS",
               "afternoon": "VIS",
+              "cs": ""
+            },
+            {
+              "status": "",
+              "morning": "VIS",
+              "afternoon": "VIS",
+              "cs": ""
+            },
+            {
+              "status": "G",
+              "morning": "VIS",
+              "afternoon": "VIS",
+              "cs": ""
+            },
+            {
+              "status": "RG",
+              "morning": "",
+              "afternoon": "",
               "cs": ""
             },
             {
@@ -9795,49 +9837,7 @@
               "cs": ""
             },
             {
-              "status": "",
-              "morning": "VIS",
-              "afternoon": "VIS",
-              "cs": ""
-            },
-            {
-              "status": "",
-              "morning": "VIS",
-              "afternoon": "VIS",
-              "cs": ""
-            },
-            {
-              "status": "",
-              "morning": "VIS",
-              "afternoon": "VIS",
-              "cs": ""
-            },
-            {
-              "status": "",
-              "morning": "VIS",
-              "afternoon": "VIS",
-              "cs": ""
-            },
-            {
-              "status": "",
-              "morning": "",
-              "afternoon": "",
-              "cs": ""
-            },
-            {
-              "status": "",
-              "morning": "",
-              "afternoon": "",
-              "cs": ""
-            },
-            {
-              "status": "",
-              "morning": "VIS",
-              "afternoon": "CS-VIS",
-              "cs": ""
-            },
-            {
-              "status": "",
+              "status": "18",
               "morning": "VIS",
               "afternoon": "VIS",
               "cs": ""
@@ -9891,15 +9891,15 @@
               "cs": ""
             },
             {
-              "status": "",
+              "status": "G",
               "morning": "VIS",
               "afternoon": "VIS",
               "cs": ""
             },
             {
-              "status": "",
-              "morning": "VIS",
-              "afternoon": "VIS",
+              "status": "RG",
+              "morning": "",
+              "afternoon": "",
               "cs": ""
             },
             {
@@ -14539,67 +14539,37 @@
               "cs": ""
             },
             {
-              "status": "",
-              "morning": "VIS",
-              "afternoon": "VIS",
-              "cs": ""
-            },
-            {
-              "status": "",
-              "morning": "VIS",
-              "afternoon": "VIS",
-              "cs": ""
-            },
-            {
-              "status": "",
+              "status": "R",
               "morning": "",
               "afternoon": "",
               "cs": ""
             },
             {
-              "status": "",
+              "status": "18",
+              "morning": "VIS",
+              "afternoon": "VIS",
+              "cs": ""
+            },
+            {
+              "status": "G",
+              "morning": "MAT",
+              "afternoon": "MAT",
+              "cs": ""
+            },
+            {
+              "status": "RG",
               "morning": "",
               "afternoon": "",
               "cs": ""
             },
             {
-              "status": "",
+              "status": "G",
               "morning": "VIS",
               "afternoon": "VIS",
               "cs": ""
             },
             {
-              "status": "",
-              "morning": "VIS",
-              "afternoon": "VIS",
-              "cs": ""
-            },
-            {
-              "status": "",
-              "morning": "VIS",
-              "afternoon": "VIS",
-              "cs": ""
-            },
-            {
-              "status": "",
-              "morning": "VIS",
-              "afternoon": "VIS",
-              "cs": ""
-            },
-            {
-              "status": "",
-              "morning": "VIS",
-              "afternoon": "VIS",
-              "cs": ""
-            },
-            {
-              "status": "",
-              "morning": "",
-              "afternoon": "",
-              "cs": ""
-            },
-            {
-              "status": "",
+              "status": "RG",
               "morning": "",
               "afternoon": "",
               "cs": ""
@@ -14607,12 +14577,6 @@
             {
               "status": "",
               "morning": "VIS",
-              "afternoon": "CS-VIS",
-              "cs": ""
-            },
-            {
-              "status": "",
-              "morning": "VIS",
               "afternoon": "VIS",
               "cs": ""
             },
@@ -14623,15 +14587,9 @@
               "cs": ""
             },
             {
-              "status": "",
-              "morning": "VIS",
-              "afternoon": "VIS",
-              "cs": ""
-            },
-            {
-              "status": "",
-              "morning": "VIS",
-              "afternoon": "VIS",
+              "status": "A",
+              "morning": "",
+              "afternoon": "",
               "cs": ""
             },
             {
@@ -14647,15 +14605,57 @@
               "cs": ""
             },
             {
-              "status": "",
-              "morning": "VIS",
-              "afternoon": "CS-VIS",
+              "status": "A",
+              "morning": "",
+              "afternoon": "",
               "cs": ""
             },
             {
               "status": "",
               "morning": "VIS",
-              "afternoon": "CS-VIS",
+              "afternoon": "VIS",
+              "cs": ""
+            },
+            {
+              "status": "",
+              "morning": "VIS",
+              "afternoon": "VIS",
+              "cs": ""
+            },
+            {
+              "status": "G",
+              "morning": "VIS",
+              "afternoon": "VIS",
+              "cs": ""
+            },
+            {
+              "status": "RG",
+              "morning": "",
+              "afternoon": "",
+              "cs": ""
+            },
+            {
+              "status": "",
+              "morning": "",
+              "afternoon": "",
+              "cs": ""
+            },
+            {
+              "status": "",
+              "morning": "",
+              "afternoon": "",
+              "cs": ""
+            },
+            {
+              "status": "A",
+              "morning": "",
+              "afternoon": "",
+              "cs": ""
+            },
+            {
+              "status": "A",
+              "morning": "",
+              "afternoon": "",
               "cs": ""
             },
             {
@@ -19217,6 +19217,48 @@
               "cs": ""
             },
             {
+              "status": "G",
+              "morning": "VIS",
+              "afternoon": "VIS",
+              "cs": ""
+            },
+            {
+              "status": "RG",
+              "morning": "",
+              "afternoon": "",
+              "cs": ""
+            },
+            {
+              "status": "",
+              "morning": "VIS",
+              "afternoon": "VIS",
+              "cs": ""
+            },
+            {
+              "status": "18",
+              "morning": "VIS",
+              "afternoon": "VIS",
+              "cs": ""
+            },
+            {
+              "status": "",
+              "morning": "VIS",
+              "afternoon": "VIS",
+              "cs": ""
+            },
+            {
+              "status": "",
+              "morning": "",
+              "afternoon": "",
+              "cs": ""
+            },
+            {
+              "status": "",
+              "morning": "",
+              "afternoon": "",
+              "cs": ""
+            },
+            {
               "status": "",
               "morning": "VIS",
               "afternoon": "VIS",
@@ -19226,6 +19268,48 @@
               "status": "",
               "morning": "VIS",
               "afternoon": "VIS",
+              "cs": ""
+            },
+            {
+              "status": "",
+              "morning": "VIS",
+              "afternoon": "VIS",
+              "cs": ""
+            },
+            {
+              "status": "",
+              "morning": "VIS",
+              "afternoon": "VIS",
+              "cs": ""
+            },
+            {
+              "status": "A",
+              "morning": "",
+              "afternoon": "",
+              "cs": ""
+            },
+            {
+              "status": "",
+              "morning": "",
+              "afternoon": "",
+              "cs": ""
+            },
+            {
+              "status": "",
+              "morning": "",
+              "afternoon": "",
+              "cs": ""
+            },
+            {
+              "status": "G",
+              "morning": "VIS",
+              "afternoon": "VIS",
+              "cs": ""
+            },
+            {
+              "status": "RG",
+              "morning": "",
+              "afternoon": "",
               "cs": ""
             },
             {
@@ -19277,91 +19361,7 @@
               "cs": ""
             },
             {
-              "status": "",
-              "morning": "VIS",
-              "afternoon": "VIS",
-              "cs": ""
-            },
-            {
-              "status": "",
-              "morning": "VIS",
-              "afternoon": "VIS",
-              "cs": ""
-            },
-            {
-              "status": "",
-              "morning": "",
-              "afternoon": "",
-              "cs": ""
-            },
-            {
-              "status": "",
-              "morning": "",
-              "afternoon": "",
-              "cs": ""
-            },
-            {
-              "status": "",
-              "morning": "VIS",
-              "afternoon": "VIS",
-              "cs": ""
-            },
-            {
-              "status": "",
-              "morning": "VIS",
-              "afternoon": "VIS",
-              "cs": ""
-            },
-            {
-              "status": "",
-              "morning": "VIS",
-              "afternoon": "VIS",
-              "cs": ""
-            },
-            {
-              "status": "",
-              "morning": "VIS",
-              "afternoon": "VIS",
-              "cs": ""
-            },
-            {
-              "status": "",
-              "morning": "VIS",
-              "afternoon": "VIS",
-              "cs": ""
-            },
-            {
-              "status": "",
-              "morning": "",
-              "afternoon": "",
-              "cs": ""
-            },
-            {
-              "status": "",
-              "morning": "",
-              "afternoon": "",
-              "cs": ""
-            },
-            {
-              "status": "",
-              "morning": "VIS",
-              "afternoon": "VIS",
-              "cs": ""
-            },
-            {
-              "status": "",
-              "morning": "VIS",
-              "afternoon": "VIS",
-              "cs": ""
-            },
-            {
-              "status": "",
-              "morning": "VIS",
-              "afternoon": "VIS",
-              "cs": ""
-            },
-            {
-              "status": "",
+              "status": "18",
               "morning": "VIS",
               "afternoon": "VIS",
               "cs": ""
@@ -23997,49 +23997,13 @@
               "cs": ""
             },
             {
-              "status": "",
-              "morning": "VIS",
-              "afternoon": "VIS",
-              "cs": ""
-            },
-            {
-              "status": "",
-              "morning": "VIS",
-              "afternoon": "VIS",
-              "cs": ""
-            },
-            {
-              "status": "",
-              "morning": "VIS",
-              "afternoon": "VIS",
-              "cs": ""
-            },
-            {
-              "status": "",
-              "morning": "VIS",
-              "afternoon": "VIS",
-              "cs": ""
-            },
-            {
-              "status": "",
+              "status": "R",
               "morning": "",
               "afternoon": "",
               "cs": ""
             },
             {
-              "status": "",
-              "morning": "",
-              "afternoon": "",
-              "cs": ""
-            },
-            {
-              "status": "",
-              "morning": "VIS",
-              "afternoon": "CS-VIS",
-              "cs": ""
-            },
-            {
-              "status": "",
+              "status": "18",
               "morning": "VIS",
               "afternoon": "VIS",
               "cs": ""
@@ -24057,19 +24021,13 @@
               "cs": ""
             },
             {
-              "status": "",
-              "morning": "VIS",
-              "afternoon": "VIS",
+              "status": "G",
+              "morning": "REA",
+              "afternoon": "REA",
               "cs": ""
             },
             {
-              "status": "",
-              "morning": "",
-              "afternoon": "",
-              "cs": ""
-            },
-            {
-              "status": "",
+              "status": "RG",
               "morning": "",
               "afternoon": "",
               "cs": ""
@@ -24117,9 +24075,9 @@
               "cs": ""
             },
             {
-              "status": "",
-              "morning": "VIS",
-              "afternoon": "VIS",
+              "status": "R",
+              "morning": "",
+              "afternoon": "",
               "cs": ""
             },
             {
@@ -24154,6 +24112,48 @@
             },
             {
               "status": "",
+              "morning": "",
+              "afternoon": "",
+              "cs": ""
+            },
+            {
+              "status": "",
+              "morning": "VIS",
+              "afternoon": "VIS",
+              "cs": ""
+            },
+            {
+              "status": "",
+              "morning": "VIS",
+              "afternoon": "VIS",
+              "cs": ""
+            },
+            {
+              "status": "18",
+              "morning": "VIS",
+              "afternoon": "VIS",
+              "cs": ""
+            },
+            {
+              "status": "",
+              "morning": "VIS",
+              "afternoon": "VIS",
+              "cs": ""
+            },
+            {
+              "status": "",
+              "morning": "VIS",
+              "afternoon": "VIS",
+              "cs": ""
+            },
+            {
+              "status": "G",
+              "morning": "REA",
+              "afternoon": "REA",
+              "cs": ""
+            },
+            {
+              "status": "RG",
               "morning": "",
               "afternoon": "",
               "cs": ""
@@ -28705,57 +28705,15 @@
               "cs": ""
             },
             {
-              "status": "",
+              "status": "G",
               "morning": "VIS",
               "afternoon": "VIS",
               "cs": ""
             },
             {
-              "status": "",
-              "morning": "VIS",
-              "afternoon": "VIS",
-              "cs": ""
-            },
-            {
-              "status": "",
+              "status": "RG",
               "morning": "",
               "afternoon": "",
-              "cs": ""
-            },
-            {
-              "status": "",
-              "morning": "",
-              "afternoon": "",
-              "cs": ""
-            },
-            {
-              "status": "",
-              "morning": "VIS",
-              "afternoon": "CS-VIS",
-              "cs": ""
-            },
-            {
-              "status": "",
-              "morning": "VIS",
-              "afternoon": "VIS",
-              "cs": ""
-            },
-            {
-              "status": "",
-              "morning": "VIS",
-              "afternoon": "VIS",
-              "cs": ""
-            },
-            {
-              "status": "",
-              "morning": "VIS",
-              "afternoon": "VIS",
-              "cs": ""
-            },
-            {
-              "status": "",
-              "morning": "VIS",
-              "afternoon": "VIS",
               "cs": ""
             },
             {
@@ -28771,37 +28729,31 @@
               "cs": ""
             },
             {
-              "status": "",
-              "morning": "VIS",
-              "afternoon": "CS-VIS",
+              "status": "A",
+              "morning": "",
+              "afternoon": "",
               "cs": ""
             },
             {
-              "status": "",
-              "morning": "VIS",
-              "afternoon": "VIS",
+              "status": "A",
+              "morning": "",
+              "afternoon": "",
               "cs": ""
             },
             {
-              "status": "",
-              "morning": "VIS",
-              "afternoon": "VIS",
+              "status": "A",
+              "morning": "",
+              "afternoon": "",
               "cs": ""
             },
             {
-              "status": "",
-              "morning": "VIS",
-              "afternoon": "VIS",
+              "status": "A",
+              "morning": "",
+              "afternoon": "",
               "cs": ""
             },
             {
-              "status": "",
-              "morning": "VIS",
-              "afternoon": "VIS",
-              "cs": ""
-            },
-            {
-              "status": "",
+              "status": "A",
               "morning": "",
               "afternoon": "",
               "cs": ""
@@ -28814,32 +28766,80 @@
             },
             {
               "status": "",
-              "morning": "VIS",
-              "afternoon": "CS-VIS",
+              "morning": "",
+              "afternoon": "",
+              "cs": ""
+            },
+            {
+              "status": "A",
+              "morning": "",
+              "afternoon": "",
+              "cs": ""
+            },
+            {
+              "status": "A",
+              "morning": "",
+              "afternoon": "",
+              "cs": ""
+            },
+            {
+              "status": "A",
+              "morning": "",
+              "afternoon": "",
+              "cs": ""
+            },
+            {
+              "status": "A",
+              "morning": "",
+              "afternoon": "",
+              "cs": ""
+            },
+            {
+              "status": "A",
+              "morning": "",
+              "afternoon": "",
               "cs": ""
             },
             {
               "status": "",
-              "morning": "VIS",
-              "afternoon": "VIS",
+              "morning": "",
+              "afternoon": "",
               "cs": ""
             },
             {
               "status": "",
-              "morning": "VIS",
-              "afternoon": "VIS",
+              "morning": "",
+              "afternoon": "",
               "cs": ""
             },
             {
-              "status": "",
-              "morning": "VIS",
-              "afternoon": "VIS",
+              "status": "A",
+              "morning": "",
+              "afternoon": "",
               "cs": ""
             },
             {
-              "status": "",
-              "morning": "VIS",
-              "afternoon": "VIS",
+              "status": "A",
+              "morning": "",
+              "afternoon": "",
+              "cs": ""
+            },
+            {
+              "status": "A",
+              "morning": "",
+              "afternoon": "",
+              "cs": ""
+            },
+            {
+              "status": "A",
+              "morning": "",
+              "afternoon": "",
+              "cs": ""
+            },
+            {
+              "status": "A",
+              "morning": "",
+              "afternoon": "",
               "cs": ""
             }
           ]
@@ -33473,7 +33473,7 @@
               "cs": ""
             },
             {
-              "status": "",
+              "status": "18",
               "morning": "VIS",
               "afternoon": "VIS",
               "cs": ""
@@ -33486,6 +33486,48 @@
             },
             {
               "status": "",
+              "morning": "VIS",
+              "afternoon": "VIS",
+              "cs": ""
+            },
+            {
+              "status": "",
+              "morning": "VIS",
+              "afternoon": "VIS",
+              "cs": ""
+            },
+            {
+              "status": "G",
+              "morning": "VIS",
+              "afternoon": "VIS",
+              "cs": ""
+            },
+            {
+              "status": "RG",
+              "morning": "",
+              "afternoon": "",
+              "cs": ""
+            },
+            {
+              "status": "G",
+              "morning": "REA",
+              "afternoon": "REA",
+              "cs": ""
+            },
+            {
+              "status": "RG",
+              "morning": "",
+              "afternoon": "",
+              "cs": ""
+            },
+            {
+              "status": "",
+              "morning": "VIS",
+              "afternoon": "VIS",
+              "cs": ""
+            },
+            {
+              "status": "18",
               "morning": "VIS",
               "afternoon": "VIS",
               "cs": ""
@@ -33521,15 +33563,15 @@
               "cs": ""
             },
             {
-              "status": "",
+              "status": "G",
               "morning": "VIS",
               "afternoon": "VIS",
               "cs": ""
             },
             {
-              "status": "",
-              "morning": "VIS",
-              "afternoon": "VIS",
+              "status": "RG",
+              "morning": "",
+              "afternoon": "",
               "cs": ""
             },
             {
@@ -33557,57 +33599,15 @@
               "cs": ""
             },
             {
-              "status": "",
+              "status": "G",
               "morning": "VIS",
               "afternoon": "CS-VIS",
               "cs": ""
             },
             {
-              "status": "",
-              "morning": "VIS",
-              "afternoon": "VIS",
-              "cs": ""
-            },
-            {
-              "status": "",
-              "morning": "VIS",
-              "afternoon": "CS-VIS",
-              "cs": ""
-            },
-            {
-              "status": "",
-              "morning": "VIS",
-              "afternoon": "VIS",
-              "cs": ""
-            },
-            {
-              "status": "",
-              "morning": "VIS",
-              "afternoon": "VIS",
-              "cs": ""
-            },
-            {
-              "status": "",
+              "status": "RG",
               "morning": "",
               "afternoon": "",
-              "cs": ""
-            },
-            {
-              "status": "",
-              "morning": "",
-              "afternoon": "",
-              "cs": ""
-            },
-            {
-              "status": "",
-              "morning": "VIS",
-              "afternoon": "CS-VIS",
-              "cs": ""
-            },
-            {
-              "status": "",
-              "morning": "VIS",
-              "afternoon": "CS-VIS",
               "cs": ""
             },
             {
@@ -33641,9 +33641,9 @@
               "cs": ""
             },
             {
-              "status": "",
-              "morning": "VIS",
-              "afternoon": "CS-VIS",
+              "status": "A",
+              "morning": "",
+              "afternoon": "",
               "cs": ""
             }
           ]
@@ -38253,111 +38253,27 @@
           "initials": "GA",
           "days": [
             {
-              "status": "",
-              "morning": "VIS",
-              "afternoon": "VIS",
-              "cs": ""
-            },
-            {
-              "status": "",
-              "morning": "VIS",
-              "afternoon": "VIS",
-              "cs": ""
-            },
-            {
-              "status": "",
-              "morning": "VIS",
-              "afternoon": "VIS",
-              "cs": ""
-            },
-            {
-              "status": "",
-              "morning": "VIS",
-              "afternoon": "VIS",
-              "cs": ""
-            },
-            {
-              "status": "",
+              "status": "A",
               "morning": "",
               "afternoon": "",
               "cs": ""
             },
             {
-              "status": "",
+              "status": "A",
               "morning": "",
               "afternoon": "",
               "cs": ""
             },
             {
-              "status": "",
-              "morning": "VIS",
-              "afternoon": "VIS",
-              "cs": ""
-            },
-            {
-              "status": "",
-              "morning": "VIS",
-              "afternoon": "VIS",
-              "cs": ""
-            },
-            {
-              "status": "",
-              "morning": "VIS",
-              "afternoon": "VIS",
-              "cs": ""
-            },
-            {
-              "status": "",
-              "morning": "VIS",
-              "afternoon": "VIS",
-              "cs": ""
-            },
-            {
-              "status": "",
-              "morning": "VIS",
-              "afternoon": "VIS",
-              "cs": ""
-            },
-            {
-              "status": "",
+              "status": "A",
               "morning": "",
               "afternoon": "",
               "cs": ""
             },
             {
-              "status": "",
+              "status": "A",
               "morning": "",
               "afternoon": "",
-              "cs": ""
-            },
-            {
-              "status": "",
-              "morning": "VIS",
-              "afternoon": "CS-VIS",
-              "cs": ""
-            },
-            {
-              "status": "",
-              "morning": "VIS",
-              "afternoon": "VIS",
-              "cs": ""
-            },
-            {
-              "status": "",
-              "morning": "VIS",
-              "afternoon": "VIS",
-              "cs": ""
-            },
-            {
-              "status": "",
-              "morning": "VIS",
-              "afternoon": "VIS",
-              "cs": ""
-            },
-            {
-              "status": "",
-              "morning": "VIS",
-              "afternoon": "VIS",
               "cs": ""
             },
             {
@@ -38397,6 +38313,48 @@
               "cs": ""
             },
             {
+              "status": "G",
+              "morning": "VIS",
+              "afternoon": "VIS",
+              "cs": ""
+            },
+            {
+              "status": "RG",
+              "morning": "",
+              "afternoon": "",
+              "cs": ""
+            },
+            {
+              "status": "G",
+              "morning": "REA",
+              "afternoon": "REA",
+              "cs": ""
+            },
+            {
+              "status": "RG",
+              "morning": "",
+              "afternoon": "",
+              "cs": ""
+            },
+            {
+              "status": "G",
+              "morning": "VIS",
+              "afternoon": "VIS",
+              "cs": ""
+            },
+            {
+              "status": "RG",
+              "morning": "",
+              "afternoon": "",
+              "cs": ""
+            },
+            {
+              "status": "",
+              "morning": "VIS",
+              "afternoon": "VIS",
+              "cs": ""
+            },
+            {
               "status": "",
               "morning": "VIS",
               "afternoon": "VIS",
@@ -38424,6 +38382,48 @@
               "status": "",
               "morning": "VIS",
               "afternoon": "VIS",
+              "cs": ""
+            },
+            {
+              "status": "G",
+              "morning": "VIS",
+              "afternoon": "VIS",
+              "cs": ""
+            },
+            {
+              "status": "RG",
+              "morning": "",
+              "afternoon": "",
+              "cs": ""
+            },
+            {
+              "status": "",
+              "morning": "VIS",
+              "afternoon": "VIS",
+              "cs": ""
+            },
+            {
+              "status": "",
+              "morning": "",
+              "afternoon": "",
+              "cs": ""
+            },
+            {
+              "status": "",
+              "morning": "",
+              "afternoon": "",
+              "cs": ""
+            },
+            {
+              "status": "G",
+              "morning": "VIS",
+              "afternoon": "VIS",
+              "cs": ""
+            },
+            {
+              "status": "RG",
+              "morning": "",
+              "afternoon": "",
               "cs": ""
             },
             {
@@ -43021,7 +43021,13 @@
               "cs": ""
             },
             {
-              "status": "",
+              "status": "G",
+              "morning": "REA",
+              "afternoon": "REA",
+              "cs": ""
+            },
+            {
+              "status": "RG",
               "morning": "",
               "afternoon": "",
               "cs": ""
@@ -43029,12 +43035,6 @@
             {
               "status": "",
               "morning": "VIS",
-              "afternoon": "CS-VIS",
-              "cs": ""
-            },
-            {
-              "status": "",
-              "morning": "VIS",
               "afternoon": "VIS",
               "cs": ""
             },
@@ -43069,33 +43069,33 @@
               "cs": ""
             },
             {
-              "status": "",
-              "morning": "VIS",
-              "afternoon": "CS-VIS",
+              "status": "A",
+              "morning": "",
+              "afternoon": "",
               "cs": ""
             },
             {
-              "status": "",
-              "morning": "VIS",
-              "afternoon": "VIS",
+              "status": "A",
+              "morning": "",
+              "afternoon": "",
               "cs": ""
             },
             {
-              "status": "",
-              "morning": "VIS",
-              "afternoon": "CS-VIS",
+              "status": "A",
+              "morning": "",
+              "afternoon": "",
               "cs": ""
             },
             {
-              "status": "",
-              "morning": "VIS",
-              "afternoon": "VIS",
+              "status": "A",
+              "morning": "",
+              "afternoon": "",
               "cs": ""
             },
             {
-              "status": "",
-              "morning": "VIS",
-              "afternoon": "VIS",
+              "status": "A",
+              "morning": "",
+              "afternoon": "",
               "cs": ""
             },
             {
@@ -47735,15 +47735,15 @@
               "cs": ""
             },
             {
-              "status": "G",
+              "status": "",
               "morning": "VIS",
               "afternoon": "VIS",
               "cs": ""
             },
             {
-              "status": "RG",
-              "morning": "",
-              "afternoon": "",
+              "status": "",
+              "morning": "VIS",
+              "afternoon": "VIS",
               "cs": ""
             },
             {
@@ -47759,7 +47759,7 @@
               "cs": ""
             },
             {
-              "status": "18",
+              "status": "",
               "morning": "VIS",
               "afternoon": "CS-VIS",
               "cs": ""
@@ -47783,27 +47783,27 @@
               "cs": ""
             },
             {
-              "status": "G",
+              "status": "",
               "morning": "VIS",
               "afternoon": "VIS",
               "cs": ""
             },
             {
-              "status": "RG",
+              "status": "",
               "morning": "",
               "afternoon": "",
               "cs": ""
             },
             {
-              "status": "G",
-              "morning": "REA",
-              "afternoon": "REA",
+              "status": "",
+              "morning": "",
+              "afternoon": "",
               "cs": ""
             },
             {
-              "status": "RG",
-              "morning": "",
-              "afternoon": "",
+              "status": "",
+              "morning": "VIS",
+              "afternoon": "CS-VIS",
               "cs": ""
             },
             {
@@ -47921,57 +47921,15 @@
               "cs": ""
             },
             {
-              "status": "",
+              "status": "G",
               "morning": "VIS",
               "afternoon": "VIS",
               "cs": ""
             },
             {
-              "status": "",
-              "morning": "VIS",
-              "afternoon": "VIS",
-              "cs": ""
-            },
-            {
-              "status": "",
+              "status": "RG",
               "morning": "",
               "afternoon": "",
-              "cs": ""
-            },
-            {
-              "status": "",
-              "morning": "",
-              "afternoon": "",
-              "cs": ""
-            },
-            {
-              "status": "",
-              "morning": "VIS",
-              "afternoon": "VIS",
-              "cs": ""
-            },
-            {
-              "status": "",
-              "morning": "VIS",
-              "afternoon": "VIS",
-              "cs": ""
-            },
-            {
-              "status": "",
-              "morning": "VIS",
-              "afternoon": "VIS",
-              "cs": ""
-            },
-            {
-              "status": "",
-              "morning": "VIS",
-              "afternoon": "VIS",
-              "cs": ""
-            },
-            {
-              "status": "",
-              "morning": "VIS",
-              "afternoon": "VIS",
               "cs": ""
             },
             {
@@ -47987,9 +47945,51 @@
               "cs": ""
             },
             {
+              "status": "18",
+              "morning": "VIS",
+              "afternoon": "VIS",
+              "cs": ""
+            },
+            {
               "status": "",
               "morning": "VIS",
-              "afternoon": "CS-VIS",
+              "afternoon": "VIS",
+              "cs": ""
+            },
+            {
+              "status": "",
+              "morning": "VIS",
+              "afternoon": "VIS",
+              "cs": ""
+            },
+            {
+              "status": "",
+              "morning": "VIS",
+              "afternoon": "VIS",
+              "cs": ""
+            },
+            {
+              "status": "G",
+              "morning": "VIS",
+              "afternoon": "VIS",
+              "cs": ""
+            },
+            {
+              "status": "RG",
+              "morning": "",
+              "afternoon": "",
+              "cs": ""
+            },
+            {
+              "status": "G",
+              "morning": "REA",
+              "afternoon": "REA",
+              "cs": ""
+            },
+            {
+              "status": "RG",
+              "morning": "",
+              "afternoon": "",
               "cs": ""
             },
             {
@@ -52575,48 +52575,6 @@
               "cs": ""
             },
             {
-              "status": "G",
-              "morning": "VIS",
-              "afternoon": "VIS",
-              "cs": ""
-            },
-            {
-              "status": "RG",
-              "morning": "",
-              "afternoon": "",
-              "cs": ""
-            },
-            {
-              "status": "",
-              "morning": "",
-              "afternoon": "",
-              "cs": ""
-            },
-            {
-              "status": "",
-              "morning": "",
-              "afternoon": "",
-              "cs": ""
-            },
-            {
-              "status": "",
-              "morning": "VIS",
-              "afternoon": "CS-VIS",
-              "cs": ""
-            },
-            {
-              "status": "",
-              "morning": "VIS",
-              "afternoon": "VIS",
-              "cs": ""
-            },
-            {
-              "status": "",
-              "morning": "VIS",
-              "afternoon": "VIS",
-              "cs": ""
-            },
-            {
               "status": "",
               "morning": "VIS",
               "afternoon": "VIS",
@@ -52653,15 +52611,15 @@
               "cs": ""
             },
             {
-              "status": "G",
+              "status": "",
               "morning": "VIS",
               "afternoon": "VIS",
               "cs": ""
             },
             {
-              "status": "RG",
-              "morning": "",
-              "afternoon": "",
+              "status": "",
+              "morning": "VIS",
+              "afternoon": "VIS",
               "cs": ""
             },
             {
@@ -52697,13 +52655,55 @@
             {
               "status": "G",
               "morning": "VIS",
-              "afternoon": "CS-VIS",
+              "afternoon": "VIS",
               "cs": ""
             },
             {
               "status": "RG",
               "morning": "",
               "afternoon": "",
+              "cs": ""
+            },
+            {
+              "status": "",
+              "morning": "VIS",
+              "afternoon": "VIS",
+              "cs": ""
+            },
+            {
+              "status": "",
+              "morning": "",
+              "afternoon": "",
+              "cs": ""
+            },
+            {
+              "status": "",
+              "morning": "",
+              "afternoon": "",
+              "cs": ""
+            },
+            {
+              "status": "",
+              "morning": "VIS",
+              "afternoon": "CS-VIS",
+              "cs": ""
+            },
+            {
+              "status": "",
+              "morning": "VIS",
+              "afternoon": "VIS",
+              "cs": ""
+            },
+            {
+              "status": "",
+              "morning": "VIS",
+              "afternoon": "CS-VIS",
+              "cs": ""
+            },
+            {
+              "status": "",
+              "morning": "VIS",
+              "afternoon": "VIS",
               "cs": ""
             },
             {
@@ -52731,21 +52731,21 @@
               "cs": ""
             },
             {
-              "status": "A",
-              "morning": "",
-              "afternoon": "",
+              "status": "",
+              "morning": "VIS",
+              "afternoon": "CS-VIS",
               "cs": ""
             },
             {
-              "status": "A",
-              "morning": "",
-              "afternoon": "",
+              "status": "",
+              "morning": "VIS",
+              "afternoon": "CS-VIS",
               "cs": ""
             },
             {
-              "status": "A",
-              "morning": "",
-              "afternoon": "",
+              "status": "",
+              "morning": "VIS",
+              "afternoon": "CS-VIS",
               "cs": ""
             }
           ]
@@ -52767,57 +52767,15 @@
               "cs": ""
             },
             {
-              "status": "",
+              "status": "G",
               "morning": "VIS",
               "afternoon": "VIS",
               "cs": ""
             },
             {
-              "status": "",
-              "morning": "VIS",
-              "afternoon": "VIS",
-              "cs": ""
-            },
-            {
-              "status": "",
+              "status": "RG",
               "morning": "",
               "afternoon": "",
-              "cs": ""
-            },
-            {
-              "status": "",
-              "morning": "",
-              "afternoon": "",
-              "cs": ""
-            },
-            {
-              "status": "",
-              "morning": "VIS",
-              "afternoon": "VIS",
-              "cs": ""
-            },
-            {
-              "status": "",
-              "morning": "VIS",
-              "afternoon": "VIS",
-              "cs": ""
-            },
-            {
-              "status": "",
-              "morning": "VIS",
-              "afternoon": "VIS",
-              "cs": ""
-            },
-            {
-              "status": "",
-              "morning": "VIS",
-              "afternoon": "VIS",
-              "cs": ""
-            },
-            {
-              "status": "",
-              "morning": "VIS",
-              "afternoon": "VIS",
               "cs": ""
             },
             {
@@ -52887,7 +52845,7 @@
               "cs": ""
             },
             {
-              "status": "",
+              "status": "18",
               "morning": "VIS",
               "afternoon": "VIS",
               "cs": ""
@@ -52919,25 +52877,67 @@
             {
               "status": "",
               "morning": "VIS",
-              "afternoon": "CS-VIS",
+              "afternoon": "VIS",
               "cs": ""
             },
             {
               "status": "",
               "morning": "VIS",
-              "afternoon": "CS-VIS",
+              "afternoon": "VIS",
+              "cs": ""
+            },
+            {
+              "status": "G",
+              "morning": "VIS",
+              "afternoon": "VIS",
+              "cs": ""
+            },
+            {
+              "status": "RG",
+              "morning": "",
+              "afternoon": "",
               "cs": ""
             },
             {
               "status": "",
               "morning": "VIS",
-              "afternoon": "CS-VIS",
+              "afternoon": "VIS",
               "cs": ""
             },
             {
               "status": "",
-              "morning": "VIS",
-              "afternoon": "CS-VIS",
+              "morning": "",
+              "afternoon": "",
+              "cs": ""
+            },
+            {
+              "status": "",
+              "morning": "",
+              "afternoon": "",
+              "cs": ""
+            },
+            {
+              "status": "A",
+              "morning": "",
+              "afternoon": "",
+              "cs": ""
+            },
+            {
+              "status": "A",
+              "morning": "",
+              "afternoon": "",
+              "cs": ""
+            },
+            {
+              "status": "A",
+              "morning": "",
+              "afternoon": "",
+              "cs": ""
+            },
+            {
+              "status": "A",
+              "morning": "",
+              "afternoon": "",
               "cs": ""
             }
           ]
@@ -53687,7 +53687,7 @@
             {
               "status": "",
               "morning": "VIS",
-              "afternoon": "VIS",
+              "afternoon": "CS-VIS",
               "cs": ""
             },
             {
@@ -54070,8 +54070,8 @@
             },
             {
               "status": "",
-              "morning": "ORT",
-              "afternoon": "ORT",
+              "morning": "VIS",
+              "afternoon": "VIS",
               "cs": ""
             },
             {
@@ -54646,8 +54646,8 @@
             },
             {
               "status": "",
-              "morning": "ORL",
-              "afternoon": "ORL",
+              "morning": "ORT",
+              "afternoon": "ORT",
               "cs": ""
             },
             {
@@ -55798,8 +55798,8 @@
             },
             {
               "status": "",
-              "morning": "END",
-              "afternoon": "CS-END",
+              "morning": "ORL",
+              "afternoon": "ORL",
               "cs": ""
             },
             {
@@ -56375,7 +56375,7 @@
             {
               "status": "",
               "morning": "END",
-              "afternoon": "END",
+              "afternoon": "CS-END",
               "cs": ""
             },
             {
@@ -56758,8 +56758,8 @@
             },
             {
               "status": "",
-              "morning": "CI",
-              "afternoon": "CI",
+              "morning": "END",
+              "afternoon": "END",
               "cs": ""
             },
             {
