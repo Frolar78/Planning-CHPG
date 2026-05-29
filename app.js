@@ -280,7 +280,7 @@ async function init(){
     let activeYear = 2026;
     try {
       const params = new URLSearchParams({payload: JSON.stringify({
-        action: 'login', code: 'CHPG2026ADMIN'
+        action: 'getActiveYear'
       })});
       const yearRes = await fetch('https://script.google.com/macros/s/AKfycbxZavweHP-hbJ0XatEr_PGAyeosJNx69qPl6DFjVaQOoX65vOuiNy5RVqoyhY3Oj3elHQ/exec?' + params.toString());
       const yearData = await yearRes.json();
