@@ -455,6 +455,9 @@ body {
   <button class="nav-tab" onclick="showTab('vacances')" id="tab-vacances">
     🏖️ Validation vacances
   </button>
+  <button class="nav-tab" onclick="showTab('modifications')" id="tab-modifications">
+    ✏️ Modifications
+  </button>
 </div>
 
 <!-- MAIN -->
@@ -699,6 +702,73 @@ body {
       Cliquez sur "Actualiser" pour charger les données.
     </div>
   </div>
+  <!-- TAB MODIFICATIONS -->
+<div class="tab-panel" id="panel-modifications">
+  <div style="display:flex;align-items:center;justify-content:space-between;margin-bottom:16px">
+    <div>
+      <div style="font-size:16px;font-weight:700;color:var(--ink)">Modifications ponctuelles</div>
+      <div style="font-size:12px;color:var(--ink-3);margin-top:2px">
+        Appliquer une modification au planning — republication automatique
+      </div>
+    </div>
+  </div>
+
+  <div class="card" style="max-width:600px">
+    <div class="card-header"><span class="card-title">Nouvelle modification</span></div>
+    <div class="card-body" style="display:flex;flex-direction:column;gap:16px">
+
+      <!-- Type -->
+      <div>
+        <label style="font-size:11px;font-weight:700;color:var(--ink-3);text-transform:uppercase;letter-spacing:.06em;display:block;margin-bottom:6px">
+          Type de modification
+        </label>
+        <select id="modType" onchange="renderModForm()"
+          style="width:100%;border:1.5px solid var(--line);border-radius:8px;padding:8px 10px;
+                 font-size:13px;font-family:'DM Sans',sans-serif;color:var(--ink);
+                 background:white;outline:none;cursor:pointer;">
+          <option value="">— Choisir —</option>
+          <option value="indispo">Absence / indispo ponctuelle</option>
+          <option value="secteur">Changement de secteur</option>
+          <option value="echangeSecteur">Échange de secteurs (même jour)</option>
+          <option value="gardeExceptionnelle">Garde exceptionnelle (+ RG auto)</option>
+          <option value="echangeGarde">Échange de garde (+ échange RG)</option>
+          <option value="donGarde">Don de garde (+ perte RG)</option>
+        </select>
+      </div>
+
+      <!-- Champs dynamiques -->
+      <div id="modFormFields" style="display:flex;flex-direction:column;gap:12px"></div>
+
+      <!-- Bouton -->
+      <div id="modFormSubmit" style="display:none">
+        <button class="btn-primary" onclick="submitModification()" id="btnModSubmit" style="width:100%">
+          ✅ Appliquer la modification
+        </button>
+      </div>
+
+      <!-- Résultat -->
+      <div id="modResult" style="display:none;padding:10px 14px;border-radius:8px;font-size:13px;font-weight:600"></div>
+
+    </div>
+  </div>
+
+  <!-- Historique session -->
+  <div class="card" style="max-width:600px;margin-top:20px" id="modHistoCard" style="display:none">
+    <div class="card-header"><span class="card-title">Modifications de la session</span></div>
+    <div class="card-body" style="padding:0">
+      <table class="stats-table" id="modHistoTable">
+        <thead><tr>
+          <th style="text-align:left">Type</th>
+          <th style="text-align:left">Date</th>
+          <th style="text-align:left">Médecin(s)</th>
+          <th style="text-align:left">Valeur</th>
+          <th style="text-align:left">Heure</th>
+        </tr></thead>
+        <tbody id="modHistoBody"></tbody>
+      </table>
+    </div>
+  </div>
+</div>
 </div>
 
 <script>
@@ -1434,6 +1504,174 @@ function renderVacValidation(periodes) {
   });
 
   document.getElementById('vacValidationResults').style.display = 'block';
+}
+  // ── MODIFICATIONS ─────────────────────────────────────────────────────
+const MOD_LABELS = {
+  indispo:            'Absence / indispo',
+  secteur:            'Changement secteur',
+  echangeSecteur:     'Échange secteurs',
+  gardeExceptionnelle:'Garde exceptionnelle',
+  echangeGarde:       'Échange de garde',
+  donGarde:           'Don de garde',
+};
+
+const SECTEURS = ['CS','REA','MAT','ORL','END','ORT','VIS','CI','RI','DVI','RG','G','G2','18','R','INDISPO','VAC','FORM'];
+
+const modHistorique = [];
+
+function marOptions(excludeId) {
+  return MARS.filter(m => m.id !== excludeId)
+    .map(m => `<option value="${m.id}">${m.id}</option>`).join('');
+}
+
+function fieldHTML(id, label, type, options) {
+  const labelHTML = `<label style="font-size:11px;font-weight:700;color:var(--ink-3);
+    text-transform:uppercase;letter-spacing:.06em;display:block;margin-bottom:4px">${label}</label>`;
+  if (type === 'date') {
+    return `<div>${labelHTML}
+      <input type="date" id="${id}"
+        style="width:100%;border:1.5px solid var(--line);border-radius:8px;padding:8px 10px;
+               font-size:13px;font-family:'DM Sans',sans-serif;color:var(--ink);outline:none;"
+        onchange="checkModReady()"/>
+    </div>`;
+  }
+  if (type === 'select') {
+    return `<div>${labelHTML}
+      <select id="${id}" onchange="checkModReady()"
+        style="width:100%;border:1.5px solid var(--line);border-radius:8px;padding:8px 10px;
+               font-size:13px;font-family:'DM Sans',sans-serif;color:var(--ink);
+               background:white;outline:none;cursor:pointer;">
+        <option value="">— Choisir —</option>
+        ${options}
+      </select>
+    </div>`;
+  }
+}
+
+function renderModForm() {
+  const type = document.getElementById('modType').value;
+  const container = document.getElementById('modFormFields');
+  document.getElementById('modFormSubmit').style.display = 'none';
+  document.getElementById('modResult').style.display = 'none';
+  container.innerHTML = '';
+  if (!type) return;
+
+  const marOpts = MARS.map(m => `<option value="${m.id}">${m.id}</option>`).join('');
+  const sectOpts = SECTEURS.map(s => `<option value="${s}">${s}</option>`).join('');
+
+  let fields = '';
+  fields += fieldHTML('modDate', 'Date', 'date');
+
+  if (type === 'indispo' || type === 'secteur') {
+    fields += fieldHTML('modDoctor', 'Médecin', 'select', marOpts);
+    fields += fieldHTML('modValue', 'Valeur', 'select', sectOpts);
+  }
+  if (type === 'echangeSecteur') {
+    fields += fieldHTML('modDoctor',  'Médecin A', 'select', marOpts);
+    fields += fieldHTML('modDoctor2', 'Médecin B', 'select', marOpts);
+  }
+  if (type === 'gardeExceptionnelle') {
+    fields += fieldHTML('modDoctor', 'Médecin', 'select', marOpts);
+    fields += fieldHTML('modValue',  'Type de garde', 'select',
+      '<option value="G">G — Garde REA</option><option value="G2">G2 — Garde MAT</option>');
+  }
+  if (type === 'echangeGarde' || type === 'donGarde') {
+    fields += fieldHTML('modDoctor',  'Médecin A (qui donne)', 'select', marOpts);
+    fields += fieldHTML('modDoctor2', 'Médecin B (qui reçoit)', 'select', marOpts);
+    fields += fieldHTML('modDate2', 'Date du RG (si différente du lendemain)', 'date');
+  }
+
+  container.innerHTML = fields;
+  checkModReady();
+}
+
+function checkModReady() {
+  const type = document.getElementById('modType').value;
+  if (!type) return;
+  const date    = document.getElementById('modDate')?.value;
+  const doctor  = document.getElementById('modDoctor')?.value;
+  const doctor2 = document.getElementById('modDoctor2')?.value;
+  const value   = document.getElementById('modValue')?.value;
+
+  let ready = false;
+  if (type === 'indispo' || type === 'secteur')       ready = !!(date && doctor && value);
+  if (type === 'echangeSecteur')                       ready = !!(date && doctor && doctor2);
+  if (type === 'gardeExceptionnelle')                  ready = !!(date && doctor && value);
+  if (type === 'echangeGarde' || type === 'donGarde')  ready = !!(date && doctor && doctor2);
+
+  document.getElementById('modFormSubmit').style.display = ready ? 'block' : 'none';
+}
+
+async function submitModification() {
+  const type    = document.getElementById('modType').value;
+  const date    = document.getElementById('modDate')?.value;
+  const doctor  = document.getElementById('modDoctor')?.value;
+  const doctor2 = document.getElementById('modDoctor2')?.value;
+  const value   = document.getElementById('modValue')?.value;
+  const date2   = document.getElementById('modDate2')?.value || null;
+
+  const mod = { type, date, doctorId: doctor, doctorId2: doctor2, value, date2 };
+
+  const btn = document.getElementById('btnModSubmit');
+  const res = document.getElementById('modResult');
+  btn.disabled = true;
+  btn.textContent = '⏳ Application en cours...';
+  res.style.display = 'none';
+
+  try {
+    const params = new URLSearchParams({ payload: JSON.stringify({
+      action: 'applyModification', code: ADMIN_CODE, modification: mod
+    })});
+    const resp = await fetch(API_URL + '?' + params.toString());
+    const data = await resp.json();
+
+    if (!data.success) throw new Error(data.error);
+
+    res.style.display = 'block';
+    res.style.background = 'var(--green-soft)';
+    res.style.color = 'var(--green)';
+    res.textContent = '✅ Modification appliquée — planning republié.';
+
+    // Historique
+    modHistorique.unshift({
+      type: MOD_LABELS[type] || type,
+      date, medecins: [doctor, doctor2].filter(Boolean).join(' ↔ '),
+      value: value || date2 || '—',
+      heure: new Date().toLocaleTimeString('fr-FR', {hour:'2-digit',minute:'2-digit'}),
+    });
+    renderModHisto();
+
+    // Reset formulaire
+    setTimeout(() => {
+      document.getElementById('modType').value = '';
+      document.getElementById('modFormFields').innerHTML = '';
+      document.getElementById('modFormSubmit').style.display = 'none';
+      res.style.display = 'none';
+    }, 3000);
+
+  } catch(e) {
+    res.style.display = 'block';
+    res.style.background = '#FFF1F2';
+    res.style.color = 'var(--red)';
+    res.textContent = '❌ Erreur : ' + e.message;
+  } finally {
+    btn.disabled = false;
+    btn.textContent = '✅ Appliquer la modification';
+  }
+}
+
+function renderModHisto() {
+  if (!modHistorique.length) return;
+  document.getElementById('modHistoCard').style.display = 'block';
+  document.getElementById('modHistoBody').innerHTML = modHistorique.map(h => `
+    <tr>
+      <td style="text-align:left">${h.type}</td>
+      <td style="text-align:left;font-family:var(--mono);font-size:11px">${h.date}</td>
+      <td style="text-align:left;font-family:var(--mono);font-size:11px">${h.medecins}</td>
+      <td style="text-align:left">${h.value}</td>
+      <td style="text-align:left;color:var(--ink-4)">${h.heure}</td>
+    </tr>
+  `).join('');
 }
 </script>
 </body>
