@@ -270,13 +270,24 @@ function renderBilanAnnuel(){
     title.className='bilan-section-title';
     table.closest('.table-container').parentElement.insertBefore(title,table.closest('.table-container'));
   }
-  title.textContent='Bilan annuel 2026';
+  title.textContent=`Bilan annuel ${DATA.months[0].year}`;
 }
 
 // ── INIT ───────────────────────────────────────────────────────────────
 async function init(){
   try{
-    DATA=await fetch('./planning_2026.json').then(r=>r.json());
+    // Récupérer l'année active depuis l'API
+    let activeYear = 2026;
+    try {
+      const params = new URLSearchParams({payload: JSON.stringify({
+        action: 'login', code: 'CHPG2026ADMIN'
+      })});
+      const yearRes = await fetch('https://script.google.com/macros/s/AKfycbxZavweHP-hbJ0XatEr_PGAyeosJNx69qPl6DFjVaQOoX65vOuiNy5RVqoyhY3Oj3elHQ/exec?' + params.toString());
+      const yearData = await yearRes.json();
+      if (yearData.success && yearData.year) activeYear = yearData.year;
+    } catch(e) {}
+
+    DATA=await fetch(`./planning_${activeYear}.json`).then(r=>r.json());
   }catch(e){
     document.body.innerHTML=`<div style="padding:40px;font-family:sans-serif;color:#CE1126"><h2>Erreur de chargement</h2><pre>${esc(e.message)}</pre></div>`;
     return;
