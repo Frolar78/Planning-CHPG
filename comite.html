@@ -1580,9 +1580,16 @@ function renderModForm() {
     fields += fieldHTML('modDate', 'Date', 'date');
     fields += fieldHTML('modDoctor', 'Médecin', 'select', marOpts);
     fields += `<div>
-      <label style="font-size:11px;font-weight:700;color:var(--ink-3);text-transform:uppercase;letter-spacing:.06em;display:block;margin-bottom:4px">Valeur</label>
+      <label style="font-size:11px;font-weight:700;color:var(--ink-3);text-transform:uppercase;letter-spacing:.06em;display:block;margin-bottom:4px">Matin (optionnel)</label>
       <input type="text" id="modValue" oninput="checkModReady()"
-        placeholder="ex: G, RG, A, VIS, ORL, CS-VIS…"
+        placeholder="ex: VIS, ORL, CS-VIS, G, RG, A…"
+        style="width:100%;border:1.5px solid var(--line);border-radius:8px;padding:8px 10px;
+               font-size:13px;font-family:'DM Mono',monospace;color:var(--ink);outline:none;"/>
+    </div>
+    <div>
+      <label style="font-size:11px;font-weight:700;color:var(--ink-3);text-transform:uppercase;letter-spacing:.06em;display:block;margin-bottom:4px">Après-midi (optionnel)</label>
+      <input type="text" id="modValuePM" oninput="checkModReady()"
+        placeholder="ex: CS-VIS, ORL, MAT…"
         style="width:100%;border:1.5px solid var(--line);border-radius:8px;padding:8px 10px;
                font-size:13px;font-family:'DM Mono',monospace;color:var(--ink);outline:none;"/>
     </div>`;
@@ -1610,7 +1617,10 @@ function checkModReady() {
   if (type === 'echangeSecteur')                       ready = !!(date && doctor && doctor2);
   if (type === 'gardeExceptionnelle')                  ready = !!(date && doctor && value);
   if (type === 'echangeGarde' || type === 'donGarde')  ready = !!(date && doctor && doctor2);
-  if (type === 'libre')                                 ready = !!(date && doctor && value);
+  if (type === 'libre') {
+    const valuePM = document.getElementById('modValuePM')?.value;
+    ready = !!(date && doctor && (value || valuePM));
+  }
 
   document.getElementById('modFormSubmit').style.display = ready ? 'block' : 'none';
 }
@@ -1622,8 +1632,9 @@ async function submitModification() {
   const doctor2 = document.getElementById('modDoctor2')?.value;
   const value   = document.getElementById('modValue')?.value;
   const date2   = document.getElementById('modDate2')?.value || null;
+  const valuePM = document.getElementById('modValuePM')?.value || null;
 
-  const mod = { type, date, doctorId: doctor, doctorId2: doctor2, value, date2 };
+  const mod = { type, date, doctorId: doctor, doctorId2: doctor2, value, valuePM, date2 };
 
   const btn = document.getElementById('btnModSubmit');
   const res = document.getElementById('modResult');
