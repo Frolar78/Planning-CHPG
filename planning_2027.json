@@ -1542,8 +1542,8 @@
             },
             {
               "status": "G2",
-              "morning": "",
-              "afternoon": "",
+              "morning": "REA",
+              "afternoon": "REA",
               "cs": ""
             },
             {
@@ -1764,8 +1764,8 @@
             },
             {
               "status": "G2",
-              "morning": "",
-              "afternoon": "",
+              "morning": "REA",
+              "afternoon": "REA",
               "cs": ""
             }
           ]
@@ -1848,8 +1848,8 @@
             },
             {
               "status": "G2",
-              "morning": "",
-              "afternoon": "",
+              "morning": "REA",
+              "afternoon": "REA",
               "cs": ""
             },
             {
@@ -3156,8 +3156,8 @@
             },
             {
               "status": "G",
-              "morning": "REA",
-              "afternoon": "REA",
+              "morning": "MAT",
+              "afternoon": "MAT",
               "cs": ""
             }
           ]
@@ -3204,8 +3204,8 @@
             },
             {
               "status": "G2",
-              "morning": "",
-              "afternoon": "",
+              "morning": "MAT",
+              "afternoon": "MAT",
               "cs": ""
             },
             {
@@ -3288,8 +3288,8 @@
             },
             {
               "status": "G2",
-              "morning": "",
-              "afternoon": "",
+              "morning": "REA",
+              "afternoon": "REA",
               "cs": ""
             },
             {
@@ -3414,18 +3414,6 @@
             },
             {
               "status": "G",
-              "morning": "REA",
-              "afternoon": "REA",
-              "cs": ""
-            },
-            {
-              "status": "RG",
-              "morning": "",
-              "afternoon": "",
-              "cs": ""
-            },
-            {
-              "status": "G",
               "morning": "MAT",
               "afternoon": "MAT",
               "cs": ""
@@ -3462,8 +3450,20 @@
             },
             {
               "status": "G",
-              "morning": "REA",
-              "afternoon": "REA",
+              "morning": "MAT",
+              "afternoon": "MAT",
+              "cs": ""
+            },
+            {
+              "status": "RG",
+              "morning": "",
+              "afternoon": "",
+              "cs": ""
+            },
+            {
+              "status": "G",
+              "morning": "MAT",
+              "afternoon": "MAT",
               "cs": ""
             },
             {
@@ -3594,8 +3594,8 @@
             },
             {
               "status": "G2",
-              "morning": "",
-              "afternoon": "",
+              "morning": "MAT",
+              "afternoon": "MAT",
               "cs": ""
             },
             {
@@ -3804,8 +3804,8 @@
             },
             {
               "status": "G",
-              "morning": "REA",
-              "afternoon": "REA",
+              "morning": "MAT",
+              "afternoon": "MAT",
               "cs": ""
             },
             {
@@ -4020,8 +4020,8 @@
             },
             {
               "status": "G2",
-              "morning": "",
-              "afternoon": "",
+              "morning": "MAT",
+              "afternoon": "MAT",
               "cs": ""
             },
             {
@@ -4068,8 +4068,8 @@
             },
             {
               "status": "G2",
-              "morning": "",
-              "afternoon": "",
+              "morning": "MAT",
+              "afternoon": "MAT",
               "cs": ""
             },
             {
@@ -5966,8 +5966,8 @@
             },
             {
               "status": "G2",
-              "morning": "",
-              "afternoon": "",
+              "morning": "REA",
+              "afternoon": "REA",
               "cs": ""
             },
             {
@@ -6362,8 +6362,8 @@
             },
             {
               "status": "G2",
-              "morning": "",
-              "afternoon": "",
+              "morning": "REA",
+              "afternoon": "REA",
               "cs": ""
             },
             {
@@ -6716,8 +6716,8 @@
             },
             {
               "status": "G2",
-              "morning": "",
-              "afternoon": "",
+              "morning": "REA",
+              "afternoon": "REA",
               "cs": ""
             },
             {
@@ -7100,8 +7100,8 @@
             },
             {
               "status": "G2",
-              "morning": "",
-              "afternoon": "",
+              "morning": "REA",
+              "afternoon": "REA",
               "cs": ""
             },
             {
@@ -7190,8 +7190,8 @@
             },
             {
               "status": "G2",
-              "morning": "",
-              "afternoon": "",
+              "morning": "MAT",
+              "afternoon": "MAT",
               "cs": ""
             }
           ]
@@ -7316,8 +7316,8 @@
             },
             {
               "status": "G2",
-              "morning": "",
-              "afternoon": "",
+              "morning": "REA",
+              "afternoon": "REA",
               "cs": ""
             },
             {
@@ -7706,8 +7706,8 @@
             },
             {
               "status": "G",
-              "morning": "REA",
-              "afternoon": "REA",
+              "morning": "MAT",
+              "afternoon": "MAT",
               "cs": ""
             },
             {
@@ -7796,8 +7796,8 @@
             },
             {
               "status": "G",
-              "morning": "REA",
-              "afternoon": "REA",
+              "morning": "MAT",
+              "afternoon": "MAT",
               "cs": ""
             },
             {
@@ -8012,8 +8012,8 @@
             },
             {
               "status": "G",
-              "morning": "REA",
-              "afternoon": "REA",
+              "morning": "MAT",
+              "afternoon": "MAT",
               "cs": ""
             },
             {
@@ -8150,8 +8150,8 @@
             },
             {
               "status": "G2",
-              "morning": "",
-              "afternoon": "",
+              "morning": "MAT",
+              "afternoon": "MAT",
               "cs": ""
             },
             {
@@ -8282,8 +8282,8 @@
             },
             {
               "status": "G",
-              "morning": "REA",
-              "afternoon": "REA",
+              "morning": "MAT",
+              "afternoon": "MAT",
               "cs": ""
             },
             {
@@ -8366,8 +8366,8 @@
             },
             {
               "status": "G2",
-              "morning": "",
-              "afternoon": "",
+              "morning": "REA",
+              "afternoon": "REA",
               "cs": ""
             },
             {
@@ -8450,8 +8450,8 @@
             },
             {
               "status": "G",
-              "morning": "REA",
-              "afternoon": "REA",
+              "morning": "MAT",
+              "afternoon": "MAT",
               "cs": ""
             },
             {
@@ -8540,8 +8540,8 @@
             },
             {
               "status": "G",
-              "morning": "REA",
-              "afternoon": "REA",
+              "morning": "MAT",
+              "afternoon": "MAT",
               "cs": ""
             },
             {
@@ -9067,8 +9067,8 @@
             },
             {
               "status": "G2",
-              "morning": "",
-              "afternoon": "",
+              "morning": "REA",
+              "afternoon": "REA",
               "cs": ""
             },
             {
@@ -10069,8 +10069,8 @@
             },
             {
               "status": "G2",
-              "morning": "",
-              "afternoon": "",
+              "morning": "REA",
+              "afternoon": "REA",
               "cs": ""
             },
             {
@@ -10459,8 +10459,8 @@
             },
             {
               "status": "G2",
-              "morning": "",
-              "afternoon": "",
+              "morning": "MAT",
+              "afternoon": "MAT",
               "cs": ""
             },
             {
@@ -10603,8 +10603,8 @@
             },
             {
               "status": "G",
-              "morning": "REA",
-              "afternoon": "REA",
+              "morning": "MAT",
+              "afternoon": "MAT",
               "cs": ""
             },
             {
@@ -11329,8 +11329,8 @@
             },
             {
               "status": "G2",
-              "morning": "",
-              "afternoon": "",
+              "morning": "MAT",
+              "afternoon": "MAT",
               "cs": ""
             },
             {
@@ -11455,8 +11455,8 @@
             },
             {
               "status": "G2",
-              "morning": "",
-              "afternoon": "",
+              "morning": "MAT",
+              "afternoon": "MAT",
               "cs": ""
             },
             {
@@ -11653,8 +11653,8 @@
             },
             {
               "status": "G2",
-              "morning": "",
-              "afternoon": "",
+              "morning": "MAT",
+              "afternoon": "MAT",
               "cs": ""
             },
             {
@@ -11761,8 +11761,8 @@
             },
             {
               "status": "G2",
-              "morning": "",
-              "afternoon": "",
+              "morning": "REA",
+              "afternoon": "REA",
               "cs": ""
             },
             {
@@ -11953,8 +11953,8 @@
             },
             {
               "status": "G",
-              "morning": "REA",
-              "afternoon": "REA",
+              "morning": "MAT",
+              "afternoon": "MAT",
               "cs": ""
             },
             {
@@ -12679,8 +12679,8 @@
             },
             {
               "status": "G2",
-              "morning": "",
-              "afternoon": "",
+              "morning": "MAT",
+              "afternoon": "MAT",
               "cs": ""
             },
             {
@@ -13333,8 +13333,8 @@
             },
             {
               "status": "G",
-              "morning": "REA",
-              "afternoon": "REA",
+              "morning": "MAT",
+              "afternoon": "MAT",
               "cs": ""
             },
             {
@@ -15413,8 +15413,8 @@
             },
             {
               "status": "G2",
-              "morning": "",
-              "afternoon": "",
+              "morning": "REA",
+              "afternoon": "REA",
               "cs": ""
             },
             {
@@ -15599,8 +15599,8 @@
             },
             {
               "status": "G",
-              "morning": "REA",
-              "afternoon": "REA",
+              "morning": "MAT",
+              "afternoon": "MAT",
               "cs": ""
             },
             {
@@ -15881,8 +15881,8 @@
             },
             {
               "status": "G2",
-              "morning": "",
-              "afternoon": "",
+              "morning": "REA",
+              "afternoon": "REA",
               "cs": ""
             },
             {
@@ -16007,8 +16007,8 @@
             },
             {
               "status": "G2",
-              "morning": "",
-              "afternoon": "",
+              "morning": "MAT",
+              "afternoon": "MAT",
               "cs": ""
             },
             {
@@ -16295,8 +16295,8 @@
             },
             {
               "status": "G2",
-              "morning": "",
-              "afternoon": "",
+              "morning": "MAT",
+              "afternoon": "MAT",
               "cs": ""
             },
             {
@@ -17003,8 +17003,8 @@
             },
             {
               "status": "G2",
-              "morning": "",
-              "afternoon": "",
+              "morning": "MAT",
+              "afternoon": "MAT",
               "cs": ""
             },
             {
@@ -17267,8 +17267,8 @@
             },
             {
               "status": "G2",
-              "morning": "",
-              "afternoon": "",
+              "morning": "MAT",
+              "afternoon": "MAT",
               "cs": ""
             },
             {
@@ -17501,8 +17501,8 @@
             },
             {
               "status": "G2",
-              "morning": "",
-              "afternoon": "",
+              "morning": "MAT",
+              "afternoon": "MAT",
               "cs": ""
             },
             {
@@ -17555,8 +17555,8 @@
             },
             {
               "status": "G",
-              "morning": "REA",
-              "afternoon": "REA",
+              "morning": "MAT",
+              "afternoon": "MAT",
               "cs": ""
             },
             {
@@ -17603,8 +17603,8 @@
             },
             {
               "status": "G2",
-              "morning": "",
-              "afternoon": "",
+              "morning": "MAT",
+              "afternoon": "MAT",
               "cs": ""
             },
             {
@@ -18940,8 +18940,8 @@
             },
             {
               "status": "G2",
-              "morning": "",
-              "afternoon": "",
+              "morning": "REA",
+              "afternoon": "REA",
               "cs": ""
             },
             {
@@ -19522,8 +19522,8 @@
             },
             {
               "status": "G2",
-              "morning": "",
-              "afternoon": "",
+              "morning": "REA",
+              "afternoon": "REA",
               "cs": ""
             },
             {
@@ -19642,8 +19642,8 @@
             },
             {
               "status": "G2",
-              "morning": "",
-              "afternoon": "",
+              "morning": "MAT",
+              "afternoon": "MAT",
               "cs": ""
             },
             {
@@ -19984,8 +19984,8 @@
             },
             {
               "status": "G2",
-              "morning": "",
-              "afternoon": "",
+              "morning": "MAT",
+              "afternoon": "MAT",
               "cs": ""
             },
             {
@@ -21184,8 +21184,8 @@
             },
             {
               "status": "G2",
-              "morning": "",
-              "afternoon": "",
+              "morning": "MAT",
+              "afternoon": "MAT",
               "cs": ""
             },
             {
@@ -21286,8 +21286,8 @@
             },
             {
               "status": "G2",
-              "morning": "",
-              "afternoon": "",
+              "morning": "MAT",
+              "afternoon": "MAT",
               "cs": ""
             },
             {
@@ -21442,8 +21442,8 @@
             },
             {
               "status": "G",
-              "morning": "REA",
-              "afternoon": "REA",
+              "morning": "MAT",
+              "afternoon": "MAT",
               "cs": ""
             },
             {
@@ -21586,8 +21586,8 @@
           "days": [
             {
               "status": "G2",
-              "morning": "",
-              "afternoon": "",
+              "morning": "MAT",
+              "afternoon": "MAT",
               "cs": ""
             },
             {
@@ -21976,8 +21976,8 @@
             },
             {
               "status": "G2",
-              "morning": "",
-              "afternoon": "",
+              "morning": "MAT",
+              "afternoon": "MAT",
               "cs": ""
             },
             {
@@ -22486,8 +22486,8 @@
             },
             {
               "status": "G2",
-              "morning": "",
-              "afternoon": "",
+              "morning": "MAT",
+              "afternoon": "MAT",
               "cs": ""
             },
             {
@@ -22588,8 +22588,8 @@
             },
             {
               "status": "G",
-              "morning": "REA",
-              "afternoon": "REA",
+              "morning": "MAT",
+              "afternoon": "MAT",
               "cs": ""
             },
             {
@@ -22828,8 +22828,8 @@
             },
             {
               "status": "G2",
-              "morning": "",
-              "afternoon": "",
+              "morning": "MAT",
+              "afternoon": "MAT",
               "cs": ""
             },
             {
@@ -24488,8 +24488,8 @@
             },
             {
               "status": "G2",
-              "morning": "",
-              "afternoon": "",
+              "morning": "REA",
+              "afternoon": "REA",
               "cs": ""
             },
             {
@@ -24674,8 +24674,8 @@
             },
             {
               "status": "G",
-              "morning": "REA",
-              "afternoon": "REA",
+              "morning": "MAT",
+              "afternoon": "MAT",
               "cs": ""
             },
             {
@@ -25172,8 +25172,8 @@
             },
             {
               "status": "G2",
-              "morning": "",
-              "afternoon": "",
+              "morning": "MAT",
+              "afternoon": "MAT",
               "cs": ""
             },
             {
@@ -25226,8 +25226,8 @@
             },
             {
               "status": "G2",
-              "morning": "",
-              "afternoon": "",
+              "morning": "REA",
+              "afternoon": "REA",
               "cs": ""
             },
             {
@@ -25682,8 +25682,8 @@
             },
             {
               "status": "G2",
-              "morning": "",
-              "afternoon": "",
+              "morning": "MAT",
+              "afternoon": "MAT",
               "cs": ""
             },
             {
@@ -25910,8 +25910,8 @@
             },
             {
               "status": "G2",
-              "morning": "",
-              "afternoon": "",
+              "morning": "MAT",
+              "afternoon": "MAT",
               "cs": ""
             },
             {
@@ -26060,8 +26060,8 @@
             },
             {
               "status": "G2",
-              "morning": "",
-              "afternoon": "",
+              "morning": "MAT",
+              "afternoon": "MAT",
               "cs": ""
             },
             {
@@ -26384,8 +26384,8 @@
             },
             {
               "status": "G2",
-              "morning": "",
-              "afternoon": "",
+              "morning": "MAT",
+              "afternoon": "MAT",
               "cs": ""
             },
             {
@@ -26762,8 +26762,8 @@
             },
             {
               "status": "G2",
-              "morning": "",
-              "afternoon": "",
+              "morning": "REA",
+              "afternoon": "REA",
               "cs": ""
             },
             {
@@ -26900,8 +26900,8 @@
             },
             {
               "status": "G",
-              "morning": "REA",
-              "afternoon": "REA",
+              "morning": "MAT",
+              "afternoon": "MAT",
               "cs": ""
             },
             {
@@ -27506,8 +27506,8 @@
             },
             {
               "status": "G",
-              "morning": "REA",
-              "afternoon": "REA",
+              "morning": "MAT",
+              "afternoon": "MAT",
               "cs": ""
             },
             {
@@ -28051,8 +28051,8 @@
             },
             {
               "status": "G2",
-              "morning": "",
-              "afternoon": "",
+              "morning": "REA",
+              "afternoon": "REA",
               "cs": ""
             },
             {
@@ -29281,8 +29281,8 @@
             },
             {
               "status": "G2",
-              "morning": "",
-              "afternoon": "",
+              "morning": "MAT",
+              "afternoon": "MAT",
               "cs": ""
             },
             {
@@ -29479,8 +29479,8 @@
             },
             {
               "status": "G2",
-              "morning": "",
-              "afternoon": "",
+              "morning": "REA",
+              "afternoon": "REA",
               "cs": ""
             },
             {
@@ -29581,8 +29581,8 @@
             },
             {
               "status": "G2",
-              "morning": "",
-              "afternoon": "",
+              "morning": "REA",
+              "afternoon": "REA",
               "cs": ""
             },
             {
@@ -29671,8 +29671,8 @@
             },
             {
               "status": "G",
-              "morning": "REA",
-              "afternoon": "REA",
+              "morning": "MAT",
+              "afternoon": "MAT",
               "cs": ""
             },
             {
@@ -29941,8 +29941,8 @@
             },
             {
               "status": "G2",
-              "morning": "",
-              "afternoon": "",
+              "morning": "MAT",
+              "afternoon": "MAT",
               "cs": ""
             }
           ]
@@ -30163,8 +30163,8 @@
             },
             {
               "status": "G",
-              "morning": "REA",
-              "afternoon": "REA",
+              "morning": "MAT",
+              "afternoon": "MAT",
               "cs": ""
             },
             {
@@ -31249,8 +31249,8 @@
             },
             {
               "status": "G2",
-              "morning": "",
-              "afternoon": "",
+              "morning": "MAT",
+              "afternoon": "MAT",
               "cs": ""
             },
             {
@@ -31627,8 +31627,8 @@
             },
             {
               "status": "G2",
-              "morning": "",
-              "afternoon": "",
+              "morning": "MAT",
+              "afternoon": "MAT",
               "cs": ""
             },
             {
@@ -31693,8 +31693,8 @@
             },
             {
               "status": "G",
-              "morning": "REA",
-              "afternoon": "REA",
+              "morning": "MAT",
+              "afternoon": "MAT",
               "cs": ""
             },
             {
@@ -31927,8 +31927,8 @@
             },
             {
               "status": "G2",
-              "morning": "",
-              "afternoon": "",
+              "morning": "MAT",
+              "afternoon": "MAT",
               "cs": ""
             },
             {
@@ -32125,8 +32125,8 @@
             },
             {
               "status": "G2",
-              "morning": "",
-              "afternoon": "",
+              "morning": "MAT",
+              "afternoon": "MAT",
               "cs": ""
             },
             {
@@ -32910,8 +32910,8 @@
             },
             {
               "status": "G2",
-              "morning": "",
-              "afternoon": "",
+              "morning": "REA",
+              "afternoon": "REA",
               "cs": ""
             },
             {
@@ -33330,8 +33330,8 @@
             },
             {
               "status": "G2",
-              "morning": "",
-              "afternoon": "",
+              "morning": "MAT",
+              "afternoon": "MAT",
               "cs": ""
             },
             {
@@ -34296,8 +34296,8 @@
             },
             {
               "status": "G2",
-              "morning": "",
-              "afternoon": "",
+              "morning": "MAT",
+              "afternoon": "MAT",
               "cs": ""
             },
             {
@@ -34530,8 +34530,8 @@
             },
             {
               "status": "G2",
-              "morning": "",
-              "afternoon": "",
+              "morning": "REA",
+              "afternoon": "REA",
               "cs": ""
             },
             {
@@ -34764,8 +34764,8 @@
             },
             {
               "status": "G2",
-              "morning": "",
-              "afternoon": "",
+              "morning": "REA",
+              "afternoon": "REA",
               "cs": ""
             },
             {
@@ -34788,8 +34788,8 @@
           "days": [
             {
               "status": "G2",
-              "morning": "",
-              "afternoon": "",
+              "morning": "REA",
+              "afternoon": "REA",
               "cs": ""
             },
             {
@@ -35022,8 +35022,8 @@
             },
             {
               "status": "G",
-              "morning": "REA",
-              "afternoon": "REA",
+              "morning": "MAT",
+              "afternoon": "MAT",
               "cs": ""
             },
             {
@@ -35172,8 +35172,8 @@
           "days": [
             {
               "status": "G",
-              "morning": "REA",
-              "afternoon": "REA",
+              "morning": "MAT",
+              "afternoon": "MAT",
               "cs": ""
             },
             {
@@ -35526,8 +35526,8 @@
             },
             {
               "status": "G2",
-              "morning": "",
-              "afternoon": "",
+              "morning": "MAT",
+              "afternoon": "MAT",
               "cs": ""
             },
             {
@@ -36252,8 +36252,8 @@
             },
             {
               "status": "G2",
-              "morning": "",
-              "afternoon": "",
+              "morning": "REA",
+              "afternoon": "REA",
               "cs": ""
             },
             {
@@ -36300,8 +36300,8 @@
             },
             {
               "status": "G",
-              "morning": "REA",
-              "afternoon": "REA",
+              "morning": "MAT",
+              "afternoon": "MAT",
               "cs": ""
             },
             {
@@ -36828,8 +36828,8 @@
             },
             {
               "status": "G",
-              "morning": "REA",
-              "afternoon": "REA",
+              "morning": "MAT",
+              "afternoon": "MAT",
               "cs": ""
             },
             {
@@ -37026,8 +37026,8 @@
             },
             {
               "status": "G",
-              "morning": "REA",
-              "afternoon": "REA",
+              "morning": "MAT",
+              "afternoon": "MAT",
               "cs": ""
             },
             {
@@ -37128,8 +37128,8 @@
             },
             {
               "status": "G2",
-              "morning": "",
-              "afternoon": "",
+              "morning": "MAT",
+              "afternoon": "MAT",
               "cs": ""
             },
             {
@@ -38092,8 +38092,8 @@
             },
             {
               "status": "G2",
-              "morning": "",
-              "afternoon": "",
+              "morning": "REA",
+              "afternoon": "REA",
               "cs": ""
             },
             {
@@ -38836,8 +38836,8 @@
             },
             {
               "status": "G",
-              "morning": "REA",
-              "afternoon": "REA",
+              "morning": "MAT",
+              "afternoon": "MAT",
               "cs": ""
             },
             {
@@ -39250,8 +39250,8 @@
             },
             {
               "status": "G2",
-              "morning": "",
-              "afternoon": "",
+              "morning": "REA",
+              "afternoon": "REA",
               "cs": ""
             },
             {
@@ -40222,8 +40222,8 @@
             },
             {
               "status": "G2",
-              "morning": "",
-              "afternoon": "",
+              "morning": "MAT",
+              "afternoon": "MAT",
               "cs": ""
             },
             {
@@ -40450,8 +40450,8 @@
             },
             {
               "status": "G2",
-              "morning": "",
-              "afternoon": "",
+              "morning": "REA",
+              "afternoon": "REA",
               "cs": ""
             },
             {
@@ -40504,8 +40504,8 @@
             },
             {
               "status": "G2",
-              "morning": "",
-              "afternoon": "",
+              "morning": "MAT",
+              "afternoon": "MAT",
               "cs": ""
             },
             {
@@ -40732,8 +40732,8 @@
             },
             {
               "status": "G2",
-              "morning": "",
-              "afternoon": "",
+              "morning": "MAT",
+              "afternoon": "MAT",
               "cs": ""
             },
             {
@@ -41188,8 +41188,8 @@
             },
             {
               "status": "G2",
-              "morning": "",
-              "afternoon": "",
+              "morning": "MAT",
+              "afternoon": "MAT",
               "cs": ""
             },
             {
@@ -41332,8 +41332,8 @@
             },
             {
               "status": "G2",
-              "morning": "",
-              "afternoon": "",
+              "morning": "MAT",
+              "afternoon": "MAT",
               "cs": ""
             },
             {
@@ -41380,8 +41380,8 @@
             },
             {
               "status": "G",
-              "morning": "REA",
-              "afternoon": "REA",
+              "morning": "MAT",
+              "afternoon": "MAT",
               "cs": ""
             },
             {
@@ -41668,8 +41668,8 @@
             },
             {
               "status": "G",
-              "morning": "REA",
-              "afternoon": "REA",
+              "morning": "MAT",
+              "afternoon": "MAT",
               "cs": ""
             },
             {
@@ -42861,8 +42861,8 @@
             },
             {
               "status": "G2",
-              "morning": "",
-              "afternoon": "",
+              "morning": "REA",
+              "afternoon": "REA",
               "cs": ""
             },
             {
@@ -44247,8 +44247,8 @@
             },
             {
               "status": "G2",
-              "morning": "",
-              "afternoon": "",
+              "morning": "REA",
+              "afternoon": "REA",
               "cs": ""
             },
             {
@@ -44505,8 +44505,8 @@
             },
             {
               "status": "G2",
-              "morning": "",
-              "afternoon": "",
+              "morning": "REA",
+              "afternoon": "REA",
               "cs": ""
             },
             {
@@ -44595,8 +44595,8 @@
             },
             {
               "status": "G2",
-              "morning": "",
-              "afternoon": "",
+              "morning": "REA",
+              "afternoon": "REA",
               "cs": ""
             },
             {
@@ -44739,8 +44739,8 @@
             },
             {
               "status": "G2",
-              "morning": "",
-              "afternoon": "",
+              "morning": "MAT",
+              "afternoon": "MAT",
               "cs": ""
             },
             {
@@ -44787,8 +44787,8 @@
             },
             {
               "status": "G",
-              "morning": "REA",
-              "afternoon": "REA",
+              "morning": "MAT",
+              "afternoon": "MAT",
               "cs": ""
             },
             {
@@ -45249,8 +45249,8 @@
             },
             {
               "status": "G2",
-              "morning": "",
-              "afternoon": "",
+              "morning": "MAT",
+              "afternoon": "MAT",
               "cs": ""
             },
             {
@@ -45639,8 +45639,8 @@
             },
             {
               "status": "G2",
-              "morning": "",
-              "afternoon": "",
+              "morning": "MAT",
+              "afternoon": "MAT",
               "cs": ""
             }
           ]
@@ -45783,8 +45783,8 @@
             },
             {
               "status": "G",
-              "morning": "REA",
-              "afternoon": "REA",
+              "morning": "MAT",
+              "afternoon": "MAT",
               "cs": ""
             },
             {
@@ -45981,8 +45981,8 @@
             },
             {
               "status": "G2",
-              "morning": "",
-              "afternoon": "",
+              "morning": "MAT",
+              "afternoon": "MAT",
               "cs": ""
             },
             {
@@ -46233,8 +46233,8 @@
             },
             {
               "status": "G",
-              "morning": "REA",
-              "afternoon": "REA",
+              "morning": "MAT",
+              "afternoon": "MAT",
               "cs": ""
             },
             {
@@ -46281,8 +46281,8 @@
             },
             {
               "status": "G2",
-              "morning": "",
-              "afternoon": "",
+              "morning": "MAT",
+              "afternoon": "MAT",
               "cs": ""
             },
             {
@@ -46509,8 +46509,8 @@
             },
             {
               "status": "G",
-              "morning": "REA",
-              "afternoon": "REA",
+              "morning": "MAT",
+              "afternoon": "MAT",
               "cs": ""
             },
             {
@@ -46623,8 +46623,8 @@
             },
             {
               "status": "G2",
-              "morning": "",
-              "afternoon": "",
+              "morning": "MAT",
+              "afternoon": "MAT",
               "cs": ""
             },
             {
@@ -48367,8 +48367,8 @@
             },
             {
               "status": "G2",
-              "morning": "",
-              "afternoon": "",
+              "morning": "REA",
+              "afternoon": "REA",
               "cs": ""
             },
             {
@@ -48733,8 +48733,8 @@
             },
             {
               "status": "G2",
-              "morning": "",
-              "afternoon": "",
+              "morning": "MAT",
+              "afternoon": "MAT",
               "cs": ""
             },
             {
@@ -49153,8 +49153,8 @@
             },
             {
               "status": "G2",
-              "morning": "",
-              "afternoon": "",
+              "morning": "MAT",
+              "afternoon": "MAT",
               "cs": ""
             },
             {
@@ -49795,8 +49795,8 @@
             },
             {
               "status": "G2",
-              "morning": "",
-              "afternoon": "",
+              "morning": "MAT",
+              "afternoon": "MAT",
               "cs": ""
             },
             {
@@ -50077,8 +50077,8 @@
             },
             {
               "status": "G2",
-              "morning": "",
-              "afternoon": "",
+              "morning": "MAT",
+              "afternoon": "MAT",
               "cs": ""
             },
             {
@@ -50683,8 +50683,8 @@
             },
             {
               "status": "G2",
-              "morning": "",
-              "afternoon": "",
+              "morning": "MAT",
+              "afternoon": "MAT",
               "cs": ""
             },
             {
@@ -50863,8 +50863,8 @@
             },
             {
               "status": "G2",
-              "morning": "",
-              "afternoon": "",
+              "morning": "MAT",
+              "afternoon": "MAT",
               "cs": ""
             },
             {
@@ -50971,8 +50971,8 @@
             },
             {
               "status": "G",
-              "morning": "REA",
-              "afternoon": "REA",
+              "morning": "MAT",
+              "afternoon": "MAT",
               "cs": ""
             },
             {
@@ -51277,8 +51277,8 @@
             },
             {
               "status": "G2",
-              "morning": "",
-              "afternoon": "",
+              "morning": "MAT",
+              "afternoon": "MAT",
               "cs": ""
             },
             {
@@ -52884,8 +52884,8 @@
             },
             {
               "status": "G2",
-              "morning": "",
-              "afternoon": "",
+              "morning": "REA",
+              "afternoon": "REA",
               "cs": ""
             },
             {
@@ -53076,8 +53076,8 @@
             },
             {
               "status": "G",
-              "morning": "REA",
-              "afternoon": "REA",
+              "morning": "MAT",
+              "afternoon": "MAT",
               "cs": ""
             },
             {
@@ -53202,8 +53202,8 @@
             },
             {
               "status": "G2",
-              "morning": "",
-              "afternoon": "",
+              "morning": "MAT",
+              "afternoon": "MAT",
               "cs": ""
             },
             {
@@ -53274,8 +53274,8 @@
             },
             {
               "status": "G2",
-              "morning": "",
-              "afternoon": "",
+              "morning": "MAT",
+              "afternoon": "MAT",
               "cs": ""
             },
             {
@@ -53928,8 +53928,8 @@
             },
             {
               "status": "G2",
-              "morning": "",
-              "afternoon": "",
+              "morning": "MAT",
+              "afternoon": "MAT",
               "cs": ""
             },
             {
@@ -54318,8 +54318,8 @@
             },
             {
               "status": "G2",
-              "morning": "",
-              "afternoon": "",
+              "morning": "REA",
+              "afternoon": "REA",
               "cs": ""
             },
             {
@@ -54552,8 +54552,8 @@
             },
             {
               "status": "G2",
-              "morning": "",
-              "afternoon": "",
+              "morning": "MAT",
+              "afternoon": "MAT",
               "cs": ""
             },
             {
@@ -54702,8 +54702,8 @@
             },
             {
               "status": "G",
-              "morning": "REA",
-              "afternoon": "REA",
+              "morning": "MAT",
+              "afternoon": "MAT",
               "cs": ""
             },
             {
@@ -54846,8 +54846,8 @@
             },
             {
               "status": "G2",
-              "morning": "",
-              "afternoon": "",
+              "morning": "MAT",
+              "afternoon": "MAT",
               "cs": ""
             },
             {
@@ -55236,8 +55236,8 @@
             },
             {
               "status": "G2",
-              "morning": "",
-              "afternoon": "",
+              "morning": "REA",
+              "afternoon": "REA",
               "cs": ""
             },
             {
@@ -55620,8 +55620,8 @@
             },
             {
               "status": "G",
-              "morning": "REA",
-              "afternoon": "REA",
+              "morning": "MAT",
+              "afternoon": "MAT",
               "cs": ""
             },
             {
@@ -56759,8 +56759,8 @@
           "days": [
             {
               "status": "G2",
-              "morning": "",
-              "afternoon": "",
+              "morning": "MAT",
+              "afternoon": "MAT",
               "cs": ""
             }
           ]
