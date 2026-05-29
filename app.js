@@ -371,11 +371,12 @@ function renderTable(month,daySlots,week){
   daySlots.forEach((slot,i)=>{
     if(!slot){ thead+=`<th class="th-day weekend"></th>`; return; }
     const isWe=isWeekend(slot.weekday);
+    const isFerie=slot.isFerie||false;
     const isTd=slot.date===today;
-    const cls=['th-day',isWe?'weekend':'',isTd?'today':''].filter(Boolean).join(' ');
+    const cls=['th-day',(isWe||isFerie)?'weekend':'',isTd?'today':''].filter(Boolean).join(' ');
     thead+=`<th class="${cls}">
       <div class="day-name">${DAYS_FR[i]}</div>
-      <div class="day-date">${slot.day}</div>
+      <div class="day-date">${slot.day}${isFerie?' <span style="font-size:8px;color:#C2410C;font-weight:700">JF</span>':''}</div>
       <div class="am-pm-labels">
         <div class="am-pm-label">AM</div>
         <div class="am-pm-label pm">PM</div>
