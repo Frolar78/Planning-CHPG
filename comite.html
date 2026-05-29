@@ -452,6 +452,9 @@ body {
   <button class="nav-tab" onclick="showTab('calendrier')" id="tab-calendrier">
     📆 Planning gardes
   </button>
+  <button class="nav-tab" onclick="showTab('vacances')" id="tab-vacances">
+    🏖️ Validation vacances
+  </button>
 </div>
 
 <!-- MAIN -->
@@ -676,7 +679,26 @@ body {
       Cliquez sur "Charger" pour afficher le planning de gardes.
     </div>
   </div>
+<!-- TAB VALIDATION VACANCES -->
+  <div class="tab-panel" id="panel-vacances">
+    <div style="display:flex;align-items:center;justify-content:space-between;margin-bottom:16px">
+      <div>
+        <div style="font-size:16px;font-weight:700;color:var(--ink)">Validation vacances <span class="year-label">2026</span></div>
+        <div style="font-size:12px;color:var(--ink-3);margin-top:2px">Statut des souhaits de vacances par période et par MAR</div>
+      </div>
+      <button class="btn-primary" onclick="loadVacValidation()">↻ Actualiser</button>
+    </div>
 
+    <div id="vacValidationLoading" style="display:none">
+      <div class="loading"><div class="spinner"></div> Chargement...</div>
+    </div>
+
+    <div id="vacValidationResults" style="display:none"></div>
+
+    <div id="vacValidationEmpty" style="padding:40px;text-align:center;color:var(--ink-4)">
+      Cliquez sur "Actualiser" pour charger les données.
+    </div>
+  </div>
 </div>
 
 <script>
@@ -1317,6 +1339,91 @@ function buildYearSelect() {
     if (y === YEAR) opt.selected = true;
     sel.appendChild(opt);
   }
+}
+  // ── VALIDATION VACANCES ───────────────────────────────────────────────
+async function loadVacValidation() {
+  document.getElementById('vacValidationLoading').style.display = 'block';
+  document.getElementById('vacValidationResults').style.display = 'none';
+  document.getElementById('vacValidationEmpty').style.display = 'none';
+
+  try {
+    const params = new URLSearchParams({payload: JSON.stringify({
+      action: 'getVacValidation', code: ADMIN_CODE
+    })});
+    const res = await fetch(API_URL + '?' + params.toString());
+    const data = await res.json();
+    if (!data.success) throw new Error(data.error);
+    renderVacValidation(data.data);
+  } catch(e) {
+    alert('Erreur : ' + e.message);
+    document.getElementById('vacValidationEmpty').style.display = 'block';
+  } finally {
+    document.getElementById('vacValidationLoading').style.display = 'none';
+  }
+}
+
+function renderVacValidation(periodes) {
+  const container = document.getElementById('vacValidationResults');
+  container.innerHTML = '';
+
+  const STATUT_CONFIG = {
+    VALIDE:  { icon: '✅', label: 'Validé',   cls: 'badge-green' },
+    PARTIEL: { icon: '⚠️', label: 'Partiel',  cls: 'badge-orange' },
+    REFUSE:  { icon: '❌', label: 'Refusé',   cls: 'badge-red' },
+    AUCUN:   { icon: '⚫', label: 'Aucun souhait', cls: 'badge-grey' },
+  };
+
+  periodes.forEach(periode => {
+    // Compteurs
+    const counts = { VALIDE: 0, PARTIEL: 0, REFUSE: 0, AUCUN: 0 };
+    periode.mars.forEach(m => counts[m.statut]++);
+
+    const div = document.createElement('div');
+    div.className = 'card';
+    div.style.marginBottom = '20px';
+
+    div.innerHTML = `
+      <div class="card-header" style="display:flex;align-items:center;justify-content:space-between">
+        <span class="card-title">🏖️ ${periode.nom} — ${periode.debut} → ${periode.fin} · Seuil ${periode.seuil} MAR/jour</span>
+        <div style="display:flex;gap:8px;font-size:11px">
+          <span style="color:var(--green)">✅ ${counts.VALIDE}</span>
+          <span style="color:var(--orange)">⚠️ ${counts.PARTIEL}</span>
+          <span style="color:var(--red)">❌ ${counts.REFUSE}</span>
+          <span style="color:var(--ink-4)">⚫ ${counts.AUCUN}</span>
+        </div>
+      </div>
+      <div class="card-body" style="padding:0;overflow-x:auto">
+        <table class="stats-table">
+          <thead><tr>
+            <th style="text-align:left">Rang</th>
+            <th style="text-align:left">Médecin</th>
+            <th>Jours VAC</th>
+            <th>Jours ouvrés</th>
+            <th>Validés</th>
+            <th>Refusés</th>
+            <th>Statut</th>
+          </tr></thead>
+          <tbody>
+            ${periode.mars.map(m => {
+              const cfg = STATUT_CONFIG[m.statut];
+              return `<tr>
+                <td style="text-align:left;color:var(--ink-4);font-size:11px">${m.rang}</td>
+                <td style="text-align:left;font-weight:600">${m.nom}</td>
+                <td>${m.joursVac || '—'}</td>
+                <td>${m.joursOuvres || '—'}</td>
+                <td style="color:var(--green);font-weight:600">${m.joursValides || '—'}</td>
+                <td style="color:var(--red);font-weight:600">${m.joursRefuses || '—'}</td>
+                <td><span class="badge ${cfg.cls}">${cfg.icon} ${cfg.label}</span></td>
+              </tr>`;
+            }).join('')}
+          </tbody>
+        </table>
+      </div>
+    `;
+    container.appendChild(div);
+  });
+
+  document.getElementById('vacValidationResults').style.display = 'block';
 }
 </script>
 </body>
