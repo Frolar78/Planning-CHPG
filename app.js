@@ -433,7 +433,7 @@ month.doctors.forEach(doc=>{
         // Weekend: 1 seule chip centrée sur toute la largeur
         const names=smap[s.code][dow].am;
         const chips=names.map(p=>{
-          const c=p.status==='G'?'slot-name chip-guard':'slot-name';
+          const c=(p.status==='G'||p.status==='G2')?'slot-name chip-guard':'slot-name';
           return '<span class="'+c+'">'+(p.init||'')+'</span>';
         });
         tbody+=`<div class="slot-pair" style="display:flex;align-items:center;justify-content:center;gap:4px;height:100%">${chips.join('')}</div>`;
@@ -445,7 +445,7 @@ month.doctors.forEach(doc=>{
 ? (()=>{
                 const chips=amNames.map(p=>{
                   const sub=p.sector&&p.sector.includes('-')?p.sector.split('-')[1]:null;
-                  const c=p.status==='G'?'slot-name chip-guard':p.status==='18'?'slot-name chip-h18':'slot-name';
+                  const c=(p.status==='G'||p.status==='G2')?'slot-name chip-guard':p.status==='18'?'slot-name chip-h18':'slot-name';
                   return '<span class="'+c+'" title="'+(sub?'CS '+sub:'')+'">'+(p.init||'')+'</span>';
                 });
                 if(chips.length%2!==0) chips.push('<span class="slot-name-spacer"></span>');
@@ -457,7 +457,7 @@ month.doctors.forEach(doc=>{
 ? (()=>{
                 const chips=pmNames.map(p=>{
                   const sub=p.sector&&p.sector.includes('-')?p.sector.split('-')[1]:null;
-                  const c=p.status==='G'?'slot-name chip-guard':p.status==='18'?'slot-name chip-h18':'slot-name';
+                  const c=(p.status==='G'||p.status==='G2')?'slot-name chip-guard':p.status==='18'?'slot-name chip-h18':'slot-name';
                   return '<span class="'+c+'" title="'+(sub?'CS '+sub:'')+'">'+(p.init||'')+'</span>';
                 });
                 if(chips.length%2!==0) chips.push('<span class="slot-name-spacer"></span>');
