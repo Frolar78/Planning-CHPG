@@ -494,7 +494,7 @@ function renderBottom(month,daySlots,week){
         }
       }
       const st=entry.status||'';
-      if(st==='G') guards[dow].push(doc.initials);
+      if(st==='G' || st==='G2') guards[dow].push(doc.initials);
       if(st==='18') h18[dow]=doc.initials;
       if(st==='RG') sorties[dow].push(doc.initials);
       if(['A','CP','F','R','I','E'].includes(st)) absents[dow].push({init:doc.initials,reason:st});
