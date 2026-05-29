@@ -461,6 +461,7 @@ let indispos = {}; // {date: status}
 let isDragging = false;
 let hasChanges = false;
 let vacConfig = null;
+let joursFeries = new Set();
 let displayYear = YEAR;
   
 // ── LOGIN ─────────────────────────────────────────────────────────────
@@ -520,6 +521,7 @@ async function loadVacConfig() {
     const res = await apiCall('getVacConfig');
     if (res.success) {
       vacConfig = res;
+      joursFeries = new Set(res.joursFeries || []);
       updateVacBanner();
     }
   } catch(e) {
@@ -611,9 +613,9 @@ if (vacConfig) {
     const dernierJour = premierJourAnneePlanning(YEAR + 1);
     const dernierJourStr = `${dernierJour.getFullYear()}-${String(dernierJour.getMonth()+1).padStart(2,'0')}-${String(dernierJour.getDate()-1).padStart(2,'0')}`;
     const isAvantPremierJour = date < premierJour || date > dernierJourStr;
-
+    const isJourFerie = joursFeries.has(date);
     let cls = 'cal-day';
-    if (isWe) cls += ' weekend';
+    if (isWe || isJourFerie) cls += ' weekend';
     if (date === today) cls += ' today';
     if (isPast || isAvantPremierJour) cls += ' past';
     if (status) cls += ' ' + status.toLowerCase();
@@ -624,6 +626,9 @@ if (vacConfig) {
 const lockIcon = isBlocked && !status
   ? `<div style="font-size:10px;position:absolute;top:2px;right:3px;opacity:0.5">🔒</div>`
   : '';
+const ferieIcon = isJourFerie
+  ? `<div style="font-size:8px;position:absolute;top:2px;left:3px;color:#C2410C;font-weight:700">JF</div>`
+  : '';
 
     html += `<div class="${cls}" data-date="${date}"
       ontouchstart="startDrag('${date}')"
@@ -633,6 +638,7 @@ const lockIcon = isBlocked && !status
       onmouseover="handleMouseOver('${date}')"
       onmouseup="endDrag()">
       ${lockIcon}
+      ${ferieIcon}
       <div class="cal-day-num">${d}</div>
       ${badge}
     </div>`;
@@ -676,11 +682,11 @@ function applyTool(date) {
       // Vérifier quota VAC atteint (jours ouvrés)
       const dow = new Date(date).getDay();
       const isOuvre = dow !== 0 && dow !== 6;
-      if (currentTool === 'VAC' && isOuvre) {
-        let vacOuvres = Object.entries(indispos).filter(([d, s]) => {
-          const dw = new Date(d).getDay();
-          return s === 'VAC' && dw !== 0 && dw !== 6 && d !== date;
-        }).length;
+      if (currentTool === 'VAC' && isOuvre && !joursFeries.has(date)) {
+          let vacOuvres = Object.entries(indispos).filter(([d, s]) => {
+            const dw = new Date(d).getDay();
+            return s === 'VAC' && dw !== 0 && dw !== 6 && !joursFeries.has(d) && d !== date;
+          }).length;
         if (vacOuvres >= vacConfig.quotaVac) {
           showToast(`🚫 Quota atteint — ${vacConfig.quotaVac} jours ouvrés maximum`);
           return;
@@ -734,7 +740,7 @@ function updateStats() {
     if (counts[s] !== undefined) counts[s]++;
     if (s === 'VAC') {
       const dow = new Date(date).getDay();
-      if (dow !== 0 && dow !== 6) vacOuvres++;
+      if (dow !== 0 && dow !== 6 && !joursFeries.has(date)) vacOuvres++;
     }
   });
 
