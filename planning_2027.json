@@ -56522,6 +56522,13 @@
           "weekday": "S",
           "dow": 6,
           "isWeekend": true
+        },
+        {
+          "date": "2028-01-02",
+          "day": 2,
+          "weekday": "D",
+          "dow": 0,
+          "isWeekend": true
         }
       ],
       "doctors": [
@@ -56529,6 +56536,12 @@
           "id": "ALBOUY",
           "initials": "SA",
           "days": [
+            {
+              "status": "",
+              "morning": "",
+              "afternoon": "",
+              "cs": ""
+            },
             {
               "status": "",
               "morning": "",
@@ -56546,6 +56559,12 @@
               "morning": "",
               "afternoon": "",
               "cs": ""
+            },
+            {
+              "status": "",
+              "morning": "",
+              "afternoon": "",
+              "cs": ""
             }
           ]
         },
@@ -56553,6 +56572,12 @@
           "id": "ARMANDO",
           "initials": "GA",
           "days": [
+            {
+              "status": "",
+              "morning": "",
+              "afternoon": "",
+              "cs": ""
+            },
             {
               "status": "",
               "morning": "",
@@ -56570,6 +56595,12 @@
               "morning": "",
               "afternoon": "",
               "cs": ""
+            },
+            {
+              "status": "",
+              "morning": "",
+              "afternoon": "",
+              "cs": ""
             }
           ]
         },
@@ -56577,6 +56608,12 @@
           "id": "BOUREGBA",
           "initials": "MB",
           "days": [
+            {
+              "status": "",
+              "morning": "",
+              "afternoon": "",
+              "cs": ""
+            },
             {
               "status": "",
               "morning": "",
@@ -56594,6 +56631,12 @@
               "morning": "",
               "afternoon": "",
               "cs": ""
+            },
+            {
+              "status": "",
+              "morning": "",
+              "afternoon": "",
+              "cs": ""
             }
           ]
         },
@@ -56601,6 +56644,12 @@
           "id": "FROHLICH",
           "initials": "AFR",
           "days": [
+            {
+              "status": "",
+              "morning": "",
+              "afternoon": "",
+              "cs": ""
+            },
             {
               "status": "",
               "morning": "",
@@ -56618,6 +56667,12 @@
               "morning": "",
               "afternoon": "",
               "cs": ""
+            },
+            {
+              "status": "",
+              "morning": "",
+              "afternoon": "",
+              "cs": ""
             }
           ]
         },
@@ -56625,6 +56680,12 @@
           "id": "GHIGLIONE",
           "initials": "SG",
           "days": [
+            {
+              "status": "",
+              "morning": "",
+              "afternoon": "",
+              "cs": ""
+            },
             {
               "status": "",
               "morning": "",
@@ -56642,6 +56703,12 @@
               "morning": "",
               "afternoon": "",
               "cs": ""
+            },
+            {
+              "status": "G",
+              "morning": "REA",
+              "afternoon": "REA",
+              "cs": ""
             }
           ]
         },
@@ -56649,6 +56716,12 @@
           "id": "LEVASSEUR",
           "initials": "LUL",
           "days": [
+            {
+              "status": "",
+              "morning": "",
+              "afternoon": "",
+              "cs": ""
+            },
             {
               "status": "",
               "morning": "",
@@ -56666,6 +56739,12 @@
               "morning": "",
               "afternoon": "",
               "cs": ""
+            },
+            {
+              "status": "",
+              "morning": "",
+              "afternoon": "",
+              "cs": ""
             }
           ]
         },
@@ -56678,6 +56757,12 @@
               "morning": "",
               "afternoon": "",
               "cs": ""
+            },
+            {
+              "status": "",
+              "morning": "",
+              "afternoon": "",
+              "cs": ""
             }
           ]
         },
@@ -56685,6 +56770,12 @@
           "id": "OPPRECHT",
           "initials": "NO",
           "days": [
+            {
+              "status": "",
+              "morning": "",
+              "afternoon": "",
+              "cs": ""
+            },
             {
               "status": "",
               "morning": "",
@@ -56702,6 +56793,12 @@
               "morning": "",
               "afternoon": "",
               "cs": ""
+            },
+            {
+              "status": "",
+              "morning": "",
+              "afternoon": "",
+              "cs": ""
             }
           ]
         },
@@ -56709,6 +56806,12 @@
           "id": "ROUSSEAU",
           "initials": "GR",
           "days": [
+            {
+              "status": "",
+              "morning": "",
+              "afternoon": "",
+              "cs": ""
+            },
             {
               "status": "",
               "morning": "",
@@ -56726,6 +56829,12 @@
               "morning": "REA",
               "afternoon": "REA",
               "cs": ""
+            },
+            {
+              "status": "RG",
+              "morning": "",
+              "afternoon": "",
+              "cs": ""
             }
           ]
         },
@@ -56733,6 +56842,12 @@
           "id": "SEVERAC",
           "initials": "MS",
           "days": [
+            {
+              "status": "",
+              "morning": "",
+              "afternoon": "",
+              "cs": ""
+            },
             {
               "status": "",
               "morning": "",
@@ -56750,6 +56865,12 @@
               "morning": "",
               "afternoon": "",
               "cs": ""
+            },
+            {
+              "status": "G2",
+              "morning": "MAT",
+              "afternoon": "MAT",
+              "cs": ""
             }
           ]
         },
@@ -56762,6 +56883,12 @@
               "morning": "MAT",
               "afternoon": "MAT",
               "cs": ""
+            },
+            {
+              "status": "RG",
+              "morning": "",
+              "afternoon": "",
+              "cs": ""
             }
           ]
         },
@@ -56769,6 +56896,12 @@
           "id": "WIDEHEM",
           "initials": "RW",
           "days": [
+            {
+              "status": "",
+              "morning": "",
+              "afternoon": "",
+              "cs": ""
+            },
             {
               "status": "",
               "morning": "",
@@ -56786,6 +56919,12 @@
               "morning": "",
               "afternoon": "",
               "cs": ""
+            },
+            {
+              "status": "",
+              "morning": "",
+              "afternoon": "",
+              "cs": ""
             }
           ]
         },
@@ -56798,6 +56937,12 @@
               "morning": "",
               "afternoon": "",
               "cs": ""
+            },
+            {
+              "status": "A",
+              "morning": "",
+              "afternoon": "",
+              "cs": ""
             }
           ]
         },
@@ -56805,6 +56950,12 @@
           "id": "PRUNET",
           "initials": "BP",
           "days": [
+            {
+              "status": "",
+              "morning": "",
+              "afternoon": "",
+              "cs": ""
+            },
             {
               "status": "",
               "morning": "",
