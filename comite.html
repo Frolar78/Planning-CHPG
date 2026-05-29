@@ -705,7 +705,7 @@ body {
 'use strict';
 
 const API_URL = 'https://script.google.com/macros/s/AKfycbxZavweHP-hbJ0XatEr_PGAyeosJNx69qPl6DFjVaQOoX65vOuiNy5RVqoyhY3Oj3elHQ/exec';
-const ADMIN_CODE = 'CHPG2026ADMIN';
+let ADMIN_CODE = 'CHPG2026ADMIN'; // temporaire — sera validé côté serveur
 let YEAR = 2026;
 
 let authenticated = false;
@@ -717,13 +717,23 @@ document.getElementById('authInput').addEventListener('keydown', e => {
   if (e.key === 'Enter') authenticate();
 });
 
-function authenticate() {
+async function authenticate() {
   const code = document.getElementById('authInput').value.trim().toUpperCase();
-  if (code === ADMIN_CODE) {
-    authenticated = true;
-    document.getElementById('authOverlay').style.display = 'none';
-    loadActiveYear();
-  } else {
+  try {
+    const params = new URLSearchParams({payload: JSON.stringify({
+      action: 'login', code
+    })});
+    const res = await fetch(API_URL + '?' + params.toString());
+    const data = await res.json();
+    if (data.success && data.role === 'admin') {
+      ADMIN_CODE = code;
+      authenticated = true;
+      document.getElementById('authOverlay').style.display = 'none';
+      loadActiveYear();
+    } else {
+      document.getElementById('authError').style.display = 'block';
+    }
+  } catch(e) {
     document.getElementById('authError').style.display = 'block';
   }
 }
