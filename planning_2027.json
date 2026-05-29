@@ -18728,8 +18728,8 @@
             },
             {
               "status": "",
-              "morning": "VIS",
-              "afternoon": "CS-VIS",
+              "morning": "END",
+              "afternoon": "ORL",
               "cs": ""
             },
             {
