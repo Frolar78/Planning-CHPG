@@ -733,6 +733,7 @@ body {
           <option value="gardeExceptionnelle">Garde exceptionnelle (+ RG auto)</option>
           <option value="echangeGarde">Échange de garde (+ échange RG)</option>
           <option value="donGarde">Don de garde (+ perte RG)</option>
+          <option value="libre">Modification libre (valeur directe)</option>
         </select>
       </div>
 
@@ -1575,6 +1576,17 @@ function renderModForm() {
     fields += fieldHTML('modValue',  'Type de garde', 'select',
       '<option value="G">G — Garde REA</option><option value="G2">G2 — Garde MAT</option>');
   }
+  if (type === 'libre') {
+    fields += fieldHTML('modDate', 'Date', 'date');
+    fields += fieldHTML('modDoctor', 'Médecin', 'select', marOpts);
+    fields += `<div>
+      <label style="font-size:11px;font-weight:700;color:var(--ink-3);text-transform:uppercase;letter-spacing:.06em;display:block;margin-bottom:4px">Valeur</label>
+      <input type="text" id="modValue" oninput="checkModReady()"
+        placeholder="ex: G, RG, A, VIS, ORL, CS-VIS…"
+        style="width:100%;border:1.5px solid var(--line);border-radius:8px;padding:8px 10px;
+               font-size:13px;font-family:'DM Mono',monospace;color:var(--ink);outline:none;"/>
+    </div>`;
+  }
   if (type === 'echangeGarde' || type === 'donGarde') {
     fields += fieldHTML('modDoctor',  'Médecin A (qui donne)', 'select', marOpts);
     fields += fieldHTML('modDoctor2', 'Médecin B (qui reçoit)', 'select', marOpts);
@@ -1598,6 +1610,7 @@ function checkModReady() {
   if (type === 'echangeSecteur')                       ready = !!(date && doctor && doctor2);
   if (type === 'gardeExceptionnelle')                  ready = !!(date && doctor && value);
   if (type === 'echangeGarde' || type === 'donGarde')  ready = !!(date && doctor && doctor2);
+  if (type === 'libre')                                 ready = !!(date && doctor && value);
 
   document.getElementById('modFormSubmit').style.display = ready ? 'block' : 'none';
 }
