@@ -19117,15 +19117,15 @@
               "cs": ""
             },
             {
-              "status": "G2",
+              "status": "",
               "morning": "VIS",
               "afternoon": "VIS",
               "cs": ""
             },
             {
-              "status": "RG",
-              "morning": "",
-              "afternoon": "",
+              "status": "",
+              "morning": "VIS",
+              "afternoon": "VIS",
               "cs": ""
             },
             {
@@ -19316,8 +19316,8 @@
             },
             {
               "status": "",
-              "morning": "VIS",
-              "afternoon": "VIS",
+              "morning": "ORT",
+              "afternoon": "ORT",
               "cs": ""
             },
             {
@@ -19508,9 +19508,9 @@
             },
             {
               "status": "",
-              "morning": "ORT",
-              "afternoon": "ORT",
-              "cs": ""
+              "morning": "ORL",
+              "afternoon": "ORL",
+              "cs": "CS-ORL"
             },
             {
               "status": "",
@@ -19702,7 +19702,7 @@
               "status": "",
               "morning": "ORL",
               "afternoon": "ORL",
-              "cs": "CS-ORL"
+              "cs": ""
             },
             {
               "status": "G2",
@@ -19892,8 +19892,8 @@
             },
             {
               "status": "",
-              "morning": "ORL",
-              "afternoon": "ORL",
+              "morning": "END",
+              "afternoon": "END",
               "cs": ""
             },
             {
@@ -20468,8 +20468,8 @@
             },
             {
               "status": "G",
-              "morning": "END",
-              "afternoon": "END",
+              "morning": "CI",
+              "afternoon": "CI",
               "cs": ""
             },
             {
@@ -20660,8 +20660,8 @@
             },
             {
               "status": "G2",
-              "morning": "CI",
-              "afternoon": "CI",
+              "morning": "REA",
+              "afternoon": "REA",
               "cs": ""
             },
             {
@@ -21236,8 +21236,8 @@
             },
             {
               "status": "",
-              "morning": "REA",
-              "afternoon": "REA",
+              "morning": "",
+              "afternoon": "",
               "cs": ""
             },
             {
@@ -22765,13 +22765,13 @@
               "cs": ""
             },
             {
-              "status": "",
+              "status": "G2",
               "morning": "",
               "afternoon": "",
               "cs": ""
             },
             {
-              "status": "",
+              "status": "RG",
               "morning": "",
               "afternoon": "",
               "cs": ""
