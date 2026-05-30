@@ -1,131 +1,955 @@
 <!DOCTYPE html>
 <html lang="fr">
 <head>
-  <meta charset="UTF-8"/>
-  <meta name="viewport" content="width=device-width,initial-scale=1.0"/>
-  <title>Planning — CHPG Monaco · Anesthésie-Réanimation</title>
-  <link rel="preconnect" href="https://fonts.googleapis.com"/>
-  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin/>
-  <link rel="stylesheet" href="./style.css"/>
-  <script src="https://cdnjs.cloudflare.com/ajax/libs/exceljs/4.3.0/exceljs.min.js"></script>
-  <script src="https://cdn.jsdelivr.net/npm/lucide@latest/dist/umd/lucide.min.js"></script>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Planning · CHPG Monaco</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@300;400;500;600;700&family=DM+Mono:wght@400;500&display=swap" rel="stylesheet">
+<script src="https://unpkg.com/lucide@latest/dist/umd/lucide.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/exceljs/dist/exceljs.min.js"></script>
+<style>
+@import url('https://fonts.googleapis.com/css2?family=DM+Sans:wght@300;400;500;600;700&family=DM+Mono:wght@400;500&display=swap');
+
+:root {
+  --red: #CE1126;
+  --red-soft: #F8E8EB;
+  --amber: #D97706;
+  --amber-soft: #FEF3C7;
+  --ink: #0F172A;
+  --ink-2: #334155;
+  --ink-3: #64748B;
+  --ink-4: #94A3B8;
+  --line: #E2E8F0;
+  --line-light: #F1F5F9;
+  --bg: #F8FAFC;
+  --white: #FFFFFF;
+  --radius: 12px;
+  --mono: 'DM Mono', monospace;
+}
+
+* { box-sizing: border-box; margin: 0; padding: 0; }
+
+body {
+  font-family: 'DM Sans', system-ui, sans-serif;
+  background: var(--bg);
+  color: var(--ink);
+  min-height: 100vh;
+  font-size: 13px;
+  -webkit-font-smoothing: antialiased;
+}
+
+/* ── HEADER ── */
+.header {
+  background: var(--white);
+  border-bottom: 1px solid var(--line);
+  padding: 0 32px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  height: 60px;
+  position: sticky;
+  top: 0;
+  z-index: 300;
+}
+.header-brand { display: flex; align-items: center; gap: 14px; }
+.header-flag {
+  display: flex; width: 28px; height: 28px; border-radius: 6px;
+  overflow: hidden; flex-shrink: 0; box-shadow: 0 1px 3px rgba(0,0,0,.15);
+}
+.flag-top { flex: 1; background: var(--red); }
+.flag-bottom { flex: 1; background: var(--white); border-top: 1px solid var(--line); }
+.header-title { font-size: 15px; font-weight: 700; color: var(--ink); letter-spacing: -.02em; }
+.header-sub { font-size: 11px; color: var(--ink-4); margin-top: 1px; }
+.header-right { display: flex; align-items: center; gap: 8px; }
+
+/* ── VIEW TOGGLE ── */
+.view-toggle-main {
+  background: var(--white);
+  border-bottom: 1px solid var(--line);
+  padding: 8px 32px;
+  display: flex;
+  gap: 4px;
+}
+.view-main-btn {
+  border: 1.5px solid var(--line);
+  background: var(--white);
+  border-radius: 8px;
+  padding: 6px 16px;
+  font-size: 13px;
+  font-weight: 600;
+  font-family: 'DM Sans', sans-serif;
+  color: var(--ink-3);
+  cursor: pointer;
+  transition: all .15s;
+}
+.view-main-btn:hover { border-color: var(--red); color: var(--red); }
+.view-main-btn.active { background: var(--red); border-color: var(--red); color: var(--white); }
+
+/* ── WEEK NAV ── */
+.week-nav {
+  background: var(--white);
+  border-bottom: 1px solid var(--line);
+  padding: 10px 32px;
+  display: flex;
+  align-items: center;
+  gap: 16px;
+  flex-wrap: wrap;
+}
+.nav-label { font-size: 11px; font-weight: 600; color: var(--ink-4); text-transform: uppercase; letter-spacing: .06em; }
+.month-select {
+  border: 1.5px solid var(--line); border-radius: 8px; padding: 6px 10px;
+  font-size: 13px; font-weight: 600; font-family: 'DM Sans', sans-serif;
+  color: var(--ink); background: var(--white); outline: none; cursor: pointer; transition: border-color .15s;
+}
+.month-select:focus { border-color: var(--red); }
+.week-pills { display: flex; gap: 4px; flex-wrap: wrap; }
+.week-pill {
+  border: 1.5px solid var(--line); background: var(--white); border-radius: 8px;
+  padding: 5px 12px; font-size: 12px; font-weight: 600; color: var(--ink-3);
+  cursor: pointer; transition: all .15s; white-space: nowrap;
+}
+.week-pill:hover { border-color: var(--red); color: var(--red); }
+.week-pill.active { background: var(--red); border-color: var(--red); color: var(--white); }
+.nav-divider { width: 1px; height: 20px; background: var(--line); flex-shrink: 0; }
+.btn-today {
+  border: 1.5px solid var(--line); background: var(--white); border-radius: 8px;
+  padding: 5px 12px; font-size: 12px; font-weight: 600; font-family: 'DM Sans', sans-serif;
+  color: var(--ink-2); cursor: pointer; transition: all .15s;
+}
+.btn-today:hover { border-color: var(--red); color: var(--red); }
+.export-btn {
+  border: none; background: var(--red); border-radius: 8px; padding: 6px 14px;
+  font-size: 12px; font-weight: 600; font-family: 'DM Sans', sans-serif; color: var(--white);
+  cursor: pointer; display: flex; align-items: center; gap: 5px; transition: opacity .15s; margin-left: auto;
+}
+.export-btn:hover { opacity: .88; }
+
+/* ── TABLE ── */
+.table-container { padding: 20px 32px; overflow-x: auto; border-radius: var(--radius); }
+.planning-table {
+  width: 100%; border-collapse: separate; border-spacing: 0;
+  background: var(--white); border: 1px solid var(--line); border-radius: var(--radius);
+  min-width: 900px; box-shadow: 0 1px 4px rgba(0,0,0,.05);
+}
+
+/* ── TABLE HEADER ── */
+.th-sector {
+  width: 180px; min-width: 160px; padding: 12px 16px; text-align: left;
+  font-size: 12px; font-weight: 800; text-transform: uppercase; letter-spacing: .08em;
+  color: var(--ink-3); background: var(--line-light); border-bottom: 1px solid var(--line);
+  border-right: 1px solid var(--line); position: sticky; left: 0; z-index: 10;
+}
+.th-day {
+  padding: 10px 6px 6px; text-align: center; background: var(--white);
+  border-bottom: 1px solid var(--line); border-right: 1px solid var(--line);
+  vertical-align: top; min-width: 100px; max-width: 100px; width: 100px;
+}
+.th-day:last-child { border-right: none; }
+.th-day.weekend { background: var(--line-light); }
+.th-day.today { background: #FFF5F5; }
+.day-name { font-size: 10px; font-weight: 700; text-transform: uppercase; letter-spacing: .08em; color: var(--ink-3); margin-bottom: 1px; }
+.day-date { font-size: 18px; font-weight: 700; color: var(--ink); line-height: 1; margin-bottom: 6px; }
+.th-day.today .day-date { color: var(--red); }
+.th-day.weekend .day-date { color: var(--ink-4); }
+.am-pm-labels { display: grid; grid-template-columns: 1fr 1fr; gap: 2px; margin-top: 4px; }
+.am-pm-label {
+  font-size: 9px; font-weight: 700; text-transform: uppercase; letter-spacing: .06em;
+  color: var(--white); background: var(--red); border-radius: 4px; padding: 2px 0; text-align: center;
+}
+.am-pm-label.pm { background: var(--ink-3); }
+.th-day.weekend .am-pm-label, .th-day.weekend .am-pm-label.pm { background: var(--ink-4); }
+
+/* ── TABLE ROWS ── */
+.sector-row { border-bottom: 1px solid var(--line); }
+.sector-row:last-child { border-bottom: none; }
+.td-sector {
+  padding: 0 10px; background: var(--line-light); border-right: 1px solid var(--line);
+  vertical-align: middle; height: 56px; position: sticky; left: 0; z-index: 5; overflow: visible;
+}
+.sector-label { display: flex; align-items: center; gap: 8px; overflow: visible; }
+.sector-icon-svg {
+  width: 18px; height: 18px; flex-shrink: 0;
+  stroke: var(--ink-3); stroke-width: 1.5; fill: none; display: block;
+}
+.sector-name-text { font-size: 13px; font-weight: 700; color: var(--ink); line-height: 1.2; }
+
+/* ── SLOT CELLS ── */
+.td-day {
+  border-right: 1px solid var(--line); padding: 0; vertical-align: top; height: 56px;
+}
+.td-day:last-child { border-right: none; }
+.td-day.weekend { background: var(--line-light); }
+.td-day.today { background: #FFF8F8; }
+.slot-pair { display: grid; grid-template-columns: 1fr 1fr; height: 100%; }
+.slot {
+  padding: 4px 3px; display: grid; grid-template-columns: 1fr 1fr;
+  gap: 2px; align-content: start; border-right: 1px solid var(--line-light);
+  min-height: 56px; flex: 1; overflow: hidden;
+}
+.slot:last-child { border-right: none; }
+.slot-name {
+  display: inline-flex; align-items: center; justify-content: center;
+  font-size: 11px; font-weight: 700; font-family: var(--mono);
+  padding: 2px 4px; border-radius: 5px; background: #F1F5F9;
+  color: var(--ink-2); cursor: default; white-space: nowrap;
+  max-width: 44px; overflow: hidden; text-overflow: ellipsis;
+}
+.slot-name-spacer { display: inline-flex; width: 44px; visibility: hidden; }
+.chip-guard { background: #EFF6FF; color: #1D4ED8; }
+.chip-h18   { background: #F0FDF4; color: #166534; }
+.slot-dash { color: var(--ink-4); font-size: 12px; text-align: center; margin-top: 4px; }
+
+/* ── BOTTOM TABLES ── */
+.bottom-tables { padding: 0 32px 32px; }
+.bt-card {
+  background: var(--white); border: 1px solid var(--line);
+  border-radius: var(--radius); overflow: hidden; box-shadow: 0 1px 3px rgba(0,0,0,.04);
+}
+.bt-card-header {
+  padding: 10px 16px; font-size: 10px; font-weight: 700; text-transform: uppercase;
+  letter-spacing: .08em; color: var(--ink-4); background: var(--line-light); border-bottom: 1px solid var(--line);
+}
+.bt-scroll { overflow-x: auto; }
+.bt-table { width: 100%; border-collapse: separate; border-spacing: 0; min-width: 900px; table-layout: fixed; }
+.bt-label {
+  width: 180px; min-width: 160px; max-width: 180px; padding: 8px 16px;
+  font-size: 11px; font-weight: 600; color: var(--ink-3); background: var(--line-light);
+  border-right: 1px solid var(--line); border-bottom: 1px solid var(--line);
+  vertical-align: middle; position: sticky; left: 0; z-index: 5;
+}
+.bt-table tr:last-child .bt-label, .bt-table tr:last-child .bt-cell { border-bottom: none; }
+.bt-cell {
+  padding: 5px 4px; text-align: center; border-right: 1px solid var(--line);
+  border-bottom: 1px solid var(--line); vertical-align: top;
+  width: 100px; min-width: 100px; max-width: 100px;
+}
+.bt-cell:last-child { border-right: none; }
+.bt-cell.weekend { background: var(--line-light); }
+.bt-dash { color: var(--ink-4); font-size: 12px; }
+.name-tag {
+  font-size: 10px; font-weight: 600; font-family: var(--mono);
+  padding: 2px 5px; border-radius: 5px; background: var(--line-light);
+  color: var(--ink-2); display: inline-flex; margin: 1px;
+}
+.name-tag.guard  { background: #EFF6FF; color: #1D4ED8; }
+.name-tag.h18    { background: #F0FDF4; color: #166534; }
+.name-tag.rg     { background: #F5F3FF; color: #6D28D9; }
+.name-tag.absent { background: #F9FAFB; color: #6B7280; border: 1px solid #E5E7EB; }
+
+/* ── VUE MÉDECINS ── */
+.bilan-section-title {
+  padding: 12px 24px 6px; font-size: 12px; font-weight: 700;
+  color: var(--ink-3); text-transform: uppercase; letter-spacing: .06em;
+}
+.bilan-table { width: 100%; border-collapse: separate; border-spacing: 0; background: var(--white); font-size: 12px; }
+.bilan-table th {
+  background: var(--line-light); font-size: 10px; font-weight: 700;
+  text-transform: uppercase; letter-spacing: .06em; color: var(--ink-4);
+  padding: 8px 10px; border-bottom: 1px solid var(--line); border-right: 1px solid var(--line);
+  text-align: center; white-space: nowrap;
+}
+.bilan-table th.col-name { text-align: left; min-width: 160px; }
+.bilan-table th.col-sector { min-width: 100px; }
+.bilan-table td {
+  padding: 7px 10px; border-bottom: 1px solid var(--line); border-right: 1px solid var(--line);
+  text-align: center; color: var(--ink-2); font-weight: 500; white-space: nowrap;
+}
+.bilan-table td.col-name {
+  text-align: left; font-weight: 700; color: var(--ink);
+  position: sticky; left: 0; background: var(--white); z-index: 2;
+}
+.bilan-table td.col-sector { font-size: 11px; font-weight: 700; }
+.bilan-table tr:last-child td { border-bottom: none; }
+.bilan-table td:last-child, .bilan-table th:last-child { border-right: none; }
+.bilan-table td.val-zero { color: var(--ink-4); }
+.bilan-table td.val-g { color: #1D4ED8; font-weight: 700; }
+.bilan-table td.val-18 { color: #166534; font-weight: 700; }
+.bilan-table td.val-absent { color: var(--ink-3); }
+
+/* ── RESPONSIVE ── */
+@media (max-width: 900px) {
+  .header { padding: 0 16px; }
+  .view-toggle-main { padding: 8px 16px; }
+  .week-nav { padding: 8px 16px; }
+  .table-container { padding: 12px 16px; }
+  .bottom-tables { padding: 0 16px 24px; }
+}
+</style>
 </head>
-  
-  <!-- CHAT -->
-<button class="chat-btn" id="chatBtn" title="Assistant Planning">
-  <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-    <path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z"/>
-  </svg>
-</button>
-
-<div class="chat-panel" id="chatPanel">
-  <div class="chat-header">
-    <div class="chat-header-title">
-      <div class="chat-header-dot"></div>
-      Assistant Planning CHPG
-    </div>
-    <button class="chat-close" id="chatClose">✕</button>
-  </div>
-
-  <!-- Auth -->
-  <div class="chat-auth-screen" id="chatAuthScreen">
-    <div class="chat-auth-title">Accès réservé au comité</div>
-    <div class="chat-auth-sub">Saisissez le code administrateur</div>
-    <input class="chat-auth-input" id="chatAuthInput" type="password"
-      placeholder="Code admin" autocomplete="off"/>
-    <button class="chat-auth-btn" id="chatAuthBtn">Accéder →</button>
-    <div class="chat-auth-error" id="chatAuthError">Code invalide.</div>
-  </div>
-
-  <!-- Main -->
-  <div class="chat-main-screen" id="chatMainScreen">
-    <div class="chat-modif-summary" id="chatModifSummary"></div>
-    <div class="chat-messages" id="chatMessages"></div>
-    <div class="chat-typing" id="chatTyping">
-      <span></span><span></span><span></span>
-    </div>
-    <div class="chat-input-row">
-      <textarea class="chat-input" id="chatInput"
-        placeholder="Décrivez la modification souhaitée..." rows="1"></textarea>
-      <button class="chat-send" id="chatSend">
-        <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5">
-          <line x1="22" y1="2" x2="11" y2="13"/><polygon points="22 2 15 22 11 13 2 9 22 2"/>
-        </svg>
-      </button>
-    </div>
-  </div>
-</div>
-
-<script src="./chat.js"></script>
-  
 <body>
 
 <!-- HEADER -->
-<header class="header">
+<div class="header">
   <div class="header-brand">
     <div class="header-flag">
       <div class="flag-top"></div>
       <div class="flag-bottom"></div>
     </div>
-    <div class="header-text">
-      <div class="header-title">Planning Anesthésistes</div>
-      <div class="header-sub">CHPG Monaco · Service d'Anesthésie-Réanimation</div>
+    <div>
+      <div class="header-title">Planning CHPG Monaco</div>
+      <div class="header-sub">Service d'Anesthésie-Réanimation</div>
     </div>
   </div>
   <div class="header-right">
-    <button class="btn-today" id="btnToday">Aujourd'hui</button>
-    <a href="./comite.html" style="font-size:12px;font-weight:600;color:var(--ink-3);text-decoration:none;padding:6px 12px;border:1.5px solid var(--line);border-radius:8px;transition:all .15s" onmouseover="this.style.borderColor='var(--red)';this.style.color='var(--red)'" onmouseout="this.style.borderColor='var(--line)';this.style.color='var(--ink-3)'">Comité →</a>
+    <select id="monthSelect" class="month-select"></select>
   </div>
-</header>
+</div>
+
+<!-- VIEW TOGGLE -->
+<div class="view-toggle-main">
+  <button class="view-main-btn active" id="btnPlanning">📋 Planning</button>
+  <button class="view-main-btn" id="btnMedecins">👥 Médecins</button>
+</div>
 
 <!-- WEEK NAV -->
-<div class="view-toggle-main">
-  <button id="btnPlanning" class="view-main-btn active">Planning</button>
-  <button id="btnMedecins" class="view-main-btn">Médecins</button>
-</div>
-<nav class="week-nav">
-  <span class="nav-label">Mois</span>
-  <select class="month-select" id="monthSelect"></select>
-  <div class="nav-divider"></div>
+<div class="week-nav">
+  <span class="nav-label">Semaine</span>
   <div class="week-pills" id="weekPills"></div>
+  <div class="nav-divider"></div>
+  <button class="btn-today" onclick="goToToday()">Aujourd'hui</button>
   <button class="export-btn" id="exportBtn">
-    <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5">
-      <path d="M21 15v4a2 2 0 01-2 2H5a2 2 0 01-2-2v-4M7 10l5 5 5-5M12 15V3"/>
-    </svg>
-    Exporter Excel
+    <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/><polyline points="7 10 12 15 17 10"/><line x1="12" y1="15" x2="12" y2="3"/></svg>
+    Export Excel
   </button>
-</nav>
-
-<!-- LEGEND -->
-<div class="legend-row">
-  <div class="legend-group">
-    <div class="legend-item"><div class="legend-dot guard"></div> Garde 24h</div>
-    <div class="legend-item"><div class="legend-dot h18"></div> 8h–18h</div>
-    <div class="legend-item"><div class="legend-dot absent"></div> Absent / Congé / Formation</div>
-  </div>
-  <div class="legend-group" style="color:#94A3B8;font-size:11px">
-    AM = matin · PM = après-midi
-  </div>
 </div>
 
-<!-- TABLE -->
+<!-- PLANNING VIEW -->
 <div id="planningView">
   <div class="table-container">
     <table class="planning-table" id="planningTable"></table>
   </div>
-  <div id="bottomSection"></div>
+  <div id="bottomSection" class="bottom-tables"></div>
 </div>
-<div id="medecinsView" style="display:none">
-  <div class="table-container">
-    <table class="planning-table" id="bilanMensuel"></table>
+
+<!-- MÉDECINS VIEW -->
+<div id="medecinsView" style="display:none;padding:20px 32px">
+  <div style="background:var(--white);border:1px solid var(--line);border-radius:var(--radius);overflow:hidden;box-shadow:0 1px 4px rgba(0,0,0,.05);margin-bottom:20px">
+    <div style="padding:10px 16px;background:var(--line-light);border-bottom:1px solid var(--line);font-size:10px;font-weight:700;text-transform:uppercase;letter-spacing:.08em;color:var(--ink-4)">Bilan mensuel</div>
+    <div style="overflow-x:auto"><table id="bilanMensuel"></table></div>
   </div>
-  <div class="table-container" style="margin-top:0">
-    <table class="planning-table" id="bilanAnnuel"></table>
+  <div style="background:var(--white);border:1px solid var(--line);border-radius:var(--radius);overflow:hidden;box-shadow:0 1px 4px rgba(0,0,0,.05)">
+    <div style="padding:10px 16px;background:var(--line-light);border-bottom:1px solid var(--line);font-size:10px;font-weight:700;text-transform:uppercase;letter-spacing:.08em;color:var(--ink-4)">Bilan annuel</div>
+    <div style="overflow-x:auto"><table id="bilanAnnuel"></table></div>
   </div>
 </div>
 
-<script src="./data.js"></script>
-<script src="./rules.js"></script>
-<script src="./app.js"></script>
+<script>
+'use strict';
+
+// ── DONNÉES ────────────────────────────────────────────────────────────
+const DOCTORS = [
+  { id: 'ALBOUY',    name: 'DR ALBOUY',    initials: 'SA'  },
+  { id: 'ARMANDO',   name: 'DR ARMANDO',   initials: 'GA'  },
+  { id: 'BONNET',    name: 'DR BONNET',    initials: 'LB'  },
+  { id: 'BOUREGBA',  name: 'DR BOUREGBA',  initials: 'MB'  },
+  { id: 'CATINEAU',  name: 'DR CATINEAU',  initials: 'JC'  },
+  { id: 'FROHLICH',  name: 'DR FROHLICH',  initials: 'AFR' },
+  { id: 'FERRIERO',  name: 'DR FERRIERO',  initials: 'AF'  },
+  { id: 'GHIGLIONE', name: 'DR GHIGLIONE', initials: 'SG'  },
+  { id: 'GUERIN',    name: 'DR GUERIN',    initials: 'JPG' },
+  { id: 'LEVASSEUR', name: 'DR LEVASSEUR', initials: 'LUL' },
+  { id: 'LEY',       name: 'DR LEY',       initials: 'LL'  },
+  { id: 'MENADE',    name: 'DR MENADE',    initials: 'RM'  },
+  { id: 'OPPRECHT',  name: 'DR OPPRECHT',  initials: 'NO'  },
+  { id: 'PARTOUCHE', name: 'DR PARTOUCHE', initials: 'NP'  },
+  { id: 'ROUSSEAU',  name: 'DR ROUSSEAU',  initials: 'GR'  },
+  { id: 'SALA',      name: 'DR SALA',      initials: 'NS'  },
+  { id: 'SEVERAC',   name: 'DR SEVERAC',   initials: 'MS'  },
+  { id: 'SULTAN',    name: 'DR SULTAN',    initials: 'WS'  },
+  { id: 'SUPLY',     name: 'DR SUPLY',     initials: 'CS'  },
+  { id: 'WIDEHEM',   name: 'DR WIDEHEM',   initials: 'RW'  },
+  { id: 'ZAMARON',   name: 'DR ZAMARON',   initials: 'FZ'  },
+  { id: 'TRAN',      name: 'DR TRAN',      initials: 'DT'  },
+  { id: 'PRUNET',    name: 'PR PRUNET',    initials: 'BP'  },
+  { id: 'ARMAND',    name: 'DR ARMAND',    initials: 'CA', from: '2026-11-01' },
+];
+
+const SECTORS_DEF = [
+  { code:'VIS', label:'Bloc viscéral',              icon:'Activity'    },
+  { code:'REA', label:'Réanimation',                icon:'HeartPulse'  },
+  { code:'ORT', label:'Orthopédie',                 icon:'Bone'        },
+  { code:'DVI', label:'Pose DVI',                   icon:'Syringe'     },
+  { code:'ORL', label:'ORL / Ophtalmologie',        icon:'Eye'         },
+  { code:'END', label:'Endoscopies',                icon:'Microscope'  },
+  { code:'CI',  label:'Cardio interventionnelle',   icon:'Heart'       },
+  { code:'RI',  label:'Radio interventionnelle',    icon:'Scan'        },
+  { code:'MAT', label:'Maternité',                  icon:'Baby'        },
+  { code:'CS',  label:'Consultation',               icon:'Stethoscope' },
+];
+
+const ABSENT_STATUSES = new Set(['RG','CP','A','F','R']);
+
+const API_URL = 'https://script.google.com/macros/s/AKfycbxZavweHP-hbJ0XatEr_PGAyeosJNx69qPl6DFjVaQOoX65vOuiNy5RVqoyhY3Oj3elHQ/exec';
+
+// ── STATE ──────────────────────────────────────────────────────────────
+let DATA = null;
+let currentMonthId = null;
+let currentWeekIdx = 0;
+let currentMainView = 'planning';
+
+// ── UTILS ──────────────────────────────────────────────────────────────
+function esc(s){ return String(s||'').replace(/[&<>'"]/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;',"'":'&#39;','"':'&quot;'}[c])); }
+function isWeekend(wd){ return wd==='S'||wd==='D'; }
+function todayStr(){ const d=new Date(); return `${d.getFullYear()}-${String(d.getMonth()+1).padStart(2,'0')}-${String(d.getDate()).padStart(2,'0')}`; }
+
+function isoWeek(dateStr){
+  const dt=new Date(dateStr);
+  const tmp=new Date(Date.UTC(dt.getFullYear(),dt.getMonth(),dt.getDate()));
+  tmp.setUTCDate(tmp.getUTCDate()+4-(tmp.getUTCDay()||7));
+  const ys=new Date(Date.UTC(tmp.getUTCFullYear(),0,1));
+  return Math.ceil((((tmp-ys)/86400000)+1)/7);
+}
+
+function getWeeksInMonth(month){
+  const weekNums=[...new Set(month.days.map(d=>isoWeek(d.date)))];
+  const weeks=[];
+  weekNums.forEach(wn=>{
+    const refDay=month.days.find(d=>isoWeek(d.date)===wn);
+    if(!refDay) return;
+    const refDate=new Date(refDay.date);
+    const dow=refDate.getDay()||7;
+    const monday=new Date(refDate);
+    monday.setDate(refDate.getDate()-(dow-1));
+    let daysInThisMonth=0, daysInOtherMonths=0;
+    for(let i=0;i<7;i++){
+      const d=new Date(monday); d.setDate(monday.getDate()+i);
+      if(d.getMonth()+1===month.month&&d.getFullYear()===month.year) daysInThisMonth++;
+      else daysInOtherMonths++;
+    }
+    if(daysInThisMonth<=daysInOtherMonths) return;
+    const days=[];
+    for(let i=0;i<7;i++){
+      const d=new Date(monday); d.setDate(monday.getDate()+i);
+      const dateStr=`${d.getFullYear()}-${String(d.getMonth()+1).padStart(2,'0')}-${String(d.getDate()).padStart(2,'0')}`;
+      const found=month.days.find(md=>md.date===dateStr);
+      if(found){
+        days.push({...found, dayIdx:month.days.indexOf(found), sourceMonth:null});
+      } else {
+        const wd=['D','L','M','M','J','V','S'][d.getDay()];
+        const otherMonth=DATA.months.find(m=>m.days.some(md=>md.date===dateStr));
+        if(otherMonth){
+          const otherDay=otherMonth.days.find(md=>md.date===dateStr);
+          days.push({...otherDay, dayIdx:otherMonth.days.indexOf(otherDay), sourceMonth:otherMonth});
+        } else {
+          days.push({day:d.getDate(), weekday:wd, date:dateStr, dayIdx:-1, sourceMonth:null});
+        }
+      }
+    }
+    weeks.push({weekNum:wn, days});
+  });
+  return weeks.sort((a,b)=>a.weekNum-b.weekNum);
+}
+
+function weekDaysFull(weekInfo){
+  const out=Array(7).fill(null);
+  weekInfo.days.forEach(d=>{
+    const dt=new Date(d.date);
+    let dow=dt.getDay(); if(dow===0)dow=6; else dow-=1;
+    out[dow]=d;
+  });
+  return out;
+}
+
+// ── INIT ───────────────────────────────────────────────────────────────
+async function init(){
+  try{
+    let activeYear = 2026;
+    try {
+      const params = new URLSearchParams({payload: JSON.stringify({action:'getActiveYear'})});
+      const yearRes = await fetch(API_URL + '?' + params.toString());
+      const yearData = await yearRes.json();
+      if(yearData.success && yearData.year) activeYear = yearData.year;
+    } catch(e){}
+    DATA = await fetch(`./planning_${activeYear}.json?` + Date.now()).then(r=>r.json());
+  } catch(e){
+    document.body.innerHTML=`<div style="padding:40px;font-family:sans-serif;color:#CE1126"><h2>Erreur de chargement</h2><pre>${esc(e.message)}</pre></div>`;
+    return;
+  }
+  const now=new Date();
+  const found=DATA.months.find(m=>m.year===now.getFullYear()&&m.month===now.getMonth()+1);
+  currentMonthId=found?found.id:DATA.months[0].id;
+  buildMonthSelect();
+  buildWeekNav();
+  document.getElementById('exportBtn').onclick=exportExcel;
+  document.getElementById('btnPlanning').onclick=()=>setMainView('planning');
+  document.getElementById('btnMedecins').onclick=()=>setMainView('medecins');
+  render();
+}
+
+function goToToday(){
+  const now=new Date();
+  const found=DATA.months.find(m=>m.year===now.getFullYear()&&m.month===now.getMonth()+1);
+  if(!found) return;
+  currentMonthId=found.id;
+  currentWeekIdx=0;
+  window._weekInitialized=false;
+  buildMonthSelect();
+  buildWeekNav();
+  render();
+}
+
+// ── VIEW TOGGLE ────────────────────────────────────────────────────────
+function setMainView(v){
+  currentMainView=v;
+  document.getElementById('btnPlanning').classList.toggle('active',v==='planning');
+  document.getElementById('btnMedecins').classList.toggle('active',v==='medecins');
+  document.getElementById('planningView').style.display=v==='planning'?'':'none';
+  document.getElementById('medecinsView').style.display=v==='medecins'?'':'none';
+  document.getElementById('exportBtn').style.display=v==='planning'?'':'none';
+  if(v==='medecins') renderMedecins();
+}
+
+// ── MONTH SELECT ───────────────────────────────────────────────────────
+function buildMonthSelect(){
+  const sel=document.getElementById('monthSelect');
+  sel.innerHTML='';
+  DATA.months.forEach(m=>{
+    const opt=document.createElement('option');
+    opt.value=m.id; opt.textContent=m.label;
+    if(m.id===currentMonthId) opt.selected=true;
+    sel.appendChild(opt);
+  });
+  sel.onchange=()=>{
+    currentMonthId=sel.value;
+    currentWeekIdx=0;
+    window._weekInitialized=false;
+    buildWeekNav();
+    render();
+    if(currentMainView==='medecins') renderMedecins();
+  };
+}
+
+// ── WEEK NAV ───────────────────────────────────────────────────────────
+function buildWeekNav(){
+  const month=DATA.months.find(m=>m.id===currentMonthId);
+  const weeks=getWeeksInMonth(month);
+  const today=todayStr();
+  if(currentWeekIdx===0&&!window._weekInitialized){
+    const todayWk=weeks.findIndex(w=>w.days.some(d=>d.date===today));
+    if(todayWk>=0) currentWeekIdx=todayWk;
+    window._weekInitialized=true;
+  }
+  const container=document.getElementById('weekPills');
+  container.innerHTML='';
+  weeks.forEach((w,i)=>{
+    const first=new Date(w.days[0].date);
+    const last=new Date(w.days[w.days.length-1].date);
+    const fmt=dt=>dt.toLocaleDateString('fr-FR',{day:'2-digit',month:'2-digit'});
+    const btn=document.createElement('button');
+    btn.className='week-pill'+(i===currentWeekIdx?' active':'');
+    btn.textContent=`S${w.weekNum} · ${fmt(first)}–${fmt(last)}`;
+    btn.onclick=()=>{ currentWeekIdx=i; buildWeekNav(); render(); };
+    container.appendChild(btn);
+  });
+}
+
+// ── MAIN RENDER ────────────────────────────────────────────────────────
+function render(){
+  const month=DATA.months.find(m=>m.id===currentMonthId);
+  const weeks=getWeeksInMonth(month);
+  const week=weeks[currentWeekIdx];
+  if(!week) return;
+  const daySlots=weekDaysFull(week);
+  renderTable(month,daySlots,week);
+  renderBottom(month,daySlots,week);
+  requestAnimationFrame(()=>{ if(typeof lucide!=='undefined') lucide.createIcons(); });
+}
+
+// ── TABLE ──────────────────────────────────────────────────────────────
+const DAYS_FR = ['LUNDI','MARDI','MERCREDI','JEUDI','VENDREDI','SAMEDI','DIMANCHE'];
+
+function renderTable(month,daySlots,week){
+  const today=todayStr();
+  let thead=`<thead><tr><th class="th-sector">SECTEUR</th>`;
+  daySlots.forEach((slot,i)=>{
+    if(!slot){ thead+=`<th class="th-day weekend"></th>`; return; }
+    const isWe=isWeekend(slot.weekday);
+    const isFerie=slot.isFerie||false;
+    const isTd=slot.date===today;
+    const cls=['th-day',(isWe||isFerie)?'weekend':'',isTd?'today':''].filter(Boolean).join(' ');
+    thead+=`<th class="${cls}">
+      <div class="day-name">${DAYS_FR[i]}</div>
+      <div class="day-date">${slot.day}${isFerie?' <span style="font-size:8px;color:#C2410C;font-weight:700">JF</span>':''}</div>
+      <div class="am-pm-labels">
+        <div class="am-pm-label">AM</div>
+        <div class="am-pm-label pm">PM</div>
+      </div>
+    </th>`;
+  });
+  thead+=`</tr></thead>`;
+
+  const smap={};
+  SECTORS_DEF.forEach(s=>{ smap[s.code]=Array(7).fill(null).map(()=>({am:[],pm:[]})); });
+
+  month.doctors.forEach(doc=>{
+    daySlots.forEach((slot,dow)=>{
+      if(!slot) return;
+      let entry={};
+      if(slot.dayIdx>=0){
+        if(slot.sourceMonth){
+          const otherDoc=slot.sourceMonth.doctors.find(d=>d.id===doc.id);
+          entry=otherDoc?(otherDoc.days[slot.dayIdx]||{}):{};
+        } else {
+          entry=doc.days[slot.dayIdx]||{};
+        }
+      }
+      if(entry.status && ABSENT_STATUSES.has(entry.status)) return;
+      const mKey=entry.morning&&entry.morning.startsWith('CS-')?'CS':entry.morning;
+      const pKey=entry.afternoon&&entry.afternoon.startsWith('CS-')?'CS':entry.afternoon;
+      const status=entry.status||'';
+      if(mKey&&smap[mKey]) smap[mKey][dow].am.push({init:doc.initials,status,sector:entry.morning});
+      if(pKey&&smap[pKey]) smap[pKey][dow].pm.push({init:doc.initials,status,sector:entry.afternoon});
+      if(entry.cs&&smap['CS']) smap['CS'][dow].am.push({init:doc.initials,status,sector:entry.cs});
+      if(entry.cs2&&smap[entry.cs2]) smap[entry.cs2][dow].am.push({init:doc.initials,status,sector:entry.cs2});
+      if(entry.cs3&&smap[entry.cs3]) smap[entry.cs3][dow].pm.push({init:doc.initials,status,sector:entry.cs3});
+    });
+  });
+
+  const active=SECTORS_DEF.filter(s=>smap[s.code].some(d=>d.am.length||d.pm.length));
+  let tbody='<tbody>';
+  active.forEach(s=>{
+    tbody+=`<tr class="sector-row"><td class="td-sector">
+      <div class="sector-label">
+        <i data-lucide="${esc(s.icon)}" class="sector-icon-svg"></i>
+        <span class="sector-name-text">${esc(s.label)}</span>
+      </div></td>`;
+    daySlots.forEach((slot,dow)=>{
+      const isWe=slot?isWeekend(slot.weekday):true;
+      const isTd=slot?slot.date===today:false;
+      const cls=['td-day',isWe?'weekend':'',isTd?'today':''].filter(Boolean).join(' ');
+      tbody+=`<td class="${cls}">`;
+      if(!slot||(!smap[s.code][dow].am.length&&!smap[s.code][dow].pm.length)){
+        tbody+=`<div class="slot-pair"><div class="slot"><span class="slot-dash">—</span></div><div class="slot"><span class="slot-dash">—</span></div></div>`;
+      } else if(isWe){
+        const names=smap[s.code][dow].am;
+        const chips=names.map(p=>{
+          const c=(p.status==='G'||p.status==='G2')?'slot-name chip-guard':'slot-name';
+          return `<span class="${c}">${p.init||''}</span>`;
+        });
+        tbody+=`<div class="slot-pair" style="display:flex;align-items:center;justify-content:center;gap:4px;height:100%">${chips.join('')}</div>`;
+      } else {
+        const amNames=smap[s.code][dow].am;
+        const pmNames=smap[s.code][dow].pm;
+        const makeChips=arr=>{ const chips=arr.map(p=>{const c=(p.status==='G'||p.status==='G2')?'slot-name chip-guard':p.status==='18'?'slot-name chip-h18':'slot-name';return `<span class="${c}">${p.init||''}</span>`;});if(chips.length%2!==0)chips.push('<span class="slot-name-spacer"></span>');return chips.join('');};
+        tbody+=`<div class="slot-pair">
+          <div class="slot">${amNames.length?makeChips(amNames):'<span class="slot-dash">—</span>'}</div>
+          <div class="slot">${pmNames.length?makeChips(pmNames):'<span class="slot-dash">—</span>'}</div>
+        </div>`;
+      }
+      tbody+=`</td>`;
+    });
+    tbody+=`</tr>`;
+  });
+  tbody+='</tbody>';
+  document.getElementById('planningTable').innerHTML=thead+tbody;
+}
+
+// ── BOTTOM ─────────────────────────────────────────────────────────────
+function renderBottom(month,daySlots,week){
+  const guards=Array(7).fill(null).map(()=>[]);
+  const h18=Array(7).fill('');
+  const sorties=Array(7).fill(null).map(()=>[]);
+  const absents=Array(7).fill(null).map(()=>[]);
+  month.doctors.forEach(doc=>{
+    daySlots.forEach((slot,dow)=>{
+      if(!slot) return;
+      let entry={};
+      if(slot.dayIdx>=0){
+        if(slot.sourceMonth){
+          const otherDoc=slot.sourceMonth.doctors.find(d=>d.id===doc.id);
+          entry=otherDoc?(otherDoc.days[slot.dayIdx]||{}):{};
+        } else { entry=doc.days[slot.dayIdx]||{}; }
+      }
+      const st=entry.status||'';
+      if(st==='G'||st==='G2') guards[dow].push(doc.initials);
+      if(st==='18') h18[dow]=doc.initials;
+      if(st==='RG') sorties[dow].push(doc.initials);
+      if(['A','CP','F','R','I','E'].includes(st)) absents[dow].push({init:doc.initials,reason:st});
+    });
+  });
+
+  function buildRow(label,cellsFn){
+    let row=`<tr><td class="bt-label">${label}</td>`;
+    daySlots.forEach((slot,dow)=>{
+      const isWe=slot?isWeekend(slot.weekday):true;
+      row+=`<td class="bt-cell${isWe?' weekend':''}">${slot?cellsFn(dow):''}</td>`;
+    });
+    return row+'</tr>';
+  }
+
+  let html=`<div class="bt-card">
+    <div class="bt-card-header">Gardes &amp; fonctions</div>
+    <div class="bt-scroll"><table class="bt-table"><tbody>`;
+  html+=buildRow('Garde 24h',dow=>guards[dow].length?guards[dow].map(i=>`<span class="name-tag guard">${i}</span>`).join(''):'<span class="bt-dash">—</span>');
+  html+=buildRow('8h – 18h',dow=>h18[dow]?`<span class="name-tag h18">${h18[dow]}</span>`:'<span class="bt-dash">—</span>');
+  html+=buildRow('Sortie de garde',dow=>sorties[dow].length?sorties[dow].map(i=>`<span class="name-tag rg">${i}</span>`).join(''):'<span class="bt-dash">—</span>');
+  html+=buildRow('Absences / CP / F',dow=>{
+    if(!absents[dow].length) return '<span class="bt-dash">—</span>';
+    return absents[dow].map(a=>`<span class="name-tag absent" title="${a.reason}">${a.init}</span>`).join('');
+  });
+  html+=`</tbody></table></div></div>`;
+  document.getElementById('bottomSection').innerHTML=html;
+}
+
+// ── VUE MÉDECINS ───────────────────────────────────────────────────────
+function renderMedecins(){
+  renderBilanMensuel();
+  renderBilanAnnuel();
+}
+
+function renderBilanMensuel(){
+  const month=DATA.months.find(m=>m.id===currentMonthId);
+  let html=`<thead><tr>
+    <th class="col-name">Médecin</th><th class="col-sector">Secteur</th>
+    <th title="Gardes 24h">G</th><th title="Journées 8h-18h">18h</th>
+    <th title="Repos de garde">RG</th><th title="Absence">A</th>
+    <th title="Congés payés">CP</th><th title="Formation">F</th>
+    <th title="Récup samedi">R</th><th title="Jours travaillés">Présents</th>
+  </tr></thead><tbody>`;
+  month.doctors.forEach(doc=>{
+    const counts={G:0,'18':0,RG:0,A:0,CP:0,F:0,R:0};
+    let presents=0;
+    month.days.forEach((day,i)=>{
+      const entry=doc.days[i]||{};
+      const st=entry.status||'';
+      if(counts[st]!==undefined) counts[st]++;
+      const isWe=isWeekend(day.weekday);
+      if(isWe){ if(st==='G') presents++; }
+      else { if(!['RG','A','CP','F','R'].includes(st)) presents++; }
+    });
+    const sectorCounts={};
+    doc.days.forEach(entry=>{
+      const s=entry.morning&&!entry.morning.startsWith('CS-')?entry.morning:null;
+      if(s) sectorCounts[s]=(sectorCounts[s]||0)+1;
+    });
+    const sector=Object.entries(sectorCounts).sort((a,b)=>b[1]-a[1])[0]?.[0]||'VOLANT';
+    const name=(doc.id==='PRUNET'?'PR ':'DR ')+doc.id.charAt(0)+doc.id.slice(1).toLowerCase();
+    html+=`<tr>
+      <td class="col-name">${esc(name)}</td>
+      <td class="col-sector">${esc(sector)}</td>
+      <td class="${counts.G?'val-g':'val-zero'}">${counts.G||'—'}</td>
+      <td class="${counts['18']?'val-18':'val-zero'}">${counts['18']||'—'}</td>
+      <td class="${counts.RG?'val-absent':'val-zero'}">${counts.RG||'—'}</td>
+      <td class="${counts.A?'val-absent':'val-zero'}">${counts.A||'—'}</td>
+      <td class="${counts.CP?'val-absent':'val-zero'}">${counts.CP||'—'}</td>
+      <td class="${counts.F?'val-absent':'val-zero'}">${counts.F||'—'}</td>
+      <td class="${counts.R?'val-absent':'val-zero'}">${counts.R||'—'}</td>
+      <td><strong>${presents}</strong></td>
+    </tr>`;
+  });
+  html+='</tbody>';
+  document.getElementById('bilanMensuel').className='bilan-table';
+  document.getElementById('bilanMensuel').innerHTML=html;
+}
+
+function renderBilanAnnuel(){
+  const totals={};
+  DATA.months.forEach(month=>{
+    month.doctors.forEach(doc=>{
+      if(!totals[doc.id]) totals[doc.id]={G:0,'18':0,RG:0,A:0,CP:0,F:0,R:0,presents:0,initials:doc.initials};
+      month.days.forEach((day,i)=>{
+        const entry=doc.days[i]||{};
+        const st=entry.status||'';
+        if(totals[doc.id][st]!==undefined) totals[doc.id][st]++;
+        const isWe=isWeekend(day.weekday);
+        if(isWe){ if(st==='G') totals[doc.id].presents++; }
+        else { if(!['RG','A','CP','F','R'].includes(st)) totals[doc.id].presents++; }
+      });
+    });
+  });
+  let html=`<thead><tr>
+    <th class="col-name">Médecin</th>
+    <th>G</th><th>18h</th><th>RG</th><th>A</th><th>CP</th><th>F</th><th>R</th><th>Présents</th>
+  </tr></thead><tbody>`;
+  Object.entries(totals).forEach(([id,counts])=>{
+    const name=(id==='PRUNET'?'PR ':'DR ')+id.charAt(0)+id.slice(1).toLowerCase();
+    html+=`<tr>
+      <td class="col-name">${esc(name)}</td>
+      <td class="${counts.G?'val-g':'val-zero'}">${counts.G||'—'}</td>
+      <td class="${counts['18']?'val-18':'val-zero'}">${counts['18']||'—'}</td>
+      <td class="${counts.RG?'val-absent':'val-zero'}">${counts.RG||'—'}</td>
+      <td class="${counts.A?'val-absent':'val-zero'}">${counts.A||'—'}</td>
+      <td class="${counts.CP?'val-absent':'val-zero'}">${counts.CP||'—'}</td>
+      <td class="${counts.F?'val-absent':'val-zero'}">${counts.F||'—'}</td>
+      <td class="${counts.R?'val-absent':'val-zero'}">${counts.R||'—'}</td>
+      <td><strong>${counts.presents}</strong></td>
+    </tr>`;
+  });
+  html+='</tbody>';
+  document.getElementById('bilanAnnuel').className='bilan-table';
+  document.getElementById('bilanAnnuel').innerHTML=html;
+}
+
+// ── EXPORT EXCEL ───────────────────────────────────────────────────────
+async function exportExcel(){
+  if(typeof ExcelJS==='undefined'){ alert('ExcelJS non chargé'); return; }
+  const month=DATA.months.find(m=>m.id===currentMonthId);
+  const weeks=getWeeksInMonth(month);
+  const week=weeks[currentWeekIdx];
+  const daySlots=weekDaysFull(week);
+
+  const DOCTORS_INFO=[
+    ['PR PRUNET','BP','81409'],['DR ALBOUY','SA','85019'],['DR ARMANDO','GA','81867'],
+    ['DR BONNET','LB','81322'],['DR BOUREGBA','MB','81859'],['DR CATINEAU','JC','81268'],
+    ['DR FROHLICH','AFR','82616'],['DR FERRIERO','AF','82565'],['DR GHIGLIONE','SG','81809'],
+    ['DR GUERIN','JPG','82022'],['DR LEVASSEUR','LUL','82558'],['DR LEY','LL','82132'],
+    ['DR MENADE','RM','81378'],['DR OPPRECHT','NO','82188'],['DR PARTOUCHE','NP','81806'],
+    ['DR ROUSSEAU','GR','81860'],['DR SUPLY','CS','82578'],['DR SEVERAC','MS','82401'],
+    ['DR SULTAN','WS','81348'],['DR TRAN','DT','83783'],['DR ZAMARON','FZ','82481'],
+    ['DR WIDEHEM','RW','82101'],['DR SALA','NS','81397'],
+  ];
+  const SPECIAL_DECT=[
+    ['Garde réa','83636'],['Garde bloc/mater','82103'],
+    ['Secrétariat Tamaris','81380'],['Secrétariat réa','89819'],
+  ];
+  const SECTOR_COLORS_XL={VIS:'DDEEFF',REA:'E8E0F0',ORT:'F3AA7D',DVI:'F3AA7D',ORL:'FFFFC9',END:'FFFFFF',CI:'E7E6E6',RI:'E7E6E6',MAT:'FFA7A9',CS:'D9EAD3'};
+  const SECTOR_LABELS_XL={VIS:'VISCÉRAL',REA:'RÉANIMATION',ORT:'ORTHOPÉDIE',DVI:'POSE DVI',ORL:'ORL / OPHTALMO',END:'ENDOSCOPIES',CI:'CARDIO / RADIO INTER.',RI:'RADIO INTER.',MAT:'MATERNITÉ',CS:'CONSULTATIONS'};
+  const SECTORS_XL=['VIS','REA','ORT','DVI','ORL','END','CI','RI','MAT','CS'];
+  const DAYS_FR_XL=['LUNDI','MARDI','MERCREDI','JEUDI','VENDREDI','SAMEDI','DIMANCHE'];
+  const C={red:'CE1126',redDark:'9A0D1C',greyHd:'D9D9D9',greyLt:'F2F2F2',we:'EFEFEF',white:'FFFFFF',ink:'000000',muted:'595959',guard:'FFE0E0',guardFg:'B91C1C',h18:'FFF2CC',h18Fg:'B45309',rg:'E2EFDA',rgFg:'166534',abs:'F2F2F2',absFg:'595959',dark:'1A1A2E'};
+
+  const smap={};
+  SECTORS_XL.forEach(s=>{ smap[s]=Array(7).fill(null).map(()=>({am:[],pm:[]})); });
+  const guards=Array(7).fill(null).map(()=>[]);
+  const h18=Array(7).fill('');
+  const sorties=Array(7).fill(null).map(()=>[]);
+  const absents=Array(7).fill(null).map(()=>[]);
+
+  month.doctors.forEach(doc=>{
+    let init=doc.initials;
+    daySlots.forEach((slot,dow)=>{
+      if(!slot) return;
+      const entry=doc.days[slot.dayIdx]||{};
+      const st=entry.status||'';
+      const am=entry.morning||'';
+      const pm=entry.afternoon||'';
+      if(st==='G') guards[dow].push(init);
+      if(st==='18') h18[dow]=init;
+      if(st==='RG') sorties[dow].push(init);
+      if(['A','CP','F','R','I','E'].includes(st)) absents[dow].push(init);
+      if(ABSENT_STATUSES.has(st)) return;
+      const amKey=am.startsWith('CS-')?'CS':am;
+      const pmKey=pm.startsWith('CS-')?'CS':pm;
+      const amSub=am.includes('-')?am.split('-')[1]:'';
+      const pmSub=pm.includes('-')?pm.split('-')[1]:'';
+      if(amKey&&smap[amKey]) smap[amKey][dow].am.push({init,sub:amSub,status:st});
+      if(pmKey&&smap[pmKey]) smap[pmKey][dow].pm.push({init,sub:pmSub,status:st});
+      const cs=entry.cs||'';
+      if(cs&&smap['CS']){ const csSub=cs.includes('-')?cs.split('-')[1]:''; smap['CS'][dow].am.push({init,sub:csSub,status:st}); }
+      const cs2=entry.cs2||''; if(cs2&&smap[cs2]) smap[cs2][dow].am.push({init,sub:'',status:st});
+      const cs3=entry.cs3||''; if(cs3&&smap[cs3]) smap[cs3][dow].pm.push({init,sub:'',status:st});
+    });
+  });
+
+  const colStart=dow=>dow<5?2+dow*4:22+(dow-5)*2;
+  const wb=new ExcelJS.Workbook();
+  const ws=wb.addWorksheet(`Semaine ${week.weekNum}`,{pageSetup:{orientation:'landscape',paperSize:9,fitToPage:true,fitToWidth:1}});
+  ws.views=[{showGridLines:false}];
+  ws.getColumn(1).width=20;
+  for(let dow=0;dow<5;dow++){ const cs=colStart(dow); for(let ci=0;ci<4;ci++) ws.getColumn(cs+ci).width=6.5; }
+  for(let dow=5;dow<7;dow++){ const cs=colStart(dow); ws.getColumn(cs).width=6.5; ws.getColumn(cs+1).width=6.5; }
+  ws.getColumn(26).width=2; ws.getColumn(27).width=20; ws.getColumn(28).width=8; ws.getColumn(29).width=9;
+
+  const thin={style:'thin',color:{argb:'FFCCCCCC'}};
+  const thick={style:'medium',color:{argb:'FF888888'}};
+  const bAll={top:thin,bottom:thin,left:thin,right:thin};
+  const bThick={top:thin,bottom:thin,left:thick,right:thin};
+  const fill=hex=>({type:'pattern',pattern:'solid',fgColor:{argb:'FF'+hex}});
+  const font=(bold,sz,hex)=>({name:'Arial',bold,size:sz,color:{argb:'FF'+hex}});
+  const align=(h,v,wrap)=>({horizontal:h,vertical:v,wrapText:!!wrap});
+  function setCell(ws,r,c,val,f,fi,al,bo){ const cell=ws.getCell(r,c); if(val!==undefined)cell.value=val; if(f)cell.font=f; if(fi)cell.fill=fi; if(al)cell.alignment=al; if(bo)cell.border=bo; return cell; }
+  function merge(ws,r1,c1,r2,c2){ ws.mergeCells(r1,c1,r2,c2); }
+
+  let row=1;
+  const firstSlot=daySlots.find(s=>s);
+  const lastSlot=[...daySlots].reverse().find(s=>s);
+  const fmtD=ds=>new Date(ds).toLocaleDateString('fr-FR',{day:'2-digit',month:'2-digit',year:'numeric'});
+  const title=`PLANNING ANESTHÉSISTES — Semaine ${week.weekNum} — ${fmtD(firstSlot.date)} au ${fmtD(lastSlot.date)}`;
+  merge(ws,row,1,row,25); setCell(ws,row,1,title,font(true,13,'FFFFFF'),fill(C.red),align('center','middle')); ws.getRow(row).height=26; row++;
+  merge(ws,row,1,row,25); setCell(ws,row,1,"CHPG Monaco · Service d'Anesthésie-Réanimation",font(false,9,'FFFFFF'),fill(C.redDark),align('center','middle')); ws.getRow(row).height=14; row++;
+  ws.getRow(row).height=5; row++;
+
+  ws.getRow(row).height=18;
+  setCell(ws,row,1,'SECTEUR',font(true,9,C.muted),fill(C.greyHd),align('center','middle'),bAll);
+  for(let dow=0;dow<7;dow++){ const cs=colStart(dow);const isWe=dow>=5;const n=isWe?2:4; merge(ws,row,cs,row,cs+n-1); setCell(ws,row,cs,DAYS_FR_XL[dow],font(true,10,isWe?C.muted:C.ink),fill(isWe?C.we:C.greyHd),align('center','middle'),bAll); }
+  row++;
+
+  ws.getRow(row).height=14;
+  setCell(ws,row,1,'',null,fill(C.greyHd),null,bAll);
+  for(let dow=0;dow<7;dow++){ const cs=colStart(dow);const isWe=dow>=5;const n=isWe?2:4; merge(ws,row,cs,row,cs+n-1); const slot=daySlots[dow]; const dt=slot?new Date(slot.date):null; const dateStr=dt?dt.toLocaleDateString('fr-FR',{day:'2-digit',month:'2-digit'}):''; setCell(ws,row,cs,dateStr,font(false,9,isWe?C.muted:C.ink),fill(isWe?C.we:C.greyHd),align('center','middle'),bAll); }
+  row++;
+
+  ws.getRow(row).height=16;
+  setCell(ws,row,1,'',null,fill(C.greyHd),null,bAll);
+  for(let dow=0;dow<7;dow++){ const cs=colStart(dow);const isWe=dow>=5; if(isWe){ merge(ws,row,cs,row,cs+1); setCell(ws,row,cs,'GARDE 24H',font(true,7,'AAAAAA'),fill(C.we),align('center','middle'),bAll); } else { merge(ws,row,cs,row,cs+1); setCell(ws,row,cs,'AM',font(true,8,'FFFFFF'),fill(C.red),align('center','middle'),bAll); merge(ws,row,cs+2,row,cs+3); setCell(ws,row,cs+2,'PM',font(true,8,'FFFFFF'),fill('374151'),align('center','middle'),bAll); } }
+  row++;
+
+  const active=SECTORS_XL.filter(s=>smap[s].some(d=>d.am.length||d.pm.length));
+  const getCsBg=(n,def)=>n.sub?SECTOR_COLORS_XL[n.sub]||def:def;
+  active.forEach(sec=>{
+    const secBg=SECTOR_COLORS_XL[sec]||'FFFFFF';
+    let maxRows=1;
+    for(let dow=0;dow<7;dow++){ const am=smap[sec][dow].am.slice(0,4);const pm=smap[sec][dow].pm.slice(0,4); if(dow<5) maxRows=Math.max(maxRows,Math.max(am.length?Math.ceil(am.length/2):1,pm.length?Math.ceil(pm.length/2):1)); else maxRows=Math.max(maxRows,am.length?Math.ceil(am.length/2):1); }
+    for(let ro=0;ro<maxRows;ro++) ws.getRow(row+ro).height=16;
+    if(maxRows>1) merge(ws,row,1,row+maxRows-1,1);
+    setCell(ws,row,1,SECTOR_LABELS_XL[sec]||sec,font(true,9,C.ink),fill(secBg),align('left','middle'),bThick);
+    for(let dow=0;dow<7;dow++){
+      const cs=colStart(dow);const isWe=dow>=5;const bg=isWe?C.we:secBg;
+      if(isWe){ const names=smap[sec][dow].am; merge(ws,row,cs,row+maxRows-1,cs+1); setCell(ws,row,cs,names[0]?names[0].init:'—',font(!!names[0],10,names[0]?C.ink:C.muted),fill(bg),align('center','middle'),bAll); }
+      else {
+        const amN=smap[sec][dow].am.slice(0,4);const pmN=smap[sec][dow].pm.slice(0,4);
+        const amP=[];for(let i=0;i<amN.length;i+=2)amP.push(amN.slice(i,i+2));
+        const pmP=[];for(let i=0;i<pmN.length;i+=2)pmP.push(pmN.slice(i,i+2));
+        if(!amP.length)amP.push([]);if(!pmP.length)pmP.push([]);
+        for(let pi=0;pi<maxRows;pi++){
+          const ap=amP[pi]||[];for(let ni=0;ni<2;ni++){const n=ap[ni];const cbg=n?getCsBg(n,bg):bg;setCell(ws,row+pi,cs+ni,n?n.init:'',font(!!n,9,C.ink),fill(cbg),align('center','middle'),bAll);}
+          const pp=pmP[pi]||[];for(let ni=0;ni<2;ni++){const n=pp[ni];const cbg=n?getCsBg(n,bg):bg;setCell(ws,row+pi,cs+2+ni,n?n.init:'',font(!!n,9,C.ink),fill(cbg),align('center','middle'),bAll);}
+        }
+      }
+    }
+    row+=maxRows;
+  });
+
+  ws.getRow(row).height=6; merge(ws,row,1,row,25); ws.getCell(row,1).fill=fill(C.greyLt); row++;
+  merge(ws,row,1,row,25); setCell(ws,row,1,'GARDES & FONCTIONS',font(true,9,C.muted),fill(C.greyHd),align('left','middle')); ws.getRow(row).height=14; row++;
+
+  function gardeRow(label,vals,bgV,fgV){
+    ws.getRow(row).height=20;
+    setCell(ws,row,1,label,font(true,9,C.ink),fill(C.greyLt),align('left','middle'),bAll);
+    for(let dow=0;dow<7;dow++){ const cs=colStart(dow);const isWe=dow>=5;const n=isWe?2:4; merge(ws,row,cs,row,cs+n-1); const v=vals[dow]||''; setCell(ws,row,cs,v||'—',font(!!v,9,v?fgV:C.muted),fill(isWe&&!v?C.we:v?bgV:'FFFFFF'),align('center','middle',true),bAll); }
+  }
+  gardeRow('Garde 24h',guards.map(g=>g.join(' / ')),C.guard,C.guardFg); row++;
+  gardeRow('8h – 18h',h18,C.h18,C.h18Fg); row++;
+  gardeRow('Sortie de garde',sorties.map(s=>s.join(' / ')),C.rg,C.rgFg); row++;
+  const maxAbsLines=Math.max(...absents.map(a=>Math.ceil(a.length/4)||1));
+  for(let li=0;li<maxAbsLines;li++){
+    ws.getRow(row).height=18;
+    setCell(ws,row,1,li===0?'Absences / CP / F':'',font(true,9,C.ink),fill(C.greyLt),align('left','middle'),bAll);
+    for(let dow=0;dow<7;dow++){ const cs=colStart(dow);const isWe=dow>=5;const n=isWe?2:4; merge(ws,row,cs,row,cs+n-1); const slice=absents[dow].slice(li*4,(li+1)*4); const v=slice.join('  ·  '); setCell(ws,row,cs,v||'',font(!!v,9,v?C.absFg:C.muted),fill(isWe&&!v?C.we:v?C.abs:'FFFFFF'),align('center','middle'),bAll); }
+    row++;
+  }
+
+  merge(ws,row,1,row,25); setCell(ws,row,1,`Généré le ${new Date().toLocaleDateString('fr-FR')}  ·  CHPG Monaco · Anesthésie-Réanimation  ·  Confidentiel`,font(false,7,'999999'),fill(C.dark),align('center','middle')); ws.getRow(row).height=12;
+
+  merge(ws,1,27,1,29); setCell(ws,1,27,'ANESTHÉSISTES & N° DECT',font(true,10,'FFFFFF'),fill(C.red),align('center','middle',true));
+  ws.getRow(2).height=8; for(let c=27;c<=29;c++) ws.getCell(2,c).fill=fill(C.red);
+  ws.getRow(3).height=18;
+  for(const [col,lbl,h] of [[27,'NOM','left'],[28,'INIT.','center'],[29,'DECT','center']]){ setCell(ws,3,col,lbl,font(true,9,'FFFFFF'),fill('374151'),align(h,'middle'),bAll); }
+  let r2=4;
+  for(const [name,init,dect] of DOCTORS_INFO){ ws.getRow(r2).height=13; setCell(ws,r2,27,name,font(false,9,C.ink),null,align('left','middle'),bAll); setCell(ws,r2,28,init,font(false,9,C.ink),null,align('center','middle'),bAll); setCell(ws,r2,29,dect,font(false,9,C.ink),null,align('center','middle'),bAll); r2++; }
+  ws.getRow(r2).height=6; r2++;
+  for(const [lbl,dect] of SPECIAL_DECT){ ws.getRow(r2).height=13; merge(ws,r2,27,r2,28); setCell(ws,r2,27,lbl,font(true,8,C.muted),fill(C.greyLt),align('left','middle'),bAll); setCell(ws,r2,29,dect,font(false,8,C.ink),null,align('center','middle'),bAll); r2++; }
+
+  const buf=await wb.xlsx.writeBuffer();
+  const blob=new Blob([buf],{type:'application/vnd.openxmlformats-officedocument.spreadsheetml.sheet'});
+  const url=URL.createObjectURL(blob);
+  const a=document.createElement('a');
+  a.href=url; a.download=`Planning_S${week.weekNum}_CHPG.xlsx`; a.click();
+  URL.revokeObjectURL(url);
+}
+
+init();
+</script>
 </body>
 </html>
