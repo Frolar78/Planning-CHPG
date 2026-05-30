@@ -10906,8 +10906,8 @@
             },
             {
               "status": "",
-              "morning": "END",
-              "afternoon": "END",
+              "morning": "VIS",
+              "afternoon": "VIS",
               "cs": ""
             },
             {
