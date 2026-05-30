@@ -381,6 +381,36 @@ body {
 .label-r   { color: #166534; }
 .label-a   { color: var(--ink-4); }
   
+/* ── OVERRIDES BANDEAU + LISTE ── */
+.ov-banner {
+  display: grid; grid-template-columns: repeat(3, 1fr); gap: 12px;
+  margin-bottom: 20px;
+}
+.ov-banner-card {
+  background: var(--white); border: 1px solid var(--line);
+  border-radius: 10px; padding: 14px 16px; text-align: center;
+}
+.ov-banner-num { font-size: 28px; font-weight: 700; color: var(--ink); }
+.ov-banner-num.red { color: var(--red); }
+.ov-banner-num.orange { color: var(--orange); }
+.ov-banner-label { font-size: 11px; color: var(--ink-4); margin-top: 3px; }
+.ov-future-table { width: 100%; border-collapse: collapse; font-size: 12px; }
+.ov-future-table th {
+  background: var(--line-light); padding: 8px 10px; text-align: left;
+  font-size: 10px; font-weight: 700; text-transform: uppercase;
+  letter-spacing: .06em; color: var(--ink-4); border-bottom: 1px solid var(--line);
+}
+.ov-future-table td {
+  padding: 7px 10px; border-bottom: 1px solid var(--line); vertical-align: middle;
+}
+.ov-future-table tr:last-child td { border-bottom: none; }
+.btn-cancel {
+  background: #FFF1F2; color: var(--red); border: 1px solid #FECDD3;
+  border-radius: 6px; padding: 4px 10px; font-size: 11px; font-weight: 600;
+  font-family: 'DM Sans', sans-serif; cursor: pointer; transition: all .15s;
+}
+.btn-cancel:hover { background: #FFE4E6; }
+
 @media (max-width: 900px) {
   .main { padding: 16px; }
   .nav-tabs { padding: 0 16px; }
@@ -711,6 +741,23 @@ body {
         Appliquer une modification au planning — republication automatique
       </div>
     </div>
+    <button class="btn-primary" onclick="loadOverridesBanner()">↻ Actualiser</button>
+  </div>
+
+  <!-- Bandeau compteurs -->
+  <div class="ov-banner" id="ovBanner">
+    <div class="ov-banner-card">
+      <div class="ov-banner-num" id="ovTotal">—</div>
+      <div class="ov-banner-label">Total overrides année</div>
+    </div>
+    <div class="ov-banner-card">
+      <div class="ov-banner-num orange" id="ovPassed">—</div>
+      <div class="ov-banner-label">Passées</div>
+    </div>
+    <div class="ov-banner-card">
+      <div class="ov-banner-num red" id="ovUpcoming">—</div>
+      <div class="ov-banner-label">À venir</div>
+    </div>
   </div>
 
   <div class="card" style="max-width:600px">
@@ -750,6 +797,26 @@ body {
       <!-- Résultat -->
       <div id="modResult" style="display:none;padding:10px 14px;border-radius:8px;font-size:13px;font-weight:600"></div>
 
+    </div>
+  </div>
+
+  <!-- Overrides futures -->
+  <div class="card" style="max-width:600px;margin-top:20px" id="ovFutureCard">
+    <div class="card-header" style="display:flex;align-items:center;justify-content:space-between">
+      <span class="card-title">Overrides à venir — annulables</span>
+      <span id="ovFutureCount" style="font-size:11px;color:var(--ink-4)"></span>
+    </div>
+    <div class="card-body" style="padding:0;overflow-x:auto">
+      <table class="ov-future-table">
+        <thead><tr>
+          <th>Date</th><th>Médecin</th><th>Matin</th><th>PM</th><th>Commentaire</th><th></th>
+        </tr></thead>
+        <tbody id="ovFutureBody">
+          <tr><td colspan="6" style="text-align:center;color:var(--ink-4);padding:20px">
+            Cliquez sur "Actualiser" pour charger les overrides.
+          </td></tr>
+        </tbody>
+      </table>
     </div>
   </div>
 
@@ -836,6 +903,7 @@ function showTab(name) {
   document.querySelectorAll('.nav-tab').forEach(t => t.classList.remove('active'));
   document.getElementById('panel-' + name).classList.add('active');
   document.getElementById('tab-' + name).classList.add('active');
+  if (name === 'modifications') loadOverridesBanner();
 }
 
 // ── DIAGNOSTIC ────────────────────────────────────────────────────────
@@ -1696,6 +1764,66 @@ function renderModHisto() {
       <td style="text-align:left;color:var(--ink-4)">${h.heure}</td>
     </tr>
   `).join('');
+}
+// ── OVERRIDES BANDEAU ─────────────────────────────────────────────────
+async function loadOverridesBanner() {
+  try {
+    const params = new URLSearchParams({ payload: JSON.stringify({
+      action: 'getOverrides', code: ADMIN_CODE
+    })});
+    const res = await fetch(API_URL + '?' + params.toString());
+    const data = await res.json();
+    if (!data.success) throw new Error(data.error);
+
+    // Compteurs
+    document.getElementById('ovTotal').textContent = data.total;
+    document.getElementById('ovPassed').textContent = data.passed;
+    document.getElementById('ovUpcoming').textContent = data.upcoming;
+
+    // Liste futures
+    const futures = data.overrides.filter(o => o.isFuture);
+    document.getElementById('ovFutureCount').textContent =
+      `${futures.length} override${futures.length !== 1 ? 's' : ''}`;
+
+    const tbody = document.getElementById('ovFutureBody');
+    if (futures.length === 0) {
+      tbody.innerHTML = `<tr><td colspan="6" style="text-align:center;color:var(--ink-4);padding:20px">
+        Aucune override à venir.
+      </td></tr>`;
+      return;
+    }
+    tbody.innerHTML = futures.map(o => `
+      <tr>
+        <td><span style="font-family:var(--mono);font-size:11px">${o.date}</span></td>
+        <td style="font-weight:600">${o.doctorId}</td>
+        <td><span class="badge badge-grey">${o.morning || '—'}</span></td>
+        <td><span class="badge badge-grey">${o.afternoon || '—'}</span></td>
+        <td style="color:var(--ink-4);font-size:11px">${o.comment || '—'}</td>
+        <td>
+          <button class="btn-cancel" onclick="cancelOverride(${o.rowIndex}, '${o.date}', '${o.doctorId}')">
+            ✕ Annuler
+          </button>
+        </td>
+      </tr>
+    `).join('');
+  } catch(e) {
+    console.error('Erreur loadOverridesBanner:', e);
+  }
+}
+
+async function cancelOverride(rowIndex, date, doctorId) {
+  if (!confirm(`Annuler l'override du ${date} pour ${doctorId} ?\nLe planning sera republié automatiquement.`)) return;
+  try {
+    const params = new URLSearchParams({ payload: JSON.stringify({
+      action: 'deleteOverride', code: ADMIN_CODE, rowIndex
+    })});
+    const res = await fetch(API_URL + '?' + params.toString());
+    const data = await res.json();
+    if (!data.success) throw new Error(data.error);
+    await loadOverridesBanner(); // refresh
+  } catch(e) {
+    alert('Erreur : ' + e.message);
+  }
 }
 </script>
 </body>
