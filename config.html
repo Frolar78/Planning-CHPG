@@ -1,0 +1,1251 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Config · Planning CHPG Monaco</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@300;400;500;600;700&family=DM+Mono:wght@400;500&display=swap" rel="stylesheet">
+<style>
+:root {
+  --red: #CE1126;
+  --red-soft: #F8E8EB;
+  --ink: #0F172A;
+  --ink-2: #334155;
+  --ink-3: #64748B;
+  --ink-4: #94A3B8;
+  --line: #E2E8F0;
+  --line-light: #F1F5F9;
+  --bg: #F8FAFC;
+  --white: #FFFFFF;
+  --green: #166534;
+  --green-soft: #F0FDF4;
+  --orange: #C2410C;
+  --orange-soft: #FFF7ED;
+  --radius: 12px;
+  --mono: 'DM Mono', monospace;
+}
+* { box-sizing: border-box; margin: 0; padding: 0; }
+body {
+  font-family: 'DM Sans', sans-serif;
+  background: var(--bg);
+  color: var(--ink);
+  min-height: 100vh;
+  font-size: 13px;
+  -webkit-font-smoothing: antialiased;
+}
+
+/* ── AUTH ── */
+.auth-overlay {
+  position: fixed; inset: 0;
+  background: var(--ink);
+  display: flex; align-items: center; justify-content: center;
+  z-index: 1000;
+}
+.auth-box {
+  background: var(--white); border-radius: 16px;
+  padding: 40px; width: 360px; text-align: center;
+}
+.auth-flag {
+  display: flex; width: 36px; height: 36px; border-radius: 8px;
+  overflow: hidden; margin: 0 auto 16px; box-shadow: 0 2px 8px rgba(0,0,0,.2);
+}
+.auth-flag-top { flex: 1; background: var(--red); }
+.auth-flag-bot { flex: 1; background: var(--white); border-top: 1px solid var(--line); }
+.auth-title { font-size: 18px; font-weight: 700; margin-bottom: 4px; }
+.auth-sub { font-size: 12px; color: var(--ink-3); margin-bottom: 24px; }
+.auth-input {
+  width: 100%; border: 2px solid var(--line); border-radius: 10px;
+  padding: 12px 14px; font-size: 15px; font-family: var(--mono);
+  text-align: center; text-transform: uppercase; letter-spacing: .12em;
+  outline: none; margin-bottom: 12px; transition: border-color .15s;
+}
+.auth-input:focus { border-color: var(--red); }
+.auth-btn {
+  width: 100%; background: var(--red); color: white; border: none;
+  border-radius: 10px; padding: 12px; font-size: 14px; font-weight: 700;
+  font-family: 'DM Sans', sans-serif; cursor: pointer;
+}
+.auth-error { font-size: 12px; color: var(--red); margin-top: 8px; display: none; }
+
+/* ── HEADER ── */
+.header {
+  background: var(--white); border-bottom: 1px solid var(--line);
+  padding: 0 32px; display: flex; align-items: center;
+  justify-content: space-between; height: 60px;
+  position: sticky; top: 0; z-index: 100;
+}
+.header-brand { display: flex; align-items: center; gap: 12px; }
+.header-flag {
+  display: flex; width: 26px; height: 26px; border-radius: 5px;
+  overflow: hidden; box-shadow: 0 1px 3px rgba(0,0,0,.15);
+}
+.flag-top { flex: 1; background: var(--red); }
+.flag-bot { flex: 1; background: var(--white); border-top: 1px solid var(--line); }
+.header-title { font-size: 14px; font-weight: 700; }
+.header-sub { font-size: 11px; color: var(--ink-4); }
+.header-badge {
+  background: #FEF3C7; color: #B45309;
+  font-size: 10px; font-weight: 700; padding: 4px 10px;
+  border-radius: 20px; letter-spacing: .04em;
+}
+
+/* ── NAV ── */
+.nav-tabs {
+  background: var(--white); border-bottom: 1px solid var(--line);
+  padding: 0 32px; display: flex;
+}
+.nav-tab {
+  padding: 14px 20px; font-size: 13px; font-weight: 600;
+  color: var(--ink-3); cursor: pointer; border-bottom: 2px solid transparent;
+  transition: all .15s; background: none; border-top: none;
+  border-left: none; border-right: none; font-family: 'DM Sans', sans-serif;
+}
+.nav-tab:hover { color: var(--ink); }
+.nav-tab.active { color: var(--red); border-bottom-color: var(--red); }
+
+/* ── MAIN ── */
+.main { padding: 24px 32px; max-width: 1100px; }
+.tab-panel { display: none; }
+.tab-panel.active { display: block; }
+
+/* ── CARDS ── */
+.card {
+  background: var(--white); border: 1px solid var(--line);
+  border-radius: var(--radius); overflow: hidden;
+  box-shadow: 0 1px 3px rgba(0,0,0,.04); margin-bottom: 20px;
+}
+.card-header {
+  padding: 12px 16px; background: var(--line-light);
+  border-bottom: 1px solid var(--line);
+  display: flex; align-items: center; justify-content: space-between;
+}
+.card-title {
+  font-size: 11px; font-weight: 700; text-transform: uppercase;
+  letter-spacing: .08em; color: var(--ink-3);
+}
+.card-body { padding: 16px; }
+
+/* ── BUTTONS ── */
+.btn-primary {
+  background: var(--red); color: white; border: none; border-radius: 8px;
+  padding: 8px 16px; font-size: 12px; font-weight: 700;
+  font-family: 'DM Sans', sans-serif; cursor: pointer;
+  display: inline-flex; align-items: center; gap: 6px; transition: opacity .15s;
+}
+.btn-primary:hover { opacity: .88; }
+.btn-primary:disabled { opacity: .5; cursor: not-allowed; }
+.btn-secondary {
+  background: var(--white); color: var(--ink-2); border: 1.5px solid var(--line);
+  border-radius: 8px; padding: 8px 16px; font-size: 12px; font-weight: 600;
+  font-family: 'DM Sans', sans-serif; cursor: pointer; transition: all .15s;
+  display: inline-flex; align-items: center; gap: 6px;
+}
+.btn-secondary:hover { border-color: var(--ink-2); }
+.btn-danger {
+  background: #FFF1F2; color: var(--red); border: 1px solid #FECDD3;
+  border-radius: 8px; padding: 6px 12px; font-size: 11px; font-weight: 600;
+  font-family: 'DM Sans', sans-serif; cursor: pointer; transition: all .15s;
+}
+.btn-danger:hover { background: #FFE4E6; }
+.btn-sm { padding: 4px 10px !important; font-size: 11px !important; }
+.btn-icon {
+  background: var(--line-light); border: 1px solid var(--line);
+  border-radius: 6px; padding: 4px 8px; font-size: 12px; cursor: pointer;
+  transition: all .15s;
+}
+.btn-icon:hover { background: var(--line); }
+
+/* ── FORM ── */
+.form-field { margin-bottom: 14px; }
+.form-label {
+  font-size: 11px; font-weight: 700; color: var(--ink-3);
+  text-transform: uppercase; letter-spacing: .06em;
+  display: block; margin-bottom: 5px;
+}
+.form-input {
+  width: 100%; border: 1.5px solid var(--line); border-radius: 8px;
+  padding: 8px 10px; font-size: 13px; font-family: 'DM Sans', sans-serif;
+  color: var(--ink); outline: none; transition: border-color .15s; background: white;
+}
+.form-input:focus { border-color: var(--red); }
+.form-select {
+  width: 100%; border: 1.5px solid var(--line); border-radius: 8px;
+  padding: 8px 10px; font-size: 13px; font-family: 'DM Sans', sans-serif;
+  color: var(--ink); outline: none; background: white; cursor: pointer;
+}
+.form-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 12px; }
+.form-grid-3 { display: grid; grid-template-columns: 1fr 1fr 1fr; gap: 12px; }
+.form-grid-4 { display: grid; grid-template-columns: 1fr 1fr 1fr 1fr; gap: 12px; }
+
+/* ── TABLE ── */
+.data-table { width: 100%; border-collapse: collapse; font-size: 12px; }
+.data-table th {
+  background: var(--line-light); padding: 8px 10px; text-align: left;
+  font-size: 10px; font-weight: 700; text-transform: uppercase;
+  letter-spacing: .06em; color: var(--ink-4); border-bottom: 1px solid var(--line);
+}
+.data-table td {
+  padding: 8px 10px; border-bottom: 1px solid var(--line); vertical-align: middle;
+}
+.data-table tr:last-child td { border-bottom: none; }
+.data-table tr:hover td { background: var(--line-light); }
+
+/* ── BADGES ── */
+.badge {
+  display: inline-flex; align-items: center; padding: 2px 8px;
+  border-radius: 20px; font-size: 10px; font-weight: 700; font-family: var(--mono);
+}
+.badge-green { background: #DCFCE7; color: var(--green); }
+.badge-red { background: #FFE4E6; color: var(--red); }
+.badge-grey { background: var(--line-light); color: var(--ink-3); }
+.badge-orange { background: #FFEDD5; color: var(--orange); }
+.badge-blue { background: #EFF6FF; color: #1D4ED8; }
+.badge-purple { background: #FDF4FF; color: #7E22CE; }
+
+/* ── MODAL ── */
+.modal-overlay {
+  position: fixed; inset: 0; background: rgba(15,23,42,.5);
+  display: flex; align-items: center; justify-content: center;
+  z-index: 200; display: none;
+}
+.modal-overlay.open { display: flex; }
+.modal {
+  background: var(--white); border-radius: 16px;
+  padding: 24px; width: 480px; max-width: 90vw;
+  box-shadow: 0 20px 60px rgba(0,0,0,.2);
+}
+.modal-title {
+  font-size: 15px; font-weight: 700; margin-bottom: 16px;
+  display: flex; align-items: center; justify-content: space-between;
+}
+.modal-close {
+  background: var(--line-light); border: none; border-radius: 6px;
+  width: 28px; height: 28px; cursor: pointer; font-size: 14px;
+  display: flex; align-items: center; justify-content: center;
+}
+
+/* ── AFFECTATIONS ── */
+.aff-wrap { overflow-x: auto; }
+.aff-grid {
+  display: grid;
+  grid-template-columns: 150px repeat(12, 1fr);
+  gap: 3px; font-size: 11px; min-width: 900px;
+}
+.aff-header {
+  background: var(--red); color: white; font-weight: 700;
+  padding: 6px 4px; text-align: center; font-size: 10px; border-radius: 4px;
+}
+.aff-header.name { text-align: left; padding-left: 8px; }
+.aff-name {
+  font-size: 11px; font-weight: 600; padding: 6px 8px;
+  background: var(--line-light); border-radius: 4px;
+  display: flex; align-items: center;
+}
+.aff-cell {
+  border: 1.5px solid var(--line); border-radius: 4px;
+  padding: 5px 2px; text-align: center; font-family: var(--mono);
+  font-size: 10px; font-weight: 600; cursor: pointer;
+  transition: all .1s; background: white;
+}
+.aff-cell:hover { border-color: var(--red); background: var(--red-soft); }
+.aff-cell.VIS { background: #EFF6FF; color: #1D4ED8; border-color: #BFDBFE; }
+.aff-cell.END { background: #F0FDF4; color: #166534; border-color: #BBF7D0; }
+.aff-cell.ORL { background: #FDF4FF; color: #7E22CE; border-color: #E9D5FF; }
+.aff-cell.REA { background: #FFF1F2; color: #BE123C; border-color: #FECDD3; }
+.aff-cell.ORT { background: #FFF7ED; color: #C2410C; border-color: #FED7AA; }
+.aff-cell.CI  { background: #ECFDF5; color: #065F46; border-color: #A7F3D0; }
+.aff-cell.MAT { background: #FDF2F8; color: #9D174D; border-color: #FBCFE8; }
+.aff-cell.RI  { background: #FFFBEB; color: #92400E; border-color: #FDE68A; }
+.aff-cell.VOLANT { background: var(--line-light); color: var(--ink-4); }
+
+/* ── VAC GROUPES ── */
+.vac-groups { display: grid; grid-template-columns: repeat(3, 1fr); gap: 16px; }
+.vac-group-card { border: 1.5px solid var(--line); border-radius: 10px; overflow: hidden; }
+.vac-group-header {
+  padding: 10px 12px; font-size: 12px; font-weight: 700;
+  display: flex; align-items: center; justify-content: space-between;
+}
+.vac-group-header.A { background: #EFF6FF; color: #1D4ED8; }
+.vac-group-header.B { background: #F0FDF4; color: #166534; }
+.vac-group-header.C { background: #FDF4FF; color: #7E22CE; }
+.vac-group-body { padding: 8px; display: flex; flex-direction: column; gap: 4px; }
+.vac-mar-row {
+  display: flex; align-items: center; justify-content: space-between;
+  padding: 6px 8px; background: var(--line-light); border-radius: 6px;
+  font-size: 11px; font-weight: 600; cursor: grab;
+}
+.vac-mar-row:hover { background: var(--line); }
+.vac-mar-rank { font-family: var(--mono); font-size: 10px; color: var(--ink-4); }
+.vac-mar-actions { display: flex; gap: 4px; opacity: 0; transition: opacity .15s; }
+.vac-mar-row:hover .vac-mar-actions { opacity: 1; }
+
+/* ── PARAMS ── */
+.param-row {
+  display: flex; align-items: center; gap: 12px;
+  padding: 12px 0; border-bottom: 1px solid var(--line);
+}
+.param-row:last-child { border-bottom: none; }
+.param-key { font-family: var(--mono); font-size: 11px; font-weight: 600; color: var(--ink-2); width: 200px; flex-shrink: 0; }
+.param-val { font-size: 12px; color: var(--ink-3); flex: 1; }
+.param-input {
+  font-family: var(--mono); font-size: 12px; border: 1.5px solid var(--line);
+  border-radius: 6px; padding: 5px 8px; outline: none; width: 180px;
+  transition: border-color .15s;
+}
+.param-input:focus { border-color: var(--red); }
+
+/* ── MAINTENANCE ── */
+.maint-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 16px; margin-bottom: 20px; }
+.maint-action {
+  border: 1.5px solid var(--line); border-radius: 10px; padding: 16px;
+  display: flex; flex-direction: column; gap: 10px;
+}
+.maint-title { font-size: 13px; font-weight: 700; }
+.maint-desc { font-size: 11px; color: var(--ink-3); line-height: 1.5; }
+.log-area {
+  background: #0F172A; color: #94A3B8; font-family: var(--mono);
+  font-size: 11px; border-radius: 8px; padding: 12px 14px;
+  line-height: 1.7; max-height: 240px; overflow-y: auto;
+}
+.log-ok   { color: #4ADE80; }
+.log-err  { color: #F87171; }
+.log-warn { color: #FB923C; }
+.log-info { color: #94A3B8; }
+
+/* ── LOADING ── */
+.loading {
+  display: flex; align-items: center; justify-content: center;
+  gap: 8px; padding: 40px; color: var(--ink-4); font-size: 13px;
+}
+.spinner {
+  width: 18px; height: 18px; border: 2px solid var(--line);
+  border-top-color: var(--red); border-radius: 50%;
+  animation: spin .8s linear infinite;
+}
+@keyframes spin { to { transform: rotate(360deg); } }
+
+/* ── TOAST ── */
+.toast {
+  position: fixed; bottom: 24px; right: 24px;
+  background: var(--ink); color: white;
+  padding: 12px 20px; border-radius: 10px; font-size: 13px; font-weight: 600;
+  z-index: 500; transform: translateY(100px); opacity: 0;
+  transition: all .3s; pointer-events: none;
+}
+.toast.show { transform: translateY(0); opacity: 1; }
+.toast.success { background: var(--green); }
+.toast.error { background: var(--red); }
+
+/* ── SECTION ── */
+.section-title { font-size: 16px; font-weight: 700; margin-bottom: 4px; }
+.section-sub { font-size: 12px; color: var(--ink-3); margin-bottom: 20px; }
+.page-header {
+  display: flex; align-items: center; justify-content: space-between; margin-bottom: 20px;
+}
+</style>
+</head>
+<body>
+
+<!-- AUTH -->
+<div class="auth-overlay" id="authOverlay">
+  <div class="auth-box">
+    <div class="auth-flag">
+      <div class="auth-flag-top"></div>
+      <div class="auth-flag-bot"></div>
+    </div>
+    <div class="auth-title">Configuration</div>
+    <div class="auth-sub">CHPG Monaco · Accès restreint</div>
+    <input class="auth-input" id="authInput" type="password" placeholder="Code administrateur" autocomplete="off"/>
+    <button class="auth-btn" onclick="authenticate()">Accéder →</button>
+    <div class="auth-error" id="authError">Code incorrect.</div>
+  </div>
+</div>
+
+<!-- HEADER -->
+<div class="header">
+  <div class="header-brand">
+    <div class="header-flag"><div class="flag-top"></div><div class="flag-bot"></div></div>
+    <div>
+      <div class="header-title">Planning CHPG Monaco</div>
+      <div class="header-sub">Configuration système · Année <span id="yearLabel">—</span></div>
+    </div>
+  </div>
+  <div style="display:flex;align-items:center;gap:12px">
+    <span class="header-badge">⚙️ CONFIG</span>
+    <a href="./comite.html" style="font-size:12px;color:var(--ink-3);text-decoration:none">← Comité</a>
+  </div>
+</div>
+
+<!-- NAV -->
+<div class="nav-tabs">
+  <button class="nav-tab active" onclick="showTab('equipe')" id="tab-equipe">👥 Équipe</button>
+  <button class="nav-tab" onclick="showTab('affectations')" id="tab-affectations">📋 Affectations</button>
+  <button class="nav-tab" onclick="showTab('vacances')" id="tab-vacances">🏖️ Vacances</button>
+  <button class="nav-tab" onclick="showTab('parametres')" id="tab-parametres">⚙️ Paramètres</button>
+  <button class="nav-tab" onclick="showTab('maintenance')" id="tab-maintenance">🔧 Maintenance</button>
+</div>
+
+<!-- MAIN -->
+<div class="main">
+
+  <!-- ── ÉQUIPE ── -->
+  <div class="tab-panel active" id="panel-equipe">
+    <div class="page-header">
+      <div>
+        <div class="section-title">Équipe médicale</div>
+        <div class="section-sub">Gestion des MARs — statuts, quotités, emails</div>
+      </div>
+      <div style="display:flex;gap:8px">
+        <button class="btn-secondary" onclick="loadEquipe()">↻ Actualiser</button>
+        <button class="btn-primary" onclick="openAddMAR()">+ Ajouter un MAR</button>
+      </div>
+    </div>
+
+    <div id="equipeLoading" class="loading"><div class="spinner"></div> Chargement...</div>
+    <div id="equipeContent" style="display:none">
+      <div class="card">
+        <div class="card-body" style="padding:0;overflow-x:auto">
+          <table class="data-table" id="equipeTable">
+            <thead><tr>
+              <th>ID</th><th>Nom</th><th>Init.</th>
+              <th>Quotité</th><th>% Gardes</th>
+              <th>Email</th><th>Statut</th><th>Actions</th>
+            </tr></thead>
+            <tbody id="equipeBody"></tbody>
+          </table>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- ── AFFECTATIONS ── -->
+  <div class="tab-panel" id="panel-affectations">
+    <div class="page-header">
+      <div>
+        <div class="section-title">Affectations sectorielles</div>
+        <div class="section-sub">Secteur par MAR et par mois — cliquer une cellule pour modifier</div>
+      </div>
+      <div style="display:flex;gap:8px">
+        <button class="btn-secondary" onclick="loadAffectations()">↻ Recharger</button>
+        <button class="btn-primary" onclick="saveAllAffectations()" id="btnSaveAff">💾 Enregistrer tout</button>
+      </div>
+    </div>
+
+    <div style="display:flex;gap:6px;margin-bottom:14px;flex-wrap:wrap">
+      <span class="badge badge-blue">VIS</span>
+      <span class="badge badge-green">END</span>
+      <span class="badge badge-purple">ORL</span>
+      <span class="badge badge-red">REA</span>
+      <span class="badge badge-orange">ORT</span>
+      <span style="background:#ECFDF5;color:#065F46" class="badge">CI</span>
+      <span style="background:#FDF2F8;color:#9D174D" class="badge">MAT</span>
+      <span style="background:#FFFBEB;color:#92400E" class="badge">RI</span>
+      <span class="badge badge-grey">VOLANT</span>
+    </div>
+
+    <div id="affLoading" class="loading"><div class="spinner"></div> Chargement...</div>
+    <div id="affContent" style="display:none">
+      <div class="card">
+        <div class="card-body" style="padding:12px">
+          <div class="aff-wrap">
+            <div class="aff-grid" id="affGrid"></div>
+          </div>
+        </div>
+      </div>
+      <div id="affPendingMsg" style="display:none;padding:10px 14px;background:var(--orange-soft);border:1px solid #FED7AA;border-radius:8px;font-size:12px;color:var(--orange);font-weight:600">
+        ⚠️ Modifications non sauvegardées — cliquez "Enregistrer tout"
+      </div>
+    </div>
+  </div>
+
+  <!-- ── VACANCES ── -->
+  <div class="tab-panel" id="panel-vacances">
+    <div class="page-header">
+      <div>
+        <div class="section-title">Gestion des vacances</div>
+        <div class="section-sub">Périodes, seuils et groupes de priorité A/B/C</div>
+      </div>
+      <button class="btn-secondary" onclick="loadVacances()">↻ Actualiser</button>
+    </div>
+
+    <div id="vacLoading" class="loading"><div class="spinner"></div> Chargement...</div>
+    <div id="vacContent" style="display:none">
+      <!-- Périodes -->
+      <div class="card" style="margin-bottom:20px">
+        <div class="card-header">
+          <span class="card-title">Périodes de vacances</span>
+          <div style="display:flex;gap:8px">
+            <button class="btn-secondary btn-sm" onclick="addPeriode()">+ Ajouter</button>
+            <button class="btn-primary btn-sm" onclick="savePeriodes()">💾 Enregistrer</button>
+          </div>
+        </div>
+        <div class="card-body" style="padding:0">
+          <table class="data-table">
+            <thead><tr>
+              <th>Nom</th><th>Début</th><th>Fin</th><th>Seuil MAR/jour</th><th></th>
+            </tr></thead>
+            <tbody id="periodesBody"></tbody>
+          </table>
+        </div>
+      </div>
+
+      <!-- Groupes -->
+      <div class="card">
+        <div class="card-header">
+          <span class="card-title">Groupes de priorité</span>
+          <button class="btn-primary btn-sm" onclick="saveGroupes()">💾 Enregistrer groupes</button>
+        </div>
+        <div class="card-body">
+          <div style="font-size:11px;color:var(--ink-3);margin-bottom:12px">
+            Utilisez les boutons ↑↓ pour modifier l'ordre. Utilisez → ← pour changer de groupe.
+          </div>
+          <div class="vac-groups" id="vacGroupes"></div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- ── PARAMÈTRES ── -->
+  <div class="tab-panel" id="panel-parametres">
+    <div class="page-header">
+      <div>
+        <div class="section-title">Paramètres système</div>
+        <div class="section-sub">Clés CONFIG — modifications immédiates dans le GSheet</div>
+      </div>
+      <button class="btn-secondary" onclick="loadParametres()">↻ Actualiser</button>
+    </div>
+
+    <div id="paramsLoading" class="loading"><div class="spinner"></div> Chargement...</div>
+    <div id="paramsContent" style="display:none">
+      <div class="card" style="max-width:700px;margin-bottom:20px">
+        <div class="card-header"><span class="card-title">CONFIG GSheet</span></div>
+        <div class="card-body" id="paramsBody"></div>
+      </div>
+
+      <div class="card" style="max-width:700px">
+        <div class="card-header"><span class="card-title">Codes d'accès MAR</span></div>
+        <div class="card-body" style="display:flex;flex-direction:column;gap:12px">
+          <div style="font-size:12px;color:var(--ink-2);line-height:1.6">
+            Régénère les codes d'accès individuels et les envoie par email à chaque MAR.
+            Nécessite que les emails soient renseignés dans l'onglet Équipe.
+          </div>
+          <div style="display:flex;gap:8px">
+            <button class="btn-secondary" onclick="previewCodes()">👁 Prévisualiser les destinataires</button>
+            <button class="btn-primary" onclick="sendCodes()">📧 Envoyer les codes</button>
+          </div>
+          <div style="font-size:11px;color:var(--ink-4)">
+            ⚠️ Les anciens codes seront invalidés après envoi
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- ── MAINTENANCE ── */
+  <div class="tab-panel" id="panel-maintenance">
+    <div class="page-header">
+      <div>
+        <div class="section-title">Maintenance système</div>
+        <div class="section-sub">Diagnostic, logs et opérations système</div>
+      </div>
+    </div>
+
+    <div class="maint-grid">
+      <div class="maint-action">
+        <div class="maint-title">🔍 Diagnostic complet</div>
+        <div class="maint-desc">Vérifie l'intégrité des onglets, cohérence des dates, doublons OVERRIDES, MARs sans affectation, token GitHub.</div>
+        <button class="btn-primary" onclick="runDiag()" id="btnDiag" style="align-self:flex-start">Lancer diagComplet()</button>
+      </div>
+      <div class="maint-action">
+        <div class="maint-title">🚀 Publier le planning</div>
+        <div class="maint-desc">Régénère et publie le JSON du planning sur GitHub Pages. Équivalent au bouton Publier de comite.html.</div>
+        <button class="btn-primary" onclick="publishPlanning()" style="align-self:flex-start">Publier maintenant</button>
+      </div>
+      <div class="maint-action">
+        <div class="maint-title">📋 Départ d'un MAR</div>
+        <div class="maint-desc">Checklist guidée : désactivation, redistribution des gardes restantes, archivage.</div>
+        <button class="btn-secondary" onclick="showFiche('depart')" style="align-self:flex-start">Ouvrir la fiche</button>
+      </div>
+      <div class="maint-action">
+        <div class="maint-title">📋 Nouvelle recrue</div>
+        <div class="maint-desc">Checklist guidée : création compte, affectations, groupe vacances, envoi code d'accès.</div>
+        <button class="btn-secondary" onclick="showFiche('recrue')" style="align-self:flex-start">Ouvrir la fiche</button>
+      </div>
+    </div>
+
+    <div class="card">
+      <div class="card-header" style="display:flex;align-items:center;justify-content:space-between">
+        <span class="card-title">Dernières opérations</span>
+        <button class="btn-secondary btn-sm" onclick="loadLogs()">↻ Actualiser</button>
+      </div>
+      <div class="card-body">
+        <div class="log-area" id="logArea">
+          <div class="log-info">Cliquez "Actualiser" pour charger les logs.</div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+</div><!-- /main -->
+
+<!-- MODAL ÉDITION MAR -->
+<div class="modal-overlay" id="modalMAR">
+  <div class="modal">
+    <div class="modal-title">
+      <span id="modalMARTitle">Nouveau MAR</span>
+      <button class="modal-close" onclick="closeModal('modalMAR')">✕</button>
+    </div>
+    <div class="form-grid-3" style="margin-bottom:12px">
+      <div class="form-field">
+        <label class="form-label">ID</label>
+        <input class="form-input" id="marId" placeholder="DUPONT" style="text-transform:uppercase" oninput="this.value=this.value.toUpperCase()"/>
+      </div>
+      <div class="form-field">
+        <label class="form-label">Nom complet</label>
+        <input class="form-input" id="marNom" placeholder="DR DUPONT"/>
+      </div>
+      <div class="form-field">
+        <label class="form-label">Initiales</label>
+        <input class="form-input" id="marInitiales" placeholder="MD" style="font-family:var(--mono)"/>
+      </div>
+    </div>
+    <div class="form-grid" style="margin-bottom:12px">
+      <div class="form-field">
+        <label class="form-label">Quotité (%)</label>
+        <input class="form-input" id="marQuotite" type="number" value="100" min="10" max="200"/>
+      </div>
+      <div class="form-field">
+        <label class="form-label">% Gardes</label>
+        <input class="form-input" id="marPctGardes" type="number" value="100" min="0" max="200"/>
+      </div>
+    </div>
+    <div class="form-field" style="margin-bottom:12px">
+      <label class="form-label">Email</label>
+      <input class="form-input" id="marEmail" type="email" placeholder="prenom.nom@chpg.mc"/>
+    </div>
+    <div class="form-field" style="margin-bottom:16px">
+      <label class="form-label">Statut</label>
+      <select class="form-select" id="marActif">
+        <option value="true">Actif</option>
+        <option value="false">Inactif</option>
+      </select>
+    </div>
+    <input type="hidden" id="marCodeAcces"/>
+    <div style="display:flex;gap:8px;justify-content:flex-end">
+      <button class="btn-secondary" onclick="closeModal('modalMAR')">Annuler</button>
+      <button class="btn-primary" onclick="saveMAR()" id="btnSaveMAR">✅ Enregistrer</button>
+    </div>
+  </div>
+</div>
+
+<!-- MODAL SÉLECTION SECTEUR -->
+<div class="modal-overlay" id="modalSecteur">
+  <div class="modal" style="width:320px">
+    <div class="modal-title">
+      <span id="modalSecteurTitle">Modifier secteur</span>
+      <button class="modal-close" onclick="closeModal('modalSecteur')">✕</button>
+    </div>
+    <div class="form-field" style="margin-bottom:16px">
+      <label class="form-label">Secteur</label>
+      <select class="form-select" id="secteurSelect">
+        <option value="VIS">VIS — Viscéral</option>
+        <option value="END">END — Endoscopies</option>
+        <option value="ORL">ORL</option>
+        <option value="REA">REA — Réanimation</option>
+        <option value="ORT">ORT — Orthopédie</option>
+        <option value="CI">CI — Cardio/Interv.</option>
+        <option value="RI">RI — Radio/Interv.</option>
+        <option value="MAT">MAT — Maternité</option>
+        <option value="VOLANT">VOLANT</option>
+      </select>
+    </div>
+    <div style="display:flex;gap:8px;justify-content:flex-end">
+      <button class="btn-secondary" onclick="closeModal('modalSecteur')">Annuler</button>
+      <button class="btn-primary" onclick="applySecteur()">OK</button>
+    </div>
+  </div>
+</div>
+
+<!-- MODAL FICHE OPÉRATOIRE -->
+<div class="modal-overlay" id="modalFiche">
+  <div class="modal" style="width:560px;max-height:80vh;overflow-y:auto">
+    <div class="modal-title">
+      <span id="modalFicheTitre"></span>
+      <button class="modal-close" onclick="closeModal('modalFiche')">✕</button>
+    </div>
+    <div id="modalFicheContent"></div>
+  </div>
+</div>
+
+<!-- TOAST -->
+<div class="toast" id="toast"></div>
+
+<script>
+'use strict';
+
+const API_URL = 'https://script.google.com/macros/s/AKfycbxZavweHP-hbJ0XatEr_PGAyeosJNx69qPl6DFjVaQOoX65vOuiNy5RVqoyhY3Oj3elHQ/exec';
+let ADMIN_CODE = '';
+let YEAR = 2027;
+
+// ── AUTH ──────────────────────────────────────────────────────────────
+document.getElementById('authInput').addEventListener('keydown', e => {
+  if (e.key === 'Enter') authenticate();
+});
+
+async function authenticate() {
+  const code = document.getElementById('authInput').value.trim().toUpperCase();
+  try {
+    const params = new URLSearchParams({payload: JSON.stringify({action:'login', code})});
+    const res = await fetch(API_URL + '?' + params);
+    const data = await res.json();
+    if (data.success && data.role === 'admin') {
+      ADMIN_CODE = code;
+      YEAR = data.year || 2027;
+      document.getElementById('yearLabel').textContent = YEAR;
+      document.getElementById('authOverlay').style.display = 'none';
+      loadEquipe();
+    } else {
+      document.getElementById('authError').style.display = 'block';
+    }
+  } catch(e) {
+    document.getElementById('authError').style.display = 'block';
+  }
+}
+
+// ── TABS ──────────────────────────────────────────────────────────────
+function showTab(name) {
+  document.querySelectorAll('.tab-panel').forEach(p => p.classList.remove('active'));
+  document.querySelectorAll('.nav-tab').forEach(t => t.classList.remove('active'));
+  document.getElementById('panel-' + name).classList.add('active');
+  document.getElementById('tab-' + name).classList.add('active');
+  if (name === 'equipe' && document.getElementById('equipeContent').style.display === 'none') loadEquipe();
+  if (name === 'affectations' && document.getElementById('affContent').style.display === 'none') loadAffectations();
+  if (name === 'vacances' && document.getElementById('vacContent').style.display === 'none') loadVacances();
+  if (name === 'parametres' && document.getElementById('paramsContent').style.display === 'none') loadParametres();
+}
+
+// ── TOAST ──────────────────────────────────────────────────────────────
+function toast(msg, type = '') {
+  const el = document.getElementById('toast');
+  el.textContent = msg;
+  el.className = 'toast show' + (type ? ' ' + type : '');
+  setTimeout(() => el.className = 'toast', 3000);
+}
+
+// ── MODAL ──────────────────────────────────────────────────────────────
+function closeModal(id) {
+  document.getElementById(id).classList.remove('open');
+}
+
+// ── API ────────────────────────────────────────────────────────────────
+async function api(payload) {
+  payload.code = ADMIN_CODE;
+  const params = new URLSearchParams({payload: JSON.stringify(payload)});
+  const res = await fetch(API_URL + '?' + params);
+  return res.json();
+}
+
+// ── ÉQUIPE ──────────────────────────────────────────────────────────────
+let marData = [];
+
+async function loadEquipe() {
+  document.getElementById('equipeLoading').style.display = 'flex';
+  document.getElementById('equipeContent').style.display = 'none';
+  try {
+    const data = await api({action: 'getMedecins'});
+    if (!data.success) throw new Error(data.error);
+    marData = data.medecins;
+    renderEquipe();
+  } catch(e) {
+    toast('Erreur : ' + e.message, 'error');
+  } finally {
+    document.getElementById('equipeLoading').style.display = 'none';
+    document.getElementById('equipeContent').style.display = 'block';
+  }
+}
+
+function renderEquipe() {
+  const tbody = document.getElementById('equipeBody');
+  tbody.innerHTML = marData.map(m => `
+    <tr>
+      <td><span style="font-family:var(--mono);font-size:11px">${m.id}</span></td>
+      <td style="font-weight:600">${m.nom}</td>
+      <td><span class="badge badge-grey">${m.initiales}</span></td>
+      <td>${m.quotite}%</td>
+      <td>${m.pctGardes}%</td>
+      <td style="color:var(--ink-3);font-size:11px">${m.email || '—'}</td>
+      <td>
+        <span class="badge ${m.actif ? 'badge-green' : 'badge-grey'}">
+          ${m.actif ? 'Actif' : 'Inactif'}
+        </span>
+      </td>
+      <td>
+        <div style="display:flex;gap:4px">
+          <button class="btn-icon" onclick="openEditMAR('${m.id}')" title="Modifier">✏️</button>
+          <button class="btn-icon" onclick="toggleActif('${m.id}')" title="${m.actif ? 'Désactiver' : 'Activer'}">
+            ${m.actif ? '⏸' : '▶'}
+          </button>
+        </div>
+      </td>
+    </tr>
+  `).join('');
+}
+
+function openAddMAR() {
+  document.getElementById('modalMARTitle').textContent = 'Nouveau MAR';
+  document.getElementById('marId').value = '';
+  document.getElementById('marId').disabled = false;
+  document.getElementById('marNom').value = '';
+  document.getElementById('marInitiales').value = '';
+  document.getElementById('marQuotite').value = 100;
+  document.getElementById('marPctGardes').value = 100;
+  document.getElementById('marEmail').value = '';
+  document.getElementById('marActif').value = 'true';
+  document.getElementById('marCodeAcces').value = '';
+  document.getElementById('modalMAR').classList.add('open');
+}
+
+function openEditMAR(id) {
+  const m = marData.find(x => x.id === id);
+  if (!m) return;
+  document.getElementById('modalMARTitle').textContent = 'Modifier · ' + m.nom;
+  document.getElementById('marId').value = m.id;
+  document.getElementById('marId').disabled = true;
+  document.getElementById('marNom').value = m.nom;
+  document.getElementById('marInitiales').value = m.initiales;
+  document.getElementById('marQuotite').value = m.quotite;
+  document.getElementById('marPctGardes').value = m.pctGardes;
+  document.getElementById('marEmail').value = m.email || '';
+  document.getElementById('marActif').value = m.actif ? 'true' : 'false';
+  document.getElementById('marCodeAcces').value = m.codeAcces || '';
+  document.getElementById('modalMAR').classList.add('open');
+}
+
+async function saveMAR() {
+  const btn = document.getElementById('btnSaveMAR');
+  btn.disabled = true;
+  btn.textContent = '⏳ Enregistrement...';
+  try {
+    const medecin = {
+      id:        document.getElementById('marId').value.trim().toUpperCase(),
+      nom:       document.getElementById('marNom').value.trim(),
+      initiales: document.getElementById('marInitiales').value.trim(),
+      quotite:   Number(document.getElementById('marQuotite').value),
+      pctGardes: Number(document.getElementById('marPctGardes').value),
+      email:     document.getElementById('marEmail').value.trim(),
+      actif:     document.getElementById('marActif').value === 'true',
+      codeAcces: document.getElementById('marCodeAcces').value,
+    };
+    if (!medecin.id || !medecin.nom) { toast('ID et Nom obligatoires', 'error'); return; }
+    const data = await api({action: 'saveMedecin', medecin});
+    if (!data.success) throw new Error(data.error);
+    toast(data.created ? '✅ MAR créé' : '✅ MAR mis à jour', 'success');
+    closeModal('modalMAR');
+    await loadEquipe();
+  } catch(e) {
+    toast('Erreur : ' + e.message, 'error');
+  } finally {
+    btn.disabled = false;
+    btn.textContent = '✅ Enregistrer';
+  }
+}
+
+async function toggleActif(id) {
+  const m = marData.find(x => x.id === id);
+  if (!m) return;
+  const newActif = !m.actif;
+  if (!confirm(`${newActif ? 'Activer' : 'Désactiver'} ${m.nom} ?`)) return;
+  try {
+    const data = await api({action: 'saveMedecin', medecin: {...m, actif: newActif}});
+    if (!data.success) throw new Error(data.error);
+    toast(`✅ ${m.nom} ${newActif ? 'activé' : 'désactivé'}`, 'success');
+    await loadEquipe();
+  } catch(e) {
+    toast('Erreur : ' + e.message, 'error');
+  }
+}
+
+// ── AFFECTATIONS ──────────────────────────────────────────────────────
+let affData = {}; // affData[doctorId][month] = secteur
+let affPending = false;
+let currentAffCell = null;
+
+const MOIS_COURTS = ['Jan','Fév','Mar','Avr','Mai','Jun','Jul','Aoû','Sep','Oct','Nov','Déc'];
+const SECTEURS_AFF = ['VIS','END','ORL','REA','ORT','CI','RI','MAT','VOLANT'];
+
+async function loadAffectations() {
+  document.getElementById('affLoading').style.display = 'flex';
+  document.getElementById('affContent').style.display = 'none';
+  try {
+    const data = await api({action: 'getAffectations'});
+    if (!data.success) throw new Error(data.error);
+    affData = data.affectations;
+    affPending = false;
+    renderAffectations();
+  } catch(e) {
+    toast('Erreur : ' + e.message, 'error');
+  } finally {
+    document.getElementById('affLoading').style.display = 'none';
+    document.getElementById('affContent').style.display = 'block';
+  }
+}
+
+function renderAffectations() {
+  const grid = document.getElementById('affGrid');
+  grid.innerHTML = '';
+
+  // Headers
+  const hName = document.createElement('div');
+  hName.className = 'aff-header name'; hName.textContent = 'MAR';
+  grid.appendChild(hName);
+  for (let m = 1; m <= 12; m++) {
+    const h = document.createElement('div');
+    h.className = 'aff-header'; h.textContent = MOIS_COURTS[m-1];
+    grid.appendChild(h);
+  }
+
+  // Lignes MARs actifs
+  const actifs = marData.filter(m => m.actif);
+  actifs.forEach(mar => {
+    const nameDiv = document.createElement('div');
+    nameDiv.className = 'aff-name';
+    nameDiv.textContent = mar.id;
+    grid.appendChild(nameDiv);
+
+    for (let m = 1; m <= 12; m++) {
+      const secteur = (affData[mar.id] && affData[mar.id][m]) || 'VOLANT';
+      const cell = document.createElement('div');
+      cell.className = 'aff-cell ' + (secteur === 'VOLANT' ? 'VOLANT' : secteur);
+      cell.textContent = secteur === 'VOLANT' ? 'VOL' : secteur;
+      cell.dataset.mar = mar.id;
+      cell.dataset.month = m;
+      cell.onclick = () => openSecteurModal(mar.id, m, cell);
+      grid.appendChild(cell);
+    }
+  });
+
+  document.getElementById('affPendingMsg').style.display = 'none';
+}
+
+function openSecteurModal(marId, month, cell) {
+  currentAffCell = {marId, month, cell};
+  const secteur = (affData[marId] && affData[marId][month]) || 'VOLANT';
+  document.getElementById('modalSecteurTitle').textContent = `${marId} · ${MOIS_COURTS[month-1]}`;
+  document.getElementById('secteurSelect').value = secteur;
+  document.getElementById('modalSecteur').classList.add('open');
+}
+
+function applySecteur() {
+  if (!currentAffCell) return;
+  const {marId, month, cell} = currentAffCell;
+  const newSecteur = document.getElementById('secteurSelect').value;
+  if (!affData[marId]) affData[marId] = {};
+  affData[marId][month] = newSecteur;
+  cell.className = 'aff-cell ' + (newSecteur === 'VOLANT' ? 'VOLANT' : newSecteur);
+  cell.textContent = newSecteur === 'VOLANT' ? 'VOL' : newSecteur;
+  affPending = true;
+  document.getElementById('affPendingMsg').style.display = 'block';
+  closeModal('modalSecteur');
+}
+
+async function saveAllAffectations() {
+  const btn = document.getElementById('btnSaveAff');
+  btn.disabled = true;
+  btn.textContent = '⏳ Enregistrement...';
+  try {
+    const data = await api({action: 'saveAffectations', affectations: affData});
+    if (!data.success) throw new Error(data.error);
+    affPending = false;
+    document.getElementById('affPendingMsg').style.display = 'none';
+    toast('✅ Affectations enregistrées', 'success');
+  } catch(e) {
+    toast('Erreur : ' + e.message, 'error');
+  } finally {
+    btn.disabled = false;
+    btn.textContent = '💾 Enregistrer tout';
+  }
+}
+
+// ── VACANCES ──────────────────────────────────────────────────────────
+let periodesData = [];
+let groupesData = {A:[], B:[], C:[]};
+
+async function loadVacances() {
+  document.getElementById('vacLoading').style.display = 'flex';
+  document.getElementById('vacContent').style.display = 'none';
+  try {
+    const data = await api({action: 'getVacancesConfig'});
+    if (!data.success) throw new Error(data.error);
+    periodesData = data.periodes || [];
+    groupesData = data.groupes || {A:[], B:[], C:[]};
+    renderPeriodes();
+    renderGroupes();
+  } catch(e) {
+    toast('Erreur : ' + e.message, 'error');
+  } finally {
+    document.getElementById('vacLoading').style.display = 'none';
+    document.getElementById('vacContent').style.display = 'block';
+  }
+}
+
+function renderPeriodes() {
+  const tbody = document.getElementById('periodesBody');
+  tbody.innerHTML = periodesData.map((p, i) => `
+    <tr>
+      <td><input class="form-input" value="${p.nom}" onchange="periodesData[${i}].nom=this.value" style="width:120px;padding:4px 8px"/></td>
+      <td><input class="form-input" type="date" value="${p.debut}" onchange="periodesData[${i}].debut=this.value" style="width:140px;padding:4px 8px"/></td>
+      <td><input class="form-input" type="date" value="${p.fin}" onchange="periodesData[${i}].fin=this.value" style="width:140px;padding:4px 8px"/></td>
+      <td><input class="form-input" type="number" value="${p.seuil}" min="1" max="20" onchange="periodesData[${i}].seuil=Number(this.value)" style="width:70px;padding:4px 8px;text-align:center"/></td>
+      <td><button class="btn-danger" onclick="removePeriode(${i})">🗑</button></td>
+    </tr>
+  `).join('');
+}
+
+function addPeriode() {
+  periodesData.push({nom:'NOUVELLE', debut:'', fin:'', seuil:8});
+  renderPeriodes();
+}
+
+function removePeriode(i) {
+  if (!confirm('Supprimer cette période ?')) return;
+  periodesData.splice(i, 1);
+  renderPeriodes();
+}
+
+async function savePeriodes() {
+  try {
+    const data = await api({action: 'savePeriodes', periodes: periodesData});
+    if (!data.success) throw new Error(data.error);
+    toast('✅ Périodes enregistrées', 'success');
+  } catch(e) {
+    toast('Erreur : ' + e.message, 'error');
+  }
+}
+
+function renderGroupes() {
+  const container = document.getElementById('vacGroupes');
+  container.innerHTML = '';
+  ['A','B','C'].forEach(grp => {
+    const card = document.createElement('div');
+    card.className = 'vac-group-card';
+    card.innerHTML = `
+      <div class="vac-group-header ${grp}">
+        Groupe ${grp}
+        <span style="font-size:10px;opacity:.7">${groupesData[grp].length} MARs</span>
+      </div>
+      <div class="vac-group-body" id="groupBody${grp}"></div>
+    `;
+    container.appendChild(card);
+
+    const body = document.getElementById('groupBody' + grp);
+    groupesData[grp].forEach((mar, idx) => {
+      const row = document.createElement('div');
+      row.className = 'vac-mar-row';
+      row.innerHTML = `
+        <span>${mar.id}</span>
+        <div style="display:flex;align-items:center;gap:4px">
+          <div class="vac-mar-actions">
+            ${grp !== 'A' ? `<button class="btn-icon" onclick="moveToGroup('${mar.id}','${grp}','prev')" title="Groupe précédent">←</button>` : ''}
+            ${grp !== 'C' ? `<button class="btn-icon" onclick="moveToGroup('${mar.id}','${grp}','next')" title="Groupe suivant">→</button>` : ''}
+            <button class="btn-icon" onclick="moveInGroup('${grp}',${idx},-1)" title="Monter">↑</button>
+            <button class="btn-icon" onclick="moveInGroup('${grp}',${idx},1)" title="Descendre">↓</button>
+          </div>
+          <span class="vac-mar-rank">${idx+1}</span>
+        </div>
+      `;
+      body.appendChild(row);
+    });
+  });
+}
+
+function moveInGroup(grp, idx, dir) {
+  const arr = groupesData[grp];
+  const newIdx = idx + dir;
+  if (newIdx < 0 || newIdx >= arr.length) return;
+  [arr[idx], arr[newIdx]] = [arr[newIdx], arr[idx]];
+  renderGroupes();
+}
+
+function moveToGroup(marId, fromGrp, direction) {
+  const grps = ['A','B','C'];
+  const fromIdx = grps.indexOf(fromGrp);
+  const toGrp = direction === 'prev' ? grps[fromIdx-1] : grps[fromIdx+1];
+  if (!toGrp) return;
+  const mar = groupesData[fromGrp].find(m => m.id === marId);
+  groupesData[fromGrp] = groupesData[fromGrp].filter(m => m.id !== marId);
+  groupesData[toGrp].push(mar);
+  renderGroupes();
+}
+
+async function saveGroupes() {
+  try {
+    const data = await api({action: 'saveGroupes', groupes: groupesData});
+    if (!data.success) throw new Error(data.error);
+    toast('✅ Groupes enregistrés', 'success');
+  } catch(e) {
+    toast('Erreur : ' + e.message, 'error');
+  }
+}
+
+// ── PARAMÈTRES ──────────────────────────────────────────────────────────
+let configData = [];
+
+async function loadParametres() {
+  document.getElementById('paramsLoading').style.display = 'flex';
+  document.getElementById('paramsContent').style.display = 'none';
+  try {
+    const data = await api({action: 'getConfig'});
+    if (!data.success) throw new Error(data.error);
+    configData = data.config || [];
+    renderParametres();
+  } catch(e) {
+    toast('Erreur : ' + e.message, 'error');
+  } finally {
+    document.getElementById('paramsLoading').style.display = 'none';
+    document.getElementById('paramsContent').style.display = 'block';
+  }
+}
+
+function renderParametres() {
+  const body = document.getElementById('paramsBody');
+  body.innerHTML = configData.map((row, i) => `
+    <div class="param-row">
+      <div class="param-key">${row.key}</div>
+      <div class="param-val">${row.key === 'ADMIN_CODE' ? '••••••••' : row.value}</div>
+      <input class="param-input" id="paramInput_${i}" 
+        type="${row.key === 'ADMIN_CODE' ? 'password' : 'text'}"
+        placeholder="Nouvelle valeur" />
+      <button class="btn-primary btn-sm" onclick="saveParam(${i})">Appliquer</button>
+    </div>
+  `).join('');
+}
+
+async function saveParam(i) {
+  const input = document.getElementById('paramInput_' + i);
+  const newVal = input.value.trim();
+  if (!newVal) return;
+  try {
+    const data = await api({action: 'saveConfig', key: configData[i].key, value: newVal});
+    if (!data.success) throw new Error(data.error);
+    configData[i].value = newVal;
+    input.value = '';
+    toast('✅ Paramètre mis à jour', 'success');
+    renderParametres();
+  } catch(e) {
+    toast('Erreur : ' + e.message, 'error');
+  }
+}
+
+function previewCodes() {
+  const withEmail = marData.filter(m => m.actif && m.email);
+  const withoutEmail = marData.filter(m => m.actif && !m.email);
+  let msg = `${withEmail.length} MARs avec email :\n`;
+  msg += withEmail.map(m => `• ${m.nom} → ${m.email}`).join('\n');
+  if (withoutEmail.length) {
+    msg += `\n\n${withoutEmail.length} MARs sans email (non envoyés) :\n`;
+    msg += withoutEmail.map(m => `• ${m.nom}`).join('\n');
+  }
+  alert(msg);
+}
+
+async function sendCodes() {
+  if (!confirm('Envoyer les codes d\'accès à tous les MARs avec email ?\nLes anciens codes seront invalidés.')) return;
+  try {
+    const data = await api({action: 'sendCodes'});
+    if (!data.success) throw new Error(data.error);
+    toast(`✅ Codes envoyés à ${data.sent} MARs`, 'success');
+  } catch(e) {
+    toast('Erreur : ' + e.message, 'error');
+  }
+}
+
+// ── MAINTENANCE ──────────────────────────────────────────────────────────
+async function runDiag() {
+  const btn = document.getElementById('btnDiag');
+  btn.disabled = true; btn.textContent = '⏳ Analyse...';
+  try {
+    const data = await api({action: 'diagComplet'});
+    if (!data.success) throw new Error(data.error);
+    const logArea = document.getElementById('logArea');
+    logArea.innerHTML = (data.results || []).map(line => {
+      const cls = line.startsWith('✅') ? 'log-ok' : line.startsWith('❌') ? 'log-err' : line.startsWith('⚠️') ? 'log-warn' : 'log-info';
+      return `<div class="${cls}">${line}</div>`;
+    }).join('');
+    toast('Diagnostic terminé', data.ok ? 'success' : 'error');
+  } catch(e) {
+    toast('Erreur : ' + e.message, 'error');
+  } finally {
+    btn.disabled = false; btn.textContent = 'Lancer diagComplet()';
+  }
+}
+
+async function publishPlanning() {
+  if (!confirm('Publier le planning sur GitHub Pages ?')) return;
+  try {
+    const data = await api({action: 'publishPlanning'});
+    if (!data.success) throw new Error(data.error);
+    toast('✅ Planning publié', 'success');
+  } catch(e) {
+    toast('Erreur : ' + e.message, 'error');
+  }
+}
+
+async function loadLogs() {
+  try {
+    const data = await api({action: 'getLogs'});
+    if (!data.success) throw new Error(data.error);
+    const logArea = document.getElementById('logArea');
+    if (!data.logs || !data.logs.length) {
+      logArea.innerHTML = '<div class="log-info">Aucun log disponible.</div>';
+      return;
+    }
+    logArea.innerHTML = data.logs.map(line => {
+      const cls = line.includes('✅') ? 'log-ok' : line.includes('❌') ? 'log-err' : line.includes('⚠️') ? 'log-warn' : 'log-info';
+      return `<div class="${cls}">${line}</div>`;
+    }).join('');
+  } catch(e) {
+    document.getElementById('logArea').innerHTML = `<div class="log-err">Erreur : ${e.message}</div>`;
+  }
+}
+
+// ── FICHES OPÉRATOIRES ──────────────────────────────────────────────────
+const FICHES = {
+  depart: {
+    titre: '📋 Fiche opératoire — Départ d\'un MAR',
+    steps: [
+      'Identifier les gardes restantes du MAR sur GARDES_YYYY',
+      'Redistribuer les gardes via l\'onglet Modifications de comite.html (scénario Don de garde)',
+      'Désactiver le MAR dans l\'onglet Équipe (bouton ⏸)',
+      'Mettre à jour ses affectations sectorielles si nécessaire',
+      'Republier le planning (bouton Publier)',
+      'Archiver ses indisponibilités si besoin',
+    ]
+  },
+  recrue: {
+    titre: '📋 Fiche opératoire — Nouvelle recrue',
+    steps: [
+      'Créer le MAR dans l\'onglet Équipe (bouton + Ajouter)',
+      'Renseigner l\'email pour l\'envoi du code d\'accès',
+      'Définir ses affectations sectorielles dans l\'onglet Affectations',
+      'Assigner à un groupe vacances A/B/C dans l\'onglet Vacances',
+      'Envoyer le code d\'accès depuis l\'onglet Paramètres',
+      'Republier le planning',
+    ]
+  }
+};
+
+function showFiche(type) {
+  const fiche = FICHES[type];
+  if (!fiche) return;
+  document.getElementById('modalFicheTitre').textContent = fiche.titre;
+  document.getElementById('modalFicheContent').innerHTML = `
+    <ol style="padding-left:20px;display:flex;flex-direction:column;gap:10px">
+      ${fiche.steps.map(s => `<li style="font-size:13px;color:var(--ink-2);line-height:1.5">${s}</li>`).join('')}
+    </ol>
+  `;
+  document.getElementById('modalFiche').classList.add('open');
+}
+</script>
+</body>
+</html>
